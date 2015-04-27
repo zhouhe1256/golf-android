@@ -40,7 +40,7 @@ public class TopView extends LinearLayout {
         leftbtn = ViewUtil.findViewById(this, R.id.title_back);
         rightbtn = ViewUtil.findViewById(this, R.id.title_right);
         title = ViewUtil.findViewById(this, R.id.title_title);
-        
+
     }
 
     /**
