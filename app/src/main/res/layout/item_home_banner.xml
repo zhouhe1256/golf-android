@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="160dp">
+    <ImageView
+        android:id="@+id/bg"
+        android:scaleType="fitXY"
+        android:background="@drawable/ic_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/banner_title"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:text="广告语古典灯笼摄影作品"/>
+</RelativeLayout>
