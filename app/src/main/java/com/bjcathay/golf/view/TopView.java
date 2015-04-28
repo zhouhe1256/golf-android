@@ -12,11 +12,11 @@ import com.bjcathay.golf.R;
 import com.bjcathay.golf.util.ViewUtil;
 
 /**
- * Created by bjcathay on 15-4-27.
+ * Created by dengt on 15-4-27.
  */
 public class TopView extends LinearLayout {
-    private Button leftbtn;
-    private Button rightbtn;
+    private TextView leftbtn;
+    private TextView rightbtn;
     private TextView title;
     private Activity activity;
 
@@ -35,17 +35,33 @@ public class TopView extends LinearLayout {
         initView(context);
     }
 
+    public TopView(Context context, Activity activity) {
+        super(context);
+        this.activity = activity;
+        initView(context);
+    }
+public void setActivity(Activity activity){
+    this.activity = activity;
+}
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);
         leftbtn = ViewUtil.findViewById(this, R.id.title_back);
         rightbtn = ViewUtil.findViewById(this, R.id.title_right);
         title = ViewUtil.findViewById(this, R.id.title_title);
 
+        leftbtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity != null) {
+                    activity.finish();
+                }
+            }
+        });
+
     }
 
     /**
      * 设置控件可见性
-     *
      */
     public void setVisiable(int leftVisiable, int titleVisiable, int rightVisiable) {
         title.setVisibility(titleVisiable);

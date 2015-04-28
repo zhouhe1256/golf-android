@@ -10,13 +10,45 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
 
+    <ImageView
+        android:padding="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_launcher" />
+
 
     <com.bjcathay.golf.view.ClearEditText
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号" />
 
     <com.bjcathay.golf.view.ClearEditText
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="请输入密码" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="登录" />
+
+    <TextView
+        android:id="@+id/new_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="新用户注册" />
+
+    <TextView
+        android:id="@+id/forget_secrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="忘记密码" />
 
 </LinearLayout>

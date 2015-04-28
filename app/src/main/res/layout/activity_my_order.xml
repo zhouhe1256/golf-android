@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.bjcathay.golf.view.TopView
-        android:id="@+id/top_placelist_layout"
+        android:id="@+id/top_my_order_layout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </com.bjcathay.golf.view.TopView>
+        android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
+
     <ListView
         android:background="@color/white"
-        android:id="@+id/place_list"
+        android:id="@+id/my_order_list"
         android:layout_width="match_parent"
         android:divider="@color/divider_list"
         android:dividerHeight="0.1dp"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

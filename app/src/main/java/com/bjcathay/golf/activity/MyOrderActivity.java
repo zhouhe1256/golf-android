@@ -8,10 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bjcathay.golf.R;
-import com.bjcathay.golf.adapter.CompetitionAdapter;
-import com.bjcathay.golf.adapter.PlaceListAdapter;
+import com.bjcathay.golf.adapter.MyOrderAdapter;
 import com.bjcathay.golf.model.PlaceModel;
-import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.TopView;
 
@@ -19,42 +17,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 赛事页面
- * Created by dengt on 15-4-20.
+ * Created by bjcathay on 15-4-28.
  */
-public class CompetitionActivity extends Activity {
+public class MyOrderActivity extends Activity {
     private ListView listView;
-    private CompetitionAdapter competitionAdapter;
+    private MyOrderAdapter myOrderAdapter;
     private List<PlaceModel> placeModels;
     private TopView topView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competition);
+        setContentView(R.layout.activity_my_order);
         initView();
         initEvent();
     }
 
     private void initView() {
-        listView = ViewUtil.findViewById(this, R.id.competition_list);
-        topView = ViewUtil.findViewById(this, R.id.top_competition_layout);
+        listView = ViewUtil.findViewById(this, R.id.my_order_list);
+        topView = ViewUtil.findViewById(this, R.id.top_my_order_layout);
         topView.setActivity(this);
-        topView.setTitleText("赛事");
+        topView.setTitleText("我的订单");
         placeModels = new ArrayList<PlaceModel>();
-        competitionAdapter = new CompetitionAdapter(placeModels, this);
+        myOrderAdapter = new MyOrderAdapter(placeModels, this);
 
     }
 
-
     private void initEvent() {
-        listView.setAdapter(competitionAdapter);
+        listView.setAdapter(myOrderAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(CompetitionActivity.this, CompetitionDetailActivity.class);
-                ViewUtil.startActivity(CompetitionActivity.this, intent);
+                // DialogUtil.hintMessage("选档期", PlaceListActivity.this);
+               /* Intent intent = new Intent(MyOrderActivity.this, ScheduleActivity.class);
+                ViewUtil.startActivity(PlaceListActivity.this, intent);*/
             }
         });
     }

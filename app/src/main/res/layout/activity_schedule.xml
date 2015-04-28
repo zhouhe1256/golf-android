@@ -13,7 +13,8 @@
     <ImageView
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
     <LinearLayout
@@ -43,18 +44,18 @@
             android:layout_height="wrap_content">
 
         </com.bjcathay.golf.view.WheelView>
-
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="选择人数：" />
 
         <RadioGroup
@@ -64,11 +65,12 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1人"
                 android:id="@+id/btn_0"
-                android:textSize="17.0sp"
+                android:textSize="15.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -77,12 +79,12 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="２人"
                 android:id="@+id/btn_1"
-
-                android:textSize="17.0sp"
+                android:textSize="15.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -90,11 +92,12 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="３人"
                 android:id="@+id/btn_2"
-                android:textSize="17.0sp"
+                android:textSize="15.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -102,12 +105,12 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="４人"
                 android:id="@+id/btn_3"
-
-                android:textSize="17.0sp"
+                android:textSize="15.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -115,27 +118,77 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="４人+"
                 android:id="@+id/btn_4"
-
-                android:textSize="17.0sp"
+                android:textSize="15.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:button="@null"
                 android:background="@drawable/radio" />
-
 
         </RadioGroup>
 
 
     </LinearLayout>
 
-    <CheckedTextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="包含服务：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18洞果岭/僮/车/柜" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所在地址：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京市海淀区清河湾" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="价格：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="１４８０" />
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/ok"
@@ -143,5 +196,5 @@
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ok" />
+        android:text="提交订单" />
 </LinearLayout>

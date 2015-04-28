@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/competition_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="已结束" />
+
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/competition_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京清河湾＊＊公开赛" />
+
+        <TextView
+            android:id="@+id/competition_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址:北京市清河湾" />
+
+        <TextView
+            android:id="@+id/competition_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间:2015.3.4" />
+
+        <TextView
+            android:id="@+id/competition_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参加人数:200人" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/competition_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已有150人报名"
+        android:layout_gravity="right" />
+
+</LinearLayout>

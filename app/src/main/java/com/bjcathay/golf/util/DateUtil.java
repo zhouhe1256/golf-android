@@ -47,7 +47,7 @@ public class DateUtil {
             }
 
             days.add(month + 1 + "月" + day + "日" + "(" + today + ")");
-            c.roll(Calendar.DATE, 1);
+            c.add(Calendar.DATE, 1);
         }
         return days;
     }

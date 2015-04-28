@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button orderbtn;
     private Button compebtn;
     private Button exchbtn;
+    private Button usercenter;
     private JazzyViewPager bannerViewPager;
     private TopView topView;
     private Activity context;
@@ -150,6 +151,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         orderbtn = ViewUtil.findViewById(this, R.id.order_place);
         compebtn = ViewUtil.findViewById(this, R.id.compitetion_event);
         exchbtn = ViewUtil.findViewById(this, R.id.exchange_award);
+        usercenter=ViewUtil.findViewById(this,R.id.user_center);
         bannerViewPager = ViewUtil.findViewById(this, R.id.jazzy_viewpager);
         dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_ly);
 
@@ -161,6 +163,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         orderbtn.setOnClickListener(this);
         compebtn.setOnClickListener(this);
         exchbtn.setOnClickListener(this);
+        usercenter.setOnClickListener(this);
 
     }
 
@@ -178,6 +181,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.exchange_award:
                 intent = new Intent(this, AwardActivity.class);
+                ViewUtil.startActivity(this, intent);
+                break;
+            case R.id.user_center:
+                intent = new Intent(this, LoginActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
             /*case R.id.image_textview:

@@ -191,11 +191,11 @@ public class WheelView extends ScrollView {
         TextView tv = new TextView(context);
         tv.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         tv.setSingleLine(true);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         tv.setText(item);
         tv.setGravity(Gravity.CENTER);
 
-        int padding = SizeUtil.dip2px(context, 15);
+        int padding = SizeUtil.dip2px(context, 13);
         tv.setPadding(padding, padding, padding, padding);
         if (0 == itemHeight) {
             itemHeight = TextViewUtil.getViewMeasuredHeight(tv);
