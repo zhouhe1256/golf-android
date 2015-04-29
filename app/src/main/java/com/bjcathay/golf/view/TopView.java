@@ -40,9 +40,11 @@ public class TopView extends LinearLayout {
         this.activity = activity;
         initView(context);
     }
-public void setActivity(Activity activity){
-    this.activity = activity;
-}
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);
         leftbtn = ViewUtil.findViewById(this, R.id.title_back);
@@ -80,6 +82,10 @@ public void setActivity(Activity activity){
 
     public void setRightbtn(String rightText, int resid) {
         rightbtn.setText(rightText);
-        rightbtn.setBackgroundResource(resid);
+        if (resid != 0)
+            rightbtn.setBackgroundResource(resid);
+    }
+    public TextView getRightbtn(){
+        return rightbtn;
     }
 }

@@ -10,20 +10,20 @@ import com.bjcathay.golf.view.TopView;
 /**
  * Created by bjcathay on 15-4-29.
  */
-public class OrderDetailActivity extends Activity {
+public class MyInformationActivity extends Activity {
     private TopView topView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_my_information);
         initView();
         initEvent();
     }
     private void initView(){
-        topView= ViewUtil.findViewById(this, R.id.top_order_detail_layout);
+        topView= ViewUtil.findViewById(this, R.id.top_my_information_layout);
     }
     private void initEvent(){
         topView.setActivity(this);
-        topView.setTitleText("订单详情");
+        topView.setTitleText("个人资料");
     }
 }

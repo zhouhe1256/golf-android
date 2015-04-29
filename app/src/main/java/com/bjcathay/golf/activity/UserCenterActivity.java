@@ -19,7 +19,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     private TextView myCompe;
     private TextView myMessage;
     private TextView myPerson;
-    private TextView myInvite;
+    private TextView myExchange;
     private TextView logoutBtn;
 
     @Override
@@ -36,7 +36,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         myCompe = ViewUtil.findViewById(this, R.id.my_competition);
         myMessage = ViewUtil.findViewById(this, R.id.my_message);
         myPerson = ViewUtil.findViewById(this, R.id.my_personal);
-        myInvite = ViewUtil.findViewById(this, R.id.my_invitation);
+        myExchange = ViewUtil.findViewById(this, R.id.my_exchange);
         logoutBtn = ViewUtil.findViewById(this, R.id.logout_btn);
     }
 
@@ -47,7 +47,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         myCompe.setOnClickListener(this);
         myMessage.setOnClickListener(this);
         myPerson.setOnClickListener(this);
-        myInvite.setOnClickListener(this);
+        myExchange.setOnClickListener(this);
     }
 
     @Override
@@ -59,12 +59,20 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.my_competition:
+                intent = new Intent(this, MyCompetitionActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.my_message:
+                intent = new Intent(this, MyMessageActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.my_personal:
+                intent = new Intent(this, MyInformationActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
-            case R.id.my_invitation:
+            case R.id.my_exchange:
+                intent = new Intent(this, MyExchangeActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.logout_btn:
                 intent = new Intent(this, LoginActivity.class);

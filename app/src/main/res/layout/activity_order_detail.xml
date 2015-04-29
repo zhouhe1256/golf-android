@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.bjcathay.golf.view.TopView
+        android:id="@+id/top_order_detail_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
