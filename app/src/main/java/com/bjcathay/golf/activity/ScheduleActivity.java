@@ -17,6 +17,7 @@ import com.bjcathay.golf.fragment.DialogSureOrderFragment;
 import com.bjcathay.golf.util.DateUtil;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
+import com.bjcathay.golf.view.TopView;
 import com.bjcathay.golf.view.WheelView;
 
 import java.util.Arrays;
@@ -31,11 +32,13 @@ public class ScheduleActivity extends FragmentActivity {
     private WheelView wheelView0;
     private Button okbtn;
     private List<String> days;
+    private TopView topView;
 
 
-    private static final String[] HOURS = new String[]{"1","1:30","2","2:30","3","4","5","6","7","8", "9", "10", "11", "12"};
+    private static final String[] HOURS = new String[]{"1", "1:30", "2", "2:30", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
     private static final String[] MINITES = new String[]{"上午", "下午"};
-    private static final String[] DAYS = new String[]{"周一", "周二","周三","周四", "周五","周六","周天"};
+    private static final String[] DAYS = new String[]{"周一", "周二", "周三", "周四", "周五", "周六", "周天"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,31 +46,33 @@ public class ScheduleActivity extends FragmentActivity {
         initView();
         initEvent();
     }
-    private void initView(){
-        wheelView= ViewUtil.findViewById(this,R.id.wheelView);
-        wheelView1= ViewUtil.findViewById(this,R.id.wheelView1);
-        wheelView0= ViewUtil.findViewById(this,R.id.wheelView0);
 
-        okbtn=ViewUtil.findViewById(this,R.id.ok);
-        days= DateUtil.getDate(this);
-
-
+    private void initView() {
+        wheelView = ViewUtil.findViewById(this, R.id.wheelView);
+        wheelView1 = ViewUtil.findViewById(this, R.id.wheelView1);
+        wheelView0 = ViewUtil.findViewById(this, R.id.wheelView0);
+        topView = ViewUtil.findViewById(this, R.id.top_schedule_layout);
+        okbtn = ViewUtil.findViewById(this, R.id.ok);
+        days = DateUtil.getDate(this);
 
 
     }
-    private void initEvent(){
+
+    private void initEvent() {
+        topView.setTitleText("选时间");
+        topView.setActivity(this);
         wheelView0.setOffset(1);
         wheelView0.setItems(days);
-        wheelView0.setOnWheelViewListener(new WheelView.OnWheelViewListener(){
+        wheelView0.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 super.onSelected(selectedIndex, item);
-                
+
             }
         });
         wheelView.setOffset(1);
         wheelView.setItems(Arrays.asList(HOURS));
-        wheelView.setOnWheelViewListener(new WheelView.OnWheelViewListener(){
+        wheelView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 super.onSelected(selectedIndex, item);
@@ -75,7 +80,7 @@ public class ScheduleActivity extends FragmentActivity {
         });
         wheelView1.setOffset(1);
         wheelView1.setItems(Arrays.asList(MINITES));
-        wheelView1.setOnWheelViewListener(new WheelView.OnWheelViewListener(){
+        wheelView1.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 super.onSelected(selectedIndex, item);
@@ -84,19 +89,20 @@ public class ScheduleActivity extends FragmentActivity {
         okbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent intent=new Intent(ScheduleActivity.this,OrderSureActivity.class);
+                // Intent intent=new Intent(ScheduleActivity.this,OrderSureActivity.class);
                 //ViewUtil.startActivity(ScheduleActivity.this,intent);
                 showSureDialog();
             }
         });
     }
-    private void showSureDialog(){
-        LayoutInflater inflater=getLayoutInflater();
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.dialog_order_sure, null);
-        Dialog dialog = new Dialog(this,R.style.myDialogTheme);
+
+    private void showSureDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_order_sure, null);
+        Dialog dialog = new Dialog(this, R.style.myDialogTheme);
         dialog.setContentView(rootView);
         //dialog.create();
-       // dialog.setContentView(rootView);
+        // dialog.setContentView(rootView);
         dialog.show();
       /*  FragmentManager fm=getSupportFragmentManager();
         DialogSureOrderFragment dialogSureOrderFragment=new DialogSureOrderFragment();

@@ -6,5 +6,9 @@
     <color name="grid_state_pressed">#1Affffff</color>
     <color name="red">#FF0033</color>
     <color name="blue">#277FF4</color>
-    <color name="gray">#F0F0F0</color>
+    <color name="whites">#ffffff</color>
+    <color name="gray">#AFAFAF</color>
+    <color name="yellow">#F99503</color>
+    <color name="gray_color">#ffe8ecef</color>
+    <color name="bg_sort_color">#EDEDED</color>
 </resources>

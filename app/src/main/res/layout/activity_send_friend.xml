@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.bjcathay.golf.view.TopView
+        android:id="@+id/top_send_friend_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.bjcathay.golf.view.TopView>
+
+    <com.bjcathay.golf.view.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入手机号" />
+
+    <LinearLayout
+        android:id="@+id/send_to_mail_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:weightSum="8"
+        android:background="@color/gray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="赠送给通讯录好友" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=">" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -2,24 +2,13 @@ package com.bjcathay.golf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -27,9 +16,7 @@ import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.BannerViewPagerAdapter;
 import com.bjcathay.golf.util.SizeUtil;
 import com.bjcathay.golf.util.ViewUtil;
-import com.bjcathay.golf.view.ImageTextView;
 import com.bjcathay.golf.view.JazzyViewPager;
-import com.bjcathay.golf.view.MyView;
 import com.bjcathay.golf.view.TopView;
 
 import java.util.ArrayList;
