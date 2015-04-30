@@ -20,6 +20,12 @@ public class DialogUtil {
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+    public static void showMessage(String message){
+        Toast toast = Toast.makeText(GApplication.getInstance(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
+    }
     public static void showDialog(Activity context,int resource){
         LayoutInflater inflater = context.getLayoutInflater();
         ViewGroup rootView = (ViewGroup) inflater.inflate(resource, null);

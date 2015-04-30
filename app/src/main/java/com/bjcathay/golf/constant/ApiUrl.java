@@ -1,9 +1,27 @@
 package com.bjcathay.golf.constant;
 
+import com.bjcathay.golf.application.GApplication;
+import com.bjcathay.golf.util.SystemUtil;
+
 /**
  * Created by dengt on 15-4-20.
  */
 public class ApiUrl {
-    public static final String STATION = "";
+    public static final String VERSION = SystemUtil.getCurrentVersionName(GApplication.getInstance());
     public static final String HOST_URL = "";
+    public static final String OS = SystemUtil.getVersion();
+
+
+    public static final String REGISTER = "/api/user/register";//注册用户(POST /api/user/register)
+    public static final String USER_LOGIN = "/api/user/login";//登录(POST /api/login)
+    public static final String USER_INFO = "/api/user";//获取当前用户信息(GET /api/user)
+    public static final String SEND_CHECK_CODE = "/api/user/send_check_code";//发送验证码(POST /api/user/send_check_code)
+    public static final String VERIFY_CHECK_CODE = "/api/user/verify_check_code";//检查验证码是否正确(POST /api/user/verify_check_code)
+    public static final String CHANGE_PASSWORD = "/api/user/change_password";//修改密码(PUT /api/user/change_password)
+    public static final String RESET_PASSWORD = "/api/user/reset_password";//修改密码(PUT /api/user/reset_password)
+    public static final String CHANGE_USER_INFO = "/api/user";//更新用户信息(PUT /api/user)
+    public static final String SET_AVATAR = "/api/user/set_avatar";//设置用户头像(POST /api/user/set_avatar)
+    public static final String USER_SEARCH = "/api/user/search";//根据用户手机号搜索用户(POST /api/user/search)
+    public static final String MY_EVENT="/api/user/event";//我的赛事(GET /api/user/event)
+
 }

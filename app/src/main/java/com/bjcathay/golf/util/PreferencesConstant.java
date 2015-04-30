@@ -4,4 +4,8 @@ package com.bjcathay.golf.util;
  * Created by bjcathay on 15-4-20.
  */
 public class PreferencesConstant {
+    public static final String API_TOKEN = "api_token";
+    public static final String USER_NAME="user_name";
+    public static final String USER_PASSWORD="user_password";
+    public static final String NICK_NAME="user_nick_name";
 }

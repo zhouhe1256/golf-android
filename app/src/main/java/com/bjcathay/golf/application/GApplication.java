@@ -14,6 +14,10 @@ import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.HttpOption;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.golf.constant.ApiUrl;
+import com.bjcathay.golf.constant.ErrorCode;
+import com.bjcathay.golf.util.DialogUtil;
+import com.bjcathay.golf.util.PreferencesConstant;
+import com.bjcathay.golf.util.PreferencesUtils;
 import com.bjcathay.golf.util.ScreenCapturer;
 import com.bjcathay.golf.util.UncaughtHandler;
 
@@ -62,11 +66,12 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         DiskCache.setBaseDir(baseDir);
         ScreenCapturer.setBaseDir(baseDir);
 
-        //String token = getApiToken();
+        String token = getApiToken();
         DiskCache<String, byte[]> apiCache = new DiskCache<String, byte[]>("api", new DiskCache.ByteArraySerialization());
         Http.instance().option(HttpOption.BASE_URL, ApiUrl.HOST_URL).
                 option(HttpOption.MIME, "application/json").
-                // param("t", token).param("s", ApiUrl.STATION).
+                 param("t", token).param("v", ApiUrl.VERSION).
+                param("os",ApiUrl.OS).
                         option(HttpOption.CONNECT_TIMEOUT, 10000).
                 option(HttpOption.READ_TIMEOUT, 10000).
                 setContentDecoder(new IContentDecoder.JSONDecoder()).
@@ -91,10 +96,10 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                         }
                         JSONObject json = arguments.get(0);
                         if (!json.optBoolean("success")) {
-                            String code = json.optString("code");
-                            /*if (ErrorCode.FREEZE_USER.equals(code)) {
-                                DialogUtil.showFreezeUserDialog();
-                            }*/
+                            int code = json.optInt("code");
+                            if (ErrorCode.USER_FROZE.equals(code)) {
+                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            }
                         }
                     }
                 }).callbackExecutor(new LooperCallbackExecutor()).fail(new ICallback() {
@@ -112,5 +117,13 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                 "images", new DiskCache.ByteArraySerialization<String>()
         );
         Http.imageInstance().cache(imageCache).baseUrl(ApiUrl.HOST_URL).aheadReadInCache(true);
+    }
+    public void updateApiToken() {
+        String token = PreferencesUtils.getString(gApplication, PreferencesConstant.API_TOKEN);
+        Http.instance().param("t", token);
+    }
+
+    public String getApiToken() {
+        return PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
     }
 }

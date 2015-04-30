@@ -11,4 +11,5 @@
     <color name="yellow">#F99503</color>
     <color name="gray_color">#ffe8ecef</color>
     <color name="bg_sort_color">#EDEDED</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>
