@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.activity.ExerciseActivity;
+import com.bjcathay.golf.model.BannerModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.JazzyViewPager;
@@ -27,10 +28,10 @@ import java.util.List;
 public class BannerViewPagerAdapter extends PagerAdapter {
     private Activity context;
     private JazzyViewPager bannerViewPager;
-    private List<String> items;
+    private List<BannerModel> items;
 
     public BannerViewPagerAdapter(Activity context, JazzyViewPager bannerViewPager,
-                                  List<String> recommendations) {
+                                  List<BannerModel> recommendations) {
         this.context = context;
         this.bannerViewPager = bannerViewPager;
         this.items = recommendations;
@@ -59,7 +60,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner, container, false);
 
-        final String carouselModel = items.get(position);
+        final BannerModel carouselModel = items.get(position);
 
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
         final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
@@ -67,7 +68,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         // ImageViewAdapter.adapt(bgView, carouselModel.getImageUrl(), R.drawable.home_banner_default_icon);
 
         bannerTitleView.setTextColor(Color.WHITE);
-        bannerTitleView.setText(carouselModel);
+        bannerTitleView.setText(carouselModel.getTitle());
         bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
 
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,

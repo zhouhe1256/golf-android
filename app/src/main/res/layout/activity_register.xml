@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <com.bjcathay.golf.view.ClearEditText
+            android:id="@+id/register_user_phone"
 
             android:layout_weight="2"
             android:layout_width="fill_parent"
@@ -24,6 +25,7 @@
             android:hint="请输入手机号" />
 
         <TextView
+            android:id="@+id/register_get_code_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -32,29 +34,32 @@
     </LinearLayout>
 
     <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/register_user_code"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="验证码" />
 
     <com.bjcathay.golf.view.ClearEditText
-
+        android:id="@+id/register_user_pwd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="密码" />
 
     <com.bjcathay.golf.view.ClearEditText
-
+        android:id="@+id/register_user_invite_code"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="邀请码" />
 
     <Button
+        android:id="@+id/register_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="注册" />
 
     <TextView
+        android:id="@+id/register_other_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

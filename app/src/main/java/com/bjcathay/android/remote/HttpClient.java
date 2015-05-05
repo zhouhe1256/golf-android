@@ -1,5 +1,7 @@
 package com.bjcathay.android.remote;
 
+import android.util.Log;
+
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.Deferred;
 import com.bjcathay.android.async.ICallback;
@@ -390,7 +392,7 @@ public class HttpClient implements ICancellable {
             if (url.contains("?")) {
                 return url + "&" + queryString;
             }
-
+            Log.e("url",url + "?" + queryString);
             return url + "?" + queryString;
         }
 

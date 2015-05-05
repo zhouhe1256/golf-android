@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.model.StadiumModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
 
@@ -19,26 +20,35 @@ import java.util.List;
 /**
  * Created by dengt on 15-4-20.
  */
-public class PlaceListAdapter extends BaseAdapter{
-    private List<PlaceModel> items;
+public class PlaceListAdapter extends BaseAdapter {
+    private List<StadiumModel> items;
     private Activity context;
-    public PlaceListAdapter(List<PlaceModel> items,Activity activity){
-        if(items==null){
-            items=new ArrayList<PlaceModel>();
+    private int count = 0;
+
+    public PlaceListAdapter(List<StadiumModel> items, Activity activity) {
+        if (items == null) {
+            items = new ArrayList<StadiumModel>();
         }
-        this.items=items;
-        this.context=activity;
+        this.items = items;
+        this.context = activity;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
     public int getCount() {
-       // return items == null ? 0 : items.size();
-        return 10;
+        // return items == null ? 0 : items.size();
+        if (count == 0) {
+            count = 10;
+        }
+        return count;
     }
 
     @Override
     public Object getItem(int i) {
-       // return items.get(i);
+        // return items.get(i);
         return 0;
     }
 
@@ -66,16 +76,18 @@ public class PlaceListAdapter extends BaseAdapter{
         });*/
         return convertView;
     }
-    class Holder{
+
+    class Holder {
         ImageView imageView;
         TextView title;
         TextView price;
         TextView sale;
-        public Holder(View view){
-            imageView= ViewUtil.findViewById(view, R.id.place_image);
-            title= ViewUtil.findViewById(view, R.id.place_title);
-            price= ViewUtil.findViewById(view, R.id.place_price);
-            sale= ViewUtil.findViewById(view, R.id.place_sale);
+
+        public Holder(View view) {
+            imageView = ViewUtil.findViewById(view, R.id.place_image);
+            title = ViewUtil.findViewById(view, R.id.place_title);
+            price = ViewUtil.findViewById(view, R.id.place_price);
+            sale = ViewUtil.findViewById(view, R.id.place_sale);
         }
     }
 }

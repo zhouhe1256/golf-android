@@ -113,9 +113,11 @@ public class UserModel implements Serializable {
 
     private static IContentDecoder<UserModel> decoder = new IContentDecoder.BeanDecoder<UserModel>(UserModel.class, "user");
 
-    public static IPromise register(String mobileNo, String password) {
+    public static IPromise register(String mobileNo, String password,String code,String inviteCode) {
         return Http.instance().post(ApiUrl.REGISTER).
-                param("name", mobileNo).param("password", password).run();
+                param("name", mobileNo).param("password", password)
+                .param("code", code)
+                .param("inviteCode", inviteCode).run();
     }
 
     public static IPromise verifyCheckCode(String phone, String code, String type) {

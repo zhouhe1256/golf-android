@@ -34,13 +34,14 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     private static GApplication gApplication;
     private static volatile boolean httpInited;
     private static File baseDir;
-    private static File errorLogDir;
+  //  private static File errorLogDir;
 
     @Override
     public void onCreate() {
         super.onCreate();
         gApplication = this;
        // UncaughtHandler.getInstance(this).init(this, errorLogDir, "");
+        initHttp(this);
 
     }
 
@@ -62,16 +63,19 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         baseDir = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ?
                 Environment.getExternalStorageDirectory() : context.getCacheDir();
         baseDir = new File(baseDir, "golf");
-        errorLogDir = new File(baseDir, "error_log");
+     //   errorLogDir = new File(baseDir, "error_log");
         DiskCache.setBaseDir(baseDir);
-        ScreenCapturer.setBaseDir(baseDir);
+       // ScreenCapturer.setBaseDir(baseDir);
 
         String token = getApiToken();
-        DiskCache<String, byte[]> apiCache = new DiskCache<String, byte[]>("api", new DiskCache.ByteArraySerialization());
+       // DiskCache<String, byte[]> apiCache = new DiskCache<String, byte[]>("api", new DiskCache.ByteArraySerialization());
         Http.instance().option(HttpOption.BASE_URL, ApiUrl.HOST_URL).
                 option(HttpOption.MIME, "application/json").
                  param("t", token).param("v", ApiUrl.VERSION).
-                param("os",ApiUrl.OS).
+                param("o",ApiUrl.OS).
+               /* option(HttpOption.X_Token,token).
+                option(HttpOption.X_Version,ApiUrl.VERSION).
+                option(HttpOption.X_OS,ApiUrl.OS).*/
                         option(HttpOption.CONNECT_TIMEOUT, 10000).
                 option(HttpOption.READ_TIMEOUT, 10000).
                 setContentDecoder(new IContentDecoder.JSONDecoder()).
@@ -120,10 +124,10 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     }
     public void updateApiToken() {
         String token = PreferencesUtils.getString(gApplication, PreferencesConstant.API_TOKEN);
-        Http.instance().param("t", token);
+        Http.instance().option(HttpOption.X_Token,token);
     }
 
     public String getApiToken() {
-        return PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+        return PreferencesUtils.getString(gApplication, PreferencesConstant.API_TOKEN,"");
     }
 }

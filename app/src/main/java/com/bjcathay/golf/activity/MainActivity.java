@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.BannerViewPagerAdapter;
+import com.bjcathay.golf.application.GApplication;
+import com.bjcathay.golf.model.BannerListModel;
+import com.bjcathay.golf.model.BannerModel;
+import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.SizeUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.JazzyViewPager;
 import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +35,8 @@ import java.util.List;
  * 主页面
  * Created by dengt on 15-4-20.
  */
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener ,ICallback{
+    private GApplication gApplication;
     private Button orderbtn;
     private Button compebtn;
     private Button exchbtn;
@@ -42,14 +52,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int page = 1;
     private Runnable runnable;
 
-    private void setupBanner(final List<String> recommendations) {
+    private void setupBanner(final List<BannerModel> bannerModels) {
         bannerViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
-        bannerViewPager.setAdapter(new BannerViewPagerAdapter(context, bannerViewPager, recommendations));
+        bannerViewPager.setAdapter(new BannerViewPagerAdapter(context, bannerViewPager, bannerModels));
         bannerViewPager.setPageMargin(0);
-        if (recommendations == null || recommendations.isEmpty()) {
+        if (bannerModels == null || bannerModels.isEmpty()) {
             return;
         }
-        int count = recommendations.size();
+        int count = bannerModels.size();
         int widthAndHeight = SizeUtil.dip2px(context, 7);
         dots = new ImageView[count];
         int margin = SizeUtil.dip2px(context, 10);
@@ -79,7 +89,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 runnable = new Runnable() {
                     @Override
                     public void run() {
-                        if (page < recommendations.size() - 1) {
+                        if (page < bannerModels.size() - 1) {
                             bannerViewPager.setCurrentItem(page + 1, true);
                         } else {
                             bannerViewPager.setCurrentItem(0, true);
@@ -113,6 +123,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gApplication=GApplication.getInstance();
         initView();
         initEvent();
         initData();
@@ -125,13 +136,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void initData() {
-        List<String> recommendations = new ArrayList<String>();
-        recommendations.add("a");
-        recommendations.add("b");
-        recommendations.add("c");
-        setupBanner(recommendations);
+        BannerListModel.getHomeBanners().done(this);
     }
+    @Override
+    public void call(Arguments arguments) {
+       /* Log.i("argument---",arguments.toString());
+        JSONObject jsonObject = arguments.get(0);
+        if(jsonObject.optBoolean("success")){*/
+            BannerListModel bannerListModel=arguments.get(0);
+            setupBanner(bannerListModel.getBanners());
+       /* }else{
+            DialogUtil.showMessage("暂无数据");
+        }*/
 
+    }
     private void initView() {
         context = this;
         topView = ViewUtil.findViewById(this, R.id.top_main_layout);
@@ -174,30 +192,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, LoginActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-            /*case R.id.image_textview:
-                Bitmap newb = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888 );
-                Canvas canvasTemp = new Canvas( newb );
-                canvasTemp.drawColor(Color.WHITE);
-                Paint p = new Paint();
-                Paint p1 = new Paint();
-                String familyName = "宋体";
-                Typeface font = Typeface.create(familyName, Typeface.ITALIC);
-                p.setColor(Color.GRAY);
-                p1.setColor(Color.WHITE);
-                p.setTypeface(font);
-                p.setTextSize(10);
-                p.setAntiAlias(true);
-                p1.setAntiAlias(true);
-                p1.setTextSize(20);
-               // canvasTemp.drawText("写字。。。", 30, 30, p);
-                canvasTemp.drawCircle(10, 10, 10, p);
-                //画出字符串 drawText(String text, float x, float y, Paint paint)
-                // y 是 基准线 ，不是 字符串的 底部
-                canvasTemp.drawText("x", 5, 15, p1);
-                Drawable drawable = new BitmapDrawable(newb);
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setBackground(drawable);
-                break;*/
         }
     }
+
+
 }

@@ -8,13 +8,17 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </com.bjcathay.golf.view.TopView>
-    <ListView
+    <!--<ListView
         android:background="@color/white"
         android:id="@+id/place_list"
         android:layout_width="match_parent"
         android:divider="@color/divider_list"
         android:dividerHeight="0.1dp"
         android:layout_height="wrap_content">
-    </ListView>
+    </ListView>-->
+    <com.bjcathay.golf.view.AutoListView
+        android:id="@+id/place_lstv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

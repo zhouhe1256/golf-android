@@ -8,6 +8,9 @@ import android.os.Build;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by bjcathay on 15-4-30.
@@ -34,7 +37,9 @@ public class SystemUtil {
         version[1] = Build.VERSION.RELEASE;// firmware version
         version[2] = Build.MODEL;//model
         version[3] = Build.DISPLAY;//system version
-        return version[0]+version[1]+version[2]+version[3];
+        //3.0.64-mokee-gf91c1d54.4.4GT-I9100mk_i9100-userdebug+4.4.4+KTU84Q+7ecadc7930+test-keys
+       // return version[0]+version[1]+version[2]+version[3];
+        return "Android"+version[1];
     }
     /**
      * 获取当前版本号
@@ -55,5 +60,16 @@ public class SystemUtil {
             return "";
         }
 
+    }
+
+    public static String getCurrentTime(String format) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        String currentTime = sdf.format(date);
+        return currentTime;
+    }
+
+    public static String getCurrentTime() {
+        return getCurrentTime("yyyy-MM-dd  HH:mm:ss");
     }
 }

@@ -8,8 +8,11 @@ import com.bjcathay.golf.util.SystemUtil;
  */
 public class ApiUrl {
     public static final String VERSION = SystemUtil.getCurrentVersionName(GApplication.getInstance());
-    public static final String HOST_URL = "";
+    public static final String HOST_URL = "http://192.168.1.22:8080/";
     public static final String OS = SystemUtil.getVersion();
+
+    public static final String HOME_BANNER = "/api/banner";//首页活动(GET /api/banner)
+    public static final String STSDIUM_LIST = "/api/stadium";//场馆列表(GET /api/stadium)
 
 
     public static final String REGISTER = "/api/user/register";//注册用户(POST /api/user/register)
@@ -22,6 +25,12 @@ public class ApiUrl {
     public static final String CHANGE_USER_INFO = "/api/user";//更新用户信息(PUT /api/user)
     public static final String SET_AVATAR = "/api/user/set_avatar";//设置用户头像(POST /api/user/set_avatar)
     public static final String USER_SEARCH = "/api/user/search";//根据用户手机号搜索用户(POST /api/user/search)
-    public static final String MY_EVENT="/api/user/event";//我的赛事(GET /api/user/event)
+    public static final String MY_EVENT = "/api/user/event";//我的赛事(GET /api/user/event)
+
+    //场馆详情(GET /api/stadium/:id)
+    public static String stadiumDetail(Long id) {
+        return "/api/stadium/" + id;
+    }
+
 
 }
