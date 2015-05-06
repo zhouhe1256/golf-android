@@ -1,5 +1,10 @@
 package com.bjcathay.golf.model;
 
+import com.bjcathay.android.async.IPromise;
+import com.bjcathay.android.remote.Http;
+import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.golf.constant.ApiUrl;
+
 import java.io.Serializable;
 
 /**
@@ -144,5 +149,13 @@ public class EventModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    private static IContentDecoder<EventModel> decoder = new IContentDecoder.BeanDecoder<EventModel>(EventModel.class, "event");
+
+
+    public static IPromise getEventDetail(long id) {
+        return Http.instance().get(ApiUrl.eventDetail(id)).
+                contentDecoder(decoder).
+               run();
     }
 }

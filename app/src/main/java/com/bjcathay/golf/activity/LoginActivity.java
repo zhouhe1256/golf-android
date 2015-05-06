@@ -25,7 +25,7 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-4-23.
  */
-public class LoginActivity extends Activity implements View.OnClickListener,ICallback {
+public class LoginActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private Button loginbtn;
     private TopView topView;
@@ -39,7 +39,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,ICal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        gApplication=GApplication.getInstance();
+        gApplication = GApplication.getInstance();
         initView();
         initEvent();
         initData();
@@ -51,24 +51,27 @@ public class LoginActivity extends Activity implements View.OnClickListener,ICal
         topView = ViewUtil.findViewById(this, R.id.top_login_layout);
         newlogin = ViewUtil.findViewById(this, R.id.new_login);
         forgetbtn = ViewUtil.findViewById(this, R.id.forget_secrete);
-        loginUser=ViewUtil.findViewById(this,R.id.login_user);
-        loginpwd=ViewUtil.findViewById(this,R.id.login_pwd);
+        loginUser = ViewUtil.findViewById(this, R.id.login_user);
+        loginpwd = ViewUtil.findViewById(this, R.id.login_pwd);
 
     }
 
     private void initEvent() {
-        topView.setTitleText("登录");
-        topView.setActivity(this);
+        topView.setTitleText("返回");
+        topView.setVisiable(View.INVISIBLE,View.VISIBLE,View.INVISIBLE);
+        topView.setOnClickListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
         forgetbtn.setOnClickListener(this);
     }
-    private void initData(){
+
+    private void initData() {
         String user_name = PreferencesUtils.getString(gApplication, PreferencesConstant.USER_NAME, "");
         String pass_word = PreferencesUtils.getString(gApplication, PreferencesConstant.USER_PASSWORD, "");
         loginUser.setText(user_name);
         loginpwd.setText(pass_word);
     }
+
     private void login() {
         String user = loginUser.getText().toString();
         String password = loginpwd.getText().toString();
@@ -93,15 +96,18 @@ public class LoginActivity extends Activity implements View.OnClickListener,ICal
                 break;
             case R.id.forget_secrete:
                 break;
+            case R.id.top_login_layout:
+                finish();
+                break;
         }
     }
 
     @Override
     public void call(Arguments arguments) {
         JSONObject jsonObject = arguments.get(0);
-        if(jsonObject.optBoolean("success")){
+        if (jsonObject.optBoolean("success")) {
             UserModel userModel = JSONUtil.load(UserModel.class, jsonObject.optJSONObject("user"));
-           // userModel.setCurrentUser(userModel);
+            // userModel.setCurrentUser(userModel);
             String token = userModel.getApiToken();
             //保存用户名和密码
             PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME, userModel.getNickname());

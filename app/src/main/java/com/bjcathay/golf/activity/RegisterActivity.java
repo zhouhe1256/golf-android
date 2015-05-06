@@ -27,7 +27,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private ClearEditText userInvite;
     private Button registerBtn;
     private TextView userCodeBtn;
-    private TextView otherTime;
+
     private TopView topView;
 
     @Override
@@ -47,20 +47,22 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         userInvite = ViewUtil.findViewById(this, R.id.register_user_invite_code);
         registerBtn = ViewUtil.findViewById(this, R.id.register_btn);
         userCodeBtn = ViewUtil.findViewById(this, R.id.register_get_code_btn);
-        otherTime = ViewUtil.findViewById(this, R.id.register_other_time);
+
 
     }
 
     private void initEvent() {
-        topView.setTitleText("注册");
-        topView.setActivity(this);
+        topView.setTitleText("返回");
+        //topView.setActivity(this);
+        topView.setVisiable(View.INVISIBLE,View.VISIBLE,View.INVISIBLE);
+        topView.setOnClickListener(this);
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);
         userCode.setOnClickListener(this);
         userInvite.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         userCodeBtn.setOnClickListener(this);
-        otherTime.setOnClickListener(this);
+
 
     }
 
@@ -95,13 +97,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 //注册
                 register();
                 break;
+            case R.id.top_register_layout:
+                finish();
+                break;
         }
     }
 
     @Override
     public void call(Arguments arguments) {
-              UserModel userModel=arguments.get(0);
-        if(userModel.getMobileNumber()!=null){
+        UserModel userModel = arguments.get(0);
+        if (userModel.getMobileNumber() != null) {
             DialogUtil.showMessage("注册成功");
         }
     }

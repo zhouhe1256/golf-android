@@ -114,52 +114,29 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     private void initData() {
         loadData(AutoListView.REFRESH);
-        page = 1;
     }
 
     @Override
     public void onRefresh() {
         loadData(AutoListView.REFRESH);
-        page = 1;
     }
 
     @Override
     public void onLoad() {
         loadData(AutoListView.LOAD);
-        page++;
     }
 
     private void loadData(final int what) {
-        StadiumListModel.stadiums(page).done(this);
-       /* // 这里模拟从服务器获取数据
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(700);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Message msg = handler.obtainMessage();
-                // msg.what = what;
-                msg.obj = getData();
-                handler.sendMessage(msg);
-            }
-        }).start();*/
-    }
-
-    // 测试数据
-    public List<String> getData() {
-        List<String> result = new ArrayList<String>();
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            long l = random.nextInt(10000);
-            result.add("当前条目的ID：" + l);
+        switch (what){
+            case AutoListView.REFRESH:
+                page=1;
+                break;
+            case AutoListView.LOAD:
+                page++;
+                break;
         }
-        return result;
+        StadiumListModel.stadiums(page).done(this);
     }
-
     @Override
     public void call(Arguments arguments) {
         StadiumListModel stadiumListModel = arguments.get(0);

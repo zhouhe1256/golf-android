@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bjcathay.golf.R;
+import com.bjcathay.golf.model.EventModel;
 import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.util.ViewUtil;
 
@@ -19,12 +20,12 @@ import java.util.List;
  * Created by bjcathay on 15-4-28.
  */
 public class CompetitionAdapter extends BaseAdapter {
-    private List<PlaceModel> items;
+    private List<EventModel> items;
     private Activity context;
 
-    public CompetitionAdapter(List<PlaceModel> items, Activity activity) {
+    public CompetitionAdapter(List<EventModel> items, Activity activity) {
         if (items == null) {
-            items = new ArrayList<PlaceModel>();
+            items = new ArrayList<EventModel>();
         }
         this.items = items;
         this.context = activity;

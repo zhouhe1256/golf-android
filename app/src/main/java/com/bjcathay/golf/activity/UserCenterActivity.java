@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.golf.R;
@@ -15,12 +17,12 @@ import com.bjcathay.golf.view.TopView;
  */
 public class UserCenterActivity extends Activity implements View.OnClickListener {
     private TopView topView;
-    private TextView myOrder;
-    private TextView myCompe;
-    private TextView myMessage;
-    private TextView myPerson;
-    private TextView myExchange;
-    private TextView logoutBtn;
+    private LinearLayout myOrder;
+    private LinearLayout myCompe;
+    private LinearLayout myMessage;
+    private LinearLayout myPerson;
+    private LinearLayout myExchange;
+    private Button logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

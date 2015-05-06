@@ -7,19 +7,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjcathay.golf.R;
+import com.bjcathay.golf.adapter.ExchangeAdapter;
+import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.TopView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 兑换页面
  * Created by dengt on 15-4-20.
  */
-public class AwardActivity extends Activity implements View.OnClickListener,View.OnLongClickListener{
+public class AwardActivity extends Activity/* implements View.OnClickListener,View.OnLongClickListener*/{
     private TopView topView;
-    private TextView awardingFirst;
+    private ListView awardingFirst;
+    private ExchangeAdapter exchangeAdapter;
+    private List<PlaceModel> placeModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +38,23 @@ public class AwardActivity extends Activity implements View.OnClickListener,View
     }
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_award_layout);
-        awardingFirst=ViewUtil.findViewById(this,R.id.exchange_first);
+        awardingFirst=ViewUtil.findViewById(this,R.id.exchange_list);
+        placeModels = new ArrayList<PlaceModel>();
+        exchangeAdapter = new ExchangeAdapter(placeModels, this);
     }
 
     private void initEvent() {
         topView.setTitleText("兑换");
         topView.setActivity(this);
-        awardingFirst.setOnClickListener(this);
-        awardingFirst.setOnLongClickListener(this);
+        awardingFirst.setAdapter(exchangeAdapter);
+       /* awardingFirst.setOnClickListener(this);
+        awardingFirst.setOnLongClickListener(this);*/
     }
 
-    @Override
+   /* @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.exchange_first:
+           *//* case R.id.exchange_first:
                 LayoutInflater inflater = getLayoutInflater();
                 ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_exchange_award, null);
                 Dialog dialog = new Dialog(this, R.style.myDialogTheme);
@@ -51,11 +62,11 @@ public class AwardActivity extends Activity implements View.OnClickListener,View
                 //dialog.create();
                 // dialog.setContentView(rootView);
                 dialog.show();
-                break;
+                break;*//*
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onLongClick(View view) {
         Intent intent;
         switch (view.getId()){
@@ -65,5 +76,5 @@ public class AwardActivity extends Activity implements View.OnClickListener,View
             return true;
         }
         return false;
-    }
+    }*/
 }

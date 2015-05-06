@@ -27,9 +27,17 @@ public class ApiUrl {
     public static final String USER_SEARCH = "/api/user/search";//根据用户手机号搜索用户(POST /api/user/search)
     public static final String MY_EVENT = "/api/user/event";//我的赛事(GET /api/user/event)
 
+    public static final String EVENT_LIST = "/api/event";//赛事列表(GET /api/event)
+
+
     //场馆详情(GET /api/stadium/:id)
     public static String stadiumDetail(Long id) {
         return "/api/stadium/" + id;
+    }
+
+    //赛事详情(GET /api/event/:id)
+    public static String eventDetail(Long id) {
+        return "/api/event/" + id;
     }
 
 
