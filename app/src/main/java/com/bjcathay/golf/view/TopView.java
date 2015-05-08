@@ -44,6 +44,9 @@ public class TopView extends LinearLayout {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+    public void setContext(Context context){
+
+    }
 
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);

@@ -10,7 +10,7 @@
         android:id="@+id/top_main_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
+        android:background="@color/home_title_color" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -65,28 +65,33 @@
                         android:id="@+id/compitetion_event"
                         android:text="免费赛事"
                         android:layout_weight="2"
+                        android:textColor="@color/white"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="@color/home_event_color"/>
+                        android:background="@color/home_event_color" />
 
                     <Button
                         android:layout_margin="5dp"
                         android:id="@+id/exchange_award"
                         android:text="兑换商城"
+                        android:textColor="@color/white"
+
                         android:layout_weight="3"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="@color/home_exchange_color"/>
+                        android:background="@color/home_exchange_color" />
                 </LinearLayout>
 
                 <Button
                     android:layout_margin="5dp"
                     android:id="@+id/order_place"
                     android:text="约场"
+                    android:textColor="@color/white"
+
                     android:layout_weight="2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@color/home_order_color"/>
+                    android:background="@color/home_order_color" />
 
             </LinearLayout>
 
@@ -100,9 +105,11 @@
                     android:layout_margin="5dp"
                     android:id="@+id/user_center"
                     android:text="个人中心"
+                    android:textColor="@color/white"
+
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@color/home_my_color"/>
+                    android:background="@color/home_my_color" />
             </LinearLayout>
 
         </LinearLayout>

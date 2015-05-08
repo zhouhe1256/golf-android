@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.EventModel;
 import com.bjcathay.golf.model.PlaceModel;
@@ -33,8 +34,8 @@ public class CompetitionAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // return items == null ? 0 : items.size();
-        return 10;
+        return items == null ? 0 : items.size();
+        //return 10;
     }
 
     @Override
@@ -58,6 +59,17 @@ public class CompetitionAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
+        EventModel eventModel = items.get(position);
+        // ImageViewAdapter.adapt(holder.imageView, eventModel.getImageUrl(), R.drawable.ic_launcher);
+        if ("SIGNING".equals(eventModel.getStatus()))
+            holder.status.setText("报名中");
+        else if ("FINISH".equals(eventModel.getStatus()))
+            holder.status.setText("已结束");
+        holder.title.setText(eventModel.getName());
+        holder.address.setText("地址" + eventModel.getAddress());
+        holder.time.setText("时间" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
+        holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
+        holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
 
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override

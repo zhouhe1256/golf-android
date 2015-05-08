@@ -25,6 +25,7 @@ import com.bjcathay.golf.util.SizeUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.JazzyViewPager;
 import com.bjcathay.golf.view.TopView;
+import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
 

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 
 public class PreferencesUtils {
-    public static String PREFERENCE_NAME = "fm";
+    public static String PREFERENCE_NAME = "golf";
 
     public static boolean putString(Context context, String key, String value) {
         SharedPreferences.Editor editor = getEditor(context);

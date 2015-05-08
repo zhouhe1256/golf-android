@@ -8,12 +8,14 @@
     <com.bjcathay.golf.view.TopView
         android:id="@+id/top_schedule_layout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
 
     <ImageView
-        android:layout_margin="10dp"
+        android:id="@+id/place_img"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="120dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
@@ -24,31 +26,32 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <com.bjcathay.golf.view.WheelView
+        <com.bjcathay.golf.view.PickerView
             android:id="@+id/wheelView0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="150dp"
+            android:layout_height="110dp">
 
-        </com.bjcathay.golf.view.WheelView>
+        </com.bjcathay.golf.view.PickerView>
 
-        <com.bjcathay.golf.view.WheelView
+        <com.bjcathay.golf.view.PickerView
             android:id="@+id/wheelView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="80dp"
+            android:layout_height="110dp">
 
-        </com.bjcathay.golf.view.WheelView>
+        </com.bjcathay.golf.view.PickerView>
 
-        <com.bjcathay.golf.view.WheelView
+        <com.bjcathay.golf.view.PickerView
             android:id="@+id/wheelView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="80dp"
+            android:layout_height="110dp">
 
-        </com.bjcathay.golf.view.WheelView>
+        </com.bjcathay.golf.view.PickerView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:paddingLeft="20dp"
         android:orientation="horizontal">
 
@@ -59,32 +62,35 @@
             android:text="选择人数：" />
 
         <RadioGroup
+
             android:id="@+id/radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:padding="5dp"
-                android:layout_width="wrap_content"
+                android:padding="8dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="1人"
                 android:id="@+id/btn_0"
-                android:textSize="15.0sp"
+                android:textSize="12.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:checked="true"
                 android:button="@null"
+                android:layout_margin="2dp"
                 android:background="@drawable/radio" />
 
             <RadioButton
-                android:padding="5dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="8dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="２人"
                 android:id="@+id/btn_1"
-                android:textSize="15.0sp"
+                android:textSize="12.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -92,12 +98,13 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
-                android:padding="5dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="8dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="３人"
                 android:id="@+id/btn_2"
-                android:textSize="15.0sp"
+                android:textSize="12.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -105,12 +112,13 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
-                android:padding="5dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="8dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="４人"
                 android:id="@+id/btn_3"
-                android:textSize="15.0sp"
+                android:textSize="12.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -118,12 +126,15 @@
                 android:background="@drawable/radio" />
 
             <RadioButton
-                android:padding="5dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="8dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="４人+"
                 android:id="@+id/btn_4"
-                android:textSize="15.0sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="12.0sp"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -136,9 +147,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -154,9 +166,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="5dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -172,9 +186,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="5dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -192,9 +208,15 @@
 
     <Button
         android:id="@+id/ok"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="18dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/yellow"
         android:text="提交订单" />
 </LinearLayout>

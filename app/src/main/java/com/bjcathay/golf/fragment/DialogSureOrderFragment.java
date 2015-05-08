@@ -30,7 +30,7 @@ public class DialogSureOrderFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_order_sure, container);
         btn = (Button) view.findViewById(R.id.sure_order);
-        textView= (TextView) view.findViewById(R.id.text_1);
+       // textView= (TextView) view.findViewById(R.id.text_1);
         return view;
     }
 }

@@ -71,8 +71,9 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DialogUtil.hintMessage("选档期", PlaceListActivity.this);
                 Intent intent = new Intent(PlaceListActivity.this, ScheduleActivity.class);
+                intent.putExtra("imageurl",stadiumModelList.get(i-1).getImageUrl());
+                intent.putExtra("id",stadiumModelList.get(i-1).getId());
                 ViewUtil.startActivity(PlaceListActivity.this, intent);
             }
         });

@@ -10,9 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.ExchangeAdapter;
+import com.bjcathay.golf.application.GApplication;
 import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.model.PropListModel;
+import com.bjcathay.golf.model.PropModel;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.TopView;
 
@@ -23,24 +28,27 @@ import java.util.List;
  * 兑换页面
  * Created by dengt on 15-4-20.
  */
-public class AwardActivity extends Activity/* implements View.OnClickListener,View.OnLongClickListener*/{
+public class AwardActivity extends Activity implements ICallback/* implements View.OnClickListener,View.OnLongClickListener*/{
+    private GApplication gApplication;
     private TopView topView;
     private ListView awardingFirst;
     private ExchangeAdapter exchangeAdapter;
-    private List<PlaceModel> placeModels;
+    private List<PropModel> propModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_award);
+        gApplication=GApplication.getInstance();
         initView();
         initEvent();
+        initData();
     }
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_award_layout);
         awardingFirst=ViewUtil.findViewById(this,R.id.exchange_list);
-        placeModels = new ArrayList<PlaceModel>();
-        exchangeAdapter = new ExchangeAdapter(placeModels, this);
+        propModels = new ArrayList<PropModel>();
+        exchangeAdapter = new ExchangeAdapter(propModels, this);
     }
 
     private void initEvent() {
@@ -50,7 +58,17 @@ public class AwardActivity extends Activity/* implements View.OnClickListener,Vi
        /* awardingFirst.setOnClickListener(this);
         awardingFirst.setOnLongClickListener(this);*/
     }
+private void initData(){
+    PropListModel.get().done(this);
+}
 
+    @Override
+    public void call(Arguments arguments) {
+        PropListModel propListModel=arguments.get(0);
+
+        propModels.addAll(propListModel.getProps());
+        exchangeAdapter.notifyDataSetChanged();
+    }
    /* @Override
     public void onClick(View view) {
         switch(view.getId()){

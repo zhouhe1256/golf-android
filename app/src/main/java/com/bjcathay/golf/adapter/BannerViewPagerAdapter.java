@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.activity.ExerciseActivity;
 import com.bjcathay.golf.model.BannerModel;
@@ -65,11 +66,11 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
         final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
 
-        // ImageViewAdapter.adapt(bgView, carouselModel.getImageUrl(), R.drawable.home_banner_default_icon);
+         ImageViewAdapter.adapt(bgView, carouselModel.getImageUrl(), R.drawable.ic_launcher);
 
         bannerTitleView.setTextColor(Color.WHITE);
         bannerTitleView.setText(carouselModel.getTitle());
-        bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
+        //bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
 
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -79,6 +80,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, ExerciseActivity.class);
+                intent.putExtra("url",carouselModel.getWebsiteUrl());
                 ViewUtil.startActivity(context,intent);
                // DialogUtil.hintMessage(carouselModel, context);
             }

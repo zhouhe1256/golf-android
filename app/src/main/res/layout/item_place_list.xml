@@ -33,6 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="18洞果/童/车/柜" />
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/place_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址" />
 
         <TextView
             android:padding="5dp"

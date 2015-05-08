@@ -26,6 +26,8 @@ public class ApiUrl {
     public static final String SET_AVATAR = "/api/user/set_avatar";//设置用户头像(POST /api/user/set_avatar)
     public static final String USER_SEARCH = "/api/user/search";//根据用户手机号搜索用户(POST /api/user/search)
     public static final String MY_EVENT = "/api/user/event";//我的赛事(GET /api/user/event)
+    public static final String PROP_LIST = "/api/prop";//兑换列表(GET /api/prop)
+
 
     public static final String EVENT_LIST = "/api/event";//赛事列表(GET /api/event)
 
@@ -38,6 +40,11 @@ public class ApiUrl {
     //赛事详情(GET /api/event/:id)
     public static String eventDetail(Long id) {
         return "/api/event/" + id;
+    }
+
+    //兑换道具(POST /api/prop/:id)
+    public static String propDetail(Long id) {
+        return "/api/prop/" + id;
     }
 
 

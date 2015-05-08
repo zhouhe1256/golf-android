@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.model.PropModel;
 import com.bjcathay.golf.util.ViewUtil;
 
 import java.util.ArrayList;
@@ -21,13 +23,13 @@ import java.util.List;
  * Created by bjcathay on 15-5-6.
  */
 public class ExchangeAdapter extends BaseAdapter {
-    private List<PlaceModel> items;
+    private List<PropModel> items;
     private Activity context;
     private int count = 0;
 
-    public ExchangeAdapter(List<PlaceModel> items, Activity activity) {
+    public ExchangeAdapter(List<PropModel> items, Activity activity) {
         if (items == null) {
-            items = new ArrayList<PlaceModel>();
+            items = new ArrayList<PropModel>();
         }
         this.items = items;
         this.context = activity;
@@ -39,11 +41,11 @@ public class ExchangeAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // return items == null ? 0 : items.size();
-        if (count == 0) {
+         return items == null ? 0 : items.size();
+        /*if (count == 0) {
             count = 10;
         }
-        return count;
+        return count;*/
     }
 
     @Override
@@ -67,7 +69,11 @@ public class ExchangeAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-
+        PropModel propModel=items.get(position);
+        holder.title.setText(propModel.getName());
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.ic_launcher);
+          holder.sale.setText(propModel.getDescription());
+        holder.price.setText(propModel.getInviteUserCount()+"个有效用户");
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

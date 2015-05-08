@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.model.StadiumModel;
@@ -39,11 +40,11 @@ public class PlaceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // return items == null ? 0 : items.size();
-        if (count == 0) {
+         return items == null ? 0 : items.size();
+       /* if (count == 0) {
             count = 10;
         }
-        return count;
+        return count;*/
     }
 
     @Override
@@ -67,7 +68,12 @@ public class PlaceListAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-
+        StadiumModel stadiumModel = items.get(position);
+        ImageViewAdapter.adapt(holder.imageView, stadiumModel.getImageUrl(), R.drawable.ic_launcher);
+        holder.title.setText(stadiumModel.getName());
+        holder.price.setText("￥" + stadiumModel.getPrice());
+        holder.sale.setText(stadiumModel.getComboContent());
+        holder.address.setText(stadiumModel.getAddress());
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,12 +88,14 @@ public class PlaceListAdapter extends BaseAdapter {
         TextView title;
         TextView price;
         TextView sale;
+        TextView address;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
             title = ViewUtil.findViewById(view, R.id.place_title);
             price = ViewUtil.findViewById(view, R.id.place_price);
             sale = ViewUtil.findViewById(view, R.id.place_sale);
+            address = ViewUtil.findViewById(view, R.id.place_address);
         }
     }
 }

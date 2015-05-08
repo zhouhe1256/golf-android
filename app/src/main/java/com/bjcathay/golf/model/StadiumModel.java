@@ -1,6 +1,7 @@
 package com.bjcathay.golf.model;
 
 import com.bjcathay.android.async.IPromise;
+import com.bjcathay.android.json.annotation.JSONCollection;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.golf.constant.ApiUrl;
@@ -27,12 +28,152 @@ public class StadiumModel implements Serializable {
     private String startAt;// "09:00",
     private String endAt;// "18:00",
     private int intervalTime;//15,
+
+    @JSONCollection(type = String.class)
     private List<String> imageUrls;// [ "/upload/image/xxx.png",
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getComboContent() {
+        return comboContent;
+    }
+
+    public void setComboContent(String comboContent) {
+        this.comboContent = comboContent;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public String getPriceData() {
+        return priceData;
+    }
+
+    public void setPriceData(String priceData) {
+        this.priceData = priceData;
+    }
+
+    public String getHoleNumber() {
+        return holeNumber;
+    }
+
+    public void setHoleNumber(String holeNumber) {
+        this.holeNumber = holeNumber;
+    }
+
+    public String getFullLength() {
+        return fullLength;
+    }
+
+    public void setFullLength(String fullLength) {
+        this.fullLength = fullLength;
+    }
+
+    public String getFloorSpace() {
+        return floorSpace;
+    }
+
+    public void setFloorSpace(String floorSpace) {
+        this.floorSpace = floorSpace;
+    }
+
+    public String getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(String startAt) {
+        this.startAt = startAt;
+    }
+
+    public String getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(String endAt) {
+        this.endAt = endAt;
+    }
+
+    public int getIntervalTime() {
+        return intervalTime;
+    }
+
+    public void setIntervalTime(int intervalTime) {
+        this.intervalTime = intervalTime;
+    }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
     private static IContentDecoder<StadiumModel> decoder = new IContentDecoder.BeanDecoder<StadiumModel>(StadiumModel.class, "stadium");
 
     //预约与否
     public static IPromise stadiumDetail(Long id) {
-        return Http.instance().put(ApiUrl.stadiumDetail(id)).
+        return Http.instance().get(ApiUrl.stadiumDetail(id)).contentDecoder(decoder).
                 run();
     }
 

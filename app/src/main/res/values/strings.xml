@@ -33,4 +33,22 @@
     <string name="forget_secret"><u>忘记密码？</u></string>
     <string name="register_invate_note">邀请码　 <font size="10">（选填，该项可为邀请人增加兑换积分）</font></string>
     <string name="usable_user_number">有效用户　<font color="red">3</font></string>
+
+    <!-- 日期时间选择 -->
+    <string name="pick_date_time">选择日期时间</string>
+    <string name="panel_start_time">开始时间</string>
+    <string name="panel_end_time">结束时间</string>
+    <string name="shortcut_one_day">一日内</string>
+    <string name="shortcut_three_days">三日内</string>
+    <string name="shortcut_one_week">一周内</string>
+    <string name="title_pick_date_time">选择日期时间（%1$d天%2$d时%3$d分）</string>
+    <string name="msg_end_before_start">结束时间需大于开始时间！</string>
+    <color name="green_2">#FF1EB95D</color>
+    <string name="order_sucess_to_show_order"><u>查看订单</u>
+      </string>
+    <string name="order_sucess_to_show_order_note">点击查看订单详细内容</string>
+    <string name="order_sucess_to_show_place"><u>看看其他</u>
+       </string>
+    <string name="order_sucess_to_show_place_note">发现更多合适场地</string>
+
 </resources>

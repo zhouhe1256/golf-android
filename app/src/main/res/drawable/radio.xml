@@ -3,7 +3,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_checked="false"
-        android:drawable="@color/gray" />
+        android:drawable="@color/order_title_color" />
     <item
         android:state_checked="true"
         android:drawable="@color/white" />

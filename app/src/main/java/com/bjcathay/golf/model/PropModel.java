@@ -1,0 +1,101 @@
+package com.bjcathay.golf.model;
+
+import com.bjcathay.android.async.IPromise;
+import com.bjcathay.android.remote.Http;
+import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.golf.constant.ApiUrl;
+
+import java.io.Serializable;
+
+/**
+ * Created by bjcathay on 15-5-7.
+ */
+public class PropModel implements Serializable {
+    private Long id;// 1,
+    private String name;// "名称",
+    private String description;// "描述",
+    private String type;// COMPETITION,
+    private String inviteUserCount;// 5,
+    private int targetId;// 2,
+    private String imageUrl;// "/upload/image/xxx.png"
+    private String exchange;// true|false, 是否已兑换
+    private String status;// UNUSED|USED
+    private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(PropModel.class, "prop");
+
+    public static IPromise get(Long id) {
+        return Http.instance().post(ApiUrl.propDetail(id)).
+                contentDecoder(decoder).run();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getInviteUserCount() {
+        return inviteUserCount;
+    }
+
+    public void setInviteUserCount(String inviteUserCount) {
+        this.inviteUserCount = inviteUserCount;
+    }
+
+    public int getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(int targetId) {
+        this.targetId = targetId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}

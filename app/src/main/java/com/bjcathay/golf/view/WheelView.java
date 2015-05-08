@@ -242,6 +242,9 @@ public class WheelView extends ScrollView {
 
     }
 
+    public void refreshData(){
+        refreshItemView(0);
+    }
     private void refreshItemView(int y) {
         int position = y / itemHeight + offset;
         int remainder = y % itemHeight;
@@ -371,7 +374,8 @@ public class WheelView extends ScrollView {
      */
     private void onSeletedCallBack() {
         if (null != onWheelViewListener) {
-            onWheelViewListener.onSelected(selectedIndex, items.get(selectedIndex));
+            Log.e("selectedIndex---items",selectedIndex+"   "+items.size());
+            onWheelViewListener.onSelected(selectedIndex, items.get(selectedIndex-1));
         }
 
     }
