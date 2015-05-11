@@ -12,6 +12,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.application.GApplication;
+import com.bjcathay.golf.constant.ErrorCode;
 import com.bjcathay.golf.model.UserModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.PreferencesConstant;
@@ -58,7 +59,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
 
     private void initEvent() {
         topView.setTitleText("返回");
-        topView.setVisiable(View.INVISIBLE,View.VISIBLE,View.INVISIBLE);
+        topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
@@ -87,8 +88,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         Intent intent;
         switch (view.getId()) {
             case R.id.login_btn:
-                intent = new Intent(this, UserCenterActivity.class);
-                ViewUtil.startActivity(this, intent);
+               /* intent = new Intent(this, UserCenterActivity.class);
+                ViewUtil.startActivity(this, intent);*/
+                login();
                 break;
             case R.id.new_login:
                 intent = new Intent(this, RegisterActivity.class);
@@ -111,11 +113,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             String token = userModel.getApiToken();
             //保存用户名和密码
             PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME, userModel.getNickname());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE, userModel.getMobileNumber());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, loginUser.getText().toString().trim());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD, loginpwd.getText().toString().trim());
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             gApplication.updateApiToken();
             DialogUtil.showMessage("登陆成功");
+            Intent intent = new Intent(this, MainActivity.class);
+            ViewUtil.startTopActivity(this, intent);
+        } else {
+            int code = jsonObject.optInt("code");
+            DialogUtil.showMessage(ErrorCode.getCodeName(code));
         }
     }
 }

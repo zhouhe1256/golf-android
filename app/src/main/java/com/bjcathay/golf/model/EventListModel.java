@@ -32,4 +32,9 @@ public class EventListModel implements Serializable {
                 contentDecoder(decoder).
                 param("page", page).run();
     }
+    public static IPromise getMyEvent(int page) {
+        return Http.instance().get(ApiUrl.MY_EVENT).
+                contentDecoder(decoder).
+                param("page", page).run();
+    }
 }

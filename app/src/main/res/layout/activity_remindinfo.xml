@@ -62,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_sucess_to_show_order"
+                    android:textColor="@color/order_title_color"
                     android:layout_gravity="left|center_vertical" />
 
                 <TextView
@@ -88,6 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_sucess_to_show_place"
+                    android:textColor="@color/order_title_color"
                     android:layout_gravity="left|center_vertical" />
 
                 <TextView

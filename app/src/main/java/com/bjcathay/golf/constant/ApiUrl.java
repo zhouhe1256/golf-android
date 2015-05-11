@@ -12,7 +12,7 @@ public class ApiUrl {
     public static final String OS = SystemUtil.getVersion();
 
     public static final String HOME_BANNER = "/api/banner";//首页活动(GET /api/banner)
-    public static final String STSDIUM_LIST = "/api/stadium";//场馆列表(GET /api/stadium)
+    public static final String STSDIUM_LIST = "/api/golf_course";//场馆列表(GET /api/golf_course)
 
 
     public static final String REGISTER = "/api/user/register";//注册用户(POST /api/user/register)
@@ -30,11 +30,22 @@ public class ApiUrl {
 
 
     public static final String EVENT_LIST = "/api/event";//赛事列表(GET /api/event)
+    public static final String MY_ORDERS = "/api/user/order";//我的订单(GET /api/user/order)
+
+    public static final String COMMIT_ORDER = "/api/order";//提交订单(POST /api/order)
+    public static final String ORDER_PAY_SUCESS = "/api/alipay_notify_url"; //订单支付成功回调URL(POST /api/alipay_notify_url)
+
+    public static final String DELETE_MESSAGE = "/api/user/message"; //删除消息(DELETE /api/user/message)
+    public static final String ALREADY_READ_MESSAGE = "/api/user/message"; //消息状态改为已读(PUT /api/user/message)
+    public static final String MY_MESSAGE = "/api/user/message"; //我的消息(GET /api/user/message)
+    public static final String MY_PROPS = "/api/user/prop"; //我的兑换(GET /api/user/prop)
+    public static final String DELETE_EVENTS = "/api/user/event"; //删除赛事(DELETE /api/user/event)
+    //public static final String DELETE_EVENTS = "/api/user/event"; //我的赛事(GET /api/user/event)
 
 
-    //场馆详情(GET /api/stadium/:id)
+    //场馆详情(GET /api/golf_course/:id)
     public static String stadiumDetail(Long id) {
-        return "/api/stadium/" + id;
+        return "/api/golf_course/" + id;
     }
 
     //赛事详情(GET /api/event/:id)
@@ -47,5 +58,34 @@ public class ApiUrl {
         return "/api/prop/" + id;
     }
 
+    //订单详情(GET /api/order/:id)
+    public static String orderDetail(Long id) {
+        return "/api/order/" + id;
+    }
+
+    //取消订单(PUT /api/order/:id)
+    public static String orderCancle(Long id) {
+        return "/api/order/" + id;
+    }
+
+    //删除订单(DELETE /api/user/order)
+    public static String orderDelete(Long id) {
+        return "/api/user/order" + id;
+    }
+
+    //验证订单是否支付完成(GET /api/user/order/:id/verify)
+    public static String orderVerify(Long id) {
+        return "/api/user/order/" + id + "/verify";
+    }
+
+    //赠送道具(POST /api/prop/:id/gift)
+    public static String sendProp(Long id) {
+        return "/api/prop/" + id + "/gift";
+    }
+
+    //参加赛事(POST /api/user/event/:id)
+    public static String attendEvent(Long id) {
+        return "/api/user/event/" + id;
+    }
 
 }

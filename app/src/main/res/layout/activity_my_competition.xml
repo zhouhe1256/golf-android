@@ -10,13 +10,18 @@
     <com.bjcathay.golf.view.TopView
         android:id="@+id/top_my_competition_layout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color"/>
 
-    <ListView
+    <!--<ListView
         android:background="@color/white"
         android:id="@+id/my_competition_list"
         android:layout_width="match_parent"
         android:divider="@color/divider_list"
         android:dividerHeight="0.1dp"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"></ListView>-->
+    <com.bjcathay.golf.view.AutoListView
+        android:id="@+id/my_competition_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

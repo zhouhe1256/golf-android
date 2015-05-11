@@ -10,4 +10,6 @@ public class PreferencesConstant {
     public static final String NICK_NAME="user_nick_name";
     public static final String PLACE_START_TIME="place_stime";
     public static final String PLACE_END_TIME="place_etime";
+    public static final String LAST_UPDATE_MESSAGE="last_update_message";
+    public static final String USER_PHONE="user_phone";
 }

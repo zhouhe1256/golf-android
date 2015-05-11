@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class StadiumListModel implements Serializable {
     @JSONCollection(type = StadiumModel.class)
-    private List<StadiumModel> stadiums;
+    private List<StadiumModel> golfCourses;
 
-    public List<StadiumModel> getStadiums() {
-        return stadiums;
+    public List<StadiumModel> getGolfCourses() {
+        return golfCourses;
     }
 
-    public void setStadiums(List<StadiumModel> stadiums) {
-        this.stadiums = stadiums;
+    public void setGolfCourses(List<StadiumModel> golfCourses) {
+        this.golfCourses = golfCourses;
     }
 
     private static IContentDecoder<StadiumListModel> decoder = new IContentDecoder.BeanDecoder<StadiumListModel>(StadiumListModel.class);

@@ -67,6 +67,7 @@
         <activity android:name=".activity.MyInformationActivity" />
         <activity android:name=".activity.MyExchangeActivity" />
         <activity android:name=".activity.RemindInfoActivity"/>
+        <activity android:name=".activity.UserEditNnameActivity"/>
 
         <!--个推start-->
         <!--getui

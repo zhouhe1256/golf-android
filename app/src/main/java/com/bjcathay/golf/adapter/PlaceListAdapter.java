@@ -72,8 +72,18 @@ public class PlaceListAdapter extends BaseAdapter {
         ImageViewAdapter.adapt(holder.imageView, stadiumModel.getImageUrl(), R.drawable.ic_launcher);
         holder.title.setText(stadiumModel.getName());
         holder.price.setText("￥" + stadiumModel.getPrice());
-        holder.sale.setText(stadiumModel.getComboContent());
+        holder.sale.setText(stadiumModel.getPackageContent());
         holder.address.setText(stadiumModel.getAddress());
+        if ("COMMON".equals(stadiumModel.getType())) {
+            holder.tuanCount.setVisibility(View.GONE);
+            holder.temaiCount.setVisibility(View.GONE);
+            holder.tuanImg.setVisibility(View.GONE);
+            holder.tuanCount.setVisibility(View.GONE);
+        } else if ("LIMITED".equals(stadiumModel.getType())) {
+
+        } else if ("SPECIAL".equals(stadiumModel.getType())) {
+        }
+
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,11 +94,15 @@ public class PlaceListAdapter extends BaseAdapter {
     }
 
     class Holder {
+        ImageView tuanImg;
+        ImageView temaiImg;
         ImageView imageView;
         TextView title;
         TextView price;
         TextView sale;
         TextView address;
+        TextView tuanCount;
+        TextView temaiCount;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -96,6 +110,10 @@ public class PlaceListAdapter extends BaseAdapter {
             price = ViewUtil.findViewById(view, R.id.place_price);
             sale = ViewUtil.findViewById(view, R.id.place_sale);
             address = ViewUtil.findViewById(view, R.id.place_address);
+            tuanImg = ViewUtil.findViewById(view, R.id.tuan_img);
+            temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
+            tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
+            temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
         }
     }
 }

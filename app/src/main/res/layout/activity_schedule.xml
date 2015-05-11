@@ -159,6 +159,7 @@
             android:text="包含服务：" />
 
         <TextView
+            android:id="@+id/sch_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="18洞果岭/僮/车/柜" />
@@ -179,6 +180,7 @@
             android:text="所在地址：" />
 
         <TextView
+            android:id="@+id/sch_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="北京市海淀区清河湾" />
@@ -199,9 +201,10 @@
             android:text="价格：" />
 
         <TextView
+            android:id="@+id/sch_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="１４８０" />
+            android:text="" />
 
 
     </LinearLayout>
@@ -213,7 +216,7 @@
         android:layout_width="fill_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:padding="18dp"
         android:layout_height="wrap_content"
         android:textColor="@color/white"

@@ -70,6 +70,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent intent = new Intent(CompetitionActivity.this, CompetitionDetailActivity.class);
+                intent.putExtra("event",eventModels.get(i-1));
                 ViewUtil.startActivity(CompetitionActivity.this, intent);
             }
         });

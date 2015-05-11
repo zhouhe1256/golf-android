@@ -33,13 +33,12 @@ import java.util.Random;
  */
 public class PlaceListActivity extends Activity implements OnRefreshListener,
         OnLoadListener, ICallback {
+    private TopView topView;
     // private ListView listView;
     private GApplication gApplication;
     private PlaceListAdapter placeListAdapter;
     private List<StadiumModel> stadiumModelList;
-    private TopView topView;
     private AutoListView lstv;
-    // private List<String> list = new ArrayList<String>();
     private int page = 1;
 
     @Override
@@ -82,19 +81,19 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             StadiumListModel result = (StadiumListModel) msg.obj;
-            if (result != null && result.getStadiums() != null && !result.getStadiums().isEmpty()) {
+            if (result != null && result.getGolfCourses() != null && !result.getGolfCourses().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         lstv.onRefreshComplete();
                         stadiumModelList.clear();
-                        stadiumModelList.addAll(result.getStadiums());
+                        stadiumModelList.addAll(result.getGolfCourses());
                         break;
                     case AutoListView.LOAD:
                         lstv.onLoadComplete();
-                        stadiumModelList.addAll(result.getStadiums());
+                        stadiumModelList.addAll(result.getGolfCourses());
                         break;
                 }
-                lstv.setResultSize(result.getStadiums().size());
+                lstv.setResultSize(result.getGolfCourses().size());
                 placeListAdapter.notifyDataSetChanged();
             }else{
                 switch (msg.what) {

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.golf.R;
+import com.bjcathay.golf.model.MessageModel;
 import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
@@ -20,12 +21,12 @@ import java.util.List;
  * Created by bjcathay on 15-4-29.
  */
 public class MyMessageAdapter extends BaseAdapter {
-    private List<PlaceModel> items;
+    private List<MessageModel> items;
     private Activity context;
 
-    public MyMessageAdapter(List<PlaceModel> items, Activity activity) {
+    public MyMessageAdapter(List<MessageModel> items, Activity activity) {
         if (items == null) {
-            items = new ArrayList<PlaceModel>();
+            items = new ArrayList<MessageModel>();
         }
         this.items = items;
         this.context = activity;

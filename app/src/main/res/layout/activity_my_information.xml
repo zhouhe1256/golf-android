@@ -8,73 +8,151 @@
     <com.bjcathay.golf.view.TopView
         android:id="@+id/top_my_information_layout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"></com.bjcathay.golf.view.TopView>
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/info_img_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:onClick="onClick">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="头像:" />
+
+
+        <ImageView
+            android:id="@+id/img_go"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/go"
+            android:layout_width="9dp"
+            android:layout_height="13dp" />
+
+        <com.bjcathay.golf.view.CircleImageView
+            android:id="@+id/info_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_toLeftOf="@id/img_go"
+            android:layout_marginRight="10dp" />
+
+    </RelativeLayout>
+
+
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_launcher" />
+        android:background="@drawable/ic_launcher" />-->
 
-    <LinearLayout
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:background="@color/gray" />
+
+    <RelativeLayout
+        android:id="@+id/info_name_relative"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:onClick="onClick">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="手机号码" />
+            android:text="真实姓名:" />
 
-        <EditText
+        <TextView
+            android:id="@+id/info_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/name_go"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/go"
+            android:layout_width="9dp"
+            android:layout_height="13dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号码:" />
+
+        <TextView
+            android:id="@+id/info_phone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
 
     </LinearLayout>
 
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/gray" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="真实姓名" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:text="邀请码:" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="邀请码" />
-
-        <EditText
+            android:id="@+id/info_invite"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
             android:hint="(邀请朋友时使用)" />
 
 
     </LinearLayout>
 
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/gray" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:text="完善个人资料，会更方便您后续的报名活动哦．" />
 
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="确认修改" />
+        android:text="确认修改" />-->
 
 
 </LinearLayout>

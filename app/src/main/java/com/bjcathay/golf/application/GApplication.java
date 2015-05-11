@@ -126,7 +126,15 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
 
     public void updateApiToken() {
         String token = PreferencesUtils.getString(gApplication, PreferencesConstant.API_TOKEN);
-        Http.instance().option(HttpOption.X_Token, token);
+        Http.instance().param("t", token);
+    }
+
+    public boolean isLogin() {
+        if (getApiToken() == null || getApiToken() == "")
+            return false;
+        else if (getApiToken().length() > 1)
+            return true;
+        else return false;
     }
 
     public String getApiToken() {

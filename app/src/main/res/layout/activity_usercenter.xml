@@ -7,6 +7,7 @@
     android:background="@color/user_center_bg">
 
     <LinearLayout
+        android:id="@+id/user_center_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,14 +18,16 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent" />
 
-        <ImageView
+        <com.bjcathay.golf.view.CircleImageView
+            android:id="@+id/user_center_img"
             android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_launcher" />
 
         <TextView
+            android:id="@+id/user_center_phone"
             android:padding="2dp"
             android:text="TeeTime"
             android:layout_gravity="center_horizontal"
@@ -324,7 +327,7 @@
 
                 <TextView
 
-                    android:text="个人资料"
+                    android:text="邀请明细"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"

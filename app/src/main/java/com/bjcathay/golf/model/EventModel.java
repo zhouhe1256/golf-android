@@ -6,6 +6,7 @@ import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.golf.constant.ApiUrl;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by bjcathay on 15-4-30.
@@ -157,5 +158,26 @@ public class EventModel implements Serializable {
         return Http.instance().get(ApiUrl.eventDetail(id)).
                 contentDecoder(decoder).
                run();
+    }
+    public static IPromise attendEvent(long id) {
+        return Http.instance().post(ApiUrl.attendEvent(id)).
+                contentDecoder(decoder).
+                run();
+    }
+   /* public static IPromise deleteEvent(long id) {
+        return Http.instance().post(ApiUrl.attendEvent(id)).
+                contentDecoder(decoder).
+                run();
+    }*/
+    public static IPromise deleteEvent(List<String> ids) {
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < ids.size(); i++) {
+            if (i < ids.size() - 1)
+                buffer.append(ids.get(i) + ",");
+            else
+                buffer.append(ids.get(i));
+        }
+        return Http.instance().delete(ApiUrl.DELETE_EVENTS).
+                param("from", buffer).contentDecoder(decoder).run();
     }
 }

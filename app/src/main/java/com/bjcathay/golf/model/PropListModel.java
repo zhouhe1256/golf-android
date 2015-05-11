@@ -30,4 +30,8 @@ public class PropListModel implements Serializable {
         return Http.instance().get(ApiUrl.PROP_LIST).
                 contentDecoder(decoder).run();
     }
+    public static IPromise getMyProps() {
+        return Http.instance().get(ApiUrl.MY_PROPS).
+                contentDecoder(decoder).run();
+    }
 }

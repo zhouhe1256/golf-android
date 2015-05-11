@@ -18,12 +18,19 @@ public class PropModel implements Serializable {
     private String inviteUserCount;// 5,
     private int targetId;// 2,
     private String imageUrl;// "/upload/image/xxx.png"
-    private String exchange;// true|false, 是否已兑换
-    private String status;// UNUSED|USED
+ /*   private String exchange;// true|false, 是否已兑换
+    private String status;// UNUSED|USED*/
     private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(PropModel.class, "prop");
 
-    public static IPromise get(Long id) {
+    //兑换道具
+    public static IPromise getProp(Long id) {
         return Http.instance().post(ApiUrl.propDetail(id)).
+                contentDecoder(decoder).run();
+    }
+
+    //赠送道具
+    public static IPromise sendProp(Long id) {
+        return Http.instance().post(ApiUrl.sendProp(id)).
                 contentDecoder(decoder).run();
     }
 
@@ -83,19 +90,5 @@ public class PropModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getExchange() {
-        return exchange;
-    }
 
-    public void setExchange(String exchange) {
-        this.exchange = exchange;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

@@ -22,12 +22,21 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
+import com.bjcathay.golf.application.GApplication;
+import com.bjcathay.golf.constant.ErrorCode;
+import com.bjcathay.golf.model.OrderModel;
+import com.bjcathay.golf.model.PriceModel;
 import com.bjcathay.golf.model.StadiumModel;
 import com.bjcathay.golf.util.DateUtil;
 import com.bjcathay.golf.util.DialogUtil;
+import com.bjcathay.golf.util.PreferencesConstant;
+import com.bjcathay.golf.util.PreferencesUtils;
+import com.bjcathay.golf.util.SystemUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.PickerView;
 import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,10 +49,14 @@ import java.util.regex.Pattern;
  * Created by dengt on 15-4-21.
  */
 public class ScheduleActivity extends FragmentActivity implements ICallback {
+    private GApplication gApplication;
     private PickerView hourView;
     private PickerView wheelView1;
     private PickerView dayView;
     private ImageView imageView;
+    private TextView stadiumContents;
+    private TextView stadiumAddress;
+    private TextView stadiumPrice;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private StadiumModel stadiumModel;
@@ -55,7 +68,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
     private String imaUrl;
     private String daySelect;
     private int beforSelect = 0;//0上午　１下午
-    private String hourSelect = "7:00";
+    private String hourSelect = "07:00";
     private List<String> minits = new ArrayList<String>();
     private int attendNumber = 1;
 
@@ -63,6 +76,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+        gApplication = GApplication.getInstance();
         initView();
         initData();
         initEvent();
@@ -74,6 +88,9 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         dayView = ViewUtil.findViewById(this, R.id.wheelView0);
         topView = ViewUtil.findViewById(this, R.id.top_schedule_layout);
         imageView = ViewUtil.findViewById(this, R.id.place_img);
+        stadiumAddress = ViewUtil.findViewById(this, R.id.sch_address);
+        stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
+        stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
         //根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
@@ -122,7 +139,8 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
             @Override
             public void onSelect(String text) {
                 daySelect = text;
-                getPrice();
+                getDate();
+                getDayPrice(stadiumModel.getPrices());
             }
         });
         dayView.setSelected(0);
@@ -134,7 +152,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
                 if ("上午".equals(text)) {
                     hourView.setData(DateUtil.getAM(stadiumModel.getStartAt()));
                     beforSelect = 0;
-                    hourSelect = "7:00";
+                    hourSelect = "07:00";
                 } else {
                     hourView.setData(DateUtil.getPM(stadiumModel.getEndAt()));
                     beforSelect = 1;
@@ -142,7 +160,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
                 }
                 hourView.setSelected(0);
 
-                getPrice();
+                getDate();
                 //second_pv.setData(secondss);
             }
         });
@@ -152,7 +170,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
             @Override
             public void onSelect(String text) {
                 hourSelect = text;
-                getPrice();
+                getDate();
             }
         });
         hourView.setSelected(0);
@@ -162,7 +180,12 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
             public void onClick(View view) {
                 // Intent intent=new Intent(ScheduleActivity.this,OrderSureActivity.class);
                 //ViewUtil.startActivity(ScheduleActivity.this,intent);
-                showSureDialog();
+                if (gApplication.isLogin() == true) {
+                    showSureDialog();
+                } else {
+                    Intent intent = new Intent(ScheduleActivity.this, LoginActivity.class);
+                    ViewUtil.startActivity(ScheduleActivity.this, intent);
+                }
             }
         });
     }
@@ -171,7 +194,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         minits.add("上午");
         minits.add("下午");
         days = DateUtil.getDate(this);
-        hours = DateUtil.getAM("7:00");
+        hours = DateUtil.getAM("07:00");
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
@@ -196,9 +219,10 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         Button sure = ViewUtil.findViewById(rootView, R.id.sure_order);
 
         name.setText(stadiumModel.getName());
-        time.setText(getPrice());
+        time.setText(getDate());
         //手机号码
-        service.setText("提供服务:" + stadiumModel.getComboContent());
+        phone.setText("手机号码：" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE, ""));
+        service.setText("提供服务:" + stadiumModel.getPackageContent());
         number_.setText("消费人数：" + attendNumber + "人");
         final Dialog dialog = new Dialog(this, R.style.myDialogTheme);
         dialog.setContentView(rootView);
@@ -207,8 +231,22 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-               Intent intent = new Intent(ScheduleActivity.this, RemindInfoActivity.class);
-                ViewUtil.startActivity(ScheduleActivity.this, intent);
+                OrderModel.commitOrder(stadiumModel.getId(), attendNumber, getDate()).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        //JSONObject jsonObject = arguments.get(0);
+                        OrderModel orderModel = arguments.get(0);
+                        Intent intent = new Intent(ScheduleActivity.this, RemindInfoActivity.class);
+                        ViewUtil.startActivity(ScheduleActivity.this, intent);
+                    }
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage("下单失败");
+                    }
+                });
+
+
             }
         });
         topView1.getRightbtn().setOnClickListener(new View.OnClickListener() {
@@ -232,9 +270,15 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         hours = DateUtil.getAM(stadiumModel.getStartAt());
         topView.setTitleText(stadiumModel.getName());
         String endAt = stadiumModel.getEndAt();
+        stadiumContents.setText(stadiumModel.getPackageContent());
+        // stadiumPrice.setText(stadiumModel.getPrice());
+        getDayPrice(stadiumModel.getPrices());
+        stadiumAddress.setText(stadiumModel.getAddress());
     }
 
-    private String getPrice() {
+    private String select;
+
+    private String getDate() {
         if (beforSelect == 1) {
             hourSelect = DateUtil.To24(hourSelect);
         }
@@ -244,17 +288,28 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         if (daySelect == null) {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月" + (day > 10 ? 10 : "0" + day) + "日";
+            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月" + (day > 10 ? day : "0" + day) + "日";
         }
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(daySelect);
         String day = m.replaceAll("").trim();
         String daysub = day.substring(2);
-        String select = year + "-" + day.substring(0, 2) + "-"
+        select = year + "-" + day.substring(0, 2) + "-"
                 + (daysub.length() == 1 ? "0" + daysub : daysub)
                 + " " + (hourSelect.length() == 1 ? "0" + hourSelect : hourSelect) + ":00";
         Log.e("选择的日期是", select);
+        // getDayPrice(stadiumModel.getPrices());
         return select;
+    }
+
+    private void getDayPrice(List<PriceModel> priceModels) {
+        getDate();
+        for (PriceModel priceModel : priceModels) {
+            if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+                stadiumPrice.setText(Double.toString(priceModel.getPrice()));
+                return;
+            }
+        }
     }
 }

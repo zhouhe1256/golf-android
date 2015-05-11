@@ -36,7 +36,7 @@ import java.util.List;
  * 主页面
  * Created by dengt on 15-4-20.
  */
-public class MainActivity extends Activity implements View.OnClickListener ,ICallback{
+public class MainActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private Button orderbtn;
     private Button compebtn;
@@ -124,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,ICal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gApplication=GApplication.getInstance();
+        gApplication = GApplication.getInstance();
         initView();
         initEvent();
         initData();
@@ -139,25 +139,27 @@ public class MainActivity extends Activity implements View.OnClickListener ,ICal
     private void initData() {
         BannerListModel.getHomeBanners().done(this);
     }
+
     @Override
     public void call(Arguments arguments) {
        /* Log.i("argument---",arguments.toString());
         JSONObject jsonObject = arguments.get(0);
         if(jsonObject.optBoolean("success")){*/
-            BannerListModel bannerListModel=arguments.get(0);
-            setupBanner(bannerListModel.getBanners());
+        BannerListModel bannerListModel = arguments.get(0);
+        setupBanner(bannerListModel.getBanners());
        /* }else{
             DialogUtil.showMessage("暂无数据");
         }*/
 
     }
+
     private void initView() {
         context = this;
         topView = ViewUtil.findViewById(this, R.id.top_main_layout);
         orderbtn = ViewUtil.findViewById(this, R.id.order_place);
         compebtn = ViewUtil.findViewById(this, R.id.compitetion_event);
         exchbtn = ViewUtil.findViewById(this, R.id.exchange_award);
-        usercenter=ViewUtil.findViewById(this,R.id.user_center);
+        usercenter = ViewUtil.findViewById(this, R.id.user_center);
         bannerViewPager = ViewUtil.findViewById(this, R.id.jazzy_viewpager);
         dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_ly);
 
@@ -190,8 +192,13 @@ public class MainActivity extends Activity implements View.OnClickListener ,ICal
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.user_center:
-                intent = new Intent(this, LoginActivity.class);
-                ViewUtil.startActivity(this, intent);
+                if (gApplication.isLogin()==true) {
+                    intent = new Intent(this, UserCenterActivity.class);
+                    ViewUtil.startActivity(this, intent);
+                } else {
+                    intent = new Intent(this, LoginActivity.class);
+                    ViewUtil.startActivity(this, intent);
+                }
                 break;
         }
     }

@@ -10,11 +10,14 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.application.GApplication;
+import com.bjcathay.golf.constant.ErrorCode;
 import com.bjcathay.golf.model.UserModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.ClearEditText;
 import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 /**
  * Created by bjcathay on 15-4-23.
@@ -54,7 +57,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private void initEvent() {
         topView.setTitleText("返回");
         //topView.setActivity(this);
-        topView.setVisiable(View.INVISIBLE,View.VISIBLE,View.INVISIBLE);
+        topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);
@@ -72,16 +75,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
             UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
-
+                    JSONObject jsonObject = arguments.get(0);
                 }
             });
     }
 
     private void register() {
         String phone = userPhone.getText().toString().trim();
-        String password = userPhone.getText().toString().trim();
-        String code = userPhone.getText().toString().trim();
-        String inviteCode = userPhone.getText().toString().trim();
+        String password = userPwd.getText().toString().trim();
+        String code = userCode.getText().toString().trim();
+        String inviteCode = userInvite.getText().toString().trim();
         if (phone.length() > 0 && password.length() > 0 && code.length() > 0)
             UserModel.register(phone, password, code, inviteCode).done(this);
     }
@@ -105,9 +108,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     @Override
     public void call(Arguments arguments) {
-        UserModel userModel = arguments.get(0);
-        if (userModel.getMobileNumber() != null) {
-            DialogUtil.showMessage("注册成功");
+        JSONObject jsonObject = arguments.get(0);
+        if (jsonObject.optBoolean("success")) {
+          /*  UserModel userModel = arguments.get(0);
+            if (userModel.getMobileNumber() != null) {*/
+                DialogUtil.showMessage("注册成功");
+           // }
+        } else {
+            int code = jsonObject.optInt("code");
+            DialogUtil.showMessage(ErrorCode.getCodeName(code));
         }
     }
 }

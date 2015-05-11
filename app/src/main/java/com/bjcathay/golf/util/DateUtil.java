@@ -128,7 +128,9 @@ public class DateUtil {
             Date date = df.parse(hour);
             Calendar c = Calendar.getInstance();
             c.setTime(date);
-            String hours = (c.get(Calendar.HOUR_OF_DAY) + 12) + ":" + (c.get(Calendar.MINUTE) == 0 ? "00" : "30");
+            int h = c.get(Calendar.HOUR_OF_DAY);
+            String first = Integer.toString(h > 12 ? h : h + 12);
+            String hours = (first.length() == 1 ? "0" + first : first) + ":" + (c.get(Calendar.MINUTE) == 0 ? "00" : "30");
 
             return hours;
         } catch (ParseException e) {
@@ -136,4 +138,25 @@ public class DateUtil {
         }
         return null;
     }
+
+    public static boolean CompareTime(String time, String start, String end) {
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date1 = sd.parse(start);
+            Date date2 = sd.parse(end);
+            Date date3 = sd.parse(time);
+            long t = date3.getTime();//时间的毫秒
+            long s = date1.getTime();
+            long e = date2.getTime();
+            if (t > s && t < e) {
+                return true;
+            } else
+                return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -11,22 +11,22 @@ import android.widget.TextView;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.OrderModel;
-import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.model.PropModel;
 import com.bjcathay.golf.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-28.
+ * Created by bjcathay on 15-5-11.
  */
-public class MyOrderAdapter extends BaseAdapter {
-    private List<OrderModel> items;
+public class MyPropAdapter extends BaseAdapter {
+    private List<PropModel> items;
     private Activity context;
 
-    public MyOrderAdapter(List<OrderModel> items, Activity activity) {
+    public MyPropAdapter(List<PropModel> items, Activity activity) {
         if (items == null) {
-            items = new ArrayList<OrderModel>();
+            items = new ArrayList<PropModel>();
         }
         this.items = items;
         this.context = activity;
@@ -34,8 +34,8 @@ public class MyOrderAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-         return items == null ? 0 : items.size();
-       // return 10;
+        return items == null ? 0 : items.size();
+        // return 10;
     }
 
     @Override
@@ -59,13 +59,13 @@ public class MyOrderAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        OrderModel orderModel = items.get(position);
-        holder.detail.setText(orderModel.getStartAt() + " 订单号" + orderModel.getOrderId());
-        ImageViewAdapter.adapt(holder.img, orderModel.getImageUrl(), R.drawable.ic_launcher);
-        holder.title.setText(orderModel.getTitle());
-        holder.discount.setText(orderModel.getComboContent());
-        holder.price.setText("￥：" + orderModel.getTotalPrice());
-        holder.status.setText(orderModel.getStatus());
+        PropModel propModel = items.get(position);
+        holder.detail.setText(propModel.getName());
+        ImageViewAdapter.adapt(holder.img, propModel.getImageUrl(), R.drawable.ic_launcher);
+        holder.title.setText(propModel.getInviteUserCount());
+        holder.discount.setText(propModel.getName());
+        holder.price.setText("￥：" + propModel.getTargetId());
+        holder.status.setText(propModel.getName());
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
