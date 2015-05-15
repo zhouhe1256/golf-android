@@ -25,13 +25,13 @@ public class PropModel implements Serializable {
     //兑换道具
     public static IPromise getProp(Long id) {
         return Http.instance().post(ApiUrl.propDetail(id)).
-                contentDecoder(decoder).run();
+                run();
     }
 
     //赠送道具
-    public static IPromise sendProp(Long id) {
+    public static IPromise sendProp(Long id,String phone) {
         return Http.instance().post(ApiUrl.sendProp(id)).
-                contentDecoder(decoder).run();
+                param("phone",phone).run();
     }
 
     public Long getId() {

@@ -2,12 +2,15 @@ package com.bjcathay.golf.util;
 
 import android.content.Context;
 
+import com.bjcathay.golf.model.PriceModel;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -157,6 +160,12 @@ public class DateUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static LinkedHashMap<String,String> getDate(List<PriceModel> priceModels){
+        LinkedHashMap<String,String> hashMap=new LinkedHashMap<String, String>();
+
+        return null;
     }
 
 }

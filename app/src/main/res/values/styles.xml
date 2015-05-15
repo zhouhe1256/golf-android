@@ -38,4 +38,12 @@
         <item name="android:layout_height">24dp</item>
         <item name="android:layout_gravity">center</item>
     </style>
+    <!--弹窗-->
+    <style name="InfoDialog" parent="@android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

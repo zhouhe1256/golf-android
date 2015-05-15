@@ -118,7 +118,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         });
 
         ChainedCache<String, byte[]> imageCache = ChainedCache.create(
-                4 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
+                400 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
                 "images", new DiskCache.ByteArraySerialization<String>()
         );
         Http.imageInstance().cache(imageCache).baseUrl(ApiUrl.HOST_URL).aheadReadInCache(true);

@@ -8,32 +8,52 @@
     <com.bjcathay.golf.view.TopView
         android:id="@+id/top_send_friend_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.bjcathay.golf.view.TopView>
+        android:layout_height="wrap_content"
+        android:background="@color/home_title_color"/>
 
     <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/send_input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="输入手机号" />
+        android:hint="输入手机号码"
+        android:padding="15dp"
+        android:textColorHint="@color/mian_text_color"
+        android:textCursorDrawable="@null"
+        android:drawableLeft="@drawable/ic_send_phone"
+        android:drawablePadding="10dp"
+        android:background="@android:color/transparent"
+        android:textSize="15dp"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"/>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/line_color" />
 
     <LinearLayout
         android:id="@+id/send_to_mail_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:weightSum="8"
-        android:background="@color/gray">
+       android:paddingRight="10dp"
+        android:weightSum="8">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="8"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:textCursorDrawable="@null"
+            android:drawableLeft="@drawable/ic_send_list"
+            android:background="@android:color/transparent"
             android:text="赠送给通讯录好友" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_weight="1"
-            android:text=">" />
+            android:background="@drawable/ic_into_list" />
     </LinearLayout>
 
 

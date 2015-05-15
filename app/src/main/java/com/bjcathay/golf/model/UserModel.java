@@ -22,6 +22,7 @@ public class UserModel implements Serializable {
     private String address;
     private double longitude;
     private double latitude;
+    private int inviteAmount;
 
     public Long getId() {
         return id;
@@ -37,6 +38,14 @@ public class UserModel implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public int getInviteAmount() {
+        return inviteAmount;
+    }
+
+    public void setInviteAmount(int inviteAmount) {
+        this.inviteAmount = inviteAmount;
     }
 
     public String getMobileNumber() {
@@ -147,20 +156,20 @@ public class UserModel implements Serializable {
     }
 
     //重置密码
-    public static IPromise resetPassword(String mobileNumber, String password) {
+    public static IPromise resetPassword(String mobileNumber, String password,String code) {
         return Http.instance().post(ApiUrl.RESET_PASSWORD).
-                param("password", password).param("mobileNumber", mobileNumber).run();
+                param("password", password).param("mobileNumber", mobileNumber).param("code",code).run();
     }
 
     //更新用户信息
     public static IPromise updateUserInfo(String nickname, String differCount, String realName
             , String pushClientId, String imeiCode, String osType, String osName, String deviceName, String address
-            , double longitude, double latitude) {
+            , String longitude, String latitude) {
         return Http.instance().put(ApiUrl.CHANGE_USER_INFO).
                 param("nickname", nickname).param("differCount", differCount).param("realName", realName).
                 param("pushClientId", pushClientId).param("imeiCode", imeiCode).param("osName", osName).
                 param("osType", "ANDROID").param("address", address).param("longitude", longitude).
-                param("deviceName", deviceName).param("latitude", latitude).run();
+                param("deviceName", deviceName).param("osType", osType).param("latitude", latitude).contentDecoder(decoder).run();
     }
 
     //设置用户头像
@@ -168,6 +177,9 @@ public class UserModel implements Serializable {
         return Http.instance().post(ApiUrl.SET_AVATAR).
                 data(data).contentDecoder(decoder).run();
     }
-
-
+    //用户反馈(POST /api/user/feedback)
+    public static IPromise feedBack(String contactWay, String content) {
+        return Http.instance().post(ApiUrl.FEED_BACK).
+                param("contactWay", contactWay).param("content", content).run();
+    }
 }

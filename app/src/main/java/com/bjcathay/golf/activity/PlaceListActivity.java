@@ -73,6 +73,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 Intent intent = new Intent(PlaceListActivity.this, ScheduleActivity.class);
                 intent.putExtra("imageurl",stadiumModelList.get(i-1).getImageUrl());
                 intent.putExtra("id",stadiumModelList.get(i-1).getId());
+                intent.putExtra("type",stadiumModelList.get(i-1).getType());
                 ViewUtil.startActivity(PlaceListActivity.this, intent);
             }
         });
@@ -81,19 +82,19 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             StadiumListModel result = (StadiumListModel) msg.obj;
-            if (result != null && result.getGolfCourses() != null && !result.getGolfCourses().isEmpty()) {
+            if (result != null && result.getGoods() != null && !result.getGoods().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         lstv.onRefreshComplete();
                         stadiumModelList.clear();
-                        stadiumModelList.addAll(result.getGolfCourses());
+                        stadiumModelList.addAll(result.getGoods());
                         break;
                     case AutoListView.LOAD:
                         lstv.onLoadComplete();
-                        stadiumModelList.addAll(result.getGolfCourses());
+                        stadiumModelList.addAll(result.getGoods());
                         break;
                 }
-                lstv.setResultSize(result.getGolfCourses().size());
+                lstv.setResultSize(result.getGoods().size());
                 placeListAdapter.notifyDataSetChanged();
             }else{
                 switch (msg.what) {

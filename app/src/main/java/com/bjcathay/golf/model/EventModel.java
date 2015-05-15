@@ -151,24 +151,29 @@ public class EventModel implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
     private static IContentDecoder<EventModel> decoder = new IContentDecoder.BeanDecoder<EventModel>(EventModel.class, "event");
 
 
     public static IPromise getEventDetail(long id) {
         return Http.instance().get(ApiUrl.eventDetail(id)).
                 contentDecoder(decoder).
-               run();
+                run();
     }
+
     public static IPromise attendEvent(long id) {
         return Http.instance().post(ApiUrl.attendEvent(id)).
-                contentDecoder(decoder).
+
                 run();
     }
-   /* public static IPromise deleteEvent(long id) {
-        return Http.instance().post(ApiUrl.attendEvent(id)).
-                contentDecoder(decoder).
+
+    public static IPromise deleteEvent(long id) {
+        return Http.instance().post(ApiUrl.DELETE_EVENTS).
+                param("_method", "DELETE").
+                param("from", id).
                 run();
-    }*/
+    }
+
     public static IPromise deleteEvent(List<String> ids) {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < ids.size(); i++) {
@@ -178,6 +183,6 @@ public class EventModel implements Serializable {
                 buffer.append(ids.get(i));
         }
         return Http.instance().delete(ApiUrl.DELETE_EVENTS).
-                param("from", buffer).contentDecoder(decoder).run();
+                param("from", buffer).run();
     }
 }

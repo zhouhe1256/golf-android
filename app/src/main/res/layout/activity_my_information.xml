@@ -14,13 +14,16 @@
     <RelativeLayout
         android:id="@+id/info_img_relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="101dp"
         android:padding="10dp"
         android:onClick="onClick">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/mian_text_color"
+            android:textSize="14sp"
             android:text="头像:" />
 
 
@@ -29,17 +32,18 @@
             android:layout_marginRight="12dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/go"
-            android:layout_width="9dp"
-            android:layout_height="13dp" />
+            android:src="@drawable/ic_info_enter"
+            android:layout_width="10dp"
+            android:layout_height="17dp" />
 
         <com.bjcathay.golf.view.CircleImageView
             android:id="@+id/info_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_launcher"
+            android:layout_width="61dp"
+            android:layout_height="61dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_default_user"
             android:layout_toLeftOf="@id/img_go"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="20dp" />
 
     </RelativeLayout>
 
@@ -54,34 +58,43 @@
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/gray" />
-
+        android:background="@drawable/line_divide_hor" />
     <RelativeLayout
-        android:id="@+id/info_name_relative"
-
+        android:id="@+id/info_nick_name_relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:padding="10dp"
         android:onClick="onClick">
 
         <TextView
+            android:id="@+id/info_nick_name_note"
+            android:textColor="@color/mian_text_color"
+            android:textSize="14sp"
             android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:text="真实姓名:" />
+            android:text="昵称:" />
 
         <TextView
-            android:id="@+id/info_name"
+            android:id="@+id/info_nick_name"
+            android:layout_toRightOf="@id/info_nick_name_note"
+            android:text="张三"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/exchange_text_color"
+            android:layout_centerVertical="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:id="@+id/name_go"
+
+            android:id="@+id/nick_name_go"
             android:layout_marginRight="12dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/go"
-            android:layout_width="9dp"
-            android:layout_height="13dp" />
+            android:src="@drawable/ic_info_enter"
+            android:layout_width="10dp"
+            android:layout_height="17dp" />
 
     </RelativeLayout>
 
@@ -89,20 +102,72 @@
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/gray" />
+        android:background="@drawable/line_divide_hor" />
+    <RelativeLayout
+        android:id="@+id/info_name_relative"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:padding="10dp"
+        android:onClick="onClick">
+
+        <TextView
+            android:id="@+id/info_name_note"
+            android:textColor="@color/mian_text_color"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:text="真实姓名:" />
+
+        <TextView
+            android:id="@+id/info_name"
+            android:layout_toRightOf="@id/info_name_note"
+            android:text="张三"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/exchange_text_color"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+
+            android:id="@+id/name_go"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_info_enter"
+            android:layout_width="10dp"
+            android:layout_height="17dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="53dp"
+        android:padding="10dp"
+        android:orientation="horizontal">
 
         <TextView
+            android:textColor="@color/mian_text_color"
+            android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="手机号码:" />
 
         <TextView
             android:id="@+id/info_phone"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/exchange_text_color"
+            android:layout_gravity="center_vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -113,23 +178,29 @@
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/gray" />
+        android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:padding="10dp">
 
         <TextView
+            android:textColor="@color/mian_text_color"
+            android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="邀请码:" />
 
         <TextView
             android:id="@+id/info_invite"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/exchange_text_color"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_gravity="center_vertical"
             android:hint="(邀请朋友时使用)" />
 
 
@@ -139,13 +210,15 @@
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/gray" />
+        android:background="@drawable/touying_bg" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
+        android:textSize="10sp"
+        android:textColor="@color/exchange_text_color"
         android:text="完善个人资料，会更方便您后续的报名活动哦．" />
 
     <!--<Button

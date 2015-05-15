@@ -13,12 +13,18 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.MyOrderAdapter;
+import com.bjcathay.golf.constant.ErrorCode;
 import com.bjcathay.golf.model.OrderListModel;
 import com.bjcathay.golf.model.OrderModel;
 import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.AutoListView;
+import com.bjcathay.golf.view.DeleteInfoDialog;
+import com.bjcathay.golf.view.DeleteInfoDialog.DeleteInfoDialogResult;
 import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +33,8 @@ import java.util.List;
  * Created by bjcathay on 15-4-28.
  */
 public class MyOrderActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback {
-
+        AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult {
+    private Activity context;
     private MyOrderAdapter myOrderAdapter;
     private List<OrderModel> orderModels;
     private TopView topView;
@@ -39,6 +45,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_order);
+        context = this;
         initView();
         initData();
         initEvent();
@@ -63,7 +70,19 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // DialogUtil.hintMessage("选档期", PlaceListActivity.this);
                 Intent intent = new Intent(MyOrderActivity.this, OrderDetailActivity.class);
+                intent.putExtra("imageurl", orderModels.get(i - 1).getImageUrl());
+                intent.putExtra("id", orderModels.get(i - 1).getId());
                 ViewUtil.startActivity(MyOrderActivity.this, intent);
+            }
+        });
+        lstv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //弹窗设置是否取消
+                DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
+                        R.style.InfoDialog, "确认删除该订单", orderModels.get(i - 1).getId(), MyOrderActivity.this);
+                infoDialog.show();
+                return false;
             }
         });
     }
@@ -94,6 +113,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                         lstv.onLoadComplete();
                         break;
                 }
+                orderModels.clear();
                 lstv.setResultSize(0);
                 myOrderAdapter.notifyDataSetChanged();
             }
@@ -139,5 +159,30 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         }
         msg.obj = orderListModel;
         handler.sendMessage(msg);
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            OrderModel.orderDelete(targetId).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    JSONObject jsonObject = arguments.get(0);
+                    if (jsonObject.optBoolean("success")) {
+                        DialogUtil.showMessage("已删除订单");
+                        loadData(AutoListView.REFRESH);
+                        // }
+                    } else {
+                        int code = jsonObject.optInt("code");
+                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                    }
+                }
+            }).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    DialogUtil.showMessage("失败");
+                }
+            });
+        }
     }
 }

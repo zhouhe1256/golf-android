@@ -40,7 +40,7 @@ public class PlaceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-         return items == null ? 0 : items.size();
+        return items == null ? 0 : items.size();
        /* if (count == 0) {
             count = 10;
         }
@@ -72,16 +72,26 @@ public class PlaceListAdapter extends BaseAdapter {
         ImageViewAdapter.adapt(holder.imageView, stadiumModel.getImageUrl(), R.drawable.ic_launcher);
         holder.title.setText(stadiumModel.getName());
         holder.price.setText("￥" + stadiumModel.getPrice());
-        holder.sale.setText(stadiumModel.getPackageContent());
+        holder.sale.setText(stadiumModel.getPriceInclude());
         holder.address.setText(stadiumModel.getAddress());
+        // LIMITED|SPECIAL|COMMON, //限购，团购，平常
         if ("COMMON".equals(stadiumModel.getType())) {
-            holder.tuanCount.setVisibility(View.GONE);
-            holder.temaiCount.setVisibility(View.GONE);
             holder.tuanImg.setVisibility(View.GONE);
             holder.tuanCount.setVisibility(View.GONE);
+            holder.temaiCount.setVisibility(View.GONE);
+            holder.temaiImg.setVisibility(View.GONE);
         } else if ("LIMITED".equals(stadiumModel.getType())) {
-
+            holder.temaiImg.setVisibility(View.VISIBLE);
+            holder.temaiCount.setVisibility(View.VISIBLE);
+            holder.tuanImg.setVisibility(View.GONE);
+            holder.tuanCount.setVisibility(View.GONE);
+            holder.temaiCount.setText("剩余" + stadiumModel.getRemainingAmount() + "人");
         } else if ("SPECIAL".equals(stadiumModel.getType())) {
+            holder.tuanCount.setVisibility(View.VISIBLE);
+            holder.tuanImg.setVisibility(View.VISIBLE);
+            holder.temaiCount.setVisibility(View.GONE);
+            holder.temaiImg.setVisibility(View.GONE);
+            holder.tuanCount.setText("还差" + stadiumModel.getRemainingAmount() + "成团");
         }
 
        /* convertView.setOnClickListener(new View.OnClickListener() {

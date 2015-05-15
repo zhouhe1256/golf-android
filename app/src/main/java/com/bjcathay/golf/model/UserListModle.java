@@ -37,7 +37,12 @@ public class UserListModle implements Serializable {
             else
                 buffer.append(phones.get(i));
         }
-        return Http.instance().get(ApiUrl.USER_SEARCH).
+        return Http.instance().post(ApiUrl.USER_SEARCH).
                 param("phones", buffer).contentDecoder(decoder).run();
+    }
+    //根据用户手机号搜索用户
+    public static IPromise searchUser(String phones) {
+        return Http.instance().post(ApiUrl.USER_SEARCH).
+                param("phones", phones).contentDecoder(decoder).run();
     }
 }

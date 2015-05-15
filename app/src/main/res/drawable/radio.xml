@@ -3,8 +3,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_checked="false"
-        android:drawable="@color/order_title_color" />
+        android:drawable="@drawable/ic_unselect_bg" />
     <item
         android:state_checked="true"
-        android:drawable="@color/white" />
+        android:drawable="@drawable/ic_selected_bg" />
 </selector>

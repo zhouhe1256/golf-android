@@ -13,6 +13,8 @@
     <com.bjcathay.golf.view.AutoListView
         android:id="@+id/my_order_list"
         android:layout_width="match_parent"
+        android:divider="@color/transparent_color"
+        android:dividerHeight="2dp"
         android:layout_height="wrap_content" />
     <!--<ListView
         android:background="@color/white"

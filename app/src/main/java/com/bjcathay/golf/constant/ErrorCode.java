@@ -92,7 +92,10 @@ public enum ErrorCode {
 
     GIVE_USER_FROZE(14005, "赠送用户已被冻结"),
 
-    ACTIVITY_CONDITION_NOT_MEET(14006, "参与条件尚未满足");
+    ACTIVITY_CONDITION_NOT_MEET(14006, "参与条件尚未满足"),
+    FEED_BACK(15001, "反馈内容不能为空");
+
+
     private int code;
     private String codeName;
 

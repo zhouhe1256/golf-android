@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+    <com.bjcathay.golf.view.TopView
+        android:id="@+id/top_feedback_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
+    <EditText
+        android:id="@+id/feedback_content"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="3250dp"
+        android:minHeight="200dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:maxLines="6"
+        android:gravity="top"
+        android:background="@color/white"
+        android:hint="想对７铁说点什么呢"
+        android:textSize="12sp"
+        android:textColor="@color/mian_text_color"
+        android:textCursorDrawable="@null"
+        android:cursorVisible="true"/>
+    <Button
+        android:id="@+id/feedback_btn"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@drawable/yellow_big_bg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="提交反馈"
+        android:onClick="onClick"
+        />
+
+</LinearLayout>

@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0">
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="5"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -49,7 +49,7 @@
         <activity android:name=".activity.PlaceListActivity" />
         <activity android:name=".activity.WelcomeActivity" />
         <activity android:name=".activity.ScheduleActivity" />
-        <activity android:name=".activity.OrderSureActivity" />
+        <activity android:name=".activity.OrderSucActivity" />
         <activity android:name=".activity.ExerciseActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.UserCenterActivity" />
@@ -68,6 +68,16 @@
         <activity android:name=".activity.MyExchangeActivity" />
         <activity android:name=".activity.RemindInfoActivity"/>
         <activity android:name=".activity.UserEditNnameActivity"/>
+        <activity android:name=".activity.SettingActivity"/>
+        <activity android:name=".activity.FeedbackActivity"/>
+        <activity android:name=".activity.OrderSucTEActivity"/>
+        <activity android:name=".activity.OrderSucTuanActivity"/>
+        <activity android:name=".activity.SelectPayWayActivity"/>
+        <activity android:name=".activity.ForgetPwdActivity"/>
+        <activity android:name=".activity.ForgetSetNewPwdActivity"/>
+        <activity android:name=".activity.EditPwdActivity"/>
+        <activity android:name=".activity.UserEditNicknameActivity"/>
+
 
         <!--个推start-->
         <!--getui

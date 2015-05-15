@@ -1,6 +1,7 @@
 package com.bjcathay.golf.model;
 
 import com.bjcathay.android.async.IPromise;
+import com.bjcathay.android.json.annotation.JSONCollection;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.golf.constant.ApiUrl;
@@ -15,19 +16,33 @@ public class OrderModel implements Serializable {
     private Long id;// 1,
     private String orderId;//"1000xxxxxxx"
     private String title;//"标题",
-    private String comboContent;// "18洞/餐/车",
+    private String packageContent;// "18洞/餐/车",
     private String startAt;// "2015-08-08 09:00:00",
+    private String createdAt;// "2015-08-08 09:00:00",
     private double totalPrice;// 800.0,
     private double unitPrice;// 200.0,
     private int peopleNumber;//4, // 人数
     private String expiredCountdown;// "600000",//单位 毫秒
     private boolean expired;// true|false,
-    private String status;//订单状态标识,PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL
+    private String expiredTime;//'2015-10-22 19:00:00',
+    private String status;//订单状态标识,PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
     private String imageUrl;// "/upload/image/xxx.png"
+    private String type;
+
+    @JSONCollection(type = StadiumModel.class)
+    private StadiumModel golfCourse;
     private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(OrderModel.class, "order");
 
     public Long getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = golfCourse.getType();
     }
 
     public void setId(Long id) {
@@ -50,12 +65,36 @@ public class OrderModel implements Serializable {
         this.title = title;
     }
 
-    public String getComboContent() {
-        return comboContent;
+    public String getPackageContent() {
+        return packageContent;
     }
 
-    public void setComboContent(String comboContent) {
-        this.comboContent = comboContent;
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setPackageContent(String packageContent) {
+        this.packageContent = packageContent;
+    }
+
+    public String getExpiredTime() {
+        return expiredTime;
+    }
+
+    public void setExpiredTime(String expiredTime) {
+        this.expiredTime = expiredTime;
+    }
+
+    public StadiumModel getGolfCourse() {
+        return golfCourse;
+    }
+
+    public void setGolfCourse(StadiumModel golfCourse) {
+        this.golfCourse = golfCourse;
     }
 
     public String getStartAt() {
@@ -129,11 +168,13 @@ public class OrderModel implements Serializable {
 
     public static IPromise orderCancle(Long id) {
         return Http.instance().put(ApiUrl.orderCancle(id)).
-                contentDecoder(decoder).run();
+                contentDecoder(decoder).
+                run();
     }
 
     public static IPromise orderDelete(Long id) {
-        return Http.instance().delete(ApiUrl.orderDelete(id)).
+        return Http.instance().post(ApiUrl.orderDelete(id)).
+                param("_method", "DELETE").
                 contentDecoder(decoder).run();
     }
 
@@ -144,6 +185,7 @@ public class OrderModel implements Serializable {
                 param("date", date).
                 contentDecoder(decoder).run();
     }
+
     public static IPromise orderVerify(Long id) {
         return Http.instance().get(ApiUrl.orderVerify(id)).
                 contentDecoder(decoder).run();

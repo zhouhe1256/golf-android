@@ -1,18 +1,35 @@
 package com.bjcathay.golf.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
+import com.bjcathay.golf.activity.LoginActivity;
+import com.bjcathay.golf.activity.RemindInfoActivity;
+import com.bjcathay.golf.activity.SendFriendActivity;
+import com.bjcathay.golf.constant.ErrorCode;
 import com.bjcathay.golf.model.OrderModel;
 import com.bjcathay.golf.model.PropModel;
+import com.bjcathay.golf.model.UserModel;
+import com.bjcathay.golf.util.DialogUtil;
+import com.bjcathay.golf.util.PreferencesConstant;
+import com.bjcathay.golf.util.PreferencesUtils;
 import com.bjcathay.golf.util.ViewUtil;
+import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,44 +70,51 @@ public class MyPropAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_order_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_exchange_list, parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-        PropModel propModel = items.get(position);
-        holder.detail.setText(propModel.getName());
-        ImageViewAdapter.adapt(holder.img, propModel.getImageUrl(), R.drawable.ic_launcher);
-        holder.title.setText(propModel.getInviteUserCount());
-        holder.discount.setText(propModel.getName());
-        holder.price.setText("￥：" + propModel.getTargetId());
-        holder.status.setText(propModel.getName());
+        final PropModel propModel = items.get(position);
+        holder.title.setText(propModel.getName());
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.ic_launcher);
+        holder.sale.setText(propModel.getDescription());
+        holder.price.setText(propModel.getInviteUserCount() + "个有效用户");
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogUtil.hintMessage("选档期");
             }
         });*/
+        //int num=Integer.valueOf(number.getText().toString().trim());
+        holder.toExch.setText("赠送");
+        holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
+        holder.toExch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SendFriendActivity.class);
+                intent.putExtra("id", propModel.getId());
+                ViewUtil.startActivity(context, intent);
+            }
+        });
+
         return convertView;
     }
 
     class Holder {
-        TextView detail;
+        ImageView imageView;
         TextView title;
-        TextView discount;
         TextView price;
-        TextView status;
-        ImageView img;
+        TextView sale;
+        Button toExch;
 
         public Holder(View view) {
-            img = ViewUtil.findViewById(view, R.id.my_order_img);
-            detail = ViewUtil.findViewById(view, R.id.my_order_detail);
-            title = ViewUtil.findViewById(view, R.id.my_order_title);
-            price = ViewUtil.findViewById(view, R.id.my_order_price);
-            discount = ViewUtil.findViewById(view, R.id.my_order_discount);
-            status = ViewUtil.findViewById(view, R.id.my_order_status);
-
+            imageView = ViewUtil.findViewById(view, R.id.exchange_image);
+            title = ViewUtil.findViewById(view, R.id.exchange_title);
+            price = ViewUtil.findViewById(view, R.id.exchange_need_number);
+            sale = ViewUtil.findViewById(view, R.id.exchange_note);
+            toExch = ViewUtil.findViewById(view, R.id.to_exchange);
         }
     }
 }

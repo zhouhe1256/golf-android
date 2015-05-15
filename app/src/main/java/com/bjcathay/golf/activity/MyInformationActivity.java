@@ -31,6 +31,7 @@ public class MyInformationActivity extends Activity implements View.OnClickListe
     private TopView topView;
     private CircleImageView userImg;
     private TextView userName;
+    private TextView userNickName;
     private TextView userPhone;
     private TextView userInvite;
     private UserModel userModel;
@@ -41,6 +42,10 @@ public class MyInformationActivity extends Activity implements View.OnClickListe
     private int selectCode = 1;
     private int requestCropIcon = 2;
     private int resultPictureCode = 3;
+    private int resultEditName = 4;
+    private int selectEditName = 5;
+    private int resultEditNickName = 6;
+    private int selectEditNickName = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +55,37 @@ public class MyInformationActivity extends Activity implements View.OnClickListe
         initData();
         initEvent();
     }
-    private void initView(){
-        topView= ViewUtil.findViewById(this, R.id.top_my_information_layout);
-        userImg=ViewUtil.findViewById(this,R.id.info_img);
-        userName=ViewUtil.findViewById(this,R.id.info_name);
-        userPhone=ViewUtil.findViewById(this,R.id.info_phone);
-        userInvite=ViewUtil.findViewById(this,R.id.info_invite);
+
+    private void initView() {
+        topView = ViewUtil.findViewById(this, R.id.top_my_information_layout);
+        userImg = ViewUtil.findViewById(this, R.id.info_img);
+        userName = ViewUtil.findViewById(this, R.id.info_name);
+        userNickName = ViewUtil.findViewById(this, R.id.info_nick_name);
+        userPhone = ViewUtil.findViewById(this, R.id.info_phone);
+        userInvite = ViewUtil.findViewById(this, R.id.info_invite);
     }
-    private  void initData(){
-        Intent intent=getIntent();
-        userModel= (UserModel) intent.getSerializableExtra("user");
+
+    private void initData() {
+        Intent intent = getIntent();
+        userModel = (UserModel) intent.getSerializableExtra("user");
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
         userName.setText(userModel.getRealName());
+        userNickName.setText(userModel.getNickname());
         userPhone.setText(userModel.getMobileNumber());
         userInvite.setText(userModel.getInviteCode());
 
     }
-    private void initEvent(){
+
+    private void initEvent() {
         topView.setActivity(this);
         topView.setTitleText("个人资料");
     }
+
     private void initUserData(UserModel userModel, boolean isWriteSD) {
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
         this.userModel = userModel;
     }
+
     @Override
     public void resultPicture() {
         Intent intent = new Intent();
@@ -135,19 +147,36 @@ public class MyInformationActivity extends Activity implements View.OnClickListe
                 });
             }
         }
+        if (resultEditName == requestCode && selectEditName == resultCode) {
+
+            userName.setText(data.getStringExtra("name"));
+        }
+        if (resultEditNickName == requestCode && selectEditNickName == resultCode) {
+
+            userNickName.setText(data.getStringExtra("nickname"));
+        }
     }
 
     @Override
     public void onClick(View view) {
-              switch (view.getId()){
-                  case R.id.info_img_relative:
-                      menuWindow = new SelectPicPopupWindow(this, this);
-                      //显示窗口
-                      menuWindow.showAtLocation(this.findViewById(R.id.info_img_relative), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.info_img_relative:
+                menuWindow = new SelectPicPopupWindow(this, this);
+                //显示窗口
+                menuWindow.showAtLocation(this.findViewById(R.id.info_img_relative), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
 
-                      break;
-                  case R.id.info_name_relative:
-                      break;
-              }
+                break;
+            case R.id.info_name_relative:
+                 intent = new Intent(this, UserEditNnameActivity.class);
+                intent.putExtra("name", userName.getText().toString().trim());
+                startActivityForResult(intent, resultEditName);
+                break;
+            case R.id.info_nick_name_relative:
+                 intent = new Intent(this, UserEditNicknameActivity.class);
+                intent.putExtra("nickname", userNickName.getText().toString().trim());
+                startActivityForResult(intent, resultEditNickName);
+                break;
+        }
     }
 }

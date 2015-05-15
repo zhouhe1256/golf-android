@@ -13,16 +13,21 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.MyCompetitionAdapter;
 import com.bjcathay.golf.adapter.MyMessageAdapter;
+import com.bjcathay.golf.constant.ErrorCode;
 import com.bjcathay.golf.model.EventListModel;
 import com.bjcathay.golf.model.MessageListModel;
 import com.bjcathay.golf.model.MessageModel;
 import com.bjcathay.golf.model.PlaceModel;
+import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.PreferencesConstant;
 import com.bjcathay.golf.util.PreferencesUtils;
 import com.bjcathay.golf.util.SystemUtil;
 import com.bjcathay.golf.util.ViewUtil;
 import com.bjcathay.golf.view.AutoListView;
+import com.bjcathay.golf.view.DeleteInfoDialog;
 import com.bjcathay.golf.view.TopView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +36,8 @@ import java.util.List;
  * Created by bjcathay on 15-4-29.
  */
 public class MyMessageActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback {
+        AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult {
+    private Activity context;
     private MyMessageAdapter myMessageAdapter;
     private List<MessageModel> messageModels;
     private TopView topView;
@@ -42,6 +48,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_message);
+        context=this;
         initView();
         initData();
         initEvent();
@@ -62,6 +69,16 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     }
 
     private void initEvent() {
+        topView.getRightbtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //弹窗设置是否取消
+                DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
+                        R.style.InfoDialog, "确认清空消息？",0l,MyMessageActivity.this);
+                infoDialog.show();
+
+            }
+        });
 
         /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,6 +88,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                 ViewUtil.startActivity(MyCompetitionActivity.this, intent);*//*
             }
         });*/
+
     }
 
     private Handler handler = new Handler() {
@@ -146,5 +164,39 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
         }
         msg.obj = messageListModel;
         handler.sendMessage(msg);
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < messageModels.size(); i++) {
+                    if (i < messageModels.size() - 1)
+                        buffer.append(messageModels.get(i).getId() + ",");
+                    else
+                        buffer.append(messageModels.get(i).getId());
+                }
+
+            MessageListModel.deleteMessages(buffer.toString()).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    JSONObject jsonObject = arguments.get(0);
+                    if (jsonObject.optBoolean("success")) {
+                        DialogUtil.showMessage("已清空消息");
+                        loadData(AutoListView.REFRESH);
+                        // }
+                    } else {
+                        int code = jsonObject.optInt("code");
+                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                    }
+                }
+            }).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    DialogUtil.showMessage("失败");
+                }
+            });
+        }
     }
 }

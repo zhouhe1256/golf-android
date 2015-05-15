@@ -17,7 +17,7 @@ public class StadiumModel implements Serializable {
     private String name;// "名称",
     private String type;//LIMITED|SPECIAL|COMMON, //限购，团购，平常
     private String description;// "描述",
-    private String packageContent;// "内容",
+    private String priceInclude;// "内容",
     private String price;//88.8,
     private String address;//"北京市朝阳区",
     private double lon;// 40.544566,
@@ -131,12 +131,12 @@ public class StadiumModel implements Serializable {
         this.type = type;
     }
 
-    public String getPackageContent() {
-        return packageContent;
+    public String getPriceInclude() {
+        return priceInclude;
     }
 
-    public void setPackageContent(String packageContent) {
-        this.packageContent = packageContent;
+    public void setPriceInclude(String priceInclude) {
+        this.priceInclude = priceInclude;
     }
 
     public int getHole() {
@@ -227,7 +227,7 @@ public class StadiumModel implements Serializable {
         this.imageUrls = imageUrls;
     }
 
-    private static IContentDecoder<StadiumModel> decoder = new IContentDecoder.BeanDecoder<StadiumModel>(StadiumModel.class, "golfCourse");
+    private static IContentDecoder<StadiumModel> decoder = new IContentDecoder.BeanDecoder<StadiumModel>(StadiumModel.class, "good");
 
     //场馆详情
     public static IPromise stadiumDetail(Long id) {

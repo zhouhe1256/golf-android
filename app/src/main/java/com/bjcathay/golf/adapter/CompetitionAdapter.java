@@ -13,6 +13,7 @@ import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.EventModel;
 import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.util.ViewUtil;
+import com.bjcathay.golf.view.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,15 +61,18 @@ public class CompetitionAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         EventModel eventModel = items.get(position);
-        // ImageViewAdapter.adapt(holder.imageView, eventModel.getImageUrl(), R.drawable.ic_launcher);
-        if ("SIGNING".equals(eventModel.getStatus()))
+        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_launcher);
+        if ("SIGNING".equals(eventModel.getStatus())) {
             holder.status.setText("报名中");
-        else if ("FINISH".equals(eventModel.getStatus()))
+            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
+        } else if ("FINISH".equals(eventModel.getStatus())) {
             holder.status.setText("已结束");
+            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
+        }
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址" + eventModel.getAddress());
-        holder.time.setText("时间" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
-        holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
+        holder.time.setText("时间:" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
+        holder.count.setText("参加人数:" + eventModel.getSignUpAmount());
         holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
 
        /* convertView.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +91,7 @@ public class CompetitionAdapter extends BaseAdapter {
         TextView time;
         TextView count;
         TextView detail;
+        CircleImageView img;
 
         public Holder(View view) {
             status = ViewUtil.findViewById(view, R.id.competition_status);
@@ -95,6 +100,7 @@ public class CompetitionAdapter extends BaseAdapter {
             time = ViewUtil.findViewById(view, R.id.competition_time);
             count = ViewUtil.findViewById(view, R.id.competition_count);
             detail = ViewUtil.findViewById(view, R.id.competition_detail);
+            img = ViewUtil.findViewById(view, R.id.compete_logo_img);
         }
     }
 }

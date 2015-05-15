@@ -2,6 +2,7 @@ package com.bjcathay.golf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -38,10 +40,11 @@ import java.util.List;
  */
 public class MainActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
-    private Button orderbtn;
-    private Button compebtn;
-    private Button exchbtn;
-    private Button usercenter;
+    private LinearLayout orderbtn;
+    private LinearLayout compebtn;
+    private LinearLayout exchbtn;
+    private LinearLayout usercenter;
+    private LinearLayout shareBtn;
     private JazzyViewPager bannerViewPager;
     private TopView topView;
     private Activity context;
@@ -71,8 +74,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
             layoutParams.rightMargin = margin;
 
-            mImageView.setBackgroundResource(R.drawable.dot_normal);
-            dotoParendLinearLayout.setGravity(Gravity.RIGHT);
+            mImageView.setBackgroundResource(R.drawable.pic_22);
+            dotoParendLinearLayout.setGravity(Gravity.CENTER);
             dotoParendLinearLayout.addView(mImageView, layoutParams);
         }
         setImageBackground(0);
@@ -108,12 +111,17 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     }
 
     private void setImageBackground(int currentPosition) {
+        if (currentPosition == 4) {
+            dotoParendLinearLayout.setVisibility(View.INVISIBLE);
+        } else {
+            dotoParendLinearLayout.setVisibility(View.VISIBLE);
+        }
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {
-                    dots[i].setBackgroundResource(R.drawable.dot_focused);
+                    dots[i].setBackgroundResource(R.drawable.pic_11);
                 } else {
-                    dots[i].setBackgroundResource(R.drawable.dot_normal);
+                    dots[i].setBackgroundResource(R.drawable.pic_22);
                 }
             }
         }
@@ -160,14 +168,23 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         compebtn = ViewUtil.findViewById(this, R.id.compitetion_event);
         exchbtn = ViewUtil.findViewById(this, R.id.exchange_award);
         usercenter = ViewUtil.findViewById(this, R.id.user_center);
+        shareBtn = ViewUtil.findViewById(this, R.id.home_share_title);
         bannerViewPager = ViewUtil.findViewById(this, R.id.jazzy_viewpager);
-        dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_ly);
+        dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_main_ly);
+       /* Drawable drawable1 = getResources().getDrawable(R.drawable.home_order);
+        drawable1.setBounds(0, 0, 100, 200);
+        orderbtn.setCompoundDrawables(null, null, null, drawable1);*/
+       /* compebtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
+        exchbtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
+        usercenter.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
+        shareBtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));*/
+
 
     }
 
     private void initEvent() {
         topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
-        topView.setTitleText("首頁");
+        topView.setTitleText("7铁高尔夫");
         orderbtn.setOnClickListener(this);
         compebtn.setOnClickListener(this);
         exchbtn.setOnClickListener(this);
@@ -192,7 +209,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.user_center:
-                if (gApplication.isLogin()==true) {
+                if (gApplication.isLogin() == true) {
                     intent = new Intent(this, UserCenterActivity.class);
                     ViewUtil.startActivity(this, intent);
                 } else {

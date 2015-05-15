@@ -40,7 +40,7 @@ public class CompetitionDetailActivity extends Activity implements ICallback,Vie
     }
     private void initData(){
         Intent intent=getIntent();
-        EventModel eventModel= (EventModel) intent.getSerializableExtra("event");
+        eventModel= (EventModel) intent.getSerializableExtra("event");
 
         EventModel.getEventDetail(eventModel.getId()).done(this);
     }
@@ -64,6 +64,11 @@ public class CompetitionDetailActivity extends Activity implements ICallback,Vie
                             int code = jsonObject.optInt("code");
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
                         }
+                    }
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage("报名失败");
                     }
                 });
                 break;

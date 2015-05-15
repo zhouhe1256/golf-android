@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/catalog"
@@ -13,30 +13,47 @@
         android:paddingLeft="5dip"
         android:paddingTop="5dip"
         android:clickable="false"
-       	android:enabled="false"
+        android:enabled="false"
         android:background="@color/bg_sort_color"
-        android:paddingBottom="5dip"/>
-    <LinearLayout 
+        android:paddingBottom="5dip" />
+
+    <RelativeLayout
         android:id="@+id/ll_constact"
         android:layout_height="60dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-       >
+        android:gravity="center_vertical">
+
         <com.bjcathay.golf.view.ImageTextView
-            android:id="@+id/icon" 
+            android:id="@+id/icon"
             android:layout_marginLeft="5dip"
             android:layout_height="wrap_content"
-            android:layout_width="45dip"
-            android:text="find"
-           />
-        <TextView 
+            android:layout_centerVertical="true"
+            android:layout_width="45dp"
+            android:text="find" />
+
+        <TextView
+            android:layout_toRightOf="@id/icon"
             android:id="@+id/title"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textColor="#336598"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:textColor="@color/mian_text_color"
             android:layout_marginLeft="10dp"
-            android:textSize="18sp"/>
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:text="啊哦额"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/contact_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赠送"
+
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/ic_exchange_yellow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 </LinearLayout>

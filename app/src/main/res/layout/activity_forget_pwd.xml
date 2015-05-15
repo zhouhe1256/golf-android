@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="130dp"
+    android:background="@drawable/login_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.bjcathay.golf.view.ClearEditText
+            android:id="@+id/register_user_phone"
+            android:layout_weight="2"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:hint="请输入手机号"
+            android:drawableLeft="@drawable/ic_login_phone"
+            android:textCursorDrawable="@null"
+            android:drawablePadding="10dp"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:textColorHint="@color/white"
+            android:padding="10dp"
+            android:textSize="15dp"
+            android:background="@android:color/transparent" />
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="match_parent"
+            android:layout_width="1px"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/register_get_code_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="获取验证码"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#DDDDDD" />
+
+
+
+    <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/register_user_code"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="验证码"
+        android:textSize="15dp"
+        android:drawableLeft="@drawable/ic_register_code"
+        android:textCursorDrawable="@null"
+        android:drawablePadding="10dp"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:textColorHint="@color/white"
+        android:padding="10dp"
+        android:background="@android:color/transparent" />
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#DDDDDD" />
+
+
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_margin="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/login_color"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="下一步" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <com.bjcathay.golf.view.TopView
+            android:id="@+id/top_forget_layout"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_back"
+            android:layout_marginBottom="30dp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

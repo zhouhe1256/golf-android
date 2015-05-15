@@ -28,7 +28,7 @@ public class PickerView extends View {
     /**
      * text之间间距和minTextSize之比
      */
-    public static final float MARGIN_ALPHA = 2.8f;
+    public static final float MARGIN_ALPHA = 3.0f;
     /**
      * 自动回滚到中间的速度
      */
@@ -41,8 +41,8 @@ public class PickerView extends View {
     private int mCurrentSelected;
     private Paint mPaint;
 
-    private float mMaxTextSize = 20;
-    private float mMinTextSize = 10;
+    private float mMaxTextSize = 30;
+    private float mMinTextSize = 29;
 
     private float mMaxTextAlpha = 170;
     private float mMinTextAlpha = 70;
@@ -97,7 +97,10 @@ public class PickerView extends View {
 
     private void performSelect() {
         if (mSelectListener != null)
-            mSelectListener.onSelect(mDataList.get(mCurrentSelected));
+            if (mDataList.size() >=2)
+                mSelectListener.onSelect(mDataList.get(mCurrentSelected));
+            else
+                mSelectListener.onSelect(mDataList.get(0));
     }
 
     public void setData(List<String> datas) {
@@ -158,8 +161,8 @@ public class PickerView extends View {
         mViewHeight = getMeasuredHeight();
         mViewWidth = getMeasuredWidth();
         // 按照View的高度计算字体大小
-        mMaxTextSize = mViewHeight / 5.0f;
-        mMinTextSize = mMaxTextSize / 1.5f;
+        //  mMaxTextSize = mViewHeight / 5.0f;
+        // mMinTextSize = mMaxTextSize / 1.5f;
         isInit = true;
         invalidate();
     }
@@ -192,15 +195,21 @@ public class PickerView extends View {
         float y = (float) (mViewHeight / 2.0 + mMoveLen);
         FontMetricsInt fmi = mPaint.getFontMetricsInt();
         float baseline = (float) (y - (fmi.bottom / 2.0 + fmi.top / 2.0));
-
-        canvas.drawText(mDataList.get(mCurrentSelected), x, baseline, mPaint);
+        //画间隔线
+       // canvas.drawLine(mViewWidth * 1 / 6,mViewHeight*2, mViewWidth * 5 / 6,mViewHeight*2, mPaint);
+        if (mDataList.size() >= 2)
+            canvas.drawText(mDataList.get(mCurrentSelected), x, baseline, mPaint);
+        else
+            canvas.drawText(mDataList.get(0), x, baseline, mPaint);
         // 绘制上方data
-        for (int i = 1; (mCurrentSelected - i) >= 0; i++) {
-            drawOtherText(canvas, i, -1);
-        }
-        // 绘制下方data
-        for (int i = 1; (mCurrentSelected + i) < mDataList.size(); i++) {
-            drawOtherText(canvas, i, 1);
+        if (mDataList.size() >= 2) {
+            for (int i = 1; (mCurrentSelected - i) >= 0; i++) {
+                drawOtherText(canvas, i, -1);
+            }
+            // 绘制下方data
+            for (int i = 1; (mCurrentSelected + i) < mDataList.size(); i++) {
+                drawOtherText(canvas, i, 1);
+            }
         }
 
     }

@@ -3,6 +3,7 @@ package com.bjcathay.golf.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.application.GApplication;
 import com.bjcathay.golf.constant.ErrorCode;
+import com.bjcathay.golf.fragment.DialogSureOrderFragment;
 import com.bjcathay.golf.model.OrderModel;
 import com.bjcathay.golf.model.PriceModel;
 import com.bjcathay.golf.model.StadiumModel;
@@ -39,6 +41,7 @@ import com.bjcathay.golf.view.TopView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -106,6 +109,8 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
                               /* RadioButton rb = (RadioButton)ScheduleActivity.this.findViewById(radioButtonId);
                                //更新文本内容，以符合选中项
                             tv.setText("您的性别是：" + rb.getText());*/
+                // ((TextView) findViewById(radioButtonId)).setTextColor(Color.WHITE);
+
                 switch (radioButtonId) {
                     case R.id.btn_0:
                         attendNumber = 1;
@@ -124,6 +129,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
                         //showSureDialog();
                         break;
                 }
+                getDayPrice(stadiumModel.getPrices());
             }
         });
 
@@ -181,13 +187,22 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
                 // Intent intent=new Intent(ScheduleActivity.this,OrderSureActivity.class);
                 //ViewUtil.startActivity(ScheduleActivity.this,intent);
                 if (gApplication.isLogin() == true) {
-                    showSureDialog();
+                    showDialog();
                 } else {
                     Intent intent = new Intent(ScheduleActivity.this, LoginActivity.class);
                     ViewUtil.startActivity(ScheduleActivity.this, intent);
                 }
             }
         });
+    }
+
+    DialogSureOrderFragment dialogSureOrderFragment;
+
+    private void showDialog() {
+        if (stadiumModel != null) {
+            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, getDate(), attendNumber);
+            dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
+        }
     }
 
     private void initData() {
@@ -199,68 +214,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
         ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.ic_launcher);
-
         StadiumModel.stadiumDetail(id).done(this);
-    }
-
-    private void showSureDialog() {
-        LayoutInflater inflater = getLayoutInflater();
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_order_sure, null);
-        TopView topView1 = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_title);
-        topView1.setVisiable(View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
-        topView1.setRightbtn("X", 0);
-
-        TextView name = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_name);
-        TextView time = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_time);
-        TextView phone = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_phone);
-        TextView service = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_service);
-        TextView number_ = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_number);
-        TextView price = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_price);
-        Button sure = ViewUtil.findViewById(rootView, R.id.sure_order);
-
-        name.setText(stadiumModel.getName());
-        time.setText(getDate());
-        //手机号码
-        phone.setText("手机号码：" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE, ""));
-        service.setText("提供服务:" + stadiumModel.getPackageContent());
-        number_.setText("消费人数：" + attendNumber + "人");
-        final Dialog dialog = new Dialog(this, R.style.myDialogTheme);
-        dialog.setContentView(rootView);
-        price.setText("价格:￥" + Double.valueOf(stadiumModel.getPrice()) * attendNumber + "");
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                OrderModel.commitOrder(stadiumModel.getId(), attendNumber, getDate()).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        //JSONObject jsonObject = arguments.get(0);
-                        OrderModel orderModel = arguments.get(0);
-                        Intent intent = new Intent(ScheduleActivity.this, RemindInfoActivity.class);
-                        ViewUtil.startActivity(ScheduleActivity.this, intent);
-                    }
-                }).fail(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        DialogUtil.showMessage("下单失败");
-                    }
-                });
-
-
-            }
-        });
-        topView1.getRightbtn().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-
-        //dialog.create();
-        // dialog.setContentView(rootView);
-        dialog.show();
-
     }
 
 
@@ -270,8 +224,19 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         hours = DateUtil.getAM(stadiumModel.getStartAt());
         topView.setTitleText(stadiumModel.getName());
         String endAt = stadiumModel.getEndAt();
-        stadiumContents.setText(stadiumModel.getPackageContent());
+        stadiumContents.setText(stadiumModel.getPriceInclude());
         // stadiumPrice.setText(stadiumModel.getPrice());
+        if ("SPECIAL".equals(stadiumModel.getType())) {
+            days.clear();
+            days.add(stadiumModel.getDate().substring(0, 10));
+            minits.clear();
+            minits.add("上午");
+            hours.clear();
+            hours.add(stadiumModel.getDate().substring(11, 15));
+        } else if ("LIMITED".equals(stadiumModel.getType())) {
+            days.clear();
+            days.add(stadiumModel.getDate().substring(0, 10));
+        }
         getDayPrice(stadiumModel.getPrices());
         stadiumAddress.setText(stadiumModel.getAddress());
     }
@@ -304,12 +269,14 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
     }
 
     private void getDayPrice(List<PriceModel> priceModels) {
-        getDate();
+        if (select == null)
+            getDate();
         for (PriceModel priceModel : priceModels) {
             if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                stadiumPrice.setText(Double.toString(priceModel.getPrice()));
+                stadiumPrice.setText("￥" + Double.toString(priceModel.getPrice() * attendNumber));
                 return;
             }
         }
+        stadiumPrice.setText("￥--");
     }
 }

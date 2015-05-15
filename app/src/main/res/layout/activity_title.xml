@@ -1,40 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/top_title"
     android:orientation="horizontal"
+    android:background="@color/home_title_color"
     android:layout_width="fill_parent"
     android:layout_height="50dp">
 
+    <ImageView
+        android:id="@+id/title_back_img"
+        android:src="@drawable/ic_title_back"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:layout_width="37dp"
+        android:visibility="gone"
+        android:layout_height="46dp" />
+
+    <ImageView
+        android:id="@+id/home_back_img"
+        android:src="@drawable/ic_home_back"
+        android:layout_marginLeft="10dp"
+        android:padding="12dp"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_width="46dp"
+        android:layout_height="46dp" />
+
     <TextView
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
         android:id="@+id/title_back"
-        android:layout_weight="1"
-        android:text="X"
-        android:layout_gravity="center"
+        android:background="@drawable/ic_title_back"
         android:gravity="center"
-        android:layout_width="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:textColor="@color/white"
-        android:layout_height="wrap_content" />
+        android:padding="15dp"
+        android:layout_width="23dp"
+        android:layout_height="27dp" />
 
     <TextView
         android:id="@+id/title_title"
         android:layout_weight="4"
-        android:text="标题"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:layout_marginRight="10dp"
         android:id="@+id/title_right"
         android:layout_weight="1"
-        android:text="操作键"
+        android:layout_alignParentRight="true"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:gravity="center"
-        android:visibility="invisible"
+        android:padding="10dp"
+        android:text="清空"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:onClick="onClick" />
+    <ImageView
+        android:id="@+id/title_setting_img"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_my_setting"
+        android:padding="12dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_width="46dp"
+        android:layout_height="46dp" />
+    <ImageView
+        android:id="@+id/title_share_img"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_share"
+        android:padding="12dp"
+        android:layout_marginRight="10dp"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_width="46dp"
+        android:layout_height="46dp" />
+</RelativeLayout>

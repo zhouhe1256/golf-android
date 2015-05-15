@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+        <solid android:color="@color/home_order_color"/>
+        </shape>
+    </item>
+    <item android:top="10dp" android:left="10dp" android:bottom="10dp">
+        <bitmap android:src="@drawable/home_order"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            />
+    </item>
 
-</selector>
+</layer-list>

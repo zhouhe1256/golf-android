@@ -104,7 +104,8 @@ public class HttpClient implements ICancellable {
     }
 
     public HttpClient param(String name, Object value) {
-        params.put(name, value);
+        if (value != null)
+            params.put(name, value);
         return this;
     }
 
@@ -392,7 +393,7 @@ public class HttpClient implements ICancellable {
             if (url.contains("?")) {
                 return url + "&" + queryString;
             }
-            Log.e("url",url + "?" + queryString);
+            Log.e("url", url + "?" + queryString);
             return url + "?" + queryString;
         }
 

@@ -21,4 +21,19 @@
     <color name="order_price_color">#F39C11</color>
     <color name="login_color">#4CC67D</color>
     <color name="user_center_bg">#EEEEEE</color>
+    <color name="home_share_bg">#9EE383</color>
+    <color name="line_color">#DADADA</color>
+    <color name="guolinbi_color">#f39c11</color>
+    <color name="exchange_text_color">#8c8c8c</color>
+    <color name="mian_text_color">#3c3c3c</color>
+    <color name="transparent_color">#f1f1f1</color>
+    <color name="tuangou_color">#a165d4</color>
+    <color name="unselect_color">#40BA5D</color>
+    <!--主文本色  #3c3c3c
+辅文本色  #8c8c8c
+不可用按钮背景   #bcbcbc
+间隔线   #d5d5d5
+背景色  #f1f1f1
+高亮字体颜色   f39c11(橘色)
+主题色#1fba5e-->
 </resources>

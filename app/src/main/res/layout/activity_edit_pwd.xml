@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+    <com.bjcathay.golf.view.TopView
+        android:id="@+id/top_edit_pwd_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
+    <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/edit_old_user"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:hint="旧的密码"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        android:layout_margin="10dp"
+        android:textColorHint="@color/mian_text_color"
+        android:textColor="@color/mian_text_color"
+        android:textSize="15dp"
+        android:background="@android:color/transparent" />
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
+
+    <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/edit_new_pwd"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:inputType="textPassword"
+        android:textColorHint="@color/mian_text_color"
+        android:textColor="@color/mian_text_color"
+        android:hint="新的密码"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent" />
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+    <com.bjcathay.golf.view.ClearEditText
+        android:id="@+id/edit_sure_new_pwd"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:inputType="textPassword"
+        android:textColorHint="@color/mian_text_color"
+        android:textColor="@color/mian_text_color"
+        android:hint="确认密码"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent" />
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+
+    <Button
+        android:id="@+id/edit_sure_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/yellow_big_bg"
+        android:textColor="@color/white"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="15sp"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:text="确认修改" />
+</LinearLayout>

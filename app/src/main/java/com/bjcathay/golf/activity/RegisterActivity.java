@@ -55,9 +55,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     }
 
     private void initEvent() {
-        topView.setTitleText("返回");
         //topView.setActivity(this);
-        topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+        topView.setVisiable(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);
@@ -113,6 +112,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
           /*  UserModel userModel = arguments.get(0);
             if (userModel.getMobileNumber() != null) {*/
                 DialogUtil.showMessage("注册成功");
+            finish();
            // }
         } else {
             int code = jsonObject.optInt("code");

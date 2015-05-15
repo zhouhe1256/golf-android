@@ -1,58 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
-    android:layout_margin="5dp"
-    android:layout_height="wrap_content">
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/exchange_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/gray"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/exchange_default"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"/>
 
     <Button
-
         android:id="@+id/to_exchange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_gray_bg"
         android:text="兑换" />
 
     <LinearLayout
         android:id="@+id/center_layout"
         android:layout_toRightOf="@id/exchange_image"
         android:layout_toLeftOf="@id/to_exchange"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
-            android:paddingTop="5dp"
+
             android:id="@+id/exchange_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/mian_text_color"
             android:text="PGA赛事兑换卡" />
 
         <TextView
-            android:padding="5dp"
+            android:paddingTop="10dp"
             android:id="@+id/exchange_need_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="５个有效用户"
+            android:textSize="12sp"
             android:textColor="@color/order_price_color" />
 
         <TextView
-            android:padding="5dp"
+            android:paddingTop="10dp"
             android:id="@+id/exchange_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:singleLine="true"
             android:textSize="12dp"
             android:text="领取此卡即可免费参加PGA赛事" />
 

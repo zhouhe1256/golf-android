@@ -17,27 +17,28 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
 
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
             android:weightSum="2"
-            android:orientation="horizontal">
-
+            android:orientation="vertical">
             <com.bjcathay.golf.view.JazzyViewPager
                 android:id="@+id/jazzy_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.bjcathay.golf.view.JazzyViewPager>
-
+                android:layout_height="fill_parent" />
             <LinearLayout
-                android:id="@+id/doto_ly"
-                android:layout_width="fill_parent"
+                android:id="@+id/doto_main_ly"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dip"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"></LinearLayout>
-        </LinearLayout>
+                android:layout_marginBottom="3dip"
+                android:layout_alignBottom="@id/jazzy_viewpager"
+                android:gravity="center"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -60,56 +61,161 @@
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
 
-                    <Button
-                        android:layout_margin="5dp"
-                        android:id="@+id/compitetion_event"
-                        android:text="免费赛事"
-                        android:layout_weight="2"
-                        android:textColor="@color/white"
+                    <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="@color/home_event_color" />
+                        android:orientation="vertical"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        android:weightSum="3"
+                        android:background="@color/home_event_color"
+                        android:id="@+id/compitetion_event">
 
-                    <Button
+                        <TextView
+
+                            android:text="免费赛事"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:layout_width="fill_parent"
+                            android:layout_height="52dp" />
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="71dp"
+                            android:layout_weight="2"
+                            android:background="@drawable/home_compete"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
                         android:layout_margin="5dp"
                         android:id="@+id/exchange_award"
-                        android:text="兑换商城"
-                        android:textColor="@color/white"
+                        android:background="@color/home_exchange_color"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:text="兑换商城"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/home_shop"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/order_place"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/home_order_color">
+
+                    <TextView
+
+                        android:text="约场"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="20sp"
                         android:layout_weight="3"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="@color/home_exchange_color" />
+                        android:background="@color/home_order_color" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/home_order"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="45dp"
+                        android:layout_marginBottom="15dp" />
                 </LinearLayout>
-
-                <Button
-                    android:layout_margin="5dp"
-                    android:id="@+id/order_place"
-                    android:text="约场"
-                    android:textColor="@color/white"
-
-                    android:layout_weight="2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@color/home_order_color" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_weight="3"
                 android:layout_height="fill_parent">
 
-                <Button
-                    android:layout_margin="5dp"
-                    android:id="@+id/user_center"
-                    android:text="个人中心"
-                    android:textColor="@color/white"
-
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@color/home_my_color" />
+                    android:orientation="horizontal"
+                    android:layout_weight="2.5"
+                    android:layout_margin="5dp"
+                    android:id="@+id/user_center"
+                    android:layout_gravity="center"
+                    android:background="@color/home_my_color">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="个人中心"
+                        android:textColor="@color/white"
+                        android:layout_width="130dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/home_my_color" />
+
+                    <ImageView
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="11dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/home_me" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/home_share_title"
+                    android:layout_margin="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="4"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:background="@color/home_share_bg">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="分享" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/home_code"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

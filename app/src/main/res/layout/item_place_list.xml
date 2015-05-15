@@ -2,8 +2,8 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -12,28 +12,29 @@
 
         <ImageView
             android:id="@+id/place_image"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
-            android:background="@color/gray" />
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@color/gray"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/tuan_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/ic_tag_tuangou"
             android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/temai_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/ic_tag_temai"
             android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_marginTop="2dp"
@@ -43,24 +44,32 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:paddingTop="5dp"
+                android:padding="5dp"
                 android:id="@+id/place_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/mian_text_color"
                 android:text="北京清河湾乡村体育俱乐部" />
 
             <TextView
-                android:padding="3dp"
+                android:padding="5dp"
                 android:id="@+id/place_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="@color/exchange_text_color"
                 android:text="18洞果/童/车/柜" />
 
             <TextView
-                android:padding="3dp"
+                android:padding="5dp"
                 android:id="@+id/place_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="@color/exchange_text_color"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="地址" />
 
             <TextView
@@ -68,27 +77,34 @@
                 android:id="@+id/place_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥:1660.00"
+                android:textSize="17sp"
+                android:text="￥1660.00"
                 android:textColor="@color/order_price_color" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tuan_short"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_width="90dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:src="@color/home_exchange_color"
+            android:background="@color/tuangou_color"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:gravity="center"
             android:visibility="gone"
             />
         <TextView
             android:id="@+id/temai_short"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_width="90dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:src="@color/yellow"
+            android:background="@color/order_price_color"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:gravity="center"
             android:visibility="gone"/>
     </RelativeLayout>
 

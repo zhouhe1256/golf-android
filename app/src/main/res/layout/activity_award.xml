@@ -3,29 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="fill_parent">
 
     <com.bjcathay.golf.view.TopView
         android:id="@+id/top_award_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
+        android:background="@color/home_title_color" />
 
     <LinearLayout
         android:id="@+id/usable_number"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/ic_launcher"
-            android:layout_width="25dp"
+            android:src="@drawable/ic_guolinbi"
+            android:layout_width="23dp"
             android:layout_margin="12dp"
             android:layout_marginLeft="12dp"
-            android:layout_height="25dp" />
+            android:layout_height="23dp" />
 
         <RelativeLayout
+            android:layout_marginLeft="17dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,41 +35,41 @@
                 android:layout_height="fill_parent">
 
                 <TextView
+                    android:id="@+id/exchange_invite_numb_"
                     android:text="@string/usable_user_number"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
 
 
-                <ImageView
-                    android:id="@+id/usable_go"
-                    android:layout_marginRight="12dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/go"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
+                <!-- <ImageView
+                     android:id="@+id/usable_go"
+                     android:layout_marginRight="12dp"
+                     android:layout_centerVertical="true"
+                     android:layout_alignParentRight="true"
+                     android:src="@drawable/go"
+                     android:layout_width="9dp"
+                     android:layout_height="13dp" />-->
 
                 <TextView
-                    android:layout_toLeftOf="@id/usable_go"
-                    android:visibility="invisible"
+                    android:id="@+id/exchange_invite_numb"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/exchange_invite_numb_"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:textStyle="bold"
-                    android:textSize="5sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@color/red"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp" />
+                    android:text="0"
+                    android:textSize="15sp"
+                    android:textColor="@color/guolinbi_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
     <ListView
-        android:layout_marginTop="10dp"
         android:id="@+id/exchange_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

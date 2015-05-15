@@ -12,7 +12,7 @@ public class ApiUrl {
     public static final String OS = SystemUtil.getVersion();
 
     public static final String HOME_BANNER = "/api/banner";//首页活动(GET /api/banner)
-    public static final String STSDIUM_LIST = "/api/golf_course";//场馆列表(GET /api/golf_course)
+    public static final String STSDIUM_LIST = "/api/goods";//场馆列表(GET /api/golf_course)
 
 
     public static final String REGISTER = "/api/user/register";//注册用户(POST /api/user/register)
@@ -40,12 +40,12 @@ public class ApiUrl {
     public static final String MY_MESSAGE = "/api/user/message"; //我的消息(GET /api/user/message)
     public static final String MY_PROPS = "/api/user/prop"; //我的兑换(GET /api/user/prop)
     public static final String DELETE_EVENTS = "/api/user/event"; //删除赛事(DELETE /api/user/event)
-    //public static final String DELETE_EVENTS = "/api/user/event"; //我的赛事(GET /api/user/event)
+    public static final String FEED_BACK = "/api/user/feedback"; //用户反馈(POST /api/user/feedback)
 
 
     //场馆详情(GET /api/golf_course/:id)
     public static String stadiumDetail(Long id) {
-        return "/api/golf_course/" + id;
+        return "/api/goods/" + id;
     }
 
     //赛事详情(GET /api/event/:id)

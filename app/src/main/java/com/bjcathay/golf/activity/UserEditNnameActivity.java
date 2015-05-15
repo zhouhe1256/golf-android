@@ -15,6 +15,8 @@ import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.UserModel;
 import com.bjcathay.golf.util.DialogUtil;
 import com.bjcathay.golf.util.ViewUtil;
+import com.bjcathay.golf.view.TopView;
+import com.igexin.sdk.PushManager;
 
 /**
  * Created by bjcathay on 15-5-11.
@@ -23,6 +25,8 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
     private Activity context;
     private EditText nicknameEdit;
     private TextView nicknameLengthText;
+    private TopView topView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +35,17 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
         initData();
         initEvent();
     }
+
     private void initEvent() {
+        topView.setActivity(this);
+        topView.setTitleText("修改真实姓名");
         nicknameEdit.addTextChangedListener(this);
+
     }
 
     private void initData() {
         Intent intent = getIntent();
-        String nickname = intent.getStringExtra("nickname");
+        String nickname = intent.getStringExtra("name");
         if (nickname == null) {
             nickname = "";
         }
@@ -46,30 +54,35 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
     }
 
     private void initView() {
-        super.setTitle("修改昵称");
         context = this;
-
+        topView = ViewUtil.findViewById(this, R.id.top_edit_name_layout);
         nicknameEdit = ViewUtil.findViewById(context, R.id.edit_nickname_edit_view);
         nicknameLengthText = ViewUtil.findViewById(context, R.id.edit_nickname_text_view);
     }
 
     @Override
     public void onClick(View v) {
-        String nickname = nicknameEdit.getText().toString();
-        if (nickname.length() > 10) {
-            DialogUtil.showMessage("昵称长度超出范围");
-            return;
-        } else if (!nickname.isEmpty()) {
-            UserModel.updateUserInfo(nickname,"",nickname,"","","","","","",0,0).done(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    UserModel userModel = arguments.get(0);
-                    DialogUtil.showMessage("修改成功");
-                    ViewUtil.finish(UserEditNnameActivity.this);
-                }
-            });
-        } else {
-            DialogUtil.showMessage("昵称不能为空");
+        switch (v.getId()) {
+            case R.id.edit_sure:
+            String nickname = nicknameEdit.getText().toString();
+            if (nickname.length() > 10) {
+                DialogUtil.showMessage("姓名长度超出范围");
+                return;
+            } else if (!nickname.isEmpty()) {
+                UserModel.updateUserInfo(null, null, nickname, PushManager.getInstance().getClientid(this), null, null, null, null, null, null, null).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        UserModel userModel = arguments.get(0);
+                        Intent intent = new Intent();
+                        intent.putExtra("name", userModel.getRealName());
+                        setResult(5,intent);
+                        DialogUtil.showMessage("修改成功");
+                        ViewUtil.finish(UserEditNnameActivity.this);
+                    }
+                });
+            } else {
+                DialogUtil.showMessage("姓名不能为空");
+            }
         }
     }
 

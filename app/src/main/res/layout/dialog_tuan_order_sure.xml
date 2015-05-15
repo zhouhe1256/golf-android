@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.bjcathay.golf.view.TopView
+        android:id="@+id/dialog_order_sure_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="20dp">
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_order_sure_name"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mian_text_color"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="北京清河湾高尔夫俱乐部" />
+
+            <TextView
+                android:id="@+id/dialog_order_sure_time"
+                android:textColor="@color/mian_text_color"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015.4.26  2:30" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/exchange_text_color"
+                    android:text="手机号码:" />
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/mian_text_color"
+                    android:text="1234567890" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/exchange_text_color"
+                    android:text="价格包含:" />
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_service"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/mian_text_color"
+                    android:text="18洞果岭/僮/车/柜" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/exchange_text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="消费人数:" />
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_number"
+                    android:textSize="14sp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/mian_text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="４人" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/exchange_text_color"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价格:" />
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_price"
+
+                    android:textSize="14sp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/guolinbi_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥1480" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/sure_order"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="20dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/yellow_big_bg"
+            android:text="团购并付款" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="247dp"
+                android:textSize="10sp"
+                android:minLines="3"
+                android:textColor="@color/exchange_text_color"
+                android:text="@string/order_sure_instruction" />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

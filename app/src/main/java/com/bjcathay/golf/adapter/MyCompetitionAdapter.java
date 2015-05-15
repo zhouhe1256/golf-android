@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.model.EventModel;
 import com.bjcathay.golf.model.PlaceModel;
 import com.bjcathay.golf.util.ViewUtil;
+import com.bjcathay.golf.view.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,24 +53,27 @@ public class MyCompetitionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_competition_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_competition_list, parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
         EventModel eventModel = items.get(position);
-        // ImageViewAdapter.adapt(holder.imageView, eventModel.getImageUrl(), R.drawable.ic_launcher);
-        holder.total.setText(eventModel.getStartAt().substring(0, 10) + " " + ("PUBLIC".equals(eventModel.getType()) ? "公开赛" : "邀请赛"));
-        if ("SIGNING".equals(eventModel.getStatus()))
-            holder.status.setText("报名中");
-        else if ("FINISH".equals(eventModel.getStatus()))
+        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_launcher);
+        if ("SIGNING".equals(eventModel.getStatus())||"CANCEL".equals(eventModel.getStatus())) {
+            holder.status.setText("已报名");
+            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
+        } else if ("FINISH".equals(eventModel.getStatus())) {
             holder.status.setText("已结束");
+            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
+        }
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址" + eventModel.getAddress());
-        holder.time.setText("时间" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
-        holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
+        holder.time.setText("时间:" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
+        holder.count.setText("参加人数:" + eventModel.getSignUpAmount());
         holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
+
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,22 +84,22 @@ public class MyCompetitionAdapter extends BaseAdapter {
     }
 
     class Holder {
-        TextView total;
         TextView status;
         TextView title;
         TextView address;
         TextView time;
         TextView count;
         TextView detail;
+        CircleImageView img;
 
         public Holder(View view) {
-            total = ViewUtil.findViewById(view, R.id.my_competition_total);
-            status = ViewUtil.findViewById(view, R.id.my_competition_status);
-            title = ViewUtil.findViewById(view, R.id.my_competition_title);
-            address = ViewUtil.findViewById(view, R.id.my_competition_address);
-            time = ViewUtil.findViewById(view, R.id.my_competition_time);
-            count = ViewUtil.findViewById(view, R.id.my_competition_count);
-            detail = ViewUtil.findViewById(view, R.id.my_competition_detail);
+            status = ViewUtil.findViewById(view, R.id.competition_status);
+            title = ViewUtil.findViewById(view, R.id.competition_title);
+            address = ViewUtil.findViewById(view, R.id.competition_address);
+            time = ViewUtil.findViewById(view, R.id.competition_time);
+            count = ViewUtil.findViewById(view, R.id.competition_count);
+            detail = ViewUtil.findViewById(view, R.id.competition_detail);
+            img = ViewUtil.findViewById(view, R.id.compete_logo_img);
         }
     }
 }

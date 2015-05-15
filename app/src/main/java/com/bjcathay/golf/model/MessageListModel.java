@@ -45,6 +45,12 @@ public class MessageListModel implements Serializable {
                 param("from", buffer).contentDecoder(decoder).run();
     }
 
+    public static IPromise deleteMessages(String ids) {
+        return Http.instance().post(ApiUrl.DELETE_MESSAGE).
+                param("_method", "DELETE").
+                param("from", ids).contentDecoder(decoder).run();
+    }
+
     public static IPromise deleteMessages(List<String> ids) {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < ids.size(); i++) {
@@ -53,7 +59,8 @@ public class MessageListModel implements Serializable {
             else
                 buffer.append(ids.get(i));
         }
-        return Http.instance().get(ApiUrl.DELETE_MESSAGE).
+        return Http.instance().post(ApiUrl.DELETE_MESSAGE).
+                param("_method", "DELETE").
                 param("from", buffer).contentDecoder(decoder).run();
     }
 }

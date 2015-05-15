@@ -40,7 +40,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     private LinearLayout myMessage;
     private LinearLayout myPerson;
     private LinearLayout myExchange;
-    private Button logoutBtn;
+
     private CircleImageView userImg;
     private TextView userPhone;
     //自定义的弹出框类
@@ -69,7 +69,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         myMessage = ViewUtil.findViewById(this, R.id.my_message);
         myPerson = ViewUtil.findViewById(this, R.id.my_personal);
         myExchange = ViewUtil.findViewById(this, R.id.my_exchange);
-        logoutBtn = ViewUtil.findViewById(this, R.id.logout_btn);
+
     }
 
     private void initDate() {
@@ -79,12 +79,16 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     private void initEvent() {
         topView.setTitleText("个人中心");
         topView.setActivity(this);
+        topView.setRightbtn(null,R.drawable.ic_my_setting);
+        topView.setLeftbtnText(null,R.drawable.ic_home_back);
+        topView.setVisiable(View.VISIBLE,View.VISIBLE,View.VISIBLE);
+        topView.getRightbtn().setOnClickListener(this);
         myOrder.setOnClickListener(this);
         myCompe.setOnClickListener(this);
         myMessage.setOnClickListener(this);
         myPerson.setOnClickListener(this);
         myExchange.setOnClickListener(this);
-        logoutBtn.setOnClickListener(this);
+
         userImg.setOnClickListener(this);
     }
 
@@ -118,14 +122,9 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 intent = new Intent(this, MyExchangeActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-            case R.id.logout_btn:
-               /* intent = new Intent(this, LoginActivity.class);
-                ViewUtil.startActivity(this, intent);*/
-                PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, "");
-                gApplication.updateApiToken();
-                DialogUtil.showMessage("退出成功");
-                intent = new Intent(this, MainActivity.class);
-                ViewUtil.startTopActivity(this, intent);
+            case R.id.title_right:
+                intent = new Intent(this, SettingActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.user_center_img:
                 //实例化SelectPicPopupWindow
@@ -145,6 +144,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     @Override
     public void call(Arguments arguments) {
         userModel = arguments.get(0);
+        PreferencesUtils.putString(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount()+"");
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
         userPhone.setText(userModel.getNickname());
     }

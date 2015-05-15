@@ -12,4 +12,5 @@ public class PreferencesConstant {
     public static final String PLACE_END_TIME="place_etime";
     public static final String LAST_UPDATE_MESSAGE="last_update_message";
     public static final String USER_PHONE="user_phone";
+    public static final String VALIDATED_USER="validated user";
 }

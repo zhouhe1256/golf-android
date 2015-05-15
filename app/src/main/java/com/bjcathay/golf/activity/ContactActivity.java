@@ -14,9 +14,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.golf.R;
 import com.bjcathay.golf.adapter.SortAdapter;
+import com.bjcathay.golf.model.PropModel;
 import com.bjcathay.golf.model.SortModel;
+import com.bjcathay.golf.model.UserListModle;
 import com.bjcathay.golf.util.CharacterParser;
 import com.bjcathay.golf.util.ConstactUtil;
 import com.bjcathay.golf.util.PinyinComparator;
@@ -27,6 +31,7 @@ import com.bjcathay.golf.view.TopView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +109,12 @@ public class ContactActivity extends Activity {
                 String number = callRecords.get(((SortModel) adapter
                         .getItem(position)).getName());
                 Toast.makeText(ContactActivity.this, number, Toast.LENGTH_SHORT).show();
+                PropModel.sendProp(Long.valueOf(getIntent().getStringExtra("id")),number).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+
+                    }
+                });
             }
         });
 
@@ -126,13 +137,25 @@ public class ContactActivity extends Activity {
             super.onPostExecute(result);
             if (result == 1) {
                 List<String> constact = new ArrayList<String>();
+               // Map<String, boolean> status=new HashMap<String, boolean>();
                 for (Iterator<String> keys = callRecords.keySet().iterator(); keys
                         .hasNext(); ) {
                     String key = keys.next();
                     constact.add(key);
+                  //  status.put(key,false);
                 }
+
                 String[] names = new String[]{};
                 names = constact.toArray(names);
+
+                //
+               /* UserListModle.searchUsers(constact).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                           UserListModle userListModle=arguments.get(0);
+
+                    }
+                });*/
                 SourceDateList = filledData(names);
 
                 // 根据a-z进行排序源数据

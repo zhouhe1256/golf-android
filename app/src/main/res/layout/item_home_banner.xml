@@ -18,5 +18,5 @@
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
         android:textSize="15sp"
-        android:text="广告语古典灯笼摄影作品"/>
+        />
 </RelativeLayout>

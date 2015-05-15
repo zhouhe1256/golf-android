@@ -58,7 +58,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
-        topView.setTitleText("返回");
         topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         loginbtn.setOnClickListener(this);
@@ -97,6 +96,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.forget_secrete:
+                intent = new Intent(this, ForgetPwdActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.top_login_layout:
                 finish();
@@ -114,13 +115,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             //保存用户名和密码
             PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME, userModel.getNickname());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE, userModel.getMobileNumber());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteCode());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, loginUser.getText().toString().trim());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD, loginpwd.getText().toString().trim());
+
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             gApplication.updateApiToken();
             DialogUtil.showMessage("登陆成功");
-            Intent intent = new Intent(this, MainActivity.class);
-            ViewUtil.startTopActivity(this, intent);
+            finish();
         } else {
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));

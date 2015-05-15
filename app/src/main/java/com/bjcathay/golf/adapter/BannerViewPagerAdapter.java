@@ -64,12 +64,12 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         final BannerModel carouselModel = items.get(position);
 
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
-        final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
+       // final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
 
          ImageViewAdapter.adapt(bgView, carouselModel.getImageUrl(), R.drawable.ic_launcher);
 
-        bannerTitleView.setTextColor(Color.WHITE);
-        bannerTitleView.setText(carouselModel.getTitle());
+       // bannerTitleView.setTextColor(Color.WHITE);
+       // bannerTitleView.setText(carouselModel.getTitle());
         //bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
 
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
