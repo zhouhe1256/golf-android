@@ -63,6 +63,9 @@ public class TopView extends LinearLayout {
         setting.setVisibility(VISIBLE);
     }
 
+    public void setTitleUnVisiable() {
+        title.setVisibility(INVISIBLE);
+    }
 
     /**
      * 设置控件可见性

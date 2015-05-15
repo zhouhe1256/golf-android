@@ -78,11 +78,8 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private void initEvent() {
         topView.setTitleText("个人中心");
-        topView.setActivity(this);
-        topView.setRightbtn(null,R.drawable.ic_my_setting);
-        topView.setLeftbtnText(null,R.drawable.ic_home_back);
-        topView.setVisiable(View.VISIBLE,View.VISIBLE,View.VISIBLE);
-        topView.getRightbtn().setOnClickListener(this);
+        topView.setSettingVisiable();
+        topView.setHomeBackVisiable();
         myOrder.setOnClickListener(this);
         myCompe.setOnClickListener(this);
         myMessage.setOnClickListener(this);
@@ -122,16 +119,20 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 intent = new Intent(this, MyExchangeActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-            case R.id.title_right:
+            case R.id.title_setting_img:
                 intent = new Intent(this, SettingActivity.class);
                 ViewUtil.startActivity(this, intent);
+                break;
+            case R.id.home_back_img:
+                finish();
                 break;
             case R.id.user_center_img:
                 //实例化SelectPicPopupWindow
               /*  menuWindow = new SelectPicPopupWindow(UserCenterActivity.this, UserCenterActivity.this);
                 //显示窗口
                 menuWindow.showAtLocation(UserCenterActivity.this.findViewById(R.id.user_center_content), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-                */intent = new Intent(this, MyInformationActivity.class);
+                */
+                intent = new Intent(this, MyInformationActivity.class);
                 intent.putExtra("user", userModel);
                 ViewUtil.startActivity(this, intent);
 
@@ -140,11 +141,10 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     }
 
 
-
     @Override
     public void call(Arguments arguments) {
         userModel = arguments.get(0);
-        PreferencesUtils.putString(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount()+"");
+        PreferencesUtils.putString(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount() + "");
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
         userPhone.setText(userModel.getNickname());
     }
