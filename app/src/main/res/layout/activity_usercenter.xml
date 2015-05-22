@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/transparent_color"
-    >
+    android:background="@color/transparent_color">
 
     <LinearLayout
         android:id="@+id/user_center_content"
@@ -14,12 +13,12 @@
         android:orientation="vertical"
         android:background="@drawable/user_center_title_bg">
 
-        <com.bjcathay.golf.view.TopView
+        <com.bjcathay.qt.view.TopView
             android:id="@+id/top_usercenter_layout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent" />
 
-        <com.bjcathay.golf.view.CircleImageView
+        <com.bjcathay.qt.view.CircleImageView
             android:id="@+id/user_center_img"
             android:layout_marginTop="25dp"
             android:layout_width="90dp"
@@ -62,15 +61,13 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-
                     android:text="我的订单"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:textColor="@color/mian_text_color"/>
-
+                    android:textColor="@color/mian_text_color" />
 
 
                 <ImageView
@@ -81,6 +78,7 @@
                     android:src="@drawable/ic_user_center_inter"
                     android:layout_width="9dp"
                     android:layout_height="13dp" />
+
                 <TextView
                     android:layout_toLeftOf="@id/order_go"
                     android:visibility="invisible"
@@ -93,7 +91,6 @@
                     android:background="@drawable/ic_new_message"
                     android:layout_width="8dp"
                     android:layout_height="8dp" />
-
             </RelativeLayout>
 
             <View
@@ -101,10 +98,7 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
-
         </RelativeLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -138,8 +132,6 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
 
-
-
                 <ImageView
                     android:id="@+id/go"
                     android:layout_marginRight="10dp"
@@ -148,6 +140,7 @@
                     android:src="@drawable/ic_user_center_inter"
                     android:layout_width="9dp"
                     android:layout_height="13dp" />
+
                 <TextView
                     android:layout_toLeftOf="@id/go"
                     android:visibility="invisible"
@@ -163,16 +156,12 @@
 
             </RelativeLayout>
 
-
             <View
                 android:layout_alignParentBottom="true"
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
-
         </RelativeLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -206,8 +195,6 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
 
-
-
                 <ImageView
                     android:id="@+id/exchange_go"
                     android:layout_marginRight="10dp"
@@ -216,6 +203,7 @@
                     android:src="@drawable/ic_user_center_inter"
                     android:layout_width="9dp"
                     android:layout_height="13dp" />
+
                 <TextView
                     android:layout_toLeftOf="@id/exchange_go"
                     android:visibility="invisible"
@@ -227,8 +215,7 @@
                     android:textColor="@color/white"
                     android:background="@drawable/ic_new_message"
                     android:layout_width="8dp"
-                    android:layout_height="8dp"
-                   />
+                    android:layout_height="8dp" />
 
             </RelativeLayout>
 
@@ -237,10 +224,7 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
-
         </RelativeLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -275,7 +259,6 @@
                     android:layout_height="wrap_content" />
 
 
-
                 <ImageView
                     android:id="@+id/message_go"
                     android:layout_marginRight="10dp"
@@ -284,6 +267,7 @@
                     android:src="@drawable/ic_user_center_inter"
                     android:layout_width="9dp"
                     android:layout_height="13dp" />
+
                 <TextView
                     android:layout_toLeftOf="@id/message_go"
                     android:visibility="visible"
@@ -295,18 +279,12 @@
                     android:textColor="@color/white"
                     android:background="@drawable/ic_new_message"
                     android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    />
+                    android:layout_height="8dp" />
 
             </RelativeLayout>
-
-
-
-
         </RelativeLayout>
-
-
     </LinearLayout>
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
@@ -345,9 +323,6 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
 
-
-
-
                 <ImageView
                     android:id="@+id/single_go"
                     android:layout_marginRight="10dp"
@@ -356,6 +331,7 @@
                     android:src="@drawable/ic_user_center_inter"
                     android:layout_width="9dp"
                     android:layout_height="13dp" />
+
                 <TextView
                     android:layout_toLeftOf="@id/single_go"
                     android:visibility="invisible"
@@ -365,11 +341,8 @@
                     android:layout_width="8dp"
                     android:layout_height="8dp"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
             </RelativeLayout>
-
-
             <!--<View
                 android:layout_alignParentBottom="true"
                 android:layout_height="1dp"
@@ -377,15 +350,12 @@
                 android:background="@color/gray" />-->
 
         </RelativeLayout>
-
-
     </LinearLayout>
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/touying_bg" />
-
-
 
 </LinearLayout>

@@ -10,6 +10,9 @@ import com.bjcathay.android.async.IPromise;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.HttpClient;
 import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ApiUrl;
 
 public class ImageViewAdapter {
     public static interface UpdatePredicate {
@@ -63,7 +66,8 @@ public class ImageViewAdapter {
     public ImageViewAdapter(ImageView imageView, Http http, String url, int defaultImageId, int errorImageId, IContentDecoder<Bitmap> contentDecoder, UpdatePredicate predicate) {
         this.imageView = imageView;
         this.http = http;
-        this.url = url;
+        //todo
+        this.url = GApplication.getInstance().getResources().getString(R.string.img_host) + url;
 
         this.defaultImageId = defaultImageId;
         this.errorImageId = errorImageId;
@@ -90,6 +94,9 @@ public class ImageViewAdapter {
             imageView.setImageResource(defaultImageId);
         }
 
+        //添加url host
+        //url = domain + url;
+        //  url = GApplication.getInstance().getResources().getString(R.string.img_host) + url;
         HttpClient httpClient = http.get(url);
         if (contentDecoder != null) {
             httpClient.contentDecoder(contentDecoder);

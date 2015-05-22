@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_my_competition_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
+        android:background="@color/home_title_color" />
 
     <!--<ListView
         android:background="@color/white"
@@ -20,8 +21,11 @@
         android:divider="@color/divider_list"
         android:dividerHeight="0.1dp"
         android:layout_height="wrap_content"></ListView>-->
-    <com.bjcathay.golf.view.AutoListView
+    <com.bjcathay.qt.view.AutoListView
         android:id="@+id/my_competition_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+<!--    <include layout="@layout/listview_empty" />-->
+
 </LinearLayout>

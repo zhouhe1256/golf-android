@@ -7,7 +7,7 @@
 
     android:background="@color/transparent_color">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_setting_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -133,6 +133,41 @@
             android:background="@drawable/line_divide_hor" />
 
         <RelativeLayout
+            android:id="@+id/setting_update"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:clickable="true"
+            android:onClick="onClick">
+
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center_vertical"
+                android:text="版本更新"
+                android:textSize="15sp"
+                android:textColor="@color/mian_text_color"
+                android:background="@color/white" />
+
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_info_enter"
+                android:gravity="center_vertical"
+                android:layout_width="10dp"
+                android:layout_height="17dp" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
+
+        <RelativeLayout
             android:id="@+id/setting_about"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -141,7 +176,6 @@
 
             <TextView
                 android:paddingLeft="10dp"
-
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"

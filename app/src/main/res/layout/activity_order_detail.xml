@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:background="@color/transparent_color">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_order_detail_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -241,7 +241,9 @@
         android:textSize="12sp"
         android:textColor="@color/exchange_text_color"
         android:gravity="center_vertical"
+        android:drawableRight="@drawable/ic_address"
         android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:background="@color/white"
         android:singleLine="true"
         android:ellipsize="end"

@@ -3,16 +3,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="fill_parent">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_my_message_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
-    <com.bjcathay.golf.view.AutoListView
+        android:background="@color/home_title_color" />
+
+    <com.bjcathay.qt.view.AutoListView
         android:id="@+id/my_message_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

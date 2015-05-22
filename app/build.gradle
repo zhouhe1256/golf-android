@@ -2,20 +2,21 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20.0.0"
-
+    buildToolsVersion '20.0.0'
     defaultConfig {
-        applicationId "com.bjcathay.golf"
+        applicationId 'com.bjcathay.golf'
         minSdkVersion 16
         targetSdkVersion 19
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
     }
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -25,4 +26,13 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile files('libs/GetuiExt-2.0.3.jar')
     compile files('libs/GetuiSdk2.4.1.0.jar')
+    compile files('libs/MobTools.jar')
+    compile files('libs/ShareSDK-Core-2.6.0.jar')
+    compile files('libs/ShareSDK-Email-2.6.0.jar')
+    compile files('libs/ShareSDK-QZone-2.6.0.jar')
+    compile files('libs/ShareSDK-ShortMessage-2.6.0.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.6.0.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.6.0.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.6.0.jar')
+    compile files('libs/ShareSDK-Wechat-2.6.0.jar')
 }

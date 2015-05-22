@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_send_friend_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/home_title_color"/>
 
-    <com.bjcathay.golf.view.ClearEditText
+    <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/send_input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

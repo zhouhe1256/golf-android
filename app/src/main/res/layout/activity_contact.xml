@@ -10,15 +10,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.bjcathay.golf.view.TopView
+        <com.bjcathay.qt.view.TopView
             android:id="@+id/top_contact_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/home_title_color">
 
-        </com.bjcathay.golf.view.TopView>
+        </com.bjcathay.qt.view.TopView>
 
-        <com.bjcathay.golf.view.ClearEditText
+        <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/filter_edit"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
@@ -55,7 +55,7 @@
                 android:textSize="30.0dip"
                 android:visibility="invisible" />
 
-            <com.bjcathay.golf.view.SideBar
+            <com.bjcathay.qt.view.SideBar
                 android:id="@+id/sidrbar"
                 android:layout_width="30.0dip"
                 android:layout_height="fill_parent"

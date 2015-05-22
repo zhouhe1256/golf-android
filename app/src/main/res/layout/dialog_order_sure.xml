@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/dialog_order_sure_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />

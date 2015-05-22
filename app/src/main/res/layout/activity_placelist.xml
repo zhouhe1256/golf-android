@@ -3,12 +3,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_placelist_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/order_title_color">
-    </com.bjcathay.golf.view.TopView>
+    </com.bjcathay.qt.view.TopView>
     <!--<ListView
         android:background="@color/white"
         android:id="@+id/place_list"
@@ -17,9 +17,13 @@
         android:dividerHeight="0.1dp"
         android:layout_height="wrap_content">
     </ListView>-->
-    <com.bjcathay.golf.view.AutoListView
+    <com.bjcathay.qt.view.AutoListView
         android:id="@+id/place_lstv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="8dp" />
 
 </LinearLayout>

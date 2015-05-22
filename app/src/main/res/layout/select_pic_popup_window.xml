@@ -19,27 +19,42 @@
             android:id="@+id/btn_take_photo"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="拍照模式"
-             />
+            android:background="@color/white"
+            android:textColor="@color/red"
+            android:text="拍照" />
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
 
         <Button
             android:id="@+id/btn_pick_photo"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
-            android:text="手机相册"
-            />
+            android:background="@color/white"
+            android:textColor="@color/home_title_color"
+            android:text="从相册选择" />
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:textColor="@color/home_title_color"
             android:text="取消"
-            android:layout_marginBottom="10dp"
-             />
+            android:layout_marginBottom="10dp" />
+
     </LinearLayout>
+
     <View
         android:id="@+id/darkbg"
         android:layout_above="@id/pop_layout"

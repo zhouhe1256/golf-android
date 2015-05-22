@@ -3,45 +3,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
 
     <LinearLayout
         android:id="@+id/my_message_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-            <TextView
+            <ImageView
+                android:id="@+id/message_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/red"
-                android:text=" " />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_new_message" />
 
             <TextView
+                android:layout_toRightOf="@id/message_status"
+                android:id="@+id/message_name"
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="你有一个订单待付款" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/message_relativeDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="刚刚"
+                android:layout_gravity="right"
+                android:gravity="right" />
+        </RelativeLayout>
 
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="刚刚"
-            android:layout_gravity="right"
-            android:gravity="right" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/my_message_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <LinearLayout
@@ -50,11 +59,11 @@
             android:padding="10dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/ic_launcher" />
+            <!--   <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:background="@drawable/ic_launcher" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -63,23 +72,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/place_title"
+                    android:id="@+id/message_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="北京清河湾乡村体育俱乐部" />
 
-                <TextView
-                    android:id="@+id/place_sale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="18洞果/童/车/柜" />
+                <!-- <TextView
+                     android:id="@+id/place_sale"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="18洞果/童/车/柜" />
 
-                <TextView
-                    android:id="@+id/place_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="￥:1660.00"
-                    android:textColor="#d33f3f" />
+                 <TextView
+                     android:id="@+id/place_price"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="￥:1660.00"
+                     android:textColor="#d33f3f" />-->
 
 
             </LinearLayout>
@@ -92,6 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="点击可直接付款" />
+            android:text="点击查看详情" />
     </LinearLayout>
 </LinearLayout>

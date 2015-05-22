@@ -1,102 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_margin="5dp"
-    android:layout_height="185dp">
-<RelativeLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:descendantFocusability="beforeDescendants">
 
-    <com.bjcathay.golf.view.CircleImageView
-        android:id="@+id/compete_logo_img"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_default_user" />
-    <TextView
-        android:id="@+id/competition_status"
-        android:layout_width="29dp"
-        android:layout_height="75dp"
-        android:background="@drawable/ic_attend_bg"
-        android:textSize="12sp"
-        android:layout_gravity="right"
-        android:textColor="@color/white"
-        android:gravity="center_horizontal"
-        android:layout_marginRight="10dp"
-        android:padding="5dp"
-        android:text="已结束"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-         />
     <LinearLayout
-        android:layout_toRightOf="@id/compete_logo_img"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/competition_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/mian_text_color"
-            android:textSize="15sp"
-            android:padding="5dp"
-            android:text="北京清河湾＊＊公开赛" />
-        <TextView
-            android:id="@+id/competition_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="13sp"
-            android:padding="5dp"
-            android:text="时间:2015.3.4" />
-        <TextView
-            android:id="@+id/competition_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="13sp"
-            android:padding="5dp"
-            android:text="地址:北京市清河湾" />
-
-
-
-        <TextView
-            android:id="@+id/competition_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="13sp"
-            android:padding="10dp"
-            android:text="参加人数:200人" />
-
-    </LinearLayout>
-
-    </RelativeLayout>
-
-
-
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
-        android:layout_marginLeft="95dp"
         android:layout_width="match_parent"
-        android:background="@drawable/touying_bg" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background_selector"
+        android:descendantFocusability="afterDescendants">
 
-    <TextView
-        android:id="@+id/competition_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:gravity="center_vertical"
-        android:text="已有150人报名"
-        android:textColor="@color/mian_text_color"
-        android:layout_gravity="right|center_vertical" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+            <com.bjcathay.qt.view.CircleImageView
+                android:id="@+id/compete_logo_img"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_default_user" />
+
+            <TextView
+                android:id="@+id/competition_status"
+                android:layout_width="29dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ic_attend_bg"
+                android:textSize="12sp"
+                android:layout_gravity="right"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:text="已结束"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true" />
+
+            <LinearLayout
+                android:layout_toRightOf="@id/compete_logo_img"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/competition_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mian_text_color"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:text="北京清河湾＊＊公开赛" />
+
+                <TextView
+                    android:id="@+id/competition_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="13sp"
+                    android:padding="5dp"
+                    android:text="时间:2015.3.4" />
+
+                <TextView
+                    android:id="@+id/competition_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="13sp"
+                    android:padding="5dp"
+                    android:text="地址:北京市清河湾" />
+
+
+                <TextView
+                    android:id="@+id/competition_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="13sp"
+                    android:padding="10dp"
+                    android:text="参加人数:200人" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_height="1dp"
+            android:layout_marginLeft="95dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
+
+        <TextView
+            android:id="@+id/competition_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:text="已有150人报名"
+            android:textColor="@color/mian_text_color"
+            android:layout_gravity="right|center_vertical" />
+    </LinearLayout>
+</FrameLayout>

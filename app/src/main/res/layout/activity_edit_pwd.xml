@@ -4,12 +4,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_color">
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_edit_pwd_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/home_title_color" />
-    <com.bjcathay.golf.view.ClearEditText
+    <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/edit_old_user"
         android:layout_width="match_parent"
         android:layout_height="47dp"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
 
-    <com.bjcathay.golf.view.ClearEditText
+    <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/edit_new_pwd"
         android:padding="15dp"
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/touying_bg" />
-    <com.bjcathay.golf.view.ClearEditText
+    <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/edit_sure_new_pwd"
         android:padding="15dp"
         android:layout_width="match_parent"

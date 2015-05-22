@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="5dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:descendantFocusability="beforeDescendants">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background_selector"
+        android:descendantFocusability="afterDescendants">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -85,27 +90,29 @@
 
         <TextView
             android:id="@+id/tuan_short"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/tuangou_color"
-            android:textColor="@color/white"
+            android:textColor="@color/order_price_color"
             android:textSize="11sp"
+            android:padding="5dp"
+            android:singleLine="true"
             android:gravity="center"
             android:visibility="gone"
             />
         <TextView
             android:id="@+id/temai_short"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/order_price_color"
-            android:textColor="@color/white"
+            android:textColor="@color/order_price_color"
             android:textSize="11sp"
+            android:padding="5dp"
+            android:singleLine="true"
             android:gravity="center"
             android:visibility="gone"/>
     </RelativeLayout>
-
 </LinearLayout>
+</FrameLayout>

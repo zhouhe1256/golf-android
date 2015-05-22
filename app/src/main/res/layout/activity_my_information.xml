@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_my_information_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         android:id="@+id/info_img_relative"
         android:layout_width="match_parent"
         android:layout_height="101dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:onClick="onClick">
 
@@ -36,7 +37,7 @@
             android:layout_width="10dp"
             android:layout_height="17dp" />
 
-        <com.bjcathay.golf.view.CircleImageView
+        <com.bjcathay.qt.view.CircleImageView
             android:id="@+id/info_img"
             android:layout_width="61dp"
             android:layout_height="61dp"

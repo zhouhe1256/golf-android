@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent_color">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_pay_detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -236,17 +236,17 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/line_divide_hor" />
+
 
         </RelativeLayout>
 
 
     </LinearLayout>
-
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
     <LinearLayout
         android:id="@+id/pay_ipay"
         android:layout_width="match_parent"

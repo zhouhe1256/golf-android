@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bjcathay.golf.view.TopView
+    <com.bjcathay.qt.view.TopView
         android:id="@+id/top_my_order_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/home_title_color"/>
-    <com.bjcathay.golf.view.AutoListView
+    <com.bjcathay.qt.view.AutoListView
         android:id="@+id/my_order_list"
         android:layout_width="match_parent"
-        android:divider="@color/transparent_color"
-        android:dividerHeight="2dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="8dp" />
     <!--<ListView
         android:background="@color/white"
         android:id="@+id/my_order_list"
