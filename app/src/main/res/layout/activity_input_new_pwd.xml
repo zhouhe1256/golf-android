@@ -4,20 +4,37 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="130dp"
+    android:paddingTop="80dp"
     android:background="@drawable/login_bg">
+    <TextView
+        android:layout_marginBottom="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/main_textSize"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="重置密码" />
 
+    <View
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
 
     <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/edit_new_pwd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="新的密码"
+        android:hint="请输入新的密码"
         android:textSize="15dp"
         android:drawableLeft="@drawable/ic_login_pwd"
         android:textCursorDrawable="@null"
-        android:drawablePadding="10dp"
+        android:drawablePadding="20dp"
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:textColorHint="@color/white"
@@ -25,8 +42,8 @@
         android:background="@android:color/transparent" />
 
     <View
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_height="1px"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
@@ -36,11 +53,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="重新输入一次"
+        android:hint="重复输入一次"
         android:textSize="15dp"
         android:drawableLeft="@drawable/ic_login_pwd"
         android:textCursorDrawable="@null"
-        android:drawablePadding="10dp"
+        android:drawablePadding="20dp"
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:textColorHint="@color/white"
@@ -48,8 +65,8 @@
         android:background="@android:color/transparent" />
 
     <View
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_height="1px"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
@@ -70,6 +87,7 @@
             android:background="@color/login_color"
             android:padding="10dp"
             android:textColor="@color/white"
+            android:textSize="@dimen/main_textSize"
             android:textStyle="bold"
             android:onClick="onClick"
             android:clickable="true"

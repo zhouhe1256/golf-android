@@ -19,13 +19,16 @@
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:hint="请输入手机号码"
-        android:padding="15dp"
+        android:padding="10dp"
         android:inputType="number"
         android:textCursorDrawable="@null"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:textColorHint="@color/white"
         android:drawableLeft="@drawable/ic_login_phone"
-        android:drawablePadding="10dp"
+        android:drawablePadding="14dp"
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:background="@android:color/transparent" />
@@ -39,7 +42,7 @@
 
     <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/login_pwd"
-        android:padding="15dp"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:inputType="textPassword"
@@ -49,8 +52,11 @@
         android:textSize="@dimen/main_textSize"
         android:drawableLeft="@drawable/ic_login_pwd"
         android:textCursorDrawable="@null"
-        android:drawablePadding="10dp"
-        android:layout_margin="10dp"
+        android:drawablePadding="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/transparent" />
 
     <View

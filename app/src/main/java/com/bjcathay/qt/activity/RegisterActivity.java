@@ -18,6 +18,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.TimeCount;
+import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
@@ -82,22 +83,27 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     private void sendCheckCode() {
         String phone = userPhone.getText().toString().trim();
-
-        if (phone.length() > 0)
+        if (!ValidformUtil.isMobileNo(phone)) {
+            DialogUtil.showMessage("请填写正确的手机号码");
+            return;
+        }
+        if (phone.length() > 0) {
             time.start();
-        UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                JSONObject jsonObject = arguments.get(0);
-                if (jsonObject.optBoolean("success")) {
-                } else {
-                    DialogUtil.showMessage("验证码发送失败");
-                    time.onFinish();
+            UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    JSONObject jsonObject = arguments.get(0);
+                    if (jsonObject.optBoolean("success")) {
+                    } else {
+                        int code = jsonObject.optInt("code");
+                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        time.onFinish();
+                    }
+
+
                 }
-
-
-            }
-        });
+            });
+        }
     }
 
     private void register() {
@@ -105,8 +111,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         String password = userPwd.getText().toString().trim();
         String code = userCode.getText().toString().trim();
         String inviteCode = userInvite.getText().toString().trim();
-        if (phone.length() > 0 && password.length() > 0 && code.length() > 0)
-            UserModel.register(phone, password, code, inviteCode).done(this);
+        if (phone.length() == 0) {
+            DialogUtil.showMessage("请输入手机号码");
+            return;
+        }
+        if (password.length() >= 6 && password.length() <= 18) {
+            if (phone.length() > 0 && password.length() > 0 && code.length() > 0)
+                UserModel.register(phone, password, code, inviteCode).done(this);
+        } else {
+            DialogUtil.showMessage("密码长度必须大于6位小于18位");
+        }
     }
 
     @Override
@@ -154,7 +168,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     @Override
     public void onTick(long millisUntilFinished) {
-        userCodeBtn.setText((millisUntilFinished / 1000) + "秒");
+        userCodeBtn.setText("重新获取还需" + (millisUntilFinished / 1000) + "秒");
         userCodeBtn.setClickable(false);
     }
 

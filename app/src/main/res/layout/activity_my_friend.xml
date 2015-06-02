@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_color">
+    <com.bjcathay.qt.view.TopView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top_my_friend_layout"
+        android:background="@color/home_title_color"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,4 +43,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
+    <com.bjcathay.qt.view.AutoListView
+        android:id="@+id/my_friend_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+       />
 </LinearLayout>

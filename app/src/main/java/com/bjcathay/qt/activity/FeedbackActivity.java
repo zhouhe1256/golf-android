@@ -79,7 +79,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
     public void call(Arguments arguments) {
         JSONObject jsonObject = arguments.get(0);
         if (jsonObject.optBoolean("success")) {
-            DialogUtil.showMessage("谢谢！");
+            DialogUtil.showMessage("感谢参与！");
             finish();
         } else {
             int code = jsonObject.optInt("code");

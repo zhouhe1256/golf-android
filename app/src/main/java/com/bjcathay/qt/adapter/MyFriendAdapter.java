@@ -64,7 +64,7 @@ public class MyFriendAdapter extends BaseAdapter {
             holder.status.setText("邀请成功");
             holder.status.setTextColor(context.getResources().getColor(R.color.guolinbi_color));
         }else{
-            holder.status.setText("未成功");
+            holder.status.setText("未捧场");
         holder.status.setTextColor(context.getResources().getColor(R.color.exchange_text_color));}
 
         return convertView;

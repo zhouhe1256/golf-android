@@ -19,10 +19,11 @@
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:maxLines="6"
+        android:maxEms="1000"
         android:gravity="top"
         android:background="@color/white"
         android:hint="想对７铁说点什么呢..."
-        android:textSize="12sp"
+        android:textSize="@dimen/sub_textSize"
         android:textColor="@color/mian_text_color"
         android:textCursorDrawable="@null"
         android:cursorVisible="true"/>
@@ -41,7 +42,7 @@
         android:gravity="top"
         android:background="@color/white"
         android:hint="留下您的联系方式吧"
-        android:textSize="12sp"
+        android:textSize="@dimen/sub_textSize"
         android:textColor="@color/mian_text_color"
         android:textCursorDrawable="@null"
         android:cursorVisible="true"/>

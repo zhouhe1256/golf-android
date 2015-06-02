@@ -42,7 +42,7 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_order);
+        setContentView(R.layout.activity_my_friend);
         context = this;
         initView();
         initData();
@@ -51,12 +51,12 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
 
     private void initView() {
 
-        topView = ViewUtil.findViewById(this, R.id.top_my_order_layout);
+        topView = ViewUtil.findViewById(this, R.id.top_my_friend_layout);
         topView.setTitleBackVisiable();
         topView.setTitleText("我的亲友团");
         inviteModelList = new ArrayList<InviteModel>();
         myFriendAdapter = new MyFriendAdapter(inviteModelList, this);
-        lstv = (AutoListView) findViewById(R.id.my_order_list);
+        lstv = (AutoListView) findViewById(R.id.my_friend_list);
         lstv.setAdapter(myFriendAdapter);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);

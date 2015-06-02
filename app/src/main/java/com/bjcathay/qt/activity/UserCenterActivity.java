@@ -130,11 +130,9 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 //显示窗口
                 menuWindow.showAtLocation(UserCenterActivity.this.findViewById(R.id.user_center_content), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 */
-                if (userModel != null) {
-                    intent = new Intent(this, MyInformationActivity.class);
-                    intent.putExtra("user", userModel);
-                    IsLoginUtil.isLogin(this, intent);
-                }
+                intent = new Intent(this, MyInformationActivity.class);
+                intent.putExtra("user", userModel);
+                IsLoginUtil.isLogin(this, intent);
                 break;
         }
     }
@@ -150,11 +148,11 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         else
             userPhone.setText(userModel.getNickname());
     }
-    @Override
+  /*  @Override
     protected void onStart() {
         super.onStart();
         initDate();
-    }
+    }*/
 
     @Override
     protected void onResume() {

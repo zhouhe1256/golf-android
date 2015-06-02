@@ -15,6 +15,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.TimeCount;
+import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-5-15.
  */
-public class ForgetPwdActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate  {
+public class ForgetPwdActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userCode;
@@ -52,9 +53,11 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
 
 
     }
+
     private void initDate() {
         time = new TimeCount(60000, 1000, this);
     }
+
     private void initEvent() {
         //topView.setActivity(this);
         topView.setVisiable(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
@@ -69,8 +72,15 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
 
     private void sendCheckCode() {
         String phone = userPhone.getText().toString().trim();
-
-        if (phone.length() > 0)
+        if (phone.length() == 0) {
+            DialogUtil.showMessage("请输入手机号码");
+            return;
+        }
+        if (!ValidformUtil.isMobileNo(phone)) {
+            DialogUtil.showMessage("请填写正确的手机号码");
+            return;
+        }
+        if (phone.length() > 0) {
             time.start();
             UserModel.sendCheckCode(phone, "FORGET_PWD").done(new ICallback() {
                 @Override
@@ -83,13 +93,21 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
                     }
                 }
             });
+        }
     }
 
     private void forget() {
         String phone = userPhone.getText().toString().trim();
 
         String code = userCode.getText().toString().trim();
-
+        if (phone.length() == 0) {
+            DialogUtil.showMessage("请输入手机号码");
+            return;
+        }
+        if (!ValidformUtil.isMobileNo(phone)) {
+            DialogUtil.showMessage("请填写正确的手机号码");
+            return;
+        }
         if (phone.length() > 0 && code.length() > 0)
             UserModel.verifyCheckCode(phone, code, "FORGET_PWD").done(this);
     }
@@ -121,16 +139,17 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
             intent.putExtra("phone", userPhone.getText().toString().trim());
             intent.putExtra("code", userCode.getText().toString().trim());
             ViewUtil.startActivity(this, intent);
-            DialogUtil.showMessage("验证成功");
+            //  DialogUtil.showMessage("验证成功");
             // }
         } else {
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));
         }
     }
+
     @Override
     public void onTick(long millisUntilFinished) {
-        userCodeBtn.setText((millisUntilFinished / 1000) + "秒");
+        userCodeBtn.setText("重新获取还需" + (millisUntilFinished / 1000) + "秒");
         userCodeBtn.setClickable(false);
     }
 

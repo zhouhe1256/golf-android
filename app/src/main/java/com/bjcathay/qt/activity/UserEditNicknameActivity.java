@@ -45,7 +45,7 @@ public class UserEditNicknameActivity extends Activity implements View.OnClickLi
 
     private void initData() {
         Intent intent = getIntent();
-        String nickname = intent.getStringExtra("name");
+        String nickname = intent.getStringExtra("nickname");
         if (nickname == null) {
             nickname = "";
         }
