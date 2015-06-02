@@ -1,32 +1,23 @@
 package com.bjcathay.qt.adapter;
 
-import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.PlaceListActivity;
 import com.bjcathay.qt.model.ProductModel;
-import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.DateUtil;
-import com.bjcathay.qt.util.TimeCount;
-import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RoundCornerImageView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,7 +75,7 @@ public class PlaceListAdapter extends BaseAdapter {
         ProductModel productModel = items.get(position);
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(), R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        holder.price.setText("￥" + (int) Math.floor(productModel.getPrice()));
+        holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
         // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
@@ -113,7 +104,7 @@ public class PlaceListAdapter extends BaseAdapter {
                 if (csl != null) {
                     holder.tuanCount.setTextColor(csl);
                 }
-               // holder.tuanCount.setTextColor(Color.WHITE);
+                // holder.tuanCount.setTextColor(Color.WHITE);
                 holder.tuanImg.setImageResource(R.drawable.ic_tu_icon);
             }
             // imageView.setImageResource(R.drawable.ic_tuan_disable);
