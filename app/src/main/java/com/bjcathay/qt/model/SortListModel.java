@@ -27,6 +27,6 @@ public class SortListModel {
     //通过手机通讯录查询用户列表(POST /api/user/list)
     public static IPromise searchContactListUser(String data) {
         return Http.instance().post(ApiUrl.USER_CONTACT_LIST_SEARCH).
-                param("data", data).contentDecoder(decoder).run();
+                param("data", data).encodeParamsInUrl(false).contentDecoder(decoder).run();
     }
 }
