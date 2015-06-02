@@ -5,11 +5,11 @@
     <!--api 接口 http://api.zlkcx.com/
     web 地址 http://admin.zlkcx.com/
     图片地址 http://image.zlkcx.com/-->
-   <!-- <string name="host">http://192.168.1.54:8081</string>
-    <string name="img_host">http://192.168.1.54:8081</string>-->
+    <string name="host">http://192.168.1.54:8081</string>
+    <string name="img_host">http://192.168.1.54:8081</string>
     <!--接口：http://192.168.1.54:8081/ 图片地址：http://192.168.1.54:8081/-->
-    <string name="host">http://api.7tiegolf.com</string>
-    <string name="img_host">http://image.7tiegolf.com</string>
+  <!--  <string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>-->
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

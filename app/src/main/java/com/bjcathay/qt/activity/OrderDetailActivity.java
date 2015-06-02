@@ -85,7 +85,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     private void initData() {
         Intent intent = getIntent();
-        id = intent.getLongExtra("tid", 0);
+        id = intent.getLongExtra("id", 0);
 
         OrderModel.orderDetail(id).done(this);
 

@@ -137,6 +137,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 } else {
                     Intent intent = new Intent(DSActivity.this, LoginActivity.class);
                     ViewUtil.startActivity(DSActivity.this, intent);
+                    DSActivity.this.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
                 }
             }
         });
@@ -384,6 +385,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
 
             //   wheelDateOption.setPicker(DateUtil.getLimitDate(priceModels),minits,hoursAM,hoursPM,true);
+
             days = DateUtil.getLimitDate(priceModels);
             prepareData(1);
             if ("LIMIT".equals(stadiumModel.getType())) {

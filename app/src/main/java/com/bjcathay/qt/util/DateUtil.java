@@ -25,65 +25,68 @@ import java.util.Locale;
 public class DateUtil {
     //根据起始时间决定日期
     public static List<String> getLimitDate(List<PriceModel> priceModels) {
-        List<String> dayList = new ArrayList<String>();
-        String start = priceModels.get(0).getStartAt();
-        String end = priceModels.get(priceModels.size() - 1).getStartAt();
-        Date s = stringToDate(start);
-        Date e = stringToDate(end);
-        Calendar rights = Calendar.getInstance();
-        rights.setTime(s);
-        int month = rights.get(Calendar.MONTH);
-        int day = rights.get(Calendar.DAY_OF_MONTH);
-        int day1 = rights.get(Calendar.DAY_OF_WEEK);
-        Calendar righte = Calendar.getInstance();
-        righte.setTime(e);
-        int daye = righte.get(Calendar.DAY_OF_MONTH);
-        int monthe = righte.get(Calendar.MONTH);
-        Calendar now = Calendar.getInstance();
-        int now_daye = now.get(Calendar.DAY_OF_MONTH);
-        String today = "今天";
-        for (int i = day; month < monthe || (month == monthe && day < daye); i++) {
-            month = rights.get(Calendar.MONTH);
-            day = rights.get(Calendar.DAY_OF_MONTH);
-            day1 = rights.get(Calendar.DAY_OF_WEEK);
-            if (day == now_daye) {
-                today = "今天";
-            } else if (day == now_daye + 1) {
-                today = "明天";
-            } else if (day == now_daye + 2) {
-                today = "后天";
-            } else {
-                switch (day1) {
-                    case 2:
-                        today = "周一";
-                        break;
-                    case 3:
-                        today = "周二";
-                        break;
-                    case 4:
-                        today = "周三";
-                        break;
-                    case 5:
-                        today = "周四";
-                        break;
-                    case 6:
-                        today = "周五";
-                        break;
-                    case 7:
-                        today = "周六";
-                        break;
-                    case 1:
-                        today = "周日";
-                        break;
+        if (priceModels != null) {
+            List<String> dayList = new ArrayList<String>();
+            String start = priceModels.get(0).getStartAt();
+            String end = priceModels.get(priceModels.size() - 1).getStartAt();
+            Date s = stringToDate(start);
+            Date e = stringToDate(end);
+            Calendar rights = Calendar.getInstance();
+            rights.setTime(s);
+            int month = rights.get(Calendar.MONTH);
+            int day = rights.get(Calendar.DAY_OF_MONTH);
+            int day1 = rights.get(Calendar.DAY_OF_WEEK);
+            Calendar righte = Calendar.getInstance();
+            righte.setTime(e);
+            int daye = righte.get(Calendar.DAY_OF_MONTH);
+            int monthe = righte.get(Calendar.MONTH);
+            Calendar now = Calendar.getInstance();
+            int now_daye = now.get(Calendar.DAY_OF_MONTH);
+            String today = "今天";
+            for (int i = day; month < monthe || (month == monthe && day < daye); i++) {
+                month = rights.get(Calendar.MONTH);
+                day = rights.get(Calendar.DAY_OF_MONTH);
+                day1 = rights.get(Calendar.DAY_OF_WEEK);
+                if (day == now_daye) {
+                    today = "今天";
+                } else if (day == now_daye + 1) {
+                    today = "明天";
+                } else if (day == now_daye + 2) {
+                    today = "后天";
+                } else {
+                    switch (day1) {
+                        case 2:
+                            today = "周一";
+                            break;
+                        case 3:
+                            today = "周二";
+                            break;
+                        case 4:
+                            today = "周三";
+                            break;
+                        case 5:
+                            today = "周四";
+                            break;
+                        case 6:
+                            today = "周五";
+                            break;
+                        case 7:
+                            today = "周六";
+                            break;
+                        case 1:
+                            today = "周日";
+                            break;
+                    }
                 }
+                if (month < 9) {
+                    dayList.add("0" + (month + 1) + "月" + day + "日" + "(" + today + ")");
+                } else
+                    dayList.add(month + 1 + "月" + day + "日" + "(" + today + ")");
+                rights.add(Calendar.DATE, 1);
             }
-            if (month < 9) {
-                dayList.add("0" + (month + 1) + "月" + day + "日" + "(" + today + ")");
-            } else
-                dayList.add(month + 1 + "月" + day + "日" + "(" + today + ")");
-            rights.add(Calendar.DATE, 1);
-        }
-        return dayList;
+            return dayList;
+        } else
+            return null;
     }
 
     //根据起始时间决定小时上午

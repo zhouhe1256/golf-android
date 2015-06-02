@@ -63,6 +63,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:padding="10dp"
             android:text="获取验证码"
             android:textSize="15dp"
             android:textColor="@color/white"
@@ -129,18 +130,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal|bottom">
+        android:gravity="center"
+        android:layout_gravity="center">
 
         <com.bjcathay.qt.view.TopView
             android:id="@+id/top_forget_layout"
             android:layout_height="25dp"
             android:layout_width="25dp"
-            android:layout_marginTop="40dp"
-            android:gravity="center|bottom"
-            android:layout_gravity="center|bottom"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:background="@drawable/ic_back"
-            android:onClick="onClick"
-            android:clickable="true"
             android:layout_marginBottom="30dp" />
 
 

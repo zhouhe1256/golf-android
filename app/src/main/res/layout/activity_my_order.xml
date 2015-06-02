@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
-        android:dividerHeight="8dp" />
+        android:scrollbars="none"
+        android:divider="@null" />
     <!--<ListView
         android:background="@color/white"
         android:id="@+id/my_order_list"

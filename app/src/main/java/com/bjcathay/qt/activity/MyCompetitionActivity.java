@@ -81,8 +81,8 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         empty.setLayoutParams(lpLl);
         emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
         emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
-        emptyImg.setImageResource(R.drawable.ic_empty_no_firend);
-        emptyText.setText(getString(R.string.empty_friend_text));
+        emptyImg.setImageResource(R.drawable.ic_empty_comp);
+        emptyText.setText(getString(R.string.empty_com_text));
         ((ViewGroup)lstv.getParent()).addView(empty);
         lstv.setEmptyView(empty);
 
@@ -97,9 +97,9 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //弹窗设置是否取消
-                DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
+             /*   DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
                         R.style.InfoDialog, "确认删除该赛事", eventModels.get(i - 1).getId(), MyCompetitionActivity.this);
-                infoDialog.show();
+                infoDialog.show();*/
                 return false;
             }
         });

@@ -72,7 +72,7 @@ public class MessageReceiver extends BroadcastReceiver {
         Intent intent = null;
         if ("ORDER".equals(pushModel.getType())) {
             intent = new Intent(context, OrderDetailActivity.class);
-            intent.putExtra("tid", Long.parseLong(pushModel.getTarget()));
+            intent.putExtra("id", Long.parseLong(pushModel.getTarget()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else if ("COMPETITION".equals(pushModel.getType())) {
             intent = new Intent(context, CompetitionDetailActivity.class);

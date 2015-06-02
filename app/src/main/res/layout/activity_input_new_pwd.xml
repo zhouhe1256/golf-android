@@ -97,15 +97,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal|bottom">
+        android:gravity="center"
+        android:layout_gravity="center">
 
         <com.bjcathay.qt.view.TopView
             android:id="@+id/top_edit_pwd_layout"
             android:layout_height="25dp"
             android:layout_width="25dp"
-            android:layout_marginTop="40dp"
-            android:gravity="center|bottom"
-            android:layout_gravity="center|bottom"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:background="@drawable/ic_back"
             android:layout_marginBottom="30dp" />
     </LinearLayout>
