@@ -15,7 +15,15 @@ import java.util.List;
 public class MessageListModel implements Serializable {
     @JSONCollection(type = MessageModel.class)
     private List<MessageModel> messages;
+    private boolean hasNext;
 
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
     public List<MessageModel> getMessages() {
         return messages;
     }

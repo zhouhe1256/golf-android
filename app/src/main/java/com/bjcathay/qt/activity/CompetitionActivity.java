@@ -78,6 +78,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             EventListModel result = (EventListModel) msg.obj;
+            boolean hasNext=result.isHasNext();
             if (result != null && result.getEvents() != null && !result.getEvents().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -90,7 +91,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                         eventModels.addAll(result.getEvents());
                         break;
                 }
-                listView.setResultSize(result.getEvents().size());
+                listView.setResultSize(eventModels.size(),hasNext);
                 competitionAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -101,7 +102,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                         listView.onLoadComplete();
                         break;
                 }
-                listView.setResultSize(0);
+                listView.setResultSize(eventModels.size(),hasNext);
                 competitionAdapter.notifyDataSetChanged();
             }
         }

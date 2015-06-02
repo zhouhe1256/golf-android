@@ -351,7 +351,7 @@ public class AutoListView extends ListView implements OnScrollListener {
                 loading.setVisibility(View.VISIBLE);
                 more.setVisibility(View.VISIBLE);
                 noData.setVisibility(View.GONE);
-            }else{
+            } else {
                 isLoadFull = true;
                 loadFull.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);
@@ -370,19 +370,27 @@ public class AutoListView extends ListView implements OnScrollListener {
     /**
      * @param hasNext true有下一页可加载,false加载完成
      */
-    public void setResultSize(boolean hasNext) {
-        if (hasNext) {
+    public void setResultSize(int resultSize, boolean hasNext) {
+        if(hasNext){//没加载完
             isLoadFull = false;
             loadFull.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
             more.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
-        } else {
-            isLoadFull = true;
-            loadFull.setVisibility(View.VISIBLE);
-            loading.setVisibility(View.GONE);
-            more.setVisibility(View.GONE);
-            noData.setVisibility(View.GONE);
+        }else{
+            if(resultSize==0){//为空
+                isLoadFull = true;
+                /*removeFooterView(empty);
+                removeFooterView(footer);
+                addFooterView(empty);*/
+
+            }else{//已加载完全部
+                isLoadFull = true;
+                loadFull.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
+                more.setVisibility(View.GONE);
+                noData.setVisibility(View.GONE);
+            }
         }
     }
 

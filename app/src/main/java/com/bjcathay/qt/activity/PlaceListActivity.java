@@ -93,6 +93,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             ProductListModel result = (ProductListModel) msg.obj;
+            boolean hasNext=result.isHasNext();
             if (result != null && result.getProducts() != null && !result.getProducts().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -105,7 +106,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                         stadiumModelList.addAll(result.getProducts());
                         break;
                 }
-                lstv.setResultSize(result.getProducts().size());
+                lstv.setResultSize(stadiumModelList.size(),hasNext);
                 placeListAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -116,7 +117,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                         lstv.onLoadComplete();
                         break;
                 }
-                lstv.setResultSize(0);
+                lstv.setResultSize(stadiumModelList.size(),hasNext);
                 placeListAdapter.notifyDataSetChanged();
             }
         }

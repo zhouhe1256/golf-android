@@ -16,7 +16,15 @@ public class ProductListModel implements Serializable {
     public List<ProductModel> getProducts() {
         return products;
     }
+    private boolean hasNext;
 
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
     public void setProducts(List<ProductModel> products) {
         this.products = products;
     }

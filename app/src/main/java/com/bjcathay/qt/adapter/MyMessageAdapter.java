@@ -101,7 +101,9 @@ public class MyMessageAdapter extends BaseAdapter {
                             public void call(Arguments arguments) {
                                 JSONObject jsonObject = arguments.get(0);
                                 if (jsonObject.optBoolean("success")) {
-                                    ((MyMessageActivity) (context)).onRefresh();
+                                   // ((MyMessageActivity) (context)).onRefresh();
+                                   items.get(items.indexOf(messageModel)).setStatus("READ");                                   
+                                    holder.imageView.setVisibility(View.INVISIBLE);
                                     notifyDataSetChanged();
                                 } else {
                                     int code = jsonObject.optInt("code");

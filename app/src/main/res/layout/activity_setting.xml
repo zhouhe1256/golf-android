@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/transparent_color">
 
     <com.bjcathay.qt.view.TopView
@@ -13,24 +12,22 @@
         android:layout_width="match_parent"
         android:background="@color/home_title_color" />
 
-
     <RelativeLayout
         android:id="@+id/setting_share"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        >
+        android:background="@drawable/btn_background_selector"
+        android:layout_height="52dp">
 
         <TextView
             android:paddingLeft="10dp"
-
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
             android:text="分享7铁给好友"
             android:textSize="@dimen/main_textSize"
             android:textColor="@color/mian_text_color"
-            android:background="@color/white" />
+            />
 
         <ImageView
             android:layout_marginRight="10dp"
@@ -55,20 +52,19 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:background="@drawable/btn_background_selector"
         android:clickable="true"
         android:onClick="onClick">
 
         <TextView
             android:paddingLeft="10dp"
-
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
             android:text="修改密码"
             android:textSize="@dimen/main_textSize"
-
             android:textColor="@color/mian_text_color"
-            android:background="@color/white" />
+            />
 
         <ImageView
             android:layout_marginRight="10dp"
@@ -78,8 +74,6 @@
             android:gravity="center_vertical"
             android:layout_width="10dp"
             android:layout_height="17dp" />
-
-
     </RelativeLayout>
 
     <View
@@ -97,21 +91,20 @@
             android:id="@+id/setting_feedback"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
+            android:background="@drawable/btn_background_selector"
             android:layout_height="52dp"
             android:clickable="true"
             android:onClick="onClick">
 
             <TextView
                 android:paddingLeft="10dp"
-
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
                 android:text="意见反馈"
                 android:textSize="@dimen/main_textSize"
-
                 android:textColor="@color/mian_text_color"
-                android:background="@color/white" />
+                />
 
             <ImageView
                 android:layout_marginRight="10dp"
@@ -121,7 +114,6 @@
                 android:gravity="center_vertical"
                 android:layout_width="10dp"
                 android:layout_height="17dp" />
-
 
         </RelativeLayout>
 
@@ -135,6 +127,7 @@
             android:id="@+id/setting_update"
             android:layout_width="match_parent"
             android:layout_height="52dp"
+            android:background="@drawable/btn_background_selector"
             android:clickable="true"
             android:onClick="onClick">
 
@@ -146,7 +139,7 @@
                 android:text="版本更新"
                 android:textSize="@dimen/main_textSize"
                 android:textColor="@color/mian_text_color"
-                android:background="@color/white" />
+                 />
 
             <ImageView
                 android:layout_marginRight="10dp"
@@ -156,8 +149,6 @@
                 android:gravity="center_vertical"
                 android:layout_width="10dp"
                 android:layout_height="17dp" />
-
-
         </RelativeLayout>
 
         <View
@@ -169,6 +160,7 @@
         <RelativeLayout
             android:id="@+id/setting_about"
             android:layout_width="match_parent"
+            android:background="@drawable/btn_background_selector"
             android:layout_height="52dp"
             android:clickable="true"
             android:onClick="onClick">
@@ -180,9 +172,8 @@
                 android:gravity="center_vertical"
                 android:text="关于7铁"
                 android:textSize="@dimen/main_textSize"
-
                 android:textColor="@color/mian_text_color"
-                android:background="@color/white" />
+                 />
 
             <ImageView
                 android:layout_marginRight="10dp"
@@ -193,7 +184,6 @@
                 android:layout_width="10dp"
                 android:layout_height="17dp" />
 
-
         </RelativeLayout>
 
         <View
@@ -201,8 +191,6 @@
             android:layout_height="1dp"
             android:layout_width="match_parent"
             android:background="@drawable/touying_bg" />
-
-
     </LinearLayout>
 
     <Button
@@ -219,6 +207,5 @@
         android:textSize="15sp"
         android:visibility="gone"
         android:text="退出登录" />
-
 
 </LinearLayout>

@@ -12,6 +12,7 @@
         android:background="@color/home_title_color"/>
 
     <RelativeLayout
+        android:id="@+id/my_friend_title"
         android:layout_width="match_parent"
         android:layout_height="32dp">
 

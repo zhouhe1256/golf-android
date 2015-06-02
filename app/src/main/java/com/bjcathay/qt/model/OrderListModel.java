@@ -15,7 +15,15 @@ import java.util.List;
 public class OrderListModel implements Serializable {
     @JSONCollection(type = OrderModel.class)
     private List<OrderModel> orders;
+    private boolean hasNext;
 
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
     public List<OrderModel> getOrders() {
         return orders;
     }

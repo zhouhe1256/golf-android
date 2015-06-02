@@ -92,6 +92,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             OrderListModel result = (OrderListModel) msg.obj;
+            boolean hasNext = result.isHasNext();
             if (result != null && result.getOrders() != null && !result.getOrders().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -104,7 +105,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                         orderModels.addAll(result.getOrders());
                         break;
                 }
-                lstv.setResultSize(result.getOrders().size());
+                lstv.setResultSize(orderModels.size(), hasNext);
                 myOrderAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -116,7 +117,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                         break;
                 }
                 orderModels.clear();
-                lstv.setResultSize(0);
+                lstv.setResultSize(orderModels.size(), hasNext);
                 myOrderAdapter.notifyDataSetChanged();
             }
         }

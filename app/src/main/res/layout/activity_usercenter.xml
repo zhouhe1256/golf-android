@@ -43,7 +43,7 @@
         android:id="@+id/my_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/btn_background_selector"
         android:orientation="horizontal">
 
         <ImageView
@@ -106,7 +106,7 @@
         android:id="@+id/my_competition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/btn_background_selector"
         android:orientation="horizontal">
 
         <ImageView
@@ -169,7 +169,7 @@
         android:id="@+id/my_exchange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/btn_background_selector"
         android:orientation="horizontal">
 
         <ImageView
@@ -231,7 +231,7 @@
     <LinearLayout
         android:id="@+id/my_message"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/btn_background_selector"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -297,7 +297,7 @@
         android:id="@+id/my_personal"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/btn_background_selector"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 

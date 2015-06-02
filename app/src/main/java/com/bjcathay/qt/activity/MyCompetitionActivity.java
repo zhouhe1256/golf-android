@@ -97,6 +97,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             EventListModel result = (EventListModel) msg.obj;
+            boolean hasNext=result.isHasNext();
             if (result != null && result.getEvents() != null && !result.getEvents().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -109,7 +110,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                         eventModels.addAll(result.getEvents());
                         break;
                 }
-                lstv.setResultSize(result.getEvents().size());
+                lstv.setResultSize(eventModels.size(),hasNext);
                 myCompetitionAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -120,8 +121,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                         lstv.onLoadComplete();
                         break;
                 }
-                eventModels.clear();
-                lstv.setResultSize(0);
+                lstv.setResultSize(eventModels.size(),hasNext);
                 myCompetitionAdapter.notifyDataSetChanged();
             }
         }

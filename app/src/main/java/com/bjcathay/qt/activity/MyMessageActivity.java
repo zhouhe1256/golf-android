@@ -91,6 +91,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             MessageListModel result = (MessageListModel) msg.obj;
+            boolean hasNext=result.isHasNext();
             if (result != null && result.getMessages() != null && !result.getMessages().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -103,7 +104,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         messageModels.addAll(result.getMessages());
                         break;
                 }
-                lstv.setResultSize(result.getMessages().size());
+                lstv.setResultSize(messageModels.size(),hasNext);
                 myMessageAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -115,7 +116,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         break;
                 }
                 messageModels.clear();
-                lstv.setResultSize(0);
+                lstv.setResultSize(messageModels.size(),hasNext);
                 myMessageAdapter.notifyDataSetChanged();
             }
         }

@@ -71,6 +71,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             PropListModel result = (PropListModel) msg.obj;
+            boolean hasNext=false;
             if (result != null && result.getProps() != null && !result.getProps().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -83,7 +84,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                         eventModels.addAll(result.getProps());
                         break;
                 }
-                lstv.setResultSize(result.getProps().size());
+                lstv.setResultSize(eventModels.size(),hasNext);
                 myPropAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -94,7 +95,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                         lstv.onLoadComplete();
                         break;
                 }
-                lstv.setResultSize(0);
+                lstv.setResultSize(eventModels.size(),hasNext);
                 myPropAdapter.notifyDataSetChanged();
             }
         }

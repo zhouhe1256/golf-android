@@ -9,18 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/top_about_layout"
-        android:background="@color/home_title_color"/>
+        android:background="@color/home_title_color" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/sign_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/exchange_default"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_logo"
             android:layout_gravity="center" />
 
         <TextView
@@ -32,6 +39,7 @@
             android:text="7铁高尔夫" />
 
         <TextView
+            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sub_textSize"
@@ -39,6 +47,20 @@
             android:text="版本1.0" />
 
     </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textSize="@dimen/small_textSize"
+        android:textColor="@color/exchange_text_color"
+        android:layout_marginBottom="10dp"
+        android:text="@string/copyright_text" />
 
+</LinearLayout>
 
 </LinearLayout>

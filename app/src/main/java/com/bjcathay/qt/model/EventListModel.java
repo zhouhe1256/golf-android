@@ -16,6 +16,15 @@ public class EventListModel implements Serializable {
 
     @JSONCollection(type = EventModel.class)
     private List<EventModel> events;
+    private boolean hasNext;
+
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
 
     public List<EventModel> getEvents() {
         return events;
