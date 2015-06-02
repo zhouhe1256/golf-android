@@ -17,7 +17,7 @@
     <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/login_user"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:hint="请输入手机号码"
         android:padding="10dp"
         android:inputType="number"
@@ -44,7 +44,7 @@
         android:id="@+id/login_pwd"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"

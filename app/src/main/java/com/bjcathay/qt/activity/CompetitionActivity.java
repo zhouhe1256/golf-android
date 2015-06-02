@@ -5,8 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -34,6 +40,9 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     private List<EventModel> eventModels;
     private TopView topView;
     private int page = 1;
+    private View empty;
+    private ImageView emptyImg;
+    private TextView emptyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +59,6 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
         topView = ViewUtil.findViewById(this, R.id.top_competition_layout);
         topView.setTitleText("赛事");
         topView.setHomeBackVisiable();
-        eventModels = new ArrayList<EventModel>();
-        competitionAdapter = new CompetitionAdapter(eventModels, this);
 
     }
 
@@ -60,8 +67,20 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
         listView.setAdapter(competitionAdapter);
         listView.setOnRefreshListener(this);
         listView.setOnLoadListener(this);
-        listView.setListViewEmptyImage(R.drawable.ic_empty_comp);
-        listView.setListViewEmptyMessage(getString(R.string.empty_free_compet_text));
+        LayoutInflater inflater = getLayoutInflater();
+        empty = inflater.inflate(R.layout.listview_empty, null);
+        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        lpLl.gravity = Gravity.CENTER;
+        empty.setLayoutParams(lpLl);
+        emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
+        emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
+        emptyImg.setImageResource(R.drawable.ic_empty_comp);
+        emptyText.setText(getString(R.string.empty_free_compet_text));
+        ((ViewGroup)listView.getParent()).addView(empty);
+        listView.setEmptyView(empty);
+        eventModels = new ArrayList<EventModel>();
+        competitionAdapter = new CompetitionAdapter(eventModels, this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -37,7 +37,7 @@
             android:id="@+id/register_user_phone"
             android:layout_weight="2"
             android:layout_width="fill_parent"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:hint="请输入手机号"
             android:inputType="number"
             android:drawableLeft="@drawable/ic_login_phone"
