@@ -29,11 +29,38 @@ public class ProductModel implements Serializable {
     private String now;// "2015-05-05 09:00:00", //类型团购时存在
     private int amount;// "11", //类型 特卖和最低起卖时存在，表示特卖剩余数量和最低起卖数
     private String date;
+    private String feature;
+    private String bhStartAt;
+    private String bhEndAt;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(ProductModel.class, "product");
     @JSONCollection(type = ActivityModel.class)
     private ActivityModel activity;// [ "/upload/image/xxx.png",
+
+    public String getBhStartAt() {
+        return bhStartAt;
+    }
+
+    public void setBhStartAt(String bhStartAt) {
+        this.bhStartAt = bhStartAt;
+    }
+
+    public String getBhEndAt() {
+        return bhEndAt;
+    }
+
+    public void setBhEndAt(String bhEndAt) {
+        this.bhEndAt = bhEndAt;
+    }
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
 
     public String getDate() {
         return date;

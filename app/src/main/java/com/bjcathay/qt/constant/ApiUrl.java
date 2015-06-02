@@ -10,14 +10,13 @@ import com.bjcathay.qt.util.SystemUtil;
 public class ApiUrl {
     public static final String VERSION = SystemUtil.getCurrentVersionName(GApplication.getInstance());
     public static final String HOST_URL = GApplication.getInstance().getResources().getString(R.string.host);
-    public static final String IMG_HOST_URL=GApplication.getInstance().getResources().getString(R.string.img_host);
+    public static final String IMG_HOST_URL = GApplication.getInstance().getResources().getString(R.string.img_host);
     //192.168.1.54  192.168.1.22:8080
     public static final String OS = SystemUtil.getVersion();
 
     public static final String HOME_BANNER = "/api/banner";//首页活动(GET /api/banner)
     public static final String STSDIUM_LIST = "/api/goods";//场馆列表(GET /api/golf_course)
     public static final String PRODUCT_LIST = "/api/products";//产品列表(GET /api/products)
-
 
 
     public static final String REGISTER = "/api/user/register";//注册用户(POST /api/user/register)
@@ -30,7 +29,8 @@ public class ApiUrl {
     public static final String CHANGE_USER_INFO = "/api/user";//更新用户信息(PUT /api/user)
     public static final String SET_AVATAR = "/api/user/set_avatar";//设置用户头像(POST /api/user/set_avatar)
     public static final String USER_SEARCH = "/api/user/search";//根据用户手机号搜索用户(POST /api/user/search)
-    public static final String USER_CONTACT_LIST_SEARCH = "/api/user/list";//通过手机通讯录查询用户列表(POST /api/user/list)(需要联调)
+    public static final String USER_CONTACT_LIST_SEARCH = "/api/user/list";//通过手机通讯录查询用户列表(POST /api/user/list
+    public static final String USER_CONTACT_LIST_INVITE = "/api/user/invite";//    获取邀请用户列表(GET /api/user/invite)
 
     public static final String MY_EVENT = "/api/user/event";//我的赛事(GET /api/user/event)
     public static final String PROP_LIST = "/api/prop";//兑换列表(GET /api/prop)
@@ -40,6 +40,8 @@ public class ApiUrl {
     public static final String MY_ORDERS = "/api/user/order";//我的订单(GET /api/user/order)
 
     public static final String COMMIT_ORDER = "/api/user/order";//提交订单(POST /api/user/order)
+    public static final String ORDER_TO_PAY = "/api/user/order/pay";//订单支付 (GET /api/user/order/pay)
+
     public static final String ORDER_PAY_SUCESS = "/api/alipay_notify_url"; //订单支付成功回调URL(POST /api/alipay_notify_url)
 
     public static final String DELETE_MESSAGE = "/api/user/message"; //删除消息(DELETE /api/user/message)
@@ -48,6 +50,11 @@ public class ApiUrl {
     public static final String MY_PROPS = "/api/user/prop"; //我的兑换(GET /api/user/prop)
     public static final String DELETE_EVENTS = "/api/user/event"; //删除赛事(DELETE /api/user/event)
     public static final String FEED_BACK = "/api/user/feedback"; //用户反馈(POST /api/user/feedback)
+    public static final String SHARE_APP = "/api/share/app"; //分享app(GET /api/share/app)
+    public static final String SHARE_PRODUCTS = "/api/share/products"; //分享产品（只能是团购，特卖和限购）(GET /api/share/products)
+    public static final String SHARE_COMPETITION = "/api/share/competitions"; //分享赛事 (GET /api/share/competitions)
+    public static final String SHARE_ORDER = "/api/share/orders"; //分享订单 (GET /api/share/orders)
+    public static final String SOFT_UPDATE = "/api/update"; //检查更新(GET /api/update)
 
 
     //产品详情(GET /api/products/:id)
@@ -81,8 +88,8 @@ public class ApiUrl {
     }
 
     //删除订单(DELETE /api/user/order)
-    public static String orderDelete(Long id) {
-        return "/api/user/order" + id;
+    public static String orderDelete() {
+        return "/api/user/order/";
     }
 
     //验证订单是否支付完成(GET /api/user/order/:id/verify)

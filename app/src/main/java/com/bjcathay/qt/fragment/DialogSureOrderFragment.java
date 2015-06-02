@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -17,9 +19,11 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.OrderSucActivity;
 import com.bjcathay.qt.activity.OrderSucTEActivity;
 import com.bjcathay.qt.activity.OrderSucTuanActivity;
+import com.bjcathay.qt.activity.SelectPayWayActivity;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.StadiumModel;
+import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -32,7 +36,7 @@ import com.bjcathay.qt.view.TopView;
 public class DialogSureOrderFragment extends DialogFragment {
     private Context context;
     private ProductModel stadiumModel;
-    TopView topView1;
+    //  TopView topView1;
     TextView name;
     TextView time;
     TextView phone;
@@ -42,6 +46,10 @@ public class DialogSureOrderFragment extends DialogFragment {
     Button sure;
     String date;
     int number;
+    LinearLayout linearLayout;
+    ImageView minas;
+    ImageView plus;
+    TextView fourPlus;
 
     public DialogSureOrderFragment() {
     }
@@ -74,8 +82,12 @@ public class DialogSureOrderFragment extends DialogFragment {
             rootView = inflater.inflate(R.layout.dialog_tuan_order_sure, container);
 
         }
-        topView1 = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_title);
-        topView1.setDeleteVisiable();
+        // topView1 = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_title);
+        //  topView1.setDeleteVisiable();
+        linearLayout = ViewUtil.findViewById(rootView, R.id.dialog_order_layout);
+        minas = ViewUtil.findViewById(rootView, R.id.dialog_order_minas);
+        plus = ViewUtil.findViewById(rootView, R.id.dialog_order_plus);
+        fourPlus = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_number_edit);
 
         name = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_name);
         time = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_time);
@@ -85,26 +97,54 @@ public class DialogSureOrderFragment extends DialogFragment {
         price = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_price);
         sure = ViewUtil.findViewById(rootView, R.id.sure_order);
         name.setText(stadiumModel.getName());
-        time.setText(date);
+
+        time.setText(DateUtil.stringToDateToOrderString(date));
         //手机号码
         phone.setText("" + PreferencesUtils.getString(context, PreferencesConstant.USER_PHONE, ""));
         service.setText("" + stadiumModel.getPriceInclude());
 
         if (number == 0) {
+            number_.setVisibility(View.GONE);
             number_.setText("" + 4 + "人+");
-            price.setText("￥" + Double.valueOf(stadiumModel.getPrice()) * 4 + "+");
+            number = 5;
+            price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+            linearLayout.setVisibility(View.VISIBLE);
+            minas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (number > 5) {
+                        number--;
+                        fourPlus.setText(number < 10 ? " " + number : number + "");
+                        price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+                    }
+                }
+            });
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // if(number>=5){
+                    number++;
+                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                    price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+                    //  }
+                }
+            });
+
         } else {
-            price.setText("￥" + Double.valueOf(stadiumModel.getPrice()) * number + "");
+            number_.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.GONE);
+            price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number + "");
             number_.setText("" + number + "人");
         }
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+
                 OrderModel.commitOrder(stadiumModel.getId(), number, date).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         //JSONObject jsonObject = arguments.get(0);
+                        dismiss();
                         OrderModel orderModel = arguments.get(0);
                         Intent intent = null;
                         if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
@@ -112,7 +152,8 @@ public class DialogSureOrderFragment extends DialogFragment {
                         } else if ("SPECIAL".equals(stadiumModel.getType())) {
                             intent = new Intent(context, OrderSucTEActivity.class);
                         } else if ("GROUP".equals(stadiumModel.getType())) {
-                            intent = new Intent(context, OrderSucTuanActivity.class);
+                            intent = new Intent(context, SelectPayWayActivity.class);
+                            intent.putExtra("order", orderModel);
                         }
                         intent.putExtra("id", orderModel.getId());
                         ViewUtil.startActivity(context, intent);
@@ -120,6 +161,7 @@ public class DialogSureOrderFragment extends DialogFragment {
                 }).fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
+                        dismiss();
                         DialogUtil.showMessage("下单失败");
                     }
                 });
@@ -127,12 +169,7 @@ public class DialogSureOrderFragment extends DialogFragment {
 
             }
         });
-        rootView.findViewById(R.id.title_delete_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+
         // textView= (TextView) view.findViewById(R.id.text_1);
         return rootView;
     }

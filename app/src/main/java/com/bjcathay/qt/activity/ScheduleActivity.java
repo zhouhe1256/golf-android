@@ -195,7 +195,7 @@ public class ScheduleActivity extends FragmentActivity implements ICallback {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
-        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this);
     }
 

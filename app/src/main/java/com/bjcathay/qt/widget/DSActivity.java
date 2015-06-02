@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.BaiduAddressActivity;
 import com.bjcathay.qt.activity.GolfCourseDetailActicity;
@@ -33,6 +34,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,8 +46,9 @@ import java.util.regex.Pattern;
  */
 public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener, WheelDate.OnOptionsSelectListener {
     public int screenheight;
-    WheelDate wheelDateOption;
-    LinearLayout view_wheel;
+    WheelView mOption1 = null;
+    WheelView mOption2 = null;
+    WheelView mOption3 = null;
     private GApplication gApplication;
     private ImageView imageView;
     private TextView stadiumContents;
@@ -57,13 +60,13 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private List<String> days = new ArrayList<String>();
     private List<String> hoursAM = new ArrayList<String>();
     private List<String> hoursPM = new ArrayList<String>();
+    private List<String> minits = new ArrayList<String>();
     private TopView topView;
     private Long id;
     private String imaUrl;
     private String daySelect;
-    private int beforSelect = 0;//0上午　１下午
+    private String beforSelect;//0上午　１下午
     private String hourSelect = "07:00";
-    private List<String> minits = new ArrayList<String>();
     private int attendNumber = 1;
     private int selectDay = 0;
     //状态标识
@@ -86,12 +89,9 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         initEvent();
     }
 
-    View optionspicker;
-
     private void initView() {
-        optionspicker = findViewById(R.id.optionspicker);
-        view_wheel = ViewUtil.findViewById(this, R.id.view_wheel);
         topView = ViewUtil.findViewById(this, R.id.top_schedule_layout);
+        topView.setTitleBackVisiable();
         imageView = ViewUtil.findViewById(this, R.id.place_img);
         stadiumAddress = ViewUtil.findViewById(this, R.id.sch_address);
         stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
@@ -108,6 +108,23 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         tuanCount = ViewUtil.findViewById(this, R.id.tuan_short);
         temaiCount = ViewUtil.findViewById(this, R.id.temai_short);
         soldOut = ViewUtil.findViewById(this, R.id.seld_out_short);
+
+        mOption1 = (WheelView) findViewById(R.id.wheel_date);
+        mOption2 = (WheelView) findViewById(R.id.wheel_month);
+        mOption3 = (WheelView) findViewById(R.id.wheel_year);
+
+        mOption1.setOnEndFlingListener(mListener);
+        mOption2.setOnEndFlingListener(mListener);
+        mOption3.setOnEndFlingListener(mListener);
+
+        mOption1.setSoundEffectsEnabled(true);
+        mOption2.setSoundEffectsEnabled(true);
+        mOption3.setSoundEffectsEnabled(true);
+
+        mOption1.setAdapter(new WheelTextAdapter(this));
+        mOption2.setAdapter(new WheelTextAdapter(this));
+        mOption3.setAdapter(new WheelTextAdapter(this));
+
 
     }
 
@@ -134,16 +151,18 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         stadiumAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DSActivity.this, BaiduAddressActivity.class);
-                intent.putExtra("url", getString(R.string.course_address));
-                intent.putExtra("location", stadiumModel.getLat() + "," + stadiumModel.getLon());
-                intent.putExtra("lat", stadiumModel.getLat());
-                intent.putExtra("lon", stadiumModel.getLon());
-                intent.putExtra("title", stadiumModel.getName());
-                intent.putExtra("content", stadiumModel.getAddress());
-                //intent.putExtra("address",stationAddress.getText().toString().trim());
-                intent.putExtra("src", "A|GOLF");
-                ViewUtil.startActivity(DSActivity.this, intent);
+                if (stadiumModel != null) {
+                    Intent intent = new Intent(DSActivity.this, BaiduAddressActivity.class);
+                    intent.putExtra("url", getString(R.string.course_address));
+                    intent.putExtra("location", stadiumModel.getLat() + "," + stadiumModel.getLon());
+                    intent.putExtra("lat", stadiumModel.getLat());
+                    intent.putExtra("lon", stadiumModel.getLon());
+                    intent.putExtra("title", stadiumModel.getName());
+                    intent.putExtra("content", stadiumModel.getAddress());
+                    //intent.putExtra("address",stationAddress.getText().toString().trim());
+                    intent.putExtra("src", "A|GOLF");
+                    ViewUtil.startActivity(DSActivity.this, intent);
+                }
             }
         });
         //绑定一个匿名监听器
@@ -173,7 +192,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         attendNumber = 0;
                         break;
                 }
-                getDayPrice(stadiumModel.getPrice());
+                if (stadiumModel != null)
+                    getDayPrice(stadiumModel.getPrice());
             }
         });
     }
@@ -187,79 +207,113 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         }
     }
 
+    private TosGallery.OnEndFlingListener mListener = new TosGallery.OnEndFlingListener() {
+        @Override
+        public void onEndFling(TosGallery v) {
+            int pos = v.getSelectedItemPosition();
+            if (days != null && !days.isEmpty()) {
+                if (v == mOption1) {
+                    String info = days.get(pos);
+                    setDate(info);
+                } else if (v == mOption2) {
+                    String info = minits.get(pos);
+                    setMinit(info);
+                } else if (v == mOption3) {
+                    String info;
+                    if ("上午".equals(beforSelect)) {
+
+                        info = hoursAM.get(pos);
+                        setHour(info);
+
+                    } else {
+
+                        info = hoursPM.get(pos);
+                        setHour(info);
+
+                    }
+
+                }
+
+
+                //算天数据   mSelDateTxt.setText(formatDate());
+                if (stadiumModel != null) {
+                    getDate();
+                    if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType()))
+                        getDayPrice(0);
+                    else
+                        getDayPrice(stadiumModel.getPrice());
+                }
+            }
+        }
+    };
+
+    private void setDate(String date) {
+        if (!date.equals(daySelect)) {
+            daySelect = date;
+
+        }
+    }
+
+    private void setMinit(String minit) {
+        if (!minit.equals(beforSelect)) {
+            beforSelect = minit;
+            prepareDayData(minit);
+        }
+    }
+
+    private void setHour(String hour) {
+        if (!hour.equals(hourSelect)) {
+            hourSelect = hour;
+        }
+    }
+
+    private void prepareData(int a) {
+        ((WheelTextAdapter) mOption1.getAdapter()).setData(days);
+        ((WheelTextAdapter) mOption2.getAdapter()).setData(minits);
+        if (minits.size() == 1) {
+            if ("上午".equals(minits.get(0)))
+                ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+            else
+                ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+        } else
+            ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+
+        //  prepareDayData(year, month, day);
+        mOption1.setSelection(a);
+        mOption2.setSelection(0);
+        mOption3.setSelection(0);
+        getDayPrice(0);
+    }
+
+    private void prepareDayData(String minit) {
+        if ("上午".equals(minit)) {
+            ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+            hourSelect = hoursAM.get(0);
+            mOption3.setSelection(0);
+        } else {
+            ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+            hourSelect = hoursPM.get(0);
+            mOption3.setSelection(0);
+        }
+
+    }
+
     private void initData() {
-        minits.add("上午");
-        minits.add("下午");
         minits.add("上午");
         minits.add("下午");
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
-        //  ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
+        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this);
     }
-
-    public ProductModel getStadiumModel() {
-        return stadiumModel;
-    }
-
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            ProductModel stadium = (ProductModel) msg.obj;
-            /*ScreenInfo screenInfo = new ScreenInfo((Activity) DSActivity.this);
-            wheelDateOption = new WheelDate(optionspicker, DSActivity.this);
-            wheelDateOption.screenheight = screenInfo.getHeight();
-            List<String> a = new ArrayList<String>();
-            a.add("1");
-            a.add("2");
-            a.add("3");
-            a.add("4");
-            List<String> b = new ArrayList<String>();
-            b.add("1");
-            b.add("2");
-            b.add("3");
-            b.add("4");
-            List<String> c = new ArrayList<String>();
-            c.add("1");
-            c.add("2");
-            c.add("3");
-            c.add("4");
-            List<String> d = new ArrayList<String>();
-            d.add("1");
-            d.add("2");
-            d.add("3");
-            d.add("4");
-            wheelDateOption.setPicker(a, b, c, d, false);
-            wheelDateOption.notifyDate(DSActivity.this);*/
-
-
-            Intent intent = new Intent(DSActivity.this, PlaceOrderFragment.class);
-            intent.putExtra("place", stadiumModel);
-            ViewUtil.startActivity(DSActivity.this, intent);
-
-
-        }
-    };
 
 
     @Override
     public void call(Arguments arguments) {
-        //initView();
-        //initData();
-        Message msg = handler.obtainMessage();
-
-        msg.obj = stadiumModel;
-        handler.sendMessage(msg);
-
-
-        //  wheelDateOption.notifyAll();
         stadiumModel = arguments.get(0);
         topView.setTitleText(stadiumModel.getName());
-        topView.setTitleBackVisiable();
-    /*    ScreenInfo screenInfo = new ScreenInfo((Activity) this);
-        final View optionspicker = ViewUtil.findViewById(this,R.id.optionspicker);
-        wheelDateOption =new WheelDate(optionspicker,this);
-        wheelDateOption.screenheight=screenInfo.getHeight();*/
+
         //控制LIMIT最低人数
         if ("LIMIT".equals(stadiumModel.getType())) {
             topView.setShareVisiable();
@@ -282,14 +336,13 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             minits.add(tuan_am_pm);
             //   wheelView1.setData(minits);
             if ("下午".equals(tuan_am_pm))
-                hoursAM = DateUtil.getPM(stadiumModel.getDate());
+                hoursPM = DateUtil.getPM(stadiumModel.getDate());
             else
-                hoursPM = DateUtil.getAM(stadiumModel.getDate());
+                hoursAM = DateUtil.getAM(stadiumModel.getDate());
             //  hourView.setData(hours);
             getDayPrice(stadiumModel.getPrice());
             //    wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
-
-
+            prepareData(0);
             // tuanImg.setVisibility(View.VISIBLE);
             tuanCount.setVisibility(View.VISIBLE);
             Date start = DateUtil.stringToDate(stadiumModel.getNow());
@@ -310,6 +363,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
             //  wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
+            prepareData(0);
             getDayPrice(stadiumModel.getPrice());
             //   temaiImg.setVisibility(View.VISIBLE);
             temaiCount.setVisibility(View.VISIBLE);
@@ -330,6 +384,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
 
             //   wheelDateOption.setPicker(DateUtil.getLimitDate(priceModels),minits,hoursAM,hoursPM,true);
+            days = DateUtil.getLimitDate(priceModels);
+            prepareData(1);
             if ("LIMIT".equals(stadiumModel.getType())) {
                 int num = stadiumModel.getAmount();
                 attendNumber = num;
@@ -358,7 +414,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private String getDate() {
         if ("GROUP".equals(stadiumModel.getType()))
             return stadiumModel.getDate();
-        else if (beforSelect == 1) {
+        else if ("下午".equals(beforSelect)) {
             hourSelect = DateUtil.To24(hourSelect);
         }
         Calendar c = Calendar.getInstance();
@@ -406,9 +462,9 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             return;
         }
         if (attendNumber == 0)
-            stadiumPrice.setText("￥" + (int) Math.floor(price * 4) + "+");
+            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * 4) + "+");
         else
-            stadiumPrice.setText("￥" + (int) Math.floor(price * attendNumber));
+            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * attendNumber));
 
     }
 

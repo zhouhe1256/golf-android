@@ -2,8 +2,6 @@ package com.bjcathay.qt.util;
 
 import android.content.Context;
 
-import com.bjcathay.mallfm.R;
-
 import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
@@ -13,20 +11,20 @@ import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
  * Created by bjcathay on 15-1-22.
  */
 public class ShareContentCustomizeImplement implements ShareContentCustomizeCallback {
-    private String type;
+
     private String title;
-    private String url;
+    private String text;
     private Context context;
 
-    public ShareContentCustomizeImplement(Context context, String type, String title, String text){
-        this.context=context;
-        this.type=type;
-        this.title=title;
-        this.url=text;
+    public ShareContentCustomizeImplement(Context context, String title, String text) {
+        this.context = context;
+        this.title = title;
+        this.text = text;
     }
+
     @Override
     public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-        if(platform instanceof CustomPlatform){
+        if (platform instanceof CustomPlatform) {
             return;
         }
         int id = ShareSDK.platformNameToId(platform.getName());
@@ -39,14 +37,15 @@ public class ShareContentCustomizeImplement implements ShareContentCustomizeCall
                // String text = platform.getContext().getString(R.string.share_content_short);
                // paramsToShare.setText(text);
             }*/
-        if("ShortMessage".equals(platform.getName())){
-            String text=String.format(context.getString(R.string.share_shortmessage_text,type,title,url));
+        if ("ShortMessage".equals(platform.getName())) {
             paramsToShare.setText(text);
             paramsToShare.setImagePath("");
             paramsToShare.setImageUrl("");
-        }else if("SinaWeibo".equals(platform.getName())){
-            String text=String.format(context.getString(R.string.share_shortmessage_text,type,title,url));
+        } else if ("SinaWeibo".equals(platform.getName())) {
             paramsToShare.setText(text);
+        } else if ("Email".equals(platform.getName())) {
+            paramsToShare.setText(text);
+
         }
 
     }

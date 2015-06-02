@@ -27,6 +27,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 
 import cn.sharesdk.onekeyshare.PlatformListFakeActivity;
 
@@ -63,6 +65,7 @@ public class PlatformListPage extends PlatformListFakeActivity implements View.O
         // display gridviews
         llPage.clearAnimation();
         llPage.startAnimation(animShow);
+        PreferencesUtils.putBoolean(activity, PreferencesConstant.SHARE_CLICK, true);
     }
 
     private void initPageView() {

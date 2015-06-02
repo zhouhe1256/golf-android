@@ -28,23 +28,23 @@
             android:text="团购成功！"
             android:layout_gravity="center" />
 
-        <TextView
+      <!--  <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="@color/mian_text_color"
             android:text="等待其他小伙伴中.."
-            android:layout_gravity="center" />
+            android:layout_gravity="center" />-->
     </LinearLayout>
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/order_com_suc_note_a"
         android:textSize="13sp"
         android:layout_gravity="center"
-        android:textColor="@color/exchange_text_color" />
+        android:textColor="@color/exchange_text_color" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -60,10 +60,13 @@
             android:text="@string/order_com_suc_note_b" />
 
         <TextView
+            android:id="@+id/call_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/login_color"
-            android:text="@string/service_tel" />
+            android:text="@string/service_tel"
+            android:onClick="onClick"
+            android:clickable="true"/>
 
     </LinearLayout>
 

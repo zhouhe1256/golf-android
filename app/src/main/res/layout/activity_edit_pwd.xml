@@ -15,6 +15,7 @@
         android:layout_height="47dp"
         android:hint="旧的密码"
         android:padding="15dp"
+        android:inputType="textPassword"
         android:textCursorDrawable="@null"
         android:layout_margin="10dp"
         android:textColorHint="@color/mian_text_color"

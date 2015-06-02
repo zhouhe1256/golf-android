@@ -16,6 +16,7 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
+import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
 
     private void initEvent() {
         topView.setActivity(this);
-      //  topView.setTitleText("设置新密码");
+        //  topView.setTitleText("设置新密码");
 
     }
 
@@ -76,9 +77,14 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
                 if (jsonObject.optBoolean("success")) {
                     DialogUtil.showMessage("密码设置成功");
                     PreferencesUtils.putString(ForgetSetNewPwdActivity.this, PreferencesConstant.USER_PASSWORD, newPwd.getText().toString().trim());
-                   // finish();
-                    Intent intent=new Intent(ForgetSetNewPwdActivity.this,MainActivity.class);
-                    ViewUtil.startTopActivity(ForgetSetNewPwdActivity.this,intent);
+                    // finish();
+                    UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(ForgetSetNewPwdActivity.this), null, null).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                        }
+                    });
+                    Intent intent = new Intent(ForgetSetNewPwdActivity.this, MainActivity.class);
+                    ViewUtil.startTopActivity(ForgetSetNewPwdActivity.this, intent);
                 } else {
                     int code = jsonObject.optInt("code");
                     DialogUtil.showMessage(ErrorCode.getCodeName(code));

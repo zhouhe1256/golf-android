@@ -17,6 +17,7 @@ import com.bjcathay.qt.util.ViewUtil;
 public class TopView extends LinearLayout {
     private TextView leftbtn;
     private TextView rightbtn;
+    private TextView daohangbtn;
     private TextView title;
     private Activity activity;
     private ImageView titleBack;
@@ -30,6 +31,7 @@ public class TopView extends LinearLayout {
         View.inflate(context, R.layout.activity_title, this);
         leftbtn = ViewUtil.findViewById(this, R.id.title_back);
         rightbtn = ViewUtil.findViewById(this, R.id.title_right);
+        daohangbtn = ViewUtil.findViewById(this, R.id.title_daohang);
         title = ViewUtil.findViewById(this, R.id.title_title);
         titleBack = ViewUtil.findViewById(this, R.id.title_back_img);
         homeBack = ViewUtil.findViewById(this, R.id.home_back_img);
@@ -67,6 +69,9 @@ public class TopView extends LinearLayout {
 
     public void setExchangeVisiable() {
         exchange.setVisibility(VISIBLE);
+    }
+    public void setDHVisiable(){
+        daohangbtn.setVisibility(VISIBLE);
     }
 
     public void setDeleteVisiable() {

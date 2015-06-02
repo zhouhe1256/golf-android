@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="@color/transparent_color">
 
 
     <LinearLayout
@@ -17,20 +18,57 @@
             android:background="@color/home_title_color">
 
         </com.bjcathay.qt.view.TopView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.bjcathay.qt.view.ClearEditText
-            android:id="@+id/filter_edit"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dip"
-            android:gravity="center"
-            android:background="@drawable/acm_inputbox"
-            android:drawableLeft="@drawable/search"
-            android:hint="@string/search"
-            android:singleLine="true"
-            android:textSize="15.0dip" />
+
+
+            <com.bjcathay.qt.view.ClearEditText
+                android:id="@+id/filter_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:background="@drawable/acm_inputbox"
+                android:singleLine="true"
+                android:tag="搜索"
+                android:textSize="12dp" />
+            <LinearLayout
+                android:id="@+id/layout_default"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:focusable="false"
+                android:layout_alignTop="@+id/filter_edit"
+                android:layout_alignRight="@+id/filter_edit"
+                android:layout_alignEnd="@+id/filter_edit"
+                android:layout_alignLeft="@+id/filter_edit"
+                android:layout_alignStart="@+id/filter_edit">
+                <ImageView
+                    android:id="@+id/iv_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/exchange_text_color"
+                    android:text="搜索" />
+            </LinearLayout>
+
+            </RelativeLayout>
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
+
 
         <FrameLayout
             android:layout_width="fill_parent"

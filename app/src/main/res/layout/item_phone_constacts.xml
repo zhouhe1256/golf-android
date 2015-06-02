@@ -3,25 +3,28 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparent_color">
 
     <TextView
         android:id="@+id/catalog"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#454545"
-        android:paddingLeft="5dip"
-        android:paddingTop="5dip"
-
+        android:layout_height="20dp"
+        android:textColor="@color/mian_text_color"
+        android:paddingLeft="10dip"
         android:enabled="false"
-        android:background="@color/bg_sort_color"
-        android:paddingBottom="5dip" />
+        android:layout_gravity="center_vertical"
+        android:background="@color/transparent_color"
+        android:text="A"/>
 
     <RelativeLayout
         android:id="@+id/ll_constact"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/white">
 
         <!--<com.bjcathay.qt.view.ImageTextView
             android:id="@+id/icon"
@@ -30,13 +33,13 @@
             android:layout_centerVertical="true"
             android:layout_width="45dp"
             android:text="find" />-->
-        <ImageView
+        <com.bjcathay.qt.view.CircleImageView
             android:id="@+id/icon"
-            android:layout_width="45dp"
+            android:layout_width="35dp"
             android:layout_marginLeft="5dip"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/ic_default_user"/>
 
         <TextView
             android:layout_toRightOf="@id/icon"
@@ -47,7 +50,7 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="啊哦额"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/contact_status_true"
@@ -55,9 +58,9 @@
             android:layout_height="wrap_content"
             android:text="赠送"
             android:gravity="center"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="13dp"
             android:textColor="@color/white"
-            android:visibility="gone"
+            android:visibility="visible"
             android:background="@drawable/ic_exchange_yellow"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />
@@ -68,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="邀请"
             android:gravity="center"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="13dp"
             android:textColor="@color/white"
             android:visibility="gone"
             android:background="@drawable/ic_yaoqing"

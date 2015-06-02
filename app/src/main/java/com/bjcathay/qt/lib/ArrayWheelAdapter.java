@@ -1,6 +1,7 @@
 package com.bjcathay.qt.lib;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The simple Array wheel adapter
@@ -9,10 +10,10 @@ import java.util.ArrayList;
 public class ArrayWheelAdapter<T> implements WheelAdapter {
 	
 	/** The default items length */
-	public static final int DEFAULT_LENGTH = 4;
+	public static final int DEFAULT_LENGTH = 12;
 	
 	// items
-	private ArrayList<T> items;
+	private List<T> items;
 	// length
 	private int length;
 
@@ -21,7 +22,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	 * @param items the items
 	 * @param length the max items length
 	 */
-	public ArrayWheelAdapter(ArrayList<T> items, int length) {
+	public ArrayWheelAdapter(List<T> items, int length) {
 		this.items = items;
 		this.length = length;
 	}
@@ -30,7 +31,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	 * Contructor
 	 * @param items the items
 	 */
-	public ArrayWheelAdapter(ArrayList<T> items) {
+	public ArrayWheelAdapter(List<T> items) {
 		this(items, DEFAULT_LENGTH);
 	}
 
@@ -51,5 +52,10 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	public int getMaximumLength() {
 		return length;
 	}
+
+    @Override
+    public void updateDate() {
+
+    }
 
 }

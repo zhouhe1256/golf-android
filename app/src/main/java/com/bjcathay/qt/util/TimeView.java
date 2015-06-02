@@ -18,11 +18,11 @@ import java.util.Date;
  */
 public class TimeView extends CountDownTimer {
     private TextView textView;
-    private ImageView imageView;
+  //  private ImageView imageView;
     private Button okbtn;
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public TimeView(long millisInFuture, long countDownInterval, TextView textView, ImageView imageView, Button okbtn) {
+    public TimeView(long millisInFuture, long countDownInterval, TextView textView,  Button okbtn) {
         /*String start = "";
         String end = "";
         try {
@@ -36,7 +36,7 @@ public class TimeView extends CountDownTimer {
         }*/
         super(millisInFuture, countDownInterval);
         this.textView = textView;
-        this.imageView = imageView;
+       // this.imageView = imageView;
         this.okbtn = okbtn;
     }
 
@@ -45,16 +45,16 @@ public class TimeView extends CountDownTimer {
         long days = diff / (1000 * 60 * 60 * 24);
         long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
         long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-        long mm = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
-        textView.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分" + mm + "秒");
+       // long mm = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
+        textView.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分");
     }
 
     @Override
     public void onFinish() {
-        textView.setBackgroundColor(Color.GRAY);
-        textView.setText("仅剩0天0小时0分0秒");
-        imageView.setImageResource(R.drawable.ic_tuan_disable);
-        okbtn.setBackgroundColor(Color.GRAY);
+        textView.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
+        textView.setText("仅剩0天0小时0分");
+       // imageView.setImageResource(R.drawable.ic_tuan_disable);
+        okbtn.setBackgroundResource(R.drawable.bg_sold_out);
         okbtn.setOnClickListener(null);
     }
 }

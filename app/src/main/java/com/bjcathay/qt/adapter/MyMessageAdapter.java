@@ -10,11 +10,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
+import com.bjcathay.qt.activity.MyMessageActivity;
+import com.bjcathay.qt.activity.OrderDetailActivity;
+import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +35,7 @@ import java.util.List;
 public class MyMessageAdapter extends BaseAdapter {
     private List<MessageModel> items;
     private Activity context;
+    private int nowPosition;
 
     public MyMessageAdapter(List<MessageModel> items, Activity activity) {
         if (items == null) {
@@ -32,6 +43,7 @@ public class MyMessageAdapter extends BaseAdapter {
         }
         this.items = items;
         this.context = activity;
+        nowPosition = 0;
     }
 
     @Override
@@ -52,7 +64,7 @@ public class MyMessageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_my_message_list, parent, false);
@@ -61,19 +73,43 @@ public class MyMessageAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        MessageModel messageModel = items.get(position);
+        final MessageModel messageModel = items.get(position);
         holder.name.setText(messageModel.getName());
         holder.day.setText(messageModel.getRelativeDate());
         holder.content.setText(messageModel.getContent());
         if ("UNREAD".equals(messageModel.getStatus()))
             holder.imageView.setVisibility(View.VISIBLE);
         else
-            holder.imageView.setVisibility(View.GONE);
+            holder.imageView.setVisibility(View.INVISIBLE);
+        if (position == 0) {
+            holder.detail.setVisibility(View.VISIBLE);
+        }
+        if (nowPosition == position) {
+            holder.detail.setVisibility(View.VISIBLE);
+        } else {
+            holder.detail.setVisibility(View.GONE);
+        }
         holder.total.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (holder.detail.getVisibility() == View.GONE) {
+                    nowPosition = position;
                     holder.detail.setVisibility(View.VISIBLE);
+                    if ("UNREAD".equals(messageModel.getStatus())) {
+                        MessageListModel.changeAlreadyRead(messageModel.getId()).done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                JSONObject jsonObject = arguments.get(0);
+                                if (jsonObject.optBoolean("success")) {
+                                    ((MyMessageActivity) (context)).onRefresh();
+                                    notifyDataSetChanged();
+                                } else {
+                                    int code = jsonObject.optInt("code");
+                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                }
+                            }
+                        });
+                    }
                     notifyDataSetChanged();
                 } else {
                     holder.detail.setVisibility(View.GONE);
@@ -84,10 +120,16 @@ public class MyMessageAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if (holder.detail.getVisibility() == View.VISIBLE) {
-                    DialogUtil.hintMessage("this", context);
-                   /* Intent intent = new Intent(context, ExerciseActivity.class);
-                    intent.putExtra("url", messageModel.get);
-                    ViewUtil.startActivity(context, intent);*/
+
+                    if ("ORDER".equals(messageModel.getType())) {
+                        Intent intent = new Intent(context, OrderDetailActivity.class);
+                        intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
+                        ViewUtil.startActivity(context, intent);
+                    } else if ("COMPETITION".equals(messageModel.getType())) {
+                        Intent intent = new Intent(context, CompetitionDetailActivity.class);
+                        intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
+                        ViewUtil.startActivity(context, intent);
+                    }
                 }
             }
         });

@@ -67,7 +67,8 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= eventModels.size()) {
                     Intent intent = new Intent(CompetitionActivity.this, CompetitionDetailActivity.class);
-                    intent.putExtra("event", eventModels.get(i - 1));
+                    intent.putExtra("url", eventModels.get(i - 1).getUrl());
+                    intent.putExtra("id", eventModels.get(i - 1).getId());
                     ViewUtil.startActivity(CompetitionActivity.this, intent);
                 }
             }
@@ -131,7 +132,13 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                 page++;
                 break;
         }
-        EventListModel.get(page).done(this);
+        EventListModel.get(page).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (listView != null)
+                    listView.onRefreshComplete();
+            }
+        });
     }
 
     @Override

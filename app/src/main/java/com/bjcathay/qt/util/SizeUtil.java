@@ -25,7 +25,10 @@ public class SizeUtil {
         return (int) (pxValue / scale + 0.5f);
     }
 
-
+    public static float pixelToDp(Context context, float val) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return val * density;
+    }
     public static int sp2px(Context context, float spValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
     }

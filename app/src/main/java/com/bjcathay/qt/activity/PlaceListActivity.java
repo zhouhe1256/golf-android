@@ -13,10 +13,9 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PlaceListAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.widget.DSActivity;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
-import com.bjcathay.qt.model.StadiumListModel;
-import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
@@ -73,14 +72,20 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     private void initEvent() {
         //   listView.setAdapter(placeListAdapter);
+        lstv.setListViewEmptyImage(R.drawable.ic_network_error);
+        lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(PlaceListActivity.this, CourseDetailActivity.class);
-                intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
-                intent.putExtra("id", stadiumModelList.get(i - 1).getId());
-                intent.putExtra("type", stadiumModelList.get(i - 1).getType());
-                ViewUtil.startActivity(PlaceListActivity.this, intent);
+                if (i <= stadiumModelList.size()) {
+                    //todo
+                   // Intent intent = new Intent(PlaceListActivity.this, CourseDetailActivity.class);
+                    Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
+                    intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
+                    intent.putExtra("id", stadiumModelList.get(i - 1).getId());
+                    intent.putExtra("type", stadiumModelList.get(i - 1).getType());
+                    ViewUtil.startActivity(PlaceListActivity.this, intent);
+                }
             }
         });
     }
@@ -142,7 +147,13 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 page++;
                 break;
         }
-        ProductListModel.productList(page).done(this);
+        ProductListModel.productList(page).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (lstv != null)
+                    lstv.onRefreshComplete();
+            }
+        });
     }
 
     @Override

@@ -13,7 +13,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
 
-import com.bjcathay.mallfm.R;
+import com.bjcathay.qt.R;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

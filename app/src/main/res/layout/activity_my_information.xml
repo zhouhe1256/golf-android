@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="@color/mian_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_textSize"
             android:text="头像:" />
 
 
@@ -70,7 +70,7 @@
         <TextView
             android:id="@+id/info_nick_name_note"
             android:textColor="@color/mian_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_textSize"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:layout_toRightOf="@id/info_nick_name_note"
             android:text="张三"
             android:layout_marginLeft="10dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
@@ -114,7 +114,7 @@
         <TextView
             android:id="@+id/info_name_note"
             android:textColor="@color/mian_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_textSize"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_toRightOf="@id/info_name_note"
             android:text="张三"
             android:layout_marginLeft="10dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
@@ -157,7 +157,7 @@
 
         <TextView
             android:textColor="@color/mian_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_textSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -166,7 +166,7 @@
         <TextView
             android:id="@+id/info_phone"
             android:layout_marginLeft="10dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_gravity="center_vertical"
             android:layout_width="fill_parent"
@@ -188,7 +188,7 @@
 
         <TextView
             android:textColor="@color/mian_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_textSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -197,7 +197,7 @@
         <TextView
             android:id="@+id/info_invite"
             android:layout_marginLeft="10dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -218,7 +218,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:textSize="10sp"
+        android:textSize="@dimen/small_textSize"
         android:textColor="@color/exchange_text_color"
         android:text="完善个人资料，会更方便您后续的报名活动哦．" />
 

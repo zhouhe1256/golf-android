@@ -13,6 +13,7 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
@@ -34,12 +35,8 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private CircleImageView userImg;
     private TextView userPhone;
-    //自定义的弹出框类
-    SelectPicPopupWindow menuWindow;
     private UserModel userModel;
-    private int selectCode = 1;
-    private int requestCropIcon = 2;
-    private int resultPictureCode = 3;
+    private boolean newMeaage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +61,10 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     }
 
     private void initDate() {
-        UserModel.get().done(this);
+        if (gApplication.isLogin())
+            UserModel.get().done(this);
+        updateMessage();
+
     }
 
     private void initEvent() {
@@ -76,13 +76,20 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         myMessage.setOnClickListener(this);
         myPerson.setOnClickListener(this);
         myExchange.setOnClickListener(this);
-
         userImg.setOnClickListener(this);
     }
 
     private void initUserData(UserModel userModel, boolean isWriteSD) {
-        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
         this.userModel = userModel;
+    }
+
+    private void updateMessage() {
+        newMeaage = PreferencesUtils.getBoolean(this, PreferencesConstant.NEW_MESSAGE_FLAG, false);
+        if (newMeaage)
+            findViewById(R.id.new_message_flag).setVisibility(View.VISIBLE);
+        else
+            findViewById(R.id.new_message_flag).setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -91,24 +98,24 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.my_order:
                 intent = new Intent(this, MyOrderActivity.class);
-                ViewUtil.startActivity(this, intent);
+                IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_competition:
                 intent = new Intent(this, MyCompetitionActivity.class);
-                ViewUtil.startActivity(this, intent);
+                IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_message:
                 intent = new Intent(this, MyMessageActivity.class);
-                ViewUtil.startActivity(this, intent);
+                IsLoginUtil.isLogin(this, intent);
+                PreferencesUtils.putBoolean(this, PreferencesConstant.NEW_MESSAGE_FLAG, false);
                 break;
             case R.id.my_personal:
-                /*intent = new Intent(this, MyInformationActivity.class);
-                intent.putExtra("user", userModel);
-                ViewUtil.startActivity(this, intent);*/
+                intent = new Intent(this, MyFriendActivity.class);
+                IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_exchange:
                 intent = new Intent(this, MyExchangeActivity.class);
-                ViewUtil.startActivity(this, intent);
+                IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.title_setting_img:
                 intent = new Intent(this, SettingActivity.class);
@@ -123,10 +130,11 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 //显示窗口
                 menuWindow.showAtLocation(UserCenterActivity.this.findViewById(R.id.user_center_content), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 */
-                intent = new Intent(this, MyInformationActivity.class);
-                intent.putExtra("user", userModel);
-                ViewUtil.startActivity(this, intent);
-
+                if (userModel != null) {
+                    intent = new Intent(this, MyInformationActivity.class);
+                    intent.putExtra("user", userModel);
+                    IsLoginUtil.isLogin(this, intent);
+                }
                 break;
         }
     }
@@ -136,76 +144,22 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     public void call(Arguments arguments) {
         userModel = arguments.get(0);
         PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
-        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
-        userPhone.setText(userModel.getNickname());
+        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
+        if (userModel.getNickname() == null)
+            userPhone.setText(userModel.getMobileNumber());
+        else
+            userPhone.setText(userModel.getNickname());
     }
-
-   /* @Override
-    public void resultPicture() {
-        Intent intent = new Intent();
-        intent.setType("image*//*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, selectCode);
-    }
-
-    @Override
-    public void resultCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, resultPictureCode);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
-        }
-        if (selectCode == requestCode) {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setData(data.getData());
-            intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 96);
-            intent.putExtra("outputY", 96);
-            intent.putExtra("noFaceDetection", true);
-            intent.putExtra("return-data", true);
-            startActivityForResult(intent, requestCropIcon);
-        } else if (requestCropIcon == requestCode) {
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
-                UserModel.setAvatar(FileUtils.Bitmap2Bytes(photo)).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        UserModel user = arguments.get(0);
-                        initUserData(user, false);
-                    }
-                });
-            }
-        } else if (resultPictureCode == requestCode) {
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
-                UserModel.setAvatar(FileUtils.Bitmap2Bytes(photo)).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        UserModel user = arguments.get(0);
-                        initUserData(user, false);
-                    }
-                });
-            }
-        }
-    }*/
-
     @Override
     protected void onStart() {
         super.onStart();
         initDate();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initDate();
+    }
+
 }

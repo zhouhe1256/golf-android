@@ -2,17 +2,20 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.DeleteInfoDialog;
+import com.bjcathay.qt.view.PhoneTextView;
 import com.bjcathay.qt.view.TopView;
 
 /**
  * Created by dengt on 15-4-21.
  */
-public class OrderSucActivity extends Activity implements View.OnClickListener {
+public class OrderSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;
     private Long id;
 
@@ -56,6 +59,19 @@ public class OrderSucActivity extends Activity implements View.OnClickListener {
             case R.id.title_back_img:
                 finish();
                 break;
+            case R.id.call_phone:
+                DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
+                        R.style.InfoDialog, "呼叫" + getResources().getString(R.string.service_tel).toString().trim() + "？", 0l, this);
+                infoDialog.show();
+                break;
+        }
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            this.startActivity(intent);
         }
     }
 }

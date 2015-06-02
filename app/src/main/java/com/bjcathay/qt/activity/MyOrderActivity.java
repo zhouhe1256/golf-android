@@ -147,7 +147,13 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                 page++;
                 break;
         }
-        OrderListModel.getMyOrder(page).done(this);
+        OrderListModel.getMyOrder(page).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (lstv != null)
+                    lstv.onRefreshComplete();
+            }
+        });
     }
 
     @Override

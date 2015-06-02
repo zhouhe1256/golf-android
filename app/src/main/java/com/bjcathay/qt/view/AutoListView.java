@@ -167,9 +167,9 @@ public class AutoListView extends ListView implements OnScrollListener {
         topPadding(-headerContentHeight);
         this.addHeaderView(header);
         this.addFooterView(footer);
-       // ViewGroup parentView = (ViewGroup) this.getParent();
-     //   parentView.addView(empty);
-     //   this.setEmptyView(empty);
+        // ViewGroup parentView = (ViewGroup) this.getParent();
+        //   parentView.addView(empty);
+        //   this.setEmptyView(empty);
         this.setOnScrollListener(this);
     }
 
@@ -315,6 +315,10 @@ public class AutoListView extends ListView implements OnScrollListener {
         header.invalidate();
     }
 
+    public void isLoadFull() {
+        isLoadFull = true;
+    }
+
     /**
      * 这个方法是根据结果的大小来决定footer显示的。
      * <p>
@@ -330,24 +334,56 @@ public class AutoListView extends ListView implements OnScrollListener {
             loading.setVisibility(View.GONE);
             more.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);*/
-          //  empty.setVisibility(VISIBLE);
+            //  empty.setVisibility(VISIBLE);
             removeFooterView(empty);
             removeFooterView(footer);
             addFooterView(empty);
         } else if (resultSize > 0 && resultSize < pageSize) {
             isLoadFull = true;
-            loadFull.setVisibility(View.VISIBLE);
+            loadFull.setVisibility(View.GONE);
             loading.setVisibility(View.GONE);
             more.setVisibility(View.GONE);
             noData.setVisibility(View.GONE);
         } else if (resultSize == pageSize) {
+            if (isLoadFull == false) {
+                isLoadFull = false;
+                loadFull.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                more.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+            }else{
+                isLoadFull = true;
+                loadFull.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
+                more.setVisibility(View.GONE);
+                noData.setVisibility(View.GONE);
+            }
+        } else if (resultSize > pageSize) {
+            loadFull.setVisibility(View.GONE);
+            loading.setVisibility(View.GONE);
+            more.setVisibility(View.GONE);
+            noData.setVisibility(View.GONE);
+        }
+
+    }
+
+    /**
+     * @param hasNext true有下一页可加载,false加载完成
+     */
+    public void setResultSize(boolean hasNext) {
+        if (hasNext) {
             isLoadFull = false;
             loadFull.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
             more.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
+        } else {
+            isLoadFull = true;
+            loadFull.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
+            more.setVisibility(View.GONE);
+            noData.setVisibility(View.GONE);
         }
-
     }
 
     // 根据当前状态，调整header

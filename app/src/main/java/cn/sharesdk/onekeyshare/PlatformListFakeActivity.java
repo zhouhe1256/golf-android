@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.mob.tools.FakeActivity;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
@@ -63,6 +65,7 @@ public class PlatformListFakeActivity extends FakeActivity {
 	@Override
 	public void show(Context context, Intent i) {
 		super.show(context, i);
+
 	}
 
 	public HashMap<String, Object> getShareParamsMap() {

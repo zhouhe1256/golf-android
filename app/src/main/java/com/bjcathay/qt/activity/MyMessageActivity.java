@@ -31,7 +31,7 @@ import java.util.List;
  * Created by bjcathay on 15-4-29.
  */
 public class MyMessageActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult,View.OnClickListener {
+        AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult, View.OnClickListener {
     private Activity context;
     private MyMessageAdapter myMessageAdapter;
     private List<MessageModel> messageModels;
@@ -43,7 +43,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_message);
-        context=this;
+        context = this;
         initView();
         initData();
         initEvent();
@@ -53,7 +53,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
         topView = ViewUtil.findViewById(this, R.id.top_my_message_layout);
         topView.setTitleBackVisiable();
         topView.setTitleText("我的消息");
-        topView.setVisiable(View.INVISIBLE,View.VISIBLE,View.VISIBLE);
+        topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.VISIBLE);
         topView.setRightbtn("清空", 0);
         messageModels = new ArrayList<MessageModel>();
         myMessageAdapter = new MyMessageAdapter(messageModels, this);
@@ -71,7 +71,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
             public void onClick(View view) {
                 //弹窗设置是否取消
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                        R.style.InfoDialog, "确认清空消息？",0l,MyMessageActivity.this);
+                        R.style.InfoDialog, "确认清空消息？", 0l, MyMessageActivity.this);
                 infoDialog.show();
 
             }
@@ -114,6 +114,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         lstv.onLoadComplete();
                         break;
                 }
+                messageModels.clear();
                 lstv.setResultSize(0);
                 myMessageAdapter.notifyDataSetChanged();
             }
@@ -145,14 +146,20 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                 page++;
                 break;
         }
-        String lastUpdate= PreferencesUtils.getString(this,PreferencesConstant.LAST_UPDATE_MESSAGE,"1970-11-11 00:00:00");
-        MessageListModel.getMyMessage(page, lastUpdate).done(this);
+        String lastUpdate = PreferencesUtils.getString(this, PreferencesConstant.LAST_UPDATE_MESSAGE, "1970-11-11 00:00:00");
+        MessageListModel.getMyMessage(page, lastUpdate).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (lstv != null)
+                    lstv.onRefreshComplete();
+            }
+        });
     }
 
     @Override
     public void call(Arguments arguments) {
         MessageListModel messageListModel = arguments.get(0);
-        PreferencesUtils.putString(this,PreferencesConstant.LAST_UPDATE_MESSAGE,SystemUtil.getCurrentTime());
+        PreferencesUtils.putString(this, PreferencesConstant.LAST_UPDATE_MESSAGE, SystemUtil.getCurrentTime());
         Message msg = handler.obtainMessage();
         if (page == 1)
             msg.what = AutoListView.REFRESH;
@@ -167,13 +174,13 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
 
-                StringBuffer buffer = new StringBuffer();
-                for (int i = 0; i < messageModels.size(); i++) {
-                    if (i < messageModels.size() - 1)
-                        buffer.append(messageModels.get(i).getId() + ",");
-                    else
-                        buffer.append(messageModels.get(i).getId());
-                }
+            StringBuffer buffer = new StringBuffer();
+            for (int i = 0; i < messageModels.size(); i++) {
+                if (i < messageModels.size() - 1)
+                    buffer.append(messageModels.get(i).getId() + ",");
+                else
+                    buffer.append(messageModels.get(i).getId());
+            }
 
             MessageListModel.deleteMessages(buffer.toString()).done(new ICallback() {
                 @Override
@@ -196,6 +203,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
             });
         }
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

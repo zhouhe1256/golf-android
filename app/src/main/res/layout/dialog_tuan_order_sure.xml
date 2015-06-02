@@ -2,22 +2,18 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@null"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.bjcathay.qt.view.TopView
-        android:id="@+id/dialog_order_sure_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@drawable/order_dialog_bg"
         android:paddingLeft="20dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:paddingRight="20dp">
 
         <LinearLayout
@@ -88,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textColor="@color/exchange_text_color"
-                    android:text="价格包含:" />
+                    android:text="包含服务:" />
 
                 <TextView
                     android:id="@+id/dialog_order_sure_service"
@@ -103,19 +99,18 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <TextView
+                    android:layout_marginTop="17dp"
                     android:textSize="12sp"
                     android:textColor="@color/exchange_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="消费人数:" />
-
                 <TextView
+                    android:layout_marginTop="17dp"
                     android:id="@+id/dialog_order_sure_number"
                     android:textSize="14sp"
                     android:paddingLeft="5dp"
@@ -123,6 +118,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="４人" />
+                <LinearLayout
+                    android:id="@+id/dialog_order_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:id="@+id/dialog_order_minas"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/ic_plus" />
+                    <TextView
+                        android:layout_marginTop="17dp"
+                        android:id="@+id/dialog_order_sure_number_edit"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/mian_text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="５" />
+                    <ImageView
+                        android:paddingTop="17dp"
+                        android:id="@+id/dialog_order_plus"
+                        android:paddingLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/ic_minas" />
+                    <TextView
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/mian_text_color"
+                        android:textSize="14sp"
+                        android:text="人" />
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -144,7 +174,7 @@
                 <TextView
                     android:id="@+id/dialog_order_sure_price"
 
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/guolinbi_color"
                     android:layout_width="wrap_content"
@@ -170,19 +200,17 @@
             android:text="团购并付款" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="247dp"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
                 android:textSize="10sp"
-                android:minLines="3"
                 android:textColor="@color/exchange_text_color"
-                android:text="@string/order_sure_instruction" />
-
+                android:text="@string/order_tuan_sure_instruction" />
 
 
         </LinearLayout>

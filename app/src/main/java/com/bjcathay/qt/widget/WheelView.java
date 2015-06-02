@@ -12,7 +12,8 @@ import android.view.Gravity;
 import android.view.SoundEffectConstants;
 import android.view.View;
 
-import com.lee.wheel.R;
+import com.bjcathay.qt.R;
+
 
 public class WheelView extends TosGallery {
     /**
@@ -153,7 +154,7 @@ public class WheelView extends TosGallery {
     }
 
     /**
-     * @see com.nj1s.lib.widget.TosGallery#setSelectedPositionInt(int)
+     * @see
      */
     @Override
     protected void selectionChanged() {
@@ -180,7 +181,7 @@ public class WheelView extends TosGallery {
      * @param canvas
      */
     private void drawShadows(Canvas canvas) {
-        int height = (int) (2.0 * mSelectorBound.height());
+        int height = (int) (3.0 * mSelectorBound.height());
         mTopShadow.setBounds(0, 0, getWidth(), height);
         mTopShadow.draw(canvas);
 

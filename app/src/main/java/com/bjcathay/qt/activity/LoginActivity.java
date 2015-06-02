@@ -20,6 +20,7 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
+import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
 
@@ -101,6 +102,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 break;
             case R.id.top_login_layout:
                 finish();
+                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
                 break;
         }
     }
@@ -122,7 +124,13 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             gApplication.updateApiToken();
             DialogUtil.showMessage("登陆成功");
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                }
+            });
             finish();
+            overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
         } else {
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));

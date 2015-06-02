@@ -18,11 +18,13 @@ import com.bjcathay.qt.adapter.BannerViewPagerAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
+import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
+import com.igexin.sdk.PushManager;
 
 import java.util.List;
 
@@ -124,6 +126,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
         gApplication = GApplication.getInstance();
         initView();
         initEvent();
@@ -135,9 +141,18 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             }
         }, 5000);
     }
-
     private void initData() {
         BannerListModel.getHomeBanners().done(this);
+        if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false)
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    UserModel userModel = arguments.get(0);
+                    if (userModel != null) {
+                        GApplication.getInstance().setPushID(true);
+                    }
+                }
+            });
     }
 
     @Override
@@ -202,7 +217,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 break;
             case R.id.user_center:
                 intent = new Intent(this, UserCenterActivity.class);
-                IsLoginUtil.isLogin(intent, this);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.home_share_title:
                 intent = new Intent(this, ShareActivity.class);

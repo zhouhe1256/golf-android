@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.CourseDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.ScheduleActivity;
 import com.bjcathay.qt.model.BannerModel;
@@ -62,12 +64,12 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         final BannerModel bannerModel = items.get(position);
 
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
-       // final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
+        // final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
 
-         ImageViewAdapter.adapt(bgView, bannerModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(bgView, bannerModel.getImageUrl(), R.drawable.exchange_default);
 
-       // bannerTitleView.setTextColor(Color.WHITE);
-       // bannerTitleView.setText(carouselModel.getTitle());
+        // bannerTitleView.setTextColor(Color.WHITE);
+        // bannerTitleView.setText(carouselModel.getTitle());
         //bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
 
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -77,19 +79,23 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String target=bannerModel.getType();
+                String target = bannerModel.getType();
                 Intent intent;
-                if("SITE".equals(target)){
-                    intent=new Intent(context, ExerciseActivity.class);
-                    intent.putExtra("url",bannerModel.getTarget());
-                    ViewUtil.startActivity(context,intent);
-                }else if("PRODUCT".equals(target)){
-                    intent=new Intent(context, ScheduleActivity.class);
-                    intent.putExtra("imageurl",bannerModel.getImageUrl());
-                    intent.putExtra("id",bannerModel.getTarget());
-                    ViewUtil.startActivity(context,intent);
+                if ("SITE".equals(target)) {
+                    intent = new Intent(context, ExerciseActivity.class);
+                    intent.putExtra("url", bannerModel.getTarget());
+                    ViewUtil.startActivity(context, intent);
+                } else if ("PRODUCT".equals(target)) {
+                    intent = new Intent(context, CourseDetailActivity.class);
+                    intent.putExtra("imageurl", bannerModel.getImageUrl());
+                    intent.putExtra("id", Long.valueOf(bannerModel.getTarget()));
+                    ViewUtil.startActivity(context, intent);
+                } else if ("COMPETITION".equals(target)) {
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                    intent.putExtra("url", bannerModel.getTarget());
+                    ViewUtil.startActivity(context, intent);
                 }
-               // DialogUtil.hintMessage(carouselModel, context);
+                // DialogUtil.hintMessage(carouselModel, context);
             }
         });
         return convertView;

@@ -12,8 +12,11 @@
         android:background="@color/home_title_color" />
 
     <com.bjcathay.qt.view.AutoListView
+        android:layout_marginTop="10dp"
         android:id="@+id/my_message_list"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:divider="@null"
+        android:dividerHeight="8dp"/>
 
 </LinearLayout>

@@ -51,6 +51,9 @@ public class AddressActivity extends Activity implements View.OnClickListener {
         topView.setTitleText(title);
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                /*if (url.startsWith("baidumap://map/direction")) {
+                    url = " http://api.map.baidu.com/direction?origin=latlng:34.264642646862,108.95108518068|name:我家&destination=大雁塔&mode=driving&region=西安&output=html&src=yourCompanyName|yourAppName";
+                }*/
                 view.loadUrl(url);
                 return true;
             }

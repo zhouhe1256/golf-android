@@ -63,7 +63,7 @@ public class MyPropAdapter extends BaseAdapter {
         }
         final PropModel propModel = items.get(position);
         holder.title.setText(propModel.getName());
-        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
         holder.price.setText(propModel.getNeedAmount() + "个有效用户");
        /* convertView.setOnClickListener(new View.OnClickListener() {

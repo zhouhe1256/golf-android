@@ -2,15 +2,18 @@ package com.bjcathay.qt.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SortAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BooksModel;
 import com.bjcathay.qt.model.PropModel;
@@ -48,8 +52,8 @@ import java.util.Map;
 /**
  * Created by bjcathay on 15-4-29.
  */
-public class ContactActivity extends Activity implements View.OnClickListener {
-
+public class ContactActivity extends FragmentActivity implements View.OnClickListener, DialogExchFragment.ExchangeResult {
+    private DialogExchFragment dialogExchFragment;
     private View mBaseView;
     private ListView sortListView;
     private SideBar sideBar;
@@ -71,6 +75,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_contact);
         initView();
         initData();
+        initEvent();
     }
 
     private void initView() {
@@ -78,14 +83,22 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         sideBar = (SideBar) this.findViewById(R.id.sidrbar);
         dialog = (TextView) this.findViewById(R.id.dialog);
         sortListView = (ListView) this.findViewById(R.id.sortlist);
+
+    }
+
+    private void initEvent() {
+        //   mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
     }
 
     Long id;
+    Drawable imgLeft;
+    LinearLayout centerImg;
 
     private void initData() {
         topView.setTitleBackVisiable();
         topView.setTitleText("选择好友");
         id = getIntent().getLongExtra("id", 0);
+        dialogExchFragment = new DialogExchFragment(this, this);
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
@@ -108,6 +121,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         });
         new ConstactAsyncTask().execute(0);
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -115,6 +129,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void exchangeResult(UserModel userModel, boolean isExchange) {
+
     }
 
     private class ConstactAsyncTask extends AsyncTask<Integer, Integer, Integer> {
@@ -133,6 +152,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
             if (result == 1) {
                 final BooksModel booksModel = new BooksModel();
                 booksModel.setBooks(callRecords);
+                //ViewUtil.encode(JSONUtil.dump(booksModel).getBytes())
                 SortListModel.searchContactListUser(ViewUtil.encode(JSONUtil.dump(booksModel).getBytes())).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
@@ -141,7 +161,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, dialogExchFragment);
                         sortListView.setAdapter(adapter);
 
                     }
@@ -158,16 +178,33 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, dialogExchFragment);
                         sortListView.setAdapter(adapter);
                     }
                 });
                 mClearEditText = (ClearEditText) ContactActivity.this
                         .findViewById(R.id.filter_edit);
+                centerImg = ViewUtil.findViewById(ContactActivity.this, R.id.layout_default);
                 mClearEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
-                    public void onFocusChange(View arg0, boolean arg1) {
+                    public void onFocusChange(View arg0, boolean hasFocus) {
                         mClearEditText.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                        String hint;
+                        if (!hasFocus) {
+                            hint = mClearEditText.getHint().toString();
+                            mClearEditText.setTag(hint);
+                            mClearEditText.setHint("");
+                            centerImg.setVisibility(View.VISIBLE);
+                        } else {
+                            centerImg.setVisibility(View.GONE);
+                            hint = mClearEditText.getTag().toString();
+                            mClearEditText.setHint(hint);
+                            if (imgLeft == null) {
+                                imgLeft = getResources().getDrawable(R.drawable.ic_search);
+                                imgLeft.setBounds(0, 0, imgLeft.getMinimumWidth(), imgLeft.getMinimumHeight());
+                            }
+                            mClearEditText.setCompoundDrawables(imgLeft, null, null, null);
+                        }
                     }
                 });
                 // 根据输入框输入值的改变来过滤搜索

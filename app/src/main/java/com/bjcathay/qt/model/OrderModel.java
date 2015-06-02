@@ -194,8 +194,9 @@ public class OrderModel implements Serializable {
     }
 
     public static IPromise orderDelete(Long id) {
-        return Http.instance().post(ApiUrl.orderDelete(id)).
+        return Http.instance().post(ApiUrl.orderDelete()).
                 param("_method", "DELETE").
+                param("from",id).
                 run();
     }
 

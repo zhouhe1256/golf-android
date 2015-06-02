@@ -1,10 +1,9 @@
 package com.bjcathay.qt.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,8 +13,10 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.ExchangeAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.PropListModel;
 import com.bjcathay.qt.model.PropModel;
+import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -29,7 +30,7 @@ import java.util.List;
  * 兑换页面
  * Created by dengt on 15-4-20.
  */
-public class AwardActivity extends Activity implements ICallback, View.OnClickListener {
+public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener,DialogExchFragment.ExchangeResult {
     private GApplication gApplication;
     private TopView topView;
     private ListView awardingFirst;
@@ -37,6 +38,7 @@ public class AwardActivity extends Activity implements ICallback, View.OnClickLi
     private List<PropModel> propModels;
     private TextView inviteNum;
     private LinearLayout empty;
+    private DialogExchFragment dialogExchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,8 @@ public class AwardActivity extends Activity implements ICallback, View.OnClickLi
         empty = ViewUtil.findViewById(this, R.id.empty_lin);
         awardingFirst.setEmptyView(empty);
         propModels = new ArrayList<PropModel>();
-        exchangeAdapter = new ExchangeAdapter(propModels, this, inviteNum);
+        dialogExchFragment = new DialogExchFragment(this,this);
+        exchangeAdapter = new ExchangeAdapter(propModels, this, inviteNum,dialogExchFragment);
     }
 
     private void initEvent() {
@@ -86,10 +89,14 @@ public class AwardActivity extends Activity implements ICallback, View.OnClickLi
         switch (view.getId()) {
             case R.id.title_exchange_img:
                 intent = new Intent(AwardActivity.this, MyExchangeActivity.class);
-                IsLoginUtil.isLogin(intent, this);
+                IsLoginUtil.isLogin(this,intent);
                 break;
             case R.id.home_back_img:
                 finish();
+                break;
+            case R.id.about_glb:
+                intent = new Intent(this, AboutGLBActivity.class);
+                IsLoginUtil.isLogin(this,intent);
                 break;
         }
     }
@@ -110,5 +117,12 @@ public class AwardActivity extends Activity implements ICallback, View.OnClickLi
         super.onStart();
         if (gApplication.isLogin() == true)
             inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0) + "");
+    }
+
+    @Override
+    public void exchangeResult(UserModel userModel, boolean isExchange) {
+        inviteNum.setText("" + userModel.getInviteAmount());
+        PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
+
     }
 }

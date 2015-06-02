@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="wrap_content"
+
+    <com.bjcathay.qt.view.TopView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/exchange_default"/>
+        android:id="@+id/top_about_layout"
+        android:background="@color/home_title_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/exchange_default"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_textSize"
+            android:paddingTop="20dp"
+            android:textColor="@color/mian_text_color"
+            android:text="7铁高尔夫" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sub_textSize"
+            android:textColor="@color/exchange_text_color"
+            android:text="版本1.0" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

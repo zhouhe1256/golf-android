@@ -20,16 +20,19 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/ic_guolinbi"
+            android:src="@drawable/ic_glb"
             android:layout_width="23dp"
             android:layout_margin="12dp"
             android:layout_marginLeft="12dp"
             android:layout_height="23dp" />
 
         <RelativeLayout
+            android:id="@+id/about_glb"
             android:layout_marginLeft="17dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="onClick"
+            android:clickable="true">
 
             <RelativeLayout
                 android:layout_width="fill_parent"

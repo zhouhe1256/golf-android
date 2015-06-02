@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by bjcathay on 15-4-24.
@@ -37,10 +38,11 @@ public class DateUtil {
         Calendar righte = Calendar.getInstance();
         righte.setTime(e);
         int daye = righte.get(Calendar.DAY_OF_MONTH);
+        int monthe = righte.get(Calendar.MONTH);
         Calendar now = Calendar.getInstance();
         int now_daye = now.get(Calendar.DAY_OF_MONTH);
         String today = "今天";
-        for (int i = day; i <= daye; i++) {
+        for (int i = day; month < monthe || (month == monthe && day < daye); i++) {
             month = rights.get(Calendar.MONTH);
             day = rights.get(Calendar.DAY_OF_MONTH);
             day1 = rights.get(Calendar.DAY_OF_WEEK);
@@ -81,7 +83,6 @@ public class DateUtil {
                 dayList.add(month + 1 + "月" + day + "日" + "(" + today + ")");
             rights.add(Calendar.DATE, 1);
         }
-
         return dayList;
     }
 
@@ -329,6 +330,7 @@ public class DateUtil {
         Date dateValue = simpleDateFormat.parse(dateString, position);
         return dateValue;
     }
+
     public static Date stringNormalToDate(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -372,11 +374,29 @@ public class DateUtil {
         return nowDate;
     }
 
+    public static String stringToDateToOrderString(String dateString) {
+        ParsePosition position = new ParsePosition(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateValue = simpleDateFormat.parse(dateString, position);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        String nowDate = simpleDateFormat1.format(dateValue);
+        return nowDate;
+    }
+
     public static String stringToDateToHourString(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateValue = simpleDateFormat.parse(dateString, position);
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm");
+        String nowDate = simpleDateFormat1.format(dateValue);
+        return nowDate;
+    }
+
+    public static String shortDateString(String dateString) {
+        ParsePosition position = new ParsePosition(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateValue = simpleDateFormat.parse(dateString, position);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
         String nowDate = simpleDateFormat1.format(dateValue);
         return nowDate;
     }

@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/guolinbi_color"
-            android:text="已付款" />
+            android:text="确认中" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,8 +41,8 @@
                 android:id="@+id/order_detail_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/mian_text_color"
                 android:text="实付款" />
 
             <TextView
@@ -50,8 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="12sp"
-                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/mian_text_color"
                 android:text="交易日期" />
         </LinearLayout>
 
@@ -65,9 +65,9 @@
             android:layout_width="match_parent"
             android:padding="10dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/sub_textSize"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/exchange_text_color"
+            android:textColor="@color/mian_text_color"
             android:text="手机号码" />
 
     </LinearLayout>
@@ -89,7 +89,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:paddingRight="10dp">
 
             <TextView
@@ -97,8 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/mian_text_color"
                 android:text="订单号:123456" />
 
 
@@ -111,120 +111,107 @@
             android:background="@drawable/line_divide_hor" />
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.bjcathay.qt.view.RoundCornerImageView
+                android:layout_margin="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/order_detail_img"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_vertical" />
 
             <RelativeLayout
+                android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/order_detail_img"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_margin="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@color/transparent_color" />
+                <LinearLayout
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/order_detail_temai"
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_marginRight="5dp"
+                            android:id="@+id/order_detail_name"
+                            android:paddingTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/main_textSize"
+                            android:textColor="@color/mian_text_color"
+                            android:text="北京清河湾俱乐部" />
+
+                        <ImageView
+                            android:id="@+id/order_detail_temai"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="bottom"
+                            android:src="@drawable/ic_te_icon" />
+
+                        <ImageView
+                            android:id="@+id/order_detail_tuangou"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_tuan_icon"
+                            android:layout_gravity="bottom" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:id="@+id/order_detail_comsumer_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:text="日期：22323232" />
+
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:id="@+id/order_detail_comsumer_numb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:text="预约人数４" />
+
+                    <TextView
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:id="@+id/order_detail_sale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:text="１８洞" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:padding="10dp"
+                    android:id="@+id/order_detail_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/ic_tag_temai" />
-
-                <ImageView
-                    android:id="@+id/order_detail_tuangou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/ic_tag_tuangou" />
-
+                    android:textSize="17sp"
+                    android:text="￥1660"
+                    android:textColor="@color/order_price_color"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/order_detail_name"
-                    android:paddingTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/mian_text_color"
-                    android:text="北京清河湾俱乐部" />
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:id="@+id/order_detail_comsumer_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/exchange_text_color"
-                    android:text="日期：22323232" />
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:id="@+id/order_detail_comsumer_numb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/exchange_text_color"
-                    android:text="预约人数４" />
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:id="@+id/order_detail_sale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/exchange_text_color"
-                    android:text="１８洞" />
-
-
-            </LinearLayout>
-
         </LinearLayout>
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp">
-
-            <TextView
-                android:id="@+id/order_detail_price"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="￥:1460"
-                android:textSize="14sp"
-                android:textColor="@color/mian_text_color"
-                android:paddingRight="10dp"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:layout_alignParentRight="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/exchange_text_color"
-                android:gravity="center"
-                android:layout_toLeftOf="@id/order_detail_price"
-                android:text="应付金额：" />
-
-
-        </RelativeLayout>
 
         <View
             android:layout_alignParentBottom="true"
@@ -238,8 +225,8 @@
         android:id="@+id/order_detail_address"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:textSize="12sp"
-        android:textColor="@color/exchange_text_color"
+        android:textSize="@dimen/sub_textSize"
+        android:textColor="@color/mian_text_color"
         android:gravity="center_vertical"
         android:drawableRight="@drawable/ic_address"
         android:paddingLeft="20dp"
@@ -262,6 +249,7 @@
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="立即支付"
         android:textColor="@color/white"
         android:background="@drawable/yellow_big_bg" />

@@ -13,4 +13,6 @@ public class PreferencesConstant {
     public static final String LAST_UPDATE_MESSAGE="last_update_message";
     public static final String USER_PHONE="user_phone";
     public static final String VALIDATED_USER="validated user";
+    public static final String NEW_MESSAGE_FLAG="new_message";
+    public static final String SHARE_CLICK="share_click";
 }

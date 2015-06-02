@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.async.LooperCallbackExecutor;
@@ -40,6 +41,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         super.onCreate();
         gApplication = this;
         // UncaughtHandler.getInstance(this).init(this, errorLogDir, "");
+        SDKInitializer.initialize(this);
         initHttp(this);
     }
 
@@ -133,6 +135,16 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         else if (getApiToken().length() > 1)
             return true;
         else return false;
+    }
+
+    private boolean isPushID;
+
+    public void setPushID(boolean isPushID) {
+        this.isPushID = isPushID;
+    }
+
+    public boolean isPushID() {
+        return isPushID;
     }
 
     public String getApiToken() {

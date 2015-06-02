@@ -34,14 +34,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/mian_text_color"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="@dimen/main_textSize"
                 android:text="北京清河湾高尔夫俱乐部" />
 
             <TextView
                 android:id="@+id/dialog_order_sure_time"
                 android:textColor="@color/mian_text_color"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="@dimen/main_textSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2015.4.26  2:30" />
@@ -62,7 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
                     android:text="手机号码:" />
 
@@ -70,7 +70,7 @@
                     android:id="@+id/dialog_order_sure_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:paddingLeft="5dp"
                     android:textColor="@color/mian_text_color"
                     android:text="1234567890" />
@@ -87,16 +87,16 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
-                    android:text="价格包含:" />
+                    android:text="包含服务:" />
 
                 <TextView
                     android:id="@+id/dialog_order_sure_service"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:paddingLeft="5dp"
                     android:textColor="@color/mian_text_color"
                     android:text="18洞果岭/僮/车/柜" />
@@ -110,7 +110,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
 
                 <TextView
                     android:id="@+id/dialog_order_sure_number"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:paddingLeft="5dp"
                     android:textColor="@color/mian_text_color"
                     android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,6 +157,7 @@
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
@@ -169,8 +170,10 @@
         android:layout_height="61dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
+        android:textSize="@dimen/main_textSize"
         android:text="支付方式选择"
         android:background="@color/white" />
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
@@ -182,9 +185,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:onClick="onClick"
-        android:clickable="true">
+        android:orientation="horizontal">
 
         <ImageView
             android:src="@drawable/ic_yinlian"
@@ -208,7 +209,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color" />
 
 
@@ -235,26 +236,21 @@
                     android:layout_height="8dp" />
 
             </RelativeLayout>
-
-
-
         </RelativeLayout>
-
-
     </LinearLayout>
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
+
     <LinearLayout
         android:id="@+id/pay_ipay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:onClick="onClick"
-        android:clickable="true">
+        android:orientation="horizontal">
 
         <ImageView
             android:background="@drawable/ic_zhifubao"
@@ -281,7 +277,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color" />
 
 
@@ -306,20 +302,22 @@
                     android:background="@drawable/ic_new_message"
                     android:layout_width="8dp"
                     android:layout_height="8dp" />
-
             </RelativeLayout>
-
-
-
         </RelativeLayout>
-
-
     </LinearLayout>
+
     <View
         android:layout_alignParentBottom="true"
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/touying_bg" />
 
-
+    <Button
+        android:id="@+id/zfbzfu"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="支付宝支付" />
 </LinearLayout>

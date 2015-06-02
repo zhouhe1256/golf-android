@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
@@ -50,7 +51,7 @@ public class PickerView extends View {
     private Paint mPaint;
 
     private float mMaxTextSize = 30;
-    private float mMinTextSize = 29;
+    private float mMinTextSize = 25;
 
     private float mMaxTextAlpha = 170;
     private float mMinTextAlpha = 70;
@@ -69,6 +70,15 @@ public class PickerView extends View {
     private onSelectListener mSelectListener;
     private Timer timer;
     private MyTimerTask mTask;
+    private boolean isScroll;//设置是否滚动
+
+    public boolean isScroll() {
+        return isScroll;
+    }
+
+    public void setScroll(boolean isScroll) {
+        this.isScroll = isScroll;
+    }
 
     Handler updateHandler = new Handler() {
 
@@ -107,8 +117,7 @@ public class PickerView extends View {
         if (mSelectListener != null)
             if (mDataList.size() >= 2)
                 mSelectListener.onSelect(mDataList.get(mCurrentSelected), mCurrentSelected);
-            else
-            if(mDataList.size()>0)
+            else if (mDataList.size() > 0)
                 mSelectListener.onSelect(mDataList.get(0), 0);
     }
 
@@ -210,7 +219,7 @@ public class PickerView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
-        mPaint.setColor(mColorText);
+        mPaint.setColor(getResources().getColor(R.color.mian_text_color));
     }
 
     @Override
@@ -224,16 +233,24 @@ public class PickerView extends View {
     private void drawData(Canvas canvas) {
         // 先绘制选中的text再往上往下绘制其余的text
         float scale = parabola(mViewHeight / 4.0f, mMoveLen);
-        float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+        //float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+
+        //mPaint.setTextSize(size);
+        float size = (mViewHeight / 7);
         mPaint.setTextSize(size);
-        mPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
+
+        // mPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
+        mPaint.setColor(getResources().getColor(R.color.mian_text_color));
         // text居中绘制，注意baseline的计算才能达到居中，y值是text中心坐标
         float x = (float) (mViewWidth / 2.0);
         float y = (float) (mViewHeight / 2.0 + mMoveLen);
         FontMetricsInt fmi = mPaint.getFontMetricsInt();
         float baseline = (float) (y - (fmi.bottom / 2.0 + fmi.top / 2.0));
         //画间隔线
-        // canvas.drawLine(mViewWidth * 1 / 6,mViewHeight*2, mViewWidth * 5 / 6,mViewHeight*2, mPaint);
+        //   canvas.drawLine(0,baseline+mViewWidth * 1 / 3, mViewWidth,baseline+mViewWidth * 1 / 3 , mPaint);
+        //  canvas.drawLine(0, baseline+mViewWidth * 2 / 3, mViewWidth,baseline+mViewWidth * 2 / 3 , mPaint);
+
+        //   canvas.drawLine(mViewWidth * 1 / 6,mViewHeight*2, mViewWidth * 5 / 6,mViewHeight*2, mPaint);
         if (mDataList.size() >= 2)
             canvas.drawText(mDataList.get(mCurrentSelected), x, baseline, mPaint);
         else if (mDataList.size() > 0)
@@ -241,11 +258,15 @@ public class PickerView extends View {
         // 绘制上方data
         if (mDataList.size() >= 2) {
             for (int i = 1; (mCurrentSelected - i) >= 0; i++) {
-                drawOtherText(canvas, i, -1);
+                    drawOtherText(canvas, i, -1);
+                if (i == 2)
+                    break;
             }
             // 绘制下方data
             for (int i = 1; (mCurrentSelected + i) < mDataList.size(); i++) {
                 drawOtherText(canvas, i, 1);
+                if (i == 2)
+                    break;
             }
         }
 
@@ -260,10 +281,19 @@ public class PickerView extends View {
         float d = (float) (MARGIN_ALPHA * mMinTextSize * position + type
                 * mMoveLen);
         float scale = parabola(mViewHeight / 4.0f, d);
-        float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+        // float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+
+        // mPaint.setTextSize(size);
+        float size = (mViewHeight / 10);
         mPaint.setTextSize(size);
-        mPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
-        float y = (float) (mViewHeight / 2.0 + type * d);
+        size--;
+        //  mPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
+        mPaint.setColor(getResources().getColor(R.color.exchange_text_color));
+        float y;
+        if (mViewHeight / 10 > 28)
+            y = (float) (mViewHeight / 2.0 + type * d * 1.5);
+        else
+            y = (float) (mViewHeight / 2.0 + type * d);
         FontMetricsInt fmi = mPaint.getFontMetricsInt();
         float baseline = (float) (y - (fmi.bottom / 2.0 + fmi.top / 2.0));
         canvas.drawText(mDataList.get(mCurrentSelected + type * position),

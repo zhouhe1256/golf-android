@@ -2,6 +2,53 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_glb_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/home_title_color"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/what_is_glb"
+       android:layout_margin="10dp"
+        android:textSize="@dimen/main_textSize"
+        android:textColor="@color/mian_text_color"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/this_is_glb"
+        android:padding="10dp"
+        android:textSize="@dimen/sub_textSize"
+
+        android:background="@color/white"
+        android:textColor="@color/exchange_text_color"/>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/how_to_get_glb"
+        android:textSize="@dimen/main_textSize"
+        android:layout_margin="10dp"
+
+        android:textColor="@color/mian_text_color"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/this_way_to_get_glb"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:textSize="@dimen/sub_textSize"
+
+        android:textColor="@color/exchange_text_color"/>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
 
 </LinearLayout>

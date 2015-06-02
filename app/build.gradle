@@ -4,11 +4,19 @@ android {
     compileSdkVersion 19
     buildToolsVersion '20.0.0'
     defaultConfig {
-        applicationId 'com.bjcathay.golf'
+        applicationId 'com.bjcathay.qt'
         minSdkVersion 16
         targetSdkVersion 19
         versionCode 1
         versionName '1.0'
+    }
+    signingConfigs {
+        release {
+            storeFile file('keystore/golf')
+            storePassword 'bjcathay2307golf'
+            keyAlias 'golf'
+            keyPassword 'bjcathay2307golf'
+        }
     }
     buildTypes {
         release {
@@ -35,4 +43,8 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.6.0.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.6.0.jar')
     compile files('libs/ShareSDK-Wechat-2.6.0.jar')
+    compile files('libs/alipaysdk.jar')
+    compile files('libs/alipaysecsdk.jar')
+    compile files('libs/alipayutdid.jar')
+    compile files('libs/BaiduLBS_Android.jar')
 }

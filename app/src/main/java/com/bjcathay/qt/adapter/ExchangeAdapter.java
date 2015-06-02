@@ -1,8 +1,8 @@
 package com.bjcathay.qt.adapter;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +16,12 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.AwardActivity;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.SendExchangeSucActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
@@ -39,10 +41,12 @@ import java.util.List;
 public class ExchangeAdapter extends BaseAdapter {
     private GApplication gApplication;
     private List<PropModel> items;
-    private Activity context;
+    private FragmentActivity context;
     private TextView number;
+    private DialogExchFragment dialogExchFragment;
+    int num;
 
-    public ExchangeAdapter(List<PropModel> items, Activity activity, TextView number) {
+    public ExchangeAdapter(List<PropModel> items, AwardActivity activity, TextView number,DialogExchFragment dialogExchFragment) {
         if (items == null) {
             items = new ArrayList<PropModel>();
         }
@@ -50,6 +54,7 @@ public class ExchangeAdapter extends BaseAdapter {
         this.context = activity;
         this.number = number;
         gApplication = GApplication.getInstance();
+        this.dialogExchFragment = dialogExchFragment;
     }
 
     @Override
@@ -81,7 +86,7 @@ public class ExchangeAdapter extends BaseAdapter {
         }
         final PropModel propModel = items.get(position);
         holder.title.setText(propModel.getName());
-        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
         holder.price.setText(propModel.getNeedAmount() + "个有效用户");
        /* convertView.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +95,7 @@ public class ExchangeAdapter extends BaseAdapter {
                 DialogUtil.hintMessage("选档期");
             }
         });*/
-        int num;
+
         if (gApplication.isLogin() == true) {
 
             num = Integer.valueOf(number.getText().toString().trim());
@@ -99,16 +104,20 @@ public class ExchangeAdapter extends BaseAdapter {
         }
 
         if (propModel.getNeedAmount() > num) {
-            holder.toExch.setOnClickListener(null);
-
             holder.toExch.setBackgroundResource(R.drawable.btn_gray_bg);
         } else {
-            holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
-
+            holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);}
             holder.toExch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final LayoutInflater inflater = context.getLayoutInflater();
+                    dialogExchFragment.setItems(propModel,num);
+                    dialogExchFragment.show(context.getSupportFragmentManager(),"exchange");
+                }
+            });
+          /*  holder.toExch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {*/
+                   /* final LayoutInflater inflater = context.getLayoutInflater();
                     ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_exchange_award, null);
                     final Dialog dialog = new Dialog(context, R.style.myDialogTheme);
                     TopView topView = ViewUtil.findViewById(rootView, R.id.dialog_award_title);
@@ -166,12 +175,12 @@ public class ExchangeAdapter extends BaseAdapter {
                             dialog.dismiss();
                         }
                     });
-                    //dialog.create();
+                    //dialog.create();*/
                     // dialog.setContentView(rootView);
-                    dialog.show();
-                }
-            });
-        }
+                    //dialog.show();
+              //  }
+           // });
+
         return convertView;
     }
 

@@ -59,9 +59,13 @@ public class MyCompetitionAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         EventModel eventModel = items.get(position);
-        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_launcher);
-        if ("SIGNING".equals(eventModel.getStatus())||"CANCEL".equals(eventModel.getStatus())) {
-            holder.status.setText("已报名");
+        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
+
+        if ("SIGNING".equals(eventModel.getStatus()) || "CANCEL".equals(eventModel.getStatus())) {
+            if (eventModel.isPass()) {
+                holder.status.setText("可参赛");
+            } else
+                holder.status.setText("已报名");
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         } else if ("FINISH".equals(eventModel.getStatus())) {
             holder.status.setText("已结束");

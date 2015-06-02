@@ -16,4 +16,8 @@
         android:layout_height="wrap_content"
         android:text="马上报名"
         android:onClick="onClick"/>
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </LinearLayout>

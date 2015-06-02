@@ -3,6 +3,7 @@ package com.bjcathay.qt.util;
 import android.content.Context;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.model.ShareModel;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -12,6 +13,8 @@ import cn.sharesdk.onekeyshare.OnekeyShareTheme;
  * Created by bjcathay on 15-5-18.
  */
 public class ShareUtil {
+    private static ShareUtil shareUtil;
+
     public static void showShare(Context context) {
         ShareSDK.initSDK(context);
         OnekeyShare oks = new OnekeyShare();
@@ -40,5 +43,41 @@ public class ShareUtil {
 
 // 启动分享GUI
         oks.show(context);
+    }
+
+    public static synchronized ShareUtil getInstance() {
+        if (shareUtil == null) {
+            shareUtil = new ShareUtil();
+        }
+        return shareUtil;
+    }
+
+
+    public void shareDemo(Context context, ShareModel shareModel) {
+
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        oks.setTitle(shareModel.getTitle());
+        oks.setTitleUrl(shareModel.getUrl());
+        oks.setText(shareModel.getDescription());
+        // oks.setImagePath(shareModel.getPicture());
+        oks.setImagePath("");
+        // oks.setImageUrl(shareModel.getImageUrl());
+        oks.setUrl(shareModel.getUrl());
+        oks.setFilePath("");
+        oks.setComment("");
+        oks.setSite(context.getString(R.string.app_name));
+        oks.setSiteUrl(shareModel.getUrl());
+        oks.setVenueName(context.getString(R.string.app_name));
+        oks.setVenueDescription("This is a beautiful place!");
+        oks.setSilent(true);
+        oks.setTheme(OnekeyShareTheme.CLASSIC);
+        oks.setDialogMode();
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeImplement(context, shareModel.getTitle(), shareModel.getSmsContent()));
+      //  if (PreferencesUtils.getBoolean(context, PreferencesConstant.SHARE_CLICK)==false) {
+            oks.show(context);
+       // }
+
     }
 }

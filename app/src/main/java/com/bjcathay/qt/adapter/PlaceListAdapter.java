@@ -1,12 +1,16 @@
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
@@ -18,6 +22,7 @@ import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.RoundCornerImageView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -77,26 +82,42 @@ public class PlaceListAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         ProductModel productModel = items.get(position);
-        ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(), R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        holder.price.setText("￥" + productModel.getPrice());
-        holder.sale.setText(productModel.getPriceInclude());
+        holder.price.setText("￥" + (int) Math.floor(productModel.getPrice()));
+        holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
         // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
         if ("GROUP".equals(productModel.getType())) {
             holder.tuanImg.setVisibility(View.VISIBLE);
             holder.tuanCount.setVisibility(View.VISIBLE);
-            holder.temaiCount.setVisibility(View.GONE);
+            holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
             Date start = context.getNow();
             Date end = DateUtil.stringToDate(productModel.getEnd());
             long diff = end.getTime() - start.getTime();
-            long days = diff / (1000 * 60 * 60 * 24);
-            long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-            long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-            long mm = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
-            holder.tuanCount.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分" + mm + "秒");
-
+            if (diff < 0) {
+                holder.tuanCount.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
+                holder.tuanCount.setText("仅剩0天0小时0分");
+                holder.tuanCount.setTextColor(Color.WHITE);
+                holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
+            } else {
+                long days = diff / (1000 * 60 * 60 * 24);
+                long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+                long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+                //   long mm = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
+                holder.tuanCount.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分");
+                holder.tuanCount.setBackgroundResource(R.drawable.tuangou_bg);
+                Resources resource = context.getResources();
+                ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.tuangou_color);
+                if (csl != null) {
+                    holder.tuanCount.setTextColor(csl);
+                }
+               // holder.tuanCount.setTextColor(Color.WHITE);
+                holder.tuanImg.setImageResource(R.drawable.ic_tu_icon);
+            }
+            // imageView.setImageResource(R.drawable.ic_tuan_disable);
+            // holder.tuanCount.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
           /*  try {
                 Date d1 = df.parse(start);
                 Date d2 = df.parse(end);
@@ -122,18 +143,25 @@ public class PlaceListAdapter extends BaseAdapter {
             holder.temaiImg.setVisibility(View.VISIBLE);
             holder.temaiCount.setVisibility(View.VISIBLE);
             holder.tuanImg.setVisibility(View.GONE);
-            holder.tuanCount.setVisibility(View.GONE);
-            holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
+            holder.tuanCount.setVisibility(View.INVISIBLE);
+            if (productModel.getAmount() > 0)
+                holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
+            else {
+                holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
+                holder.temaiCount.setText("已售罄");
+                holder.temaiCount.setTextColor(Color.WHITE);
+                holder.temaiImg.setImageResource(R.drawable.ic_te_finished);
+            }
         } else if ("LIMIT".equals(productModel.getType())) {
-            holder.tuanCount.setVisibility(View.GONE);
+            holder.tuanCount.setVisibility(View.INVISIBLE);
             holder.tuanImg.setVisibility(View.GONE);
-            holder.temaiCount.setVisibility(View.GONE);
+            holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
             //  holder.tuanCount.setText("还差" + productModel.getAmount() + "成团");
         } else {
             holder.tuanImg.setVisibility(View.GONE);
-            holder.tuanCount.setVisibility(View.GONE);
-            holder.temaiCount.setVisibility(View.GONE);
+            holder.tuanCount.setVisibility(View.INVISIBLE);
+            holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
         }
         return convertView;
@@ -142,7 +170,7 @@ public class PlaceListAdapter extends BaseAdapter {
     class Holder {
         ImageView tuanImg;
         ImageView temaiImg;
-        ImageView imageView;
+        RoundCornerImageView imageView;
         TextView title;
         TextView price;
         TextView sale;

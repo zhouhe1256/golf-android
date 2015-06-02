@@ -31,11 +31,13 @@
                 android:layout_height="75dp"
                 android:background="@drawable/ic_attend_bg"
                 android:textSize="12sp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_gravity="right"
                 android:textColor="@color/white"
-                android:gravity="center_horizontal"
-                android:layout_marginRight="10dp"
-                android:padding="5dp"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:ems="1"
                 android:text="已结束"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
@@ -53,8 +55,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/mian_text_color"
-                    android:textSize="15sp"
-                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingRight="5dp"
+                    android:textSize="@dimen/main_textSize"
+                    android:paddingLeft="5dp"
                     android:text="北京清河湾＊＊公开赛" />
 
                 <TextView
@@ -62,8 +67,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/exchange_text_color"
-                    android:textSize="13sp"
-                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingRight="5dp"
+                    android:textSize="@dimen/sub_textSize"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
                     android:text="时间:2015.3.4" />
 
                 <TextView
@@ -71,8 +80,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/exchange_text_color"
-                    android:textSize="13sp"
-                    android:padding="5dp"
+                    android:textSize="@dimen/sub_textSize"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
                     android:text="地址:北京市清河湾" />
 
 
@@ -81,8 +94,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/exchange_text_color"
-                    android:textSize="13sp"
-                    android:padding="10dp"
+                    android:textSize="@dimen/sub_textSize"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
                     android:text="参加人数:200人" />
 
             </LinearLayout>
@@ -100,7 +117,8 @@
         <TextView
             android:id="@+id/competition_detail"
             android:layout_width="wrap_content"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
             android:gravity="center_vertical"
             android:text="已有150人报名"
             android:textColor="@color/mian_text_color"

@@ -30,7 +30,8 @@ import android.view.animation.Interpolator;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
-import com.lee.wheel.R;
+import com.bjcathay.qt.R;
+
 
 /**
  * An abstract base class for spinner widgets. SDK users will probably not need to use this class.

@@ -21,10 +21,13 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-5-14.
  */
-public class FeedbackActivity extends Activity implements View.OnClickListener,ICallback{
+public class FeedbackActivity extends Activity implements View.OnClickListener, ICallback {
     private EditText editText;
+    private EditText editphoneText;
+
     private GApplication gApplication;
     private TopView topView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +37,11 @@ public class FeedbackActivity extends Activity implements View.OnClickListener,I
         initDate();
         initEvent();
     }
+
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_feedback_layout);
         editText = ViewUtil.findViewById(this, R.id.feedback_content);
+        editphoneText = ViewUtil.findViewById(this, R.id.feedback_phone);
     }
 
     private void initEvent() {
@@ -44,7 +49,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener,I
     }
 
     private void initDate() {
-       topView.setTitleBackVisiable();
+        topView.setTitleBackVisiable();
         topView.setTitleText("意见反馈");
     }
 
@@ -60,8 +65,14 @@ public class FeedbackActivity extends Activity implements View.OnClickListener,I
                 break;
         }
     }
-    private void commit(){
-        UserModel.feedBack("",editText.getText().toString().toString()).done(this);
+
+    private void commit() {
+       /* String content=editText.getText().toString().trim();
+        if(content.length()==0){
+            DialogUtil.showMessage("不能为空哦");
+            return;
+        }*/
+        UserModel.feedBack(editphoneText.getText().toString().trim(), editText.getText().toString().trim()).done(this);
     }
 
     @Override
@@ -70,7 +81,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener,I
         if (jsonObject.optBoolean("success")) {
             DialogUtil.showMessage("谢谢！");
             finish();
-        }else {
+        } else {
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));
         }

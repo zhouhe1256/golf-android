@@ -59,7 +59,7 @@ public class CompetitionAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         EventModel eventModel = items.get(position);
-        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
         if (eventModel.isAttend()) {
             holder.status.setText("已报名");
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
@@ -86,10 +86,13 @@ public class CompetitionAdapter extends BaseAdapter {
         }
 
         holder.title.setText(eventModel.getName());
-        holder.address.setText("地址" + eventModel.getAddress());
+        holder.address.setText("地址:" + eventModel.getAddress());
         holder.time.setText("时间:" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
         holder.count.setText("参加人数:" + eventModel.getSignUpAmount());
-        holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
+        if (eventModel.getSignedAmount() == 0)
+            holder.detail.setText("正在报名");
+        else
+            holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
 
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override

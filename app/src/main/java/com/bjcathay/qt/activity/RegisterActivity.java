@@ -9,15 +9,19 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
+import com.igexin.sdk.PushManager;
 
 import org.json.JSONObject;
 
@@ -81,19 +85,19 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
         if (phone.length() > 0)
             time.start();
-            UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    JSONObject jsonObject = arguments.get(0);
-                    if (jsonObject.optBoolean("success")) {
-                    } else {
-                        DialogUtil.showMessage("验证码发送失败");
-                        time.onFinish();
-                    }
-
-
+        UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                JSONObject jsonObject = arguments.get(0);
+                if (jsonObject.optBoolean("success")) {
+                } else {
+                    DialogUtil.showMessage("验证码发送失败");
+                    time.onFinish();
                 }
-            });
+
+
+            }
+        });
     }
 
     private void register() {
@@ -128,7 +132,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         if (jsonObject.optBoolean("success")) {
           /*  UserModel userModel = arguments.get(0);
             if (userModel.getMobileNumber() != null) {*/
+            UserModel userModel = JSONUtil.load(UserModel.class, jsonObject.optJSONObject("user"));
+            // userModel.setCurrentUser(userModel);
+            String token = userModel.getApiToken();
+            PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
+            gApplication.updateApiToken();
             DialogUtil.showMessage("注册成功");
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                }
+            });
             Intent intent = new Intent(this, MainActivity.class);
             ViewUtil.startTopActivity(this, intent);
             // }

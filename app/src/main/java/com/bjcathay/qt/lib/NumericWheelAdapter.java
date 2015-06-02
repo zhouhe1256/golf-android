@@ -94,4 +94,9 @@ public class NumericWheelAdapter implements WheelAdapter {
         }
         return maxLen;
     }
+
+    @Override
+    public void updateDate() {
+
+    }
 }

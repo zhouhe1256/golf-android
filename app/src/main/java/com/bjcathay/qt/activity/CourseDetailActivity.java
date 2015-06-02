@@ -19,7 +19,10 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogSureOrderFragment;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.DateUtil;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
@@ -55,7 +58,7 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
     private String imaUrl;
     private String daySelect;
     private int beforSelect = 0;//0上午　１下午
-    private String hourSelect = "08:00";
+    private String hourSelect = "07:00";
     private List<String> minits = new ArrayList<String>();
     private int attendNumber = 1;
     private int selectDay = 0;
@@ -130,12 +133,12 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
                     if ("上午".equals(text)) {
                         //todo 目前写死
                         // hourView.setData(DateUtil.getAM(priceModels.get(selectDay).getStartAt()));
-                        hourView.setData(DateUtil.getAM("08:00"));
+                        hourView.setData(DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4)));
                         beforSelect = 0;
-                        hourSelect = "08:00";
+                        hourSelect = "07:00";
                     } else {
                         //  hourView.setData(DateUtil.getPM(priceModels.get(selectDay).getEndAt()));
-                        hourView.setData(DateUtil.getPMShort("18:00"));
+                        hourView.setData(DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4)));
                         beforSelect = 1;
                         hourSelect = "12:00";
                     }
@@ -176,10 +179,12 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
         stadiumAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CourseDetailActivity.this, AddressActivity.class);
+                Intent intent = new Intent(CourseDetailActivity.this, BaiduAddressActivity.class);
                 intent.putExtra("url", getString(R.string.course_address));
                 intent.putExtra("location", stadiumModel.getLat() + "," + stadiumModel.getLon());
-                intent.putExtra("title", "球场地址");
+                intent.putExtra("lat", stadiumModel.getLat());
+                intent.putExtra("lon", stadiumModel.getLon());
+                intent.putExtra("title", stadiumModel.getName());
                 intent.putExtra("content", stadiumModel.getAddress());
                 //intent.putExtra("address",stationAddress.getText().toString().trim());
                 intent.putExtra("src", "A|GOLF");
@@ -230,12 +235,14 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
     private void initData() {
         minits.add("上午");
         minits.add("下午");
-        topView.setTitleBackVisiable();
-        topView.setShareVisiable();
+        minits.add("上午");
+        minits.add("下午");
+
+
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
-        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this);
     }
 
@@ -245,8 +252,10 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
     public void call(Arguments arguments) {
         stadiumModel = arguments.get(0);
         topView.setTitleText(stadiumModel.getName());
+        topView.setTitleBackVisiable();
         //控制LIMIT最低人数
         if ("LIMIT".equals(stadiumModel.getType())) {
+            topView.setShareVisiable();
             int num = stadiumModel.getAmount();
             attendNumber = num;
             for (int i = 0; i < num - 1; i++)
@@ -255,6 +264,7 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
             //  radioGroup.getChildAt(stadiumModel.getAmount()).setBackgroundColor(Color.GRAY);
         }
         if ("GROUP".equals(stadiumModel.getType())) {
+            topView.setShareVisiable();
             days.clear();
             select = stadiumModel.getDate();
             String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
@@ -272,16 +282,19 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
             getDayPrice(stadiumModel.getPrice());
 
 
-            tuanImg.setVisibility(View.VISIBLE);
+            // tuanImg.setVisibility(View.VISIBLE);
             tuanCount.setVisibility(View.VISIBLE);
             Date start = DateUtil.stringToDate(stadiumModel.getNow());
             Date end = DateUtil.stringToDate(stadiumModel.getEnd());
             long diff = end.getTime() - start.getTime();
-            TimeView timeView = new TimeView(diff, 1000, tuanCount, tuanImg, okbtn);
+            TimeView timeView = new TimeView(diff, 1000, tuanCount, okbtn);
             timeView.start();
             // tuanCount.setText(stadiumModel.getAmount());
-
+            wheelView1.setSelected(0);
+            dayView.setSelected(0);
+            hourView.setSelected(0);
         } else if ("SPECIAL".equals(stadiumModel.getType())) {
+            topView.setShareVisiable();
             days.clear();
             select = stadiumModel.getDate();
             String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
@@ -290,26 +303,30 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
             wheelView1.setData(minits);
             //todo 目前写死
             // hours = DateUtil.getAM(stadiumModel.getDate());
-            hours = DateUtil.getAM("08:00");
+            hours = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
             hourView.setData(hours);
             getDayPrice(stadiumModel.getPrice());
-            temaiImg.setVisibility(View.VISIBLE);
+            //   temaiImg.setVisibility(View.VISIBLE);
             temaiCount.setVisibility(View.VISIBLE);
             if (stadiumModel.getAmount() > 0) {
+                temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
             } else {
                 temaiImg.setImageResource(R.drawable.ic_te_disable);
-                temaiCount.setBackgroundColor(Color.GRAY);
-                okbtn.setBackgroundColor(Color.GRAY);
+                temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
+                okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                 okbtn.setOnClickListener(null);
+                temaiCount.setText("已售罄");
             }
-            temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
+            wheelView1.setSelected(0);
+            dayView.setSelected(0);
+            hourView.setSelected(0);
             //NONE
         } else if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days.clear();
             dayView.setData(DateUtil.getLimitDate(priceModels));
             wheelView1.setData(minits);
-            hours = DateUtil.getAM("08:00");
+            hours = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
             hourView.setData(hours);
             if ("LIMIT".equals(stadiumModel.getType())) {
                 int num = stadiumModel.getAmount();
@@ -320,16 +337,22 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
                 //  radioGroup.getChildAt(stadiumModel.getAmount()).setBackgroundColor(Color.GRAY);
             } else
                 getDayPrice(stadiumModel.getPrice());
+
+            wheelView1.setSelected(0);
+            dayView.setSelected(1);
+            hourView.setSelected(0);
         } else {
             String endAt = stadiumModel.getPrices().get(0).getEndAt();
-            stadiumContents.setText(stadiumModel.getPriceInclude());
-        }
 
+        }
+        stadiumContents.setText(stadiumModel.getPriceInclude());
         //    getDayPrice(stadiumModel.getPrices().get(0).getPrice());
         stadiumAddress.setText(stadiumModel.getAddress());
-        wheelView1.setSelected(0);
+     /*   wheelView1.setSelected(0);
         dayView.setSelected(0);
-        hourView.setSelected(0);
+        hourView.setSelected(0);*/
+        hourView.setScroll(true);
+        wheelView1.setScroll(true);
     }
 
     private String select;
@@ -345,7 +368,7 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
         if ("SPECIAL".equals(stadiumModel.getType())) {
             d = DateUtil.stringToDate(stadiumModel.getDate());
         } else {
-            d = DateUtil.stringToDate(priceModels.get(0).getStartAt());
+            d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
         }
         c.setTime(d);
         //取得系统日期:
@@ -372,21 +395,22 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
         if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
             if (select == null)
                 getDate();
-            for (PriceModel priceModel : priceModels) {
-                if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                    if (attendNumber == 0)
-                        stadiumPrice.setText("￥" + Double.toString(priceModel.getPrice() * 4) + "+");
-                    else
-                        stadiumPrice.setText("￥" + Double.toString(priceModel.getPrice() * attendNumber));
-                    return;
+            if (priceModels != null && priceModels.size() > 0)
+                for (PriceModel priceModel : priceModels) {
+                    if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+                        if (attendNumber == 0)
+                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
+                        else
+                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
+                        return;
+                    }
                 }
-            }
             return;
         }
         if (attendNumber == 0)
-            stadiumPrice.setText("￥" + price * 4 + "+");
+            stadiumPrice.setText("￥" + (int) Math.floor(price * 4) + "+");
         else
-            stadiumPrice.setText("￥" + price * attendNumber);
+            stadiumPrice.setText("￥" + (int) Math.floor(price * attendNumber));
 
     }
 
@@ -397,7 +421,14 @@ public class CourseDetailActivity extends FragmentActivity implements ICallback,
                 finish();
                 break;
             case R.id.title_share_img:
-                ShareUtil.showShare(this);
+                ShareModel.shareProducts(id).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        ShareModel shareModel = arguments.get(0);
+                        ShareUtil.getInstance().shareDemo(CourseDetailActivity.this, shareModel);
+                    }
+                });
+
                 break;
             case R.id.title_delete_img:
                 if (dialogSureOrderFragment != null)

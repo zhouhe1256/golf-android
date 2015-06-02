@@ -37,4 +37,7 @@
 高亮字体颜色   f39c11(橘色)
 主题色#1fba5e-->
     <color name="sold_out_color">#BBBBBB</color>
+    <color name="background_color">#E6E6E6</color>
+    <color name="wheel_timebtn_nor">#54a3fa</color>
+    <color name="wheel_timebtn_pre">#CCCCCC</color>
 </resources>

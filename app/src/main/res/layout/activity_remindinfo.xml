@@ -24,17 +24,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="下单成功！"
+            android:text="兑换成功！"
             android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/remind_context"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="客服与球场确认中.."
-            android:layout_gravity="center" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/remind_context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="兑换成功！"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                     android:id="@+id/remind_first"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_sucess_to_show_order"
+                    android:text="@string/order_sucess_to_send_to_friend"
                     android:textColor="@color/order_title_color"
                     android:layout_gravity="left|center_vertical" />
 
@@ -74,7 +75,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_sucess_to_show_order_note"
+                    android:text="@string/order_sucess_to_show_share"
                     android:textSize="10sp"
                     android:layout_gravity="left|center_vertical" />
 
@@ -97,7 +98,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_sucess_to_show_place"
+                    android:text="@string/order_sucess_to_invite_friend"
                     android:textColor="@color/order_title_color"
                     android:layout_gravity="left|center_vertical" />
 
@@ -109,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
-                    android:text="@string/order_sucess_to_show_place_note"
+                    android:text="@string/order_sucess_to_get_more"
                     android:layout_gravity="left|center_vertical" />
             </LinearLayout>
 

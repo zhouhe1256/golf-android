@@ -125,7 +125,13 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                 page++;
                 break;
         }
-        PropListModel.getMyProps().done(this);
+        PropListModel.getMyProps().done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (lstv != null)
+                    lstv.onRefreshComplete();
+            }
+        });
     }
 
     @Override

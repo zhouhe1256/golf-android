@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PropModel;
+import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
@@ -58,10 +62,10 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
         topView.setTitleText(titleString);
         title.setText("兑换成功！");
         content.setText("您已成功兑换一枚" + propModel.getName());
-        first.setText("赠送朋友");
-        firstNote.setText(getString(R.string.order_sucess_to_show_order_note));
-        second.setText(getString(R.string.order_sucess_to_show_place));
-        secondNote.setText(getString(R.string.order_sucess_to_show_place_note));
+        //  first.setText("赠送朋友");
+        //   firstNote.setText(getString(R.string.order_sucess_to_show_order_note));
+        //   second.setText(getString(R.string.order_sucess_to_show_place));
+        //  secondNote.setText(getString(R.string.order_sucess_to_show_place_note));
     }
 
     @Override
@@ -73,7 +77,13 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
                 ViewUtil.startActivity(context, intent);
                 break;
             case R.id.remind_second:
-
+                ShareModel.share().done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        ShareModel shareModel = arguments.get(0);
+                        ShareUtil.getInstance().shareDemo(context, shareModel);
+                    }
+                });
                 break;
             case R.id.title_back_img:
                 finish();

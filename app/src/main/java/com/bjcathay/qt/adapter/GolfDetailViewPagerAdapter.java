@@ -58,7 +58,7 @@ public class GolfDetailViewPagerAdapter extends PagerAdapter {
         View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner, container, false);
         final String bannerModel = items.get(position);
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
-        ImageViewAdapter.adapt(bgView, bannerModel, R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(bgView, bannerModel, R.drawable.exchange_default);
 
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);

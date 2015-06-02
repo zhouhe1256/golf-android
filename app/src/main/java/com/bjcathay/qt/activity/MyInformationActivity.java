@@ -67,7 +67,7 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
-        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
         userName.setText(userModel.getRealName());
         userNickName.setText(userModel.getNickname());
         userPhone.setText(userModel.getMobileNumber());
@@ -81,7 +81,7 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     }
 
     private void initUserData(UserModel userModel, boolean isWriteSD) {
-        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
         this.userModel = userModel;
     }
 

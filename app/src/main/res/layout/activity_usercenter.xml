@@ -30,7 +30,8 @@
             android:id="@+id/user_center_phone"
             android:paddingBottom="50dp"
             android:paddingTop="22dp"
-            android:text="TeeTime"
+            android:textSize="@dimen/main_textSize"
+            android:text="未登录"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
@@ -66,7 +67,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color" />
 
 
@@ -124,7 +125,7 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的赛事"
                     android:layout_width="wrap_content"
@@ -187,7 +188,7 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的兑换"
                     android:layout_width="wrap_content"
@@ -250,7 +251,7 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的消息"
                     android:layout_width="wrap_content"
@@ -269,6 +270,7 @@
                     android:layout_height="13dp" />
 
                 <TextView
+                    android:id="@+id/new_message_flag"
                     android:layout_toLeftOf="@id/message_go"
                     android:visibility="visible"
                     android:layout_centerVertical="true"
@@ -315,9 +317,9 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
-                    android:text="邀请明细"
+                    android:text="我的亲友团"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"

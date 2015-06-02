@@ -2,16 +2,22 @@
 <resources>
 
     <string name="app_name">7铁高尔夫</string>
-
-    <string name="host">http://192.168.1.22:8080</string>
-    <string name="img_host">http://192.168.1.22:8081</string>
-
+    <!--api 接口 http://api.zlkcx.com/
+    web 地址 http://admin.zlkcx.com/
+    图片地址 http://image.zlkcx.com/-->
+   <!-- <string name="host">http://192.168.1.54:8081</string>
+    <string name="img_host">http://192.168.1.54:8081</string>-->
+    <!--接口：http://192.168.1.54:8081/ 图片地址：http://192.168.1.54:8081/-->
+    <string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="search">搜索</string>
-    <string name="order_sure_instruction">提交订单后客服将与球场进行订单确认，确认后将在15分钟内通知您进行付款.</string>
-    <string name="order_cancale_instruction">取消或修改订单需提前24小时，24小时内退还80％</string>
+    <string name="order_sure_instruction">提交订单后客服将与球场进行订单确认，确认后将在15分钟内通知您进行付款。</string>
+    <string name="order_cancale_instruction">取消或修改订单需提前24小时，24小时内取消仅退还80%。</string>
+    <string name="order_tuan_sure_instruction">本次团购是满20人方可享受优惠价格，若在限定时间内没能达到20人，我们将会全额返还您的订场费用。赶快好友约起来吧~</string>
+    <string name="order_tuan_cancale_instruction">取消或修改订单需提前24小时，24小时内取消仅退还80%。</string>
     <string-array name="jazzy_effects">
         <item>Standard</item>
         <item>Tablet</item>
@@ -36,7 +42,7 @@
     <!-- 消除警告，可忽略 -->
     <string name="d">图片描述</string>
     <string name="forget_secret"><u>忘记密码？</u></string>
-    <string name="register_invate_note">邀请码　 <font size="10">（选填，该项可为邀请人增加兑换积分）</font></string>
+    <string name="register_invate_note">邀请码　 <font size="12">（选填）</font></string>
     <string name="usable_user_number">果岭币</string>
 
     <!-- 日期时间选择 -->
@@ -54,12 +60,24 @@
     <string name="order_sucess_to_show_order_note">点击查看订单详细内容</string>
     <string name="order_sucess_to_show_place"><u>看看其他</u>
        </string>
-    <string name="order_sucess_to_show_place_note">发现更多合适场地</string>
+    <string name="order_sucess_to_share_friend"><u>分享给好友</u>
+       </string>
+    <string name="order_sucess_to_show_place_note">发现更多场地</string>
+    <string name="order_sucess_to_notice_friend">通知好友场地信息</string>
     <!--成功提示-->
     <string name="order_com_suc_note_a">客服确认完成后．若出现信息冲突，客服会及时给你回访，</string>
-    <string name="order_com_suc_note_b">您也可以直接拨打客服电话:</string>
+    <string name="order_com_suc_note_b">7铁高尔夫客服电话:</string>
     <string name="service_tel"><u>4000777777</u></string>
     <string name="order_success_tuan_share"><u>分享给好友</u></string>
+     <string name="order_sucess_to_send_to_friend"><u>赠送朋友</u>
+      </string>
+    <string name="order_sucess_to_show_share">和朋友一起分享赛事乐趣</string>
+    <string name="order_sucess_to_invite_friend"><u>邀请朋友</u>
+       </string>
+    <string name="order_sucess_to_get_more"><u>已获得更多兑换卡</u>
+       </string>
+
+
 
     <string name="empty_com_text">哎呀,您还没有赛事，赶快去参加吧～</string>
     <string name="empty_msg_text">哎呀,您还没有消息呢～</string>
@@ -71,7 +89,20 @@
     <string name="empty_net_text">无网络，请您检查网络链接后重试</string>
     <string name="empty_sys_text">系统异常，请稍后重试</string>
     <!--地址地图展示-->
-    <!---->
+    <!--http://map.baidu.com/mobile/-->
 
     <string name="course_address">http://api.map.baidu.com/marker?output=html</string>
+    <string name="share_shortmessage_text">给你分享一个%1$s很不错,你也看看。%2$s 更多详情:%3$s</string>
+    <string name="message_to_detail"><u>点击查看详情</u></string>
+    <string name="dialog_to_exchange_a_card">您将兑换一枚%1$s兑换卡,\n本次兑换将消耗%2$d枚果岭币。</string>
+    <string name="dialog_cant_to_exchange_a_card">您的果岭币不足，暂不能兑换哦~\n快去邀请亲友团捧场吧</string>
+    <string name="dialog_cant_to_send_a_card">抱歉，用户\n%1$s\n不是我们的会员，无法赠送。</string>
+    <string name="dialog_sure_to_send_a_card">您将把一枚初级赛事兑换送给你的小伙伴\n%1$s</string>
+    <string name="what_is_glb">什么是果岭币</string>
+    <string name="this_is_glb">果岭币是7铁内部流通的货币类种，通过发展自己的亲友团并得到亲友团的捧场来获得，当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以免费参加相关赛事。</string>
+    <string name="how_to_get_glb">如何获得果岭币</string>
+    <string name="this_way_to_get_glb">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。
+</string>
+    <string name="pay_success_note">请您在%1$s到%2$s球场尽情挥杆~</string>
+    <string name="attend_success_note">您已成功报名%$s.</string>
 </resources>

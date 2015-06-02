@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/transparent_color">
 
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_golf_detail_layout"
@@ -11,10 +12,11 @@
         android:layout_width="match_parent"
         android:background="@color/home_title_color" />
 
-    <ScrollView
+    <com.bjcathay.qt.view.CustomScrollView
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,181 +45,309 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/mian_text_color"
-                android:text="球场简介:" />
-
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:id="@+id/golfcourse_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/mian_text_color"
-                android:text="球场参数:" />
-
             <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="球场类型:" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/main_textSize"
+                    android:textColor="@color/mian_text_color"
+                    android:text="球场简介" />
 
                 <TextView
-                    android:id="@+id/golfcourse_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/golfcourse_description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="球场附加:" />
+                    android:textSize="@dimen/sub_textSize"
+                    android:background="@color/white" />
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/touying_bg" />
 
                 <TextView
-                    android:id="@+id/golfcourse_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="球场面积:" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/main_textSize"
+                    android:textColor="@color/mian_text_color"
+                    android:text="球场参数" />
 
-                <TextView
-                    android:id="@+id/golfcourse_area"
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_textSize"
 
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                        android:text="球场类型:" />
 
-                <TextView
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="球场长度:" />
+                        android:id="@+id/golfcourse_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/golfcourse_length"
+                <LinearLayout
+                    android:background="@color/white"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="建立时间:" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="球场长度:" />
 
-                <TextView
-                    android:id="@+id/golfcourse_date"
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                        android:id="@+id/golfcourse_length"
 
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="球场地址:" />
+                <LinearLayout
+                    android:background="@color/white"
 
-                <TextView
-                    android:id="@+id/golfcourse_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="果岭草种:" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="球场数据:" />
 
-                <TextView
-                    android:id="@+id/golfcourse_greenGrass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
 
-            <LinearLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                        android:id="@+id/golfcourse_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="球场草种:" />
+                <LinearLayout
+                    android:background="@color/white"
 
-                <TextView
-                    android:id="@+id/golfcourse_fairwayGrass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="球场面积:" />
+
+                    <TextView
+                        android:id="@+id/golfcourse_area"
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@color/white"
+
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="建立时间:" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:id="@+id/golfcourse_date"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@color/white"
+
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="果岭草种:" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:id="@+id/golfcourse_greenGrass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="球场草种:" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:id="@+id/golfcourse_fairwayGrass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/mian_text_color"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/main_textSize"
+
+                        android:layout_height="wrap_content"
+                        android:text="球场电话:" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/golfcourse_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:textColor="@color/home_title_color" />
+                </LinearLayout>
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+
+                <RelativeLayout
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/golfcourse_address_note"
+                        android:textStyle="bold"
+                        android:textColor="@color/mian_text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/main_textSize"
+
+                        android:text="球场地址:" />
+
+                    <TextView
+                        android:textSize="@dimen/sub_textSize"
+
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/golfcourse_address_note"
+                        android:id="@+id/golfcourse_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/golfcourse_map"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_address" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+
             </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.bjcathay.qt.view.CustomScrollView>
 </LinearLayout>

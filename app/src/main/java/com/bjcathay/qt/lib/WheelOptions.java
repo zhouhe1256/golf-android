@@ -2,11 +2,9 @@ package com.bjcathay.qt.lib;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.view.View;
 
-import com.pickerview.R;
-import com.pickerview.TimePopupWindow.Type;
+import com.bjcathay.qt.R;
 
 public class WheelOptions {
 	private View view;

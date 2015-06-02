@@ -1,6 +1,9 @@
 package com.bjcathay.qt.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +17,13 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
+import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ImageTextView;
 
 import org.json.JSONObject;
@@ -31,13 +36,15 @@ import java.util.List;
  */
 public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private List<SortModel> list = null;
-    private Context mContext;
+    private FragmentActivity mContext;
     private Long id;
+    private DialogExchFragment dialogExchFragment;
 
-    public SortAdapter(Context mContext, List<SortModel> list,Long id) {
+    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id, DialogExchFragment dialogExchFragment) {
         this.mContext = mContext;
         this.list = list;
-        this.id=id;
+        this.id = id;
+        this.dialogExchFragment = dialogExchFragment;
     }
 
     /**
@@ -92,7 +99,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         viewHolder.tvTitle.setText(this.list.get(position).getName());
        /* viewHolder.icon.setText(this.list.get(position).getName());
         viewHolder.icon.setIconText(mContext, this.list.get(position).getName());*/
-        ImageViewAdapter.adapt(viewHolder.icon, this.list.get(position).getImageUrl(), R.drawable.ic_launcher);
+        ImageViewAdapter.adapt(viewHolder.icon, this.list.get(position).getImageUrl(), R.drawable.ic_default_user);
         if (this.list.get(position).isUser()) {
             viewHolder.statusTrue.setVisibility(View.VISIBLE);
             viewHolder.statusTrue.setText("赠送");
@@ -100,7 +107,14 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.statusTrue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PropModel.sendProp(id, mContent.getPhone()).done(new ICallback() {
+                    //
+                    UserModel userModel = new UserModel();
+                    userModel.setMobileNumber(mContent.getPhone());
+                    dialogExchFragment.setItems(userModel, "user", mContent.getPhone(), id);
+
+                    dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");
+
+                   /* PropModel.sendProp(id, mContent.getPhone()).done(new ICallback() {
                         @Override
                         public void call(Arguments arguments) {
                             JSONObject jsonObject = arguments.get(0);
@@ -111,16 +125,27 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
                                 DialogUtil.showMessage(ErrorCode.getCodeName(code));
                             }
                         }
-                    });
+                    });*/
                 }
             });
-           // viewHolder.statusFalse.setVisibility(View.GONE);
+            // viewHolder.statusFalse.setVisibility(View.GONE);
         } else {
             viewHolder.statusTrue.setVisibility(View.VISIBLE);
             viewHolder.statusTrue.setText("邀请");
             viewHolder.statusTrue.setBackgroundResource(R.drawable.ic_yaoqing);
-          // viewHolder.statusTrue.setVisibility(View.GONE);
-         // viewHolder.statusFalse.setVisibility(View.VISIBLE);
+            viewHolder.statusTrue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   /* dialogExchFragment.setItems(null, "user", mContent.getPhone(), id);
+                    dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");*/
+                    Uri uri = Uri.parse("smsto:" + mContent.getPhone());
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+                    sendIntent.putExtra("sms_body", "");
+                    ViewUtil.startActivity(mContext, sendIntent);
+                }
+            });
+            // viewHolder.statusTrue.setVisibility(View.GONE);
+            // viewHolder.statusFalse.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -150,10 +175,12 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
      */
     public int getPositionForSection(int section) {
         for (int i = 0; i < getCount(); i++) {
-            String sortStr = list.get(i).getSortLetters();
-            char firstChar = sortStr.toUpperCase().charAt(0);
-            if (firstChar == section) {
-                return i;
+            if (list != null) {
+                String sortStr = list.get(i).getSortLetters();
+                char firstChar = sortStr.toUpperCase().charAt(0);
+                if (firstChar == section) {
+                    return i;
+                }
             }
         }
 

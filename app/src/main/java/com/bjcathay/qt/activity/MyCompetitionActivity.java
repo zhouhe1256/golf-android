@@ -1,6 +1,7 @@
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,7 +55,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
 
         topView = ViewUtil.findViewById(this, R.id.top_my_competition_layout);
         topView.setTitleBackVisiable();
-        topView.setShareVisiable();
+       // topView.setShareVisiable();
         topView.setTitleText("我的赛事");
         eventModels = new ArrayList<EventModel>();
         myCompetitionAdapter = new MyCompetitionAdapter(eventModels, this);
@@ -78,6 +79,17 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                         R.style.InfoDialog, "确认删除该赛事", eventModels.get(i - 1).getId(), MyCompetitionActivity.this);
                 infoDialog.show();
                 return false;
+            }
+        });
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i <= eventModels.size()) {
+                    Intent intent = new Intent(MyCompetitionActivity.this, CompetitionDetailActivity.class);
+                    intent.putExtra("url", eventModels.get(i - 1).getUrl());
+                    intent.putExtra("id", eventModels.get(i - 1).getId());
+                    ViewUtil.startActivity(MyCompetitionActivity.this, intent);
+                }
             }
         });
     }
@@ -140,7 +152,13 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                 page++;
                 break;
         }
-        EventListModel.getMyEvent(page).done(this);
+        EventListModel.getMyEvent(page).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                if (lstv != null)
+                    lstv.onRefreshComplete();
+            }
+        });
     }
 
     @Override
@@ -187,9 +205,9 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
             case R.id.title_back_img:
                 finish();
                 break;
-            case R.id.title_share_img:
+          /*  case R.id.title_share_img:
                 ShareUtil.showShare(this);
-                break;
+                break;*/
         }
     }
 }
