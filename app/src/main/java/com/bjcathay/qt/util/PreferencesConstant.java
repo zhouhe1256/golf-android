@@ -15,4 +15,5 @@ public class PreferencesConstant {
     public static final String VALIDATED_USER="validated user";
     public static final String NEW_MESSAGE_FLAG="new_message";
     public static final String SHARE_CLICK="share_click";
+    public static final String PUSH_CLIENT_ID="push_client_id";
 }

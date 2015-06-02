@@ -19,7 +19,6 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.model.UserModel;
-import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
@@ -141,6 +140,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             }
         }, 5000);
     }
+
     private void initData() {
         BannerListModel.getHomeBanners().done(this);
         if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false)

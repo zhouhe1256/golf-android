@@ -22,10 +22,6 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /**
  * Created by bjcathay on 15-4-29.
  */
@@ -89,8 +85,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     private void initData() {
         Intent intent = getIntent();
-        id = intent.getLongExtra("id", 0);
-        // imaUrl = intent.getStringExtra("imageurl");
+        id = intent.getLongExtra("tid", 0);
 
         OrderModel.orderDetail(id).done(this);
 
