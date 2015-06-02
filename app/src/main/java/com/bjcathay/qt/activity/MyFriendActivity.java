@@ -48,10 +48,6 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
     private AutoListView lstv;
 
     private int page = 1;
-    private View empty;
-    private ImageView emptyImg;
-    private TextView emptyText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,21 +70,8 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
         lstv.setAdapter(myFriendAdapter);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
-        LayoutInflater inflater = getLayoutInflater();
-        empty = inflater.inflate(R.layout.listview_empty, null);
-        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        lpLl.gravity = Gravity.CENTER;
-        empty.setLayoutParams(lpLl);
-        emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
-        emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
-        emptyImg.setImageResource(R.drawable.ic_empty_no_firend);
-        emptyText.setText(getString(R.string.empty_friend_text));
-        ((ViewGroup)lstv.getParent()).addView(empty);
-        lstv.setEmptyView(empty);
-
-        //lstv.setListViewEmptyImage(R.drawable.ic_empty_no_firend);
-        //lstv.setListViewEmptyMessage(getString(R.string.empty_friend_text));
+        lstv.setListViewEmptyImage(R.drawable.ic_empty_no_firend);
+        lstv.setListViewEmptyMessage(getString(R.string.empty_friend_text));
     }
 
     private void initEvent() {

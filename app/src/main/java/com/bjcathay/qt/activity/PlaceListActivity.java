@@ -5,8 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -72,6 +78,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     private void initEvent() {
         //   listView.setAdapter(placeListAdapter);
+
         lstv.setListViewEmptyImage(R.drawable.ic_network_error);
         lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

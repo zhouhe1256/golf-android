@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -157,6 +159,10 @@ public class AutoListView extends ListView implements OnScrollListener {
         refreshing = (ProgressBar) header.findViewById(R.id.refreshing);
 
         empty = inflater.inflate(R.layout.listview_empty, null);
+        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        lpLl.gravity = Gravity.CENTER;
+        empty.setLayoutParams(lpLl);
         emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
         emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
 
@@ -371,20 +377,21 @@ public class AutoListView extends ListView implements OnScrollListener {
      * @param hasNext true有下一页可加载,false加载完成
      */
     public void setResultSize(int resultSize, boolean hasNext) {
-        if(hasNext){//没加载完
+        if (hasNext) {//没加载完
             isLoadFull = false;
             loadFull.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
             more.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
-        }else{
-            if(resultSize==0){//为空
+        } else {
+            if (resultSize == 0) {//为空
                 isLoadFull = true;
                 /*removeFooterView(empty);
                 removeFooterView(footer);
                 addFooterView(empty);*/
-
-            }else{//已加载完全部
+                ((ViewGroup) this.getParent()).addView(empty);
+                setEmptyView(empty);
+            } else {//已加载完全部
                 isLoadFull = true;
                 loadFull.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);

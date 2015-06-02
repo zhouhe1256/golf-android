@@ -83,6 +83,23 @@ public class MyMessageAdapter extends BaseAdapter {
             holder.imageView.setVisibility(View.INVISIBLE);
         if (position == 0) {
             holder.detail.setVisibility(View.VISIBLE);
+            if ("UNREAD".equals(messageModel.getStatus())) {
+                MessageListModel.changeAlreadyRead(messageModel.getId()).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            // ((MyMessageActivity) (context)).onRefresh();
+                            items.get(items.indexOf(messageModel)).setStatus("READ");
+                            holder.imageView.setVisibility(View.INVISIBLE);
+                            notifyDataSetChanged();
+                        } else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
+                    }
+                });
+            }
         }
         if (nowPosition == position) {
             holder.detail.setVisibility(View.VISIBLE);
@@ -101,8 +118,8 @@ public class MyMessageAdapter extends BaseAdapter {
                             public void call(Arguments arguments) {
                                 JSONObject jsonObject = arguments.get(0);
                                 if (jsonObject.optBoolean("success")) {
-                                   // ((MyMessageActivity) (context)).onRefresh();
-                                   items.get(items.indexOf(messageModel)).setStatus("READ");                                   
+                                    // ((MyMessageActivity) (context)).onRefresh();
+                                    items.get(items.indexOf(messageModel)).setStatus("READ");
                                     holder.imageView.setVisibility(View.INVISIBLE);
                                     notifyDataSetChanged();
                                 } else {

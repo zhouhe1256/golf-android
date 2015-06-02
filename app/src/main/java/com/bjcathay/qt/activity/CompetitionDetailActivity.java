@@ -178,8 +178,8 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         if (webview != null)
             webview.loadUrl(url);
     }

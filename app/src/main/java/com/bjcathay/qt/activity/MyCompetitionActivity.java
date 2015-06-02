@@ -5,8 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -39,6 +45,9 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     private TopView topView;
     private AutoListView lstv;
     private int page = 1;
+    private View empty;
+    private ImageView emptyImg;
+    private TextView emptyText;
 
 
     @Override
@@ -64,8 +73,21 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         lstv.setAdapter(myCompetitionAdapter);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
-        lstv.setListViewEmptyImage(R.drawable.ic_empty_comp);
-        lstv.setListViewEmptyMessage(getString(R.string.empty_com_text));
+        LayoutInflater inflater = getLayoutInflater();
+        empty = inflater.inflate(R.layout.listview_empty, null);
+        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        lpLl.gravity = Gravity.CENTER;
+        empty.setLayoutParams(lpLl);
+        emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
+        emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
+        emptyImg.setImageResource(R.drawable.ic_empty_comp);
+        emptyText.setText(getString(R.string.empty_com_text));
+        ((ViewGroup)lstv.getParent()).addView(empty);
+        lstv.setEmptyView(empty);
+
+     //   lstv.setListViewEmptyImage(R.drawable.ic_empty_comp);
+       // lstv.setListViewEmptyMessage(getString(R.string.empty_com_text));
 
     }
 
@@ -75,9 +97,9 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //弹窗设置是否取消
-                DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
+             /*   DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
                         R.style.InfoDialog, "确认删除该赛事", eventModels.get(i - 1).getId(), MyCompetitionActivity.this);
-                infoDialog.show();
+                infoDialog.show();*/
                 return false;
             }
         });

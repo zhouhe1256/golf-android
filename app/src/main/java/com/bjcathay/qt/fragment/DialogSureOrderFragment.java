@@ -1,6 +1,7 @@
 package com.bjcathay.qt.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +17,12 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.OrderSucActivity;
 import com.bjcathay.qt.activity.OrderSucTEActivity;
 import com.bjcathay.qt.activity.OrderSucTuanActivity;
 import com.bjcathay.qt.activity.SelectPayWayActivity;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.StadiumModel;
@@ -50,6 +53,7 @@ public class DialogSureOrderFragment extends DialogFragment {
     ImageView minas;
     ImageView plus;
     TextView fourPlus;
+    private ProgressDialog dialog = null;
 
     public DialogSureOrderFragment() {
     }
@@ -137,38 +141,44 @@ public class DialogSureOrderFragment extends DialogFragment {
             number_.setText("" + number + "人");
         }
         sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (dialog == null) {
+                                            dialog = ProgressDialog.show(context, "", "正在提交订单，请稍等...", false);
+                                            dialog.setCanceledOnTouchOutside(false);//创建ProgressDialog
+                                        }
+                                        OrderModel.commitOrder(stadiumModel.getId(), number, date).done(new ICallback() {
+                                            @Override
+                                            public void call(Arguments arguments) {
+                                                //JSONObject jsonObject = arguments.get(0);
+                                                dismiss();
+                                                OrderModel orderModel = arguments.get(0);
+                                                Intent intent = null;
+                                                dialog.dismiss();
+                                                if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
+                                                    intent = new Intent(context, OrderSucActivity.class);
+                                                } else if ("SPECIAL".equals(stadiumModel.getType())) {
+                                                    intent = new Intent(context, OrderSucTEActivity.class);
+                                                } else if ("GROUP".equals(stadiumModel.getType())) {
+                                                    intent = new Intent(context, SelectPayWayActivity.class);
+                                                    intent.putExtra("order", orderModel);
+                                                }
+                                                intent.putExtra("id", orderModel.getId());
+                                                ViewUtil.startActivity(context, intent);
+                                            }
+                                        }).fail(new ICallback() {
+                                            @Override
+                                            public void call(Arguments arguments) {
+                                                dialog.dismiss();
+                                                dismiss();
+                                                DialogUtil.showMessage("下单失败");
+                                            }
+                                        });
 
-                OrderModel.commitOrder(stadiumModel.getId(), number, date).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        //JSONObject jsonObject = arguments.get(0);
-                        dismiss();
-                        OrderModel orderModel = arguments.get(0);
-                        Intent intent = null;
-                        if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
-                            intent = new Intent(context, OrderSucActivity.class);
-                        } else if ("SPECIAL".equals(stadiumModel.getType())) {
-                            intent = new Intent(context, OrderSucTEActivity.class);
-                        } else if ("GROUP".equals(stadiumModel.getType())) {
-                            intent = new Intent(context, SelectPayWayActivity.class);
-                            intent.putExtra("order", orderModel);
-                        }
-                        intent.putExtra("id", orderModel.getId());
-                        ViewUtil.startActivity(context, intent);
-                    }
-                }).fail(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        dismiss();
-                        DialogUtil.showMessage("下单失败");
-                    }
-                });
 
-
-            }
-        });
+                                    }
+                                }
+        );
 
         // textView= (TextView) view.findViewById(R.id.text_1);
         return rootView;
