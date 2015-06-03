@@ -4,31 +4,31 @@ package com.bjcathay.qt.model;
  * Created by bjcathay on 15-5-22.
  */
 public class PushModel {
-    private String type;
-    private String target;
-    private String message;
+    private String t;
+    private String g;
+    private String m;
 
-    public String getType() {
-        return type;
+    public String getT() {
+        return t;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setT(String t) {
+        this.t = t;
     }
 
-    public String getTarget() {
-        return target;
+    public String getG() {
+        return g;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public void setG(String g) {
+        this.g = g;
     }
 
-    public String getMessage() {
-        return message;
+    public String getM() {
+        return m;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setM(String m) {
+        this.m = m;
     }
 }

@@ -68,7 +68,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderSale.setText(orderModel.getPriceInclude());
         orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
         orderConNum.setText("" + Integer.toString(orderModel.getPeopleNumber()) + "人");
-        orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+        orderPay.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         orderPhone.setText("" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
 
     }

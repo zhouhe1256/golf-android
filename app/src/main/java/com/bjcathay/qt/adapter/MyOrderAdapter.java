@@ -73,9 +73,9 @@ public class MyOrderAdapter extends BaseAdapter {
         holder.title.setText(orderModel.getTitle());
         holder.discount.setText("包含服务: "+orderModel.getPriceInclude());
         if (orderModel.getPeopleNumber() == 0)
-            holder.price.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+            holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
-            holder.price.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+            holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
 
         holder.number.setText("预约人数: " + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
         String currentTime = DateUtil.stringToDateToOrderString(orderModel.getDate());

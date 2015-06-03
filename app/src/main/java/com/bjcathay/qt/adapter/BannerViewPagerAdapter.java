@@ -20,6 +20,7 @@ import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.OutlineContainer;
+import com.bjcathay.qt.widget.DSActivity;
 
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     intent.putExtra("url", bannerModel.getTarget());
                     ViewUtil.startActivity(context, intent);
                 } else if ("PRODUCT".equals(target)) {
-                    intent = new Intent(context, CourseDetailActivity.class);
+                    intent = new Intent(context, DSActivity.class);
                     intent.putExtra("imageurl", bannerModel.getImageUrl());
                     intent.putExtra("id", Long.valueOf(bannerModel.getTarget()));
                     ViewUtil.startActivity(context, intent);

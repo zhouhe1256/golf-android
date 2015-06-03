@@ -116,6 +116,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         //创建InfoWindow展示的view
         TextView button = new TextView(getApplicationContext());
         button.setBackgroundColor(Color.WHITE);
+       // button.setText(title+"\n"+content);
         button.setText(title);
 //定义用于显示该InfoWindow的坐标点
         LatLng pt = new LatLng(lat, lon);
@@ -153,7 +154,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         Intent intent;
         switch (view.getId()) {
             case R.id.title_daohang:
-                if (isInstallByread("com.baidu.BaiduMap") == false && isInstallByread("com.autonavi.minimap"))
+                if (isInstallByread("com.baidu.BaiduMap") == false && isInstallByread("com.autonavi.minimap")==false)
                     DialogUtil.showMessage("您尚未安装地图客户端");
                 else {
                     menuWindow = new SelectMapPopupWindow(this, isInstallByread("com.baidu.BaiduMap"), isInstallByread("com.autonavi.minimap"), this);

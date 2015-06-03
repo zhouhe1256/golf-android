@@ -70,21 +70,21 @@ public class MessageReceiver extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(context);
         Intent intent = null;
-        if ("ORDER".equals(pushModel.getType())) {
+        if ("ORDER".equals(pushModel.getT())) {
             intent = new Intent(context, OrderDetailActivity.class);
-            intent.putExtra("id", Long.parseLong(pushModel.getTarget()));
+            intent.putExtra("id", Long.parseLong(pushModel.getG()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else if ("COMPETITION".equals(pushModel.getType())) {
+        } else if ("COMPETITION".equals(pushModel.getT())) {
             intent = new Intent(context, CompetitionDetailActivity.class);
-            intent.putExtra("url", pushModel.getTarget());
+            intent.putExtra("url", pushModel.getG());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
-        Notification notification = builder.setTicker(pushModel.getMessage()).
+        Notification notification = builder.setTicker(pushModel.getM()).
                 setContentTitle("7铁高尔夫").
-                setContentText(pushModel.getMessage()).
+                setContentText(pushModel.getM()).
                 setSmallIcon(R.drawable.ic_launcher).
                 build();
 

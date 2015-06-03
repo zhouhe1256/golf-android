@@ -67,12 +67,13 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
-        ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
-        userName.setText(userModel.getRealName());
-        userNickName.setText(userModel.getNickname());
-        userPhone.setText(userModel.getMobileNumber());
-        userInvite.setText(userModel.getInviteCode());
-
+        if(userModel!=null) {
+            ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
+            userName.setText(userModel.getRealName());
+            userNickName.setText(userModel.getNickname());
+            userPhone.setText(userModel.getMobileNumber());
+            userInvite.setText(userModel.getInviteCode());
+        }
     }
 
     private void initEvent() {

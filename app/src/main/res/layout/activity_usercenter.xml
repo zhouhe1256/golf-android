@@ -5,7 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@color/transparent_color">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
     <LinearLayout
         android:id="@+id/user_center_content"
         android:layout_width="match_parent"
@@ -49,19 +58,21 @@
         <ImageView
             android:src="@drawable/ic_my_order"
             android:layout_width="25dp"
-            android:layout_margin="12dp"
-            android:layout_marginLeft="12dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
             android:layout_height="25dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <TextView
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
                     android:text="我的订单"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
@@ -112,19 +123,20 @@
         <ImageView
             android:src="@drawable/ic_my_compet"
             android:layout_width="25dp"
-            android:layout_margin="12dp"
+            android:layout_margin="10dp"
             android:layout_marginLeft="12dp"
             android:layout_height="25dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <TextView
+                    android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的赛事"
@@ -175,19 +187,22 @@
         <ImageView
             android:src="@drawable/ic_my_prop"
             android:layout_width="25dp"
-            android:layout_margin="12dp"
+            android:layout_margin="10dp"
             android:layout_marginLeft="12dp"
+            android:layout_gravity="center"
             android:layout_height="25dp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="60dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <TextView
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的兑换"
@@ -224,7 +239,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:background="@drawable/line_divide_hor" />
+                android:background="@drawable/line_divide_hor"
+                android:id="@+id/view" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -238,19 +254,22 @@
         <ImageView
             android:src="@drawable/ic_my_message"
             android:layout_width="25dp"
-            android:layout_margin="12dp"
+            android:layout_margin="10dp"
             android:layout_marginLeft="12dp"
+            android:layout_gravity="center"
             android:layout_height="25dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <TextView
+
+                    android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
                     android:text="我的消息"
@@ -304,17 +323,18 @@
         <ImageView
             android:src="@drawable/ic_my_invite"
             android:layout_width="25dp"
-            android:layout_margin="12dp"
+            android:layout_margin="10dp"
             android:layout_marginLeft="12dp"
+            android:layout_gravity="center"
             android:layout_height="25dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="60dp">
 
                 <TextView
                     android:textSize="@dimen/main_textSize"
@@ -359,5 +379,5 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/touying_bg" />
-
+</LinearLayout></ScrollView>
 </LinearLayout>

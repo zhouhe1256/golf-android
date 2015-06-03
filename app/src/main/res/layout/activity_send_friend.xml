@@ -15,7 +15,7 @@
         android:id="@+id/send_input_number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/item_click"
         android:paddingRight="10dp">
 
         <TextView
@@ -47,7 +47,7 @@
         android:id="@+id/send_to_mail_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/item_click"
         android:paddingRight="10dp">
 
         <TextView

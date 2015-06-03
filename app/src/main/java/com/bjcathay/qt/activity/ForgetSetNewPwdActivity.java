@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
  * Created by bjcathay on 15-5-15.
  */
 public class ForgetSetNewPwdActivity extends Activity implements View.OnClickListener {
-    private TopView topView;
+    private ImageView topView;
     private ClearEditText newPwd;
     private ClearEditText surePwd;
     private String phone;
@@ -52,7 +53,7 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
     }
 
     private void initEvent() {
-        topView.setActivity(this);
+        topView.setOnClickListener(this);
         //  topView.setTitleText("设置新密码");
 
     }

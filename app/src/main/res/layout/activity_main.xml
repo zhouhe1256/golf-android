@@ -68,7 +68,7 @@
                         android:orientation="vertical"
                         android:layout_margin="5dp"
                         android:layout_weight="3"
-                        android:background="@color/home_event_color"
+                        android:background="@drawable/home_event_bg_selector"
                         android:id="@+id/compitetion_event">
 
                         <TextView
@@ -97,7 +97,7 @@
                         android:layout_weight="2"
                         android:layout_margin="5dp"
                         android:id="@+id/exchange_award"
-                        android:background="@color/home_exchange_color"
+                        android:background="@drawable/home_exchange_bg_selector"
                         android:orientation="vertical">
 
                         <TextView
@@ -128,7 +128,7 @@
 
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:background="@color/home_order_color">
+                    android:background="@drawable/home_order_bg_selector">
 
                     <TextView
                         android:padding="10dp"
@@ -139,7 +139,7 @@
                         android:textSize="20sp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/home_order_color" />
+                         />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                     android:layout_margin="5dp"
                     android:id="@+id/user_center"
                     android:layout_gravity="center"
-                    android:background="@color/home_my_color">
+                    android:background="@drawable/home_my_bg_selector">
 
                     <TextView
                         android:layout_gravity="center"
@@ -174,7 +174,7 @@
                         android:textColor="@color/white"
                         android:layout_width="130dp"
                         android:layout_height="fill_parent"
-                        android:background="@color/home_my_color" />
+                         />
 
                     <ImageView
                         android:gravity="center"
@@ -194,7 +194,7 @@
                     android:orientation="vertical"
                     android:onClick="onClick"
                     android:clickable="true"
-                    android:background="@color/home_share_bg">
+                    android:background="@drawable/home_code_bg_selector">
 
                     <TextView
                         android:padding="5dp"

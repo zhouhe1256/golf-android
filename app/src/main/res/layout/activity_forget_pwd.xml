@@ -133,14 +133,14 @@
         android:gravity="center"
         android:layout_gravity="center">
 
-        <com.bjcathay.qt.view.TopView
+        <ImageView
             android:id="@+id/top_forget_layout"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
+            android:layout_height="85dp"
+            android:layout_width="85dp"
             android:gravity="bottom"
+            android:padding="30dp"
             android:layout_gravity="bottom"
-            android:background="@drawable/ic_back"
-            android:layout_marginBottom="30dp" />
+            android:src="@drawable/ic_back"/>
 
 
     </LinearLayout>

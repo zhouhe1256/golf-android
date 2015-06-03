@@ -85,7 +85,7 @@
         android:listSelector="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:dividerHeight="8dp"/>
+        android:scrollbars="none"/>
     <LinearLayout
         android:id="@+id/empty_lin"
         android:orientation="vertical"

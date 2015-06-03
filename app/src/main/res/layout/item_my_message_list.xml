@@ -21,7 +21,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="fill_parent"
                 android:background="@drawable/item_click">
 
                 <ImageView
@@ -57,7 +57,6 @@
 
 
         </LinearLayout>
-
         <View
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -65,11 +64,12 @@
             android:layout_width="match_parent"
             android:background="@drawable/touying_bg" />
 
+
         <LinearLayout
             android:id="@+id/my_message_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <LinearLayout
@@ -122,6 +122,7 @@
                 android:id="@+id/my_message_to_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:layout_gravity="right"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/home_title_color"

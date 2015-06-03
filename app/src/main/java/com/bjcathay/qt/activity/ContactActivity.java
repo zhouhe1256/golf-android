@@ -113,9 +113,11 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
             @Override
             public void onTouchingLetterChanged(String s) {
                 // 该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    sortListView.setSelection(position);
+                if (adapter.getCount() > 0) {
+                    int position = adapter.getPositionForSection(s.charAt(0));
+                    if (position != -1) {
+                        sortListView.setSelection(position);
+                    }
                 }
             }
         });
@@ -261,27 +263,29 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
      * @param filterStr
      */
     private void filterData(String filterStr) {
-        List<SortModel> filterDateList = new ArrayList<SortModel>();
-        if (filterStr.matches("[A-Z]"))
-            filterStr = filterStr.toLowerCase();
-        if (TextUtils.isEmpty(filterStr)) {
-            filterDateList = SourceDateList;
-        } else {
-            filterDateList.clear();
-            for (SortModel sortModel : SourceDateList) {
-                String name = sortModel.getName();
+        if (SourceDateList != null) {
+            List<SortModel> filterDateList = new ArrayList<SortModel>();
+            if (filterStr.matches("[A-Z]"))
+                filterStr = filterStr.toLowerCase();
+            if (TextUtils.isEmpty(filterStr)) {
+                filterDateList = SourceDateList;
+            } else {
+                filterDateList.clear();
+                for (SortModel sortModel : SourceDateList) {
+                    String name = sortModel.getName();
 
-                if (name.indexOf(filterStr.toString()) != -1
-                        || characterParser.getSelling(name).startsWith(
-                        filterStr.toString())) {
-                    filterDateList.add(sortModel);
+                    if (name.indexOf(filterStr.toString()) != -1
+                            || characterParser.getSelling(name).startsWith(
+                            filterStr.toString())) {
+                        filterDateList.add(sortModel);
+                    }
                 }
             }
-        }
 
-        // 根据a-z进行排序
-        Collections.sort(filterDateList, pinyinComparator);
-        adapter.updateListView(filterDateList);
+            // 根据a-z进行排序
+            Collections.sort(filterDateList, pinyinComparator);
+            adapter.updateListView(filterDateList);
+        }
     }
 
 }

@@ -100,9 +100,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderConDate.setText("预约日期: " + DateUtil.stringToDateToOrderString(orderModel.getDate()));
         orderConNum.setText("预约人数: " + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
         if (orderModel.getPeopleNumber() == 0)
-            orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+            orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
-            orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+            orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         if (orderModel.getPeopleNumber() == 0)
             orderPay.setText("订单金额: ￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else

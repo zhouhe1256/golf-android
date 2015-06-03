@@ -96,7 +96,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
                 break;
             case R.id.about_glb:
                 intent = new Intent(this, AboutGLBActivity.class);
-                IsLoginUtil.isLogin(this,intent);
+                ViewUtil.startActivity(this,intent);
                 break;
         }
     }

@@ -4,156 +4,166 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="beforeDescendants">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_click"
-        android:descendantFocusability="afterDescendants">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:id="@+id/my_order_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/sub_textSize"
-                android:textColor="@color/mian_text_color"
-                android:text="订单号:123456" />
-
-            <TextView
-                android:id="@+id/my_order_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="确认中"
-                android:textSize="@dimen/sub_textSize"
-                android:textColor="@color/guolinbi_color"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.bjcathay.qt.view.RoundCornerImageView
-                android:layout_margin="10dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:id="@+id/my_order_img"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_vertical" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_click"
+            android:descendantFocusability="afterDescendants">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/my_order_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/sub_textSize"
+                    android:textColor="@color/mian_text_color"
+                    android:text="订单号:123456" />
+
+                <TextView
+                    android:id="@+id/my_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确认中"
+                    android:textSize="@dimen/sub_textSize"
+                    android:textColor="@color/guolinbi_color"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/line_divide_hor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_marginTop="2dp"
+                <com.bjcathay.qt.view.RoundCornerImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/my_order_img"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical" />
 
+                <RelativeLayout
+                    android:padding="10dp"
                     android:layout_width="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
 
-
                     <LinearLayout
+                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_marginRight="5dp"
-                            android:id="@+id/my_order_title"
-                            android:paddingTop="10dp"
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/main_textSize"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/my_order_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/main_textSize"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/mian_text_color"
+                                android:text="北京清河湾俱乐部" />
+
+                            <ImageView
+                                android:id="@+id/my_order_temai"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_te_icon" />
+
+                            <ImageView
+                                android:id="@+id/my_order_tuangou"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_tuan_icon"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/my_order_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_textSize"
+                            android:textColor="@color/exchange_text_color"
                             android:singleLine="true"
                             android:ellipsize="end"
-                            android:paddingRight="5dp"
-                            android:textColor="@color/mian_text_color"
-                            android:text="北京清河湾俱乐部" />
+                            android:layout_marginRight="5dp"
+                            android:text="日期：22323232" />
 
-                        <ImageView
-                            android:id="@+id/my_order_temai"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="bottom"
-                            android:src="@drawable/ic_te_icon" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/my_order_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_textSize"
+                            android:textColor="@color/exchange_text_color"
+                            android:text="预约人数４" />
 
-                        <ImageView
-                            android:id="@+id/my_order_tuangou"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_tuan_icon"
-                            android:layout_gravity="bottom" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/my_order_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_textSize"
+                            android:textColor="@color/exchange_text_color"
+                            android:text="１８洞" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:paddingTop="10dp"
-                        android:id="@+id/my_order_time"
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textColor="@color/exchange_text_color"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:paddingRight="5dp"
-                        android:text="日期：22323232" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:paddingTop="10dp"
-                        android:id="@+id/my_order_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textColor="@color/exchange_text_color"
-                        android:text="预约人数４" />
+                        <TextView
+                            android:text="￥"
+                            android:textSize="10sp"
+                            android:paddingRight="3dp"
+                            android:textColor="@color/order_price_color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:id="@+id/my_order_discount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textColor="@color/exchange_text_color"
-                        android:text="１８洞" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/my_order_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:text="￥1660"
-                    android:textColor="@color/order_price_color"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+                        <TextView
+                            android:id="@+id/my_order_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:text="1660"
+                            android:textColor="@color/order_price_color" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
         <View
             android:layout_alignParentBottom="true"
             android:background="@color/line_color"

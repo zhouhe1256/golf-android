@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -39,7 +40,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private TextView userCodeBtn;
     private TimeCount time;
 
-    private TopView topView;
+    private ImageView topView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     private void initEvent() {
         //topView.setActivity(this);
-        topView.setVisiable(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);

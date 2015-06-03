@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 public class LoginActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private Button loginbtn;
-    private TopView topView;
+    private ImageView topView;
     private TextView newlogin;
     private TextView forgetbtn;
     private ClearEditText loginUser;
@@ -59,7 +60,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
-        topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
         topView.setOnClickListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);

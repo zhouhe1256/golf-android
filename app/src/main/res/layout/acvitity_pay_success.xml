@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pay_success_note"
-        android:textSize="13sp"
+        android:textSize="@dimen/sub_textSize"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:layout_gravity="center"
@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:text="@string/order_com_suc_note_b" />
 
@@ -59,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/login_color"
+            android:textSize="@dimen/sub_textSize"
             android:text="@string/service_tel"
             android:onClick="onClick"
             android:clickable="true"/>
@@ -76,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="2dp"
-            android:textSize="13sp"
+            android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:text="您还可以:" />
 
@@ -107,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_sucess_to_show_order_note"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
                     android:layout_gravity="left|center_vertical" />
             </LinearLayout>
@@ -133,7 +134,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sub_textSize"
                     android:textColor="@color/exchange_text_color"
                     android:text="@string/order_sucess_to_notice_friend"
                     android:layout_gravity="left|center_vertical" />

@@ -20,7 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="dhsahdklsajkldsa"
+        android:gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text=""
         android:textColor="@color/exchange_text_color"
-        android:textSize="@dimen/main_textSize" />
+        android:textSize="@dimen/sub_textSize" />
 </LinearLayout>
