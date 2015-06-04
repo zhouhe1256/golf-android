@@ -124,8 +124,8 @@
 
                     <com.bjcathay.qt.view.RoundCornerImageView
                         android:layout_margin="10dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:id="@+id/order_detail_img"
                         android:scaleType="centerCrop"
                         android:layout_gravity="center_vertical" />
@@ -219,6 +219,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="17sp"
                                 android:text="1660"
+                                android:textStyle="bold"
                                 android:textColor="@color/order_price_color" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -266,6 +267,7 @@
                     android:layout_width="fill_parent"
                     android:layout_margin="20dp"
                     android:padding="15dp"
+                    android:textSize="@dimen/main_textSize"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:background="@drawable/yellow_big_bg"

@@ -58,6 +58,8 @@ public class OrderSucTuanActivity extends Activity implements View.OnClickListen
                // DialogUtil.showMessage("分享给好友");
                 break;
             case R.id.title_back_img:
+                intent=new Intent(this,MainActivity.class);
+                ViewUtil.startTopActivity(this,intent);
                 finish();
                 break;
             case R.id.call_phone:

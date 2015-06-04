@@ -191,7 +191,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     private void initEvent() {
         topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
-        topView.setTitleText("7铁高尔夫");
+        topView.setTitleText("7铁");
         orderbtn.setOnClickListener(this);
         compebtn.setOnClickListener(this);
         exchbtn.setOnClickListener(this);
@@ -222,6 +222,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             case R.id.home_share_title:
                 intent = new Intent(this, ShareActivity.class);
                 ViewUtil.startActivity(this, intent);
+                overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
                 break;
         }
     }

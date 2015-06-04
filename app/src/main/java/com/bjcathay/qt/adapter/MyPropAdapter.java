@@ -55,7 +55,7 @@ public class MyPropAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_exchange_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_exchange_list, parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -65,13 +65,6 @@ public class MyPropAdapter extends BaseAdapter {
         holder.title.setText(propModel.getName());
         ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
-        holder.price.setText(propModel.getNeedAmount() + "个有效用户");
-       /* convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtil.hintMessage("选档期");
-            }
-        });*/
         //int num=Integer.valueOf(number.getText().toString().trim());
         holder.toExch.setText("赠送");
         holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
@@ -80,6 +73,7 @@ public class MyPropAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, SendFriendActivity.class);
                 intent.putExtra("id", propModel.getId());
+                intent.putExtra("name",propModel.getName());
                 ViewUtil.startActivity(context, intent);
             }
         });
@@ -90,14 +84,12 @@ public class MyPropAdapter extends BaseAdapter {
     class Holder {
         ImageView imageView;
         TextView title;
-        TextView price;
         TextView sale;
         Button toExch;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.exchange_image);
             title = ViewUtil.findViewById(view, R.id.exchange_title);
-            price = ViewUtil.findViewById(view, R.id.exchange_need_number);
             sale = ViewUtil.findViewById(view, R.id.exchange_note);
             toExch = ViewUtil.findViewById(view, R.id.to_exchange);
         }

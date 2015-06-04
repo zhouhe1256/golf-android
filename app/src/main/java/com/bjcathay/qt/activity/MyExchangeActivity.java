@@ -161,4 +161,10 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 }

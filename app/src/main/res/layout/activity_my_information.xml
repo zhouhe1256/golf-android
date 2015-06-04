@@ -61,6 +61,7 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
+
     <RelativeLayout
         android:id="@+id/info_nick_name_relative"
         android:layout_width="match_parent"
@@ -78,17 +79,6 @@
             android:layout_height="wrap_content"
             android:text="昵称:" />
 
-        <TextView
-            android:id="@+id/info_nick_name"
-            android:layout_toRightOf="@id/info_nick_name_note"
-            android:text="张三"
-            android:layout_marginLeft="10dp"
-            android:textSize="@dimen/sub_textSize"
-            android:textColor="@color/exchange_text_color"
-            android:layout_centerVertical="true"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
         <ImageView
 
             android:id="@+id/nick_name_go"
@@ -99,6 +89,20 @@
             android:layout_width="10dp"
             android:layout_height="17dp" />
 
+        <TextView
+            android:id="@+id/info_nick_name"
+            android:layout_toLeftOf="@id/nick_name_go"
+            android:layout_toRightOf="@id/info_nick_name_note"
+            android:text="张三"
+            android:layout_marginRight="20dp"
+            android:textSize="@dimen/sub_textSize"
+            android:textColor="@color/exchange_text_color"
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+
     </RelativeLayout>
 
     <View
@@ -106,6 +110,7 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
+
     <RelativeLayout
         android:id="@+id/info_name_relative"
         android:layout_width="match_parent"
@@ -126,8 +131,10 @@
         <TextView
             android:id="@+id/info_name"
             android:layout_toRightOf="@id/info_name_note"
+            android:layout_toLeftOf="@+id/name_go"
             android:text="张三"
-            android:layout_marginLeft="10dp"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
             android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_centerVertical="true"
@@ -169,12 +176,14 @@
 
         <TextView
             android:id="@+id/info_phone"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="41dp"
+            android:gravity="right"
             android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:layout_gravity="center_vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="123"/>
 
 
     </LinearLayout>
@@ -203,6 +212,8 @@
             android:id="@+id/info_invite"
             android:layout_marginLeft="10dp"
             android:textSize="@dimen/sub_textSize"
+            android:layout_marginRight="41dp"
+            android:gravity="right"
             android:textColor="@color/exchange_text_color"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

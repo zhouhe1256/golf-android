@@ -181,16 +181,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-
-            StringBuffer buffer = new StringBuffer();
-            for (int i = 0; i < messageModels.size(); i++) {
-                if (i < messageModels.size() - 1)
-                    buffer.append(messageModels.get(i).getId() + ",");
-                else
-                    buffer.append(messageModels.get(i).getId());
-            }
-
-            MessageListModel.deleteMessages(buffer.toString()).done(new ICallback() {
+            MessageListModel.deleteMessages().done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
@@ -206,7 +197,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
             }).fail(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
-                    DialogUtil.showMessage("失败");
+                    DialogUtil.showMessage("网络连接异常");
                 }
             });
         }

@@ -86,7 +86,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= stadiumModelList.size()) {
                     //todo
-                   // Intent intent = new Intent(PlaceListActivity.this, CourseDetailActivity.class);
+                    // Intent intent = new Intent(PlaceListActivity.this, CourseDetailActivity.class);
                     Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
@@ -100,7 +100,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             ProductListModel result = (ProductListModel) msg.obj;
-            boolean hasNext=result.isHasNext();
+            boolean hasNext = result.isHasNext();
             if (result != null && result.getProducts() != null && !result.getProducts().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -113,7 +113,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                         stadiumModelList.addAll(result.getProducts());
                         break;
                 }
-                lstv.setResultSize(stadiumModelList.size(),hasNext);
+                lstv.setResultSize(stadiumModelList.size(), hasNext);
                 placeListAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -124,7 +124,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                         lstv.onLoadComplete();
                         break;
                 }
-                lstv.setResultSize(stadiumModelList.size(),hasNext);
+                lstv.setResultSize(stadiumModelList.size(), hasNext);
                 placeListAdapter.notifyDataSetChanged();
             }
         }
@@ -202,6 +202,8 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_back_img:
+                Intent intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);
                 finish();
                 break;
         }

@@ -57,10 +57,10 @@ public class MessageListModel implements Serializable {
                 param("from", ids).run();
     }
 
-    public static IPromise deleteMessages(String ids) {
+    public static IPromise deleteMessages() {
         return Http.instance().post(ApiUrl.DELETE_MESSAGE).
                 param("_method", "DELETE").
-                param("from", ids).run();
+               run();
     }
 
     public static IPromise deleteMessages(List<String> ids) {

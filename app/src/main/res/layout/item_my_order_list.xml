@@ -20,7 +20,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:id="@+id/my_order_detail"
@@ -55,8 +58,8 @@
 
                 <com.bjcathay.qt.view.RoundCornerImageView
                     android:layout_margin="10dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:id="@+id/my_order_img"
                     android:scaleType="centerCrop"
                     android:layout_gravity="center_vertical" />
@@ -92,15 +95,15 @@
 
                             <ImageView
                                 android:id="@+id/my_order_temai"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_te_icon" />
 
                             <ImageView
                                 android:id="@+id/my_order_tuangou"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:src="@drawable/ic_tuan_icon"
                                 android:layout_gravity="center" />
 
@@ -158,6 +161,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="17sp"
                             android:text="1660"
+                            android:textStyle="bold"
                             android:textColor="@color/order_price_color" />
                     </LinearLayout>
                 </RelativeLayout>

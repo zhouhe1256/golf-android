@@ -94,10 +94,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
+                        DialogUtil.showMessage("验证码已发送");
                     } else {
+                        time.cancel();
+                        userCodeBtn.setText("获取验证码");
+                        userCodeBtn.setClickable(true);
                         int code = jsonObject.optInt("code");
                         DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                        time.onFinish();
                     }
 
 
@@ -168,7 +171,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     @Override
     public void onTick(long millisUntilFinished) {
-        userCodeBtn.setText("重新获取还需" + (millisUntilFinished / 1000) + "秒");
+        userCodeBtn.setText((millisUntilFinished / 1000) + "秒后重发");
         userCodeBtn.setClickable(false);
     }
 

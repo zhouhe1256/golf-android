@@ -36,6 +36,7 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
     private RelativeLayout sendToList;
     private RelativeLayout inputNumber;
     private Long id;
+    private String proName;
     private String number;
     private DialogExchFragment dialogExchFragment;
 
@@ -52,6 +53,7 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
+        proName=intent.getStringExtra("name");
        // number = inputNumber.getText().toString().trim();
         dialogExchFragment = new DialogExchFragment(this, this);
     }
@@ -111,11 +113,13 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
             case R.id.send_to_mail_list:
                 intent = new Intent(this, ContactActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("name",proName);
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.send_input_number:
                 intent = new Intent(this, SendToPhoneActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("name",proName);
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.title_back_img:

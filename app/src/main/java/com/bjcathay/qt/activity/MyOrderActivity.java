@@ -208,4 +208,10 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 }

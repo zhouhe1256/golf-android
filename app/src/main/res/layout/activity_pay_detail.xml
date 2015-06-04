@@ -171,6 +171,7 @@
                                 android:textColor="@color/guolinbi_color"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
                                 android:text="1480" />
                         </LinearLayout>
 
@@ -201,7 +202,70 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
+            <LinearLayout
+                android:id="@+id/pay_wx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_click"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:src="@drawable/ic_yinlian"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="34dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:padding="20dp"
+                            android:text="微信支付"
+                            android:layout_width="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/main_textSize"
+                            android:textColor="@color/mian_text_color" />
+
+
+                        <ImageView
+                            android:id="@+id/weixin_icon"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_user_center_inter"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp" />
+
+                        <TextView
+                            android:layout_toLeftOf="@id/weixin_icon"
+                            android:visibility="invisible"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="25dp"
+                            android:textStyle="bold"
+                            android:textSize="5sp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:background="@drawable/ic_new_message"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/line_divide_hor" />
             <LinearLayout
                 android:id="@+id/pay_yinlian"
                 android:layout_width="match_parent"
@@ -332,15 +396,6 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/touying_bg" />
-
-            <Button
-                android:id="@+id/zfbzfu"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="支付宝支付" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

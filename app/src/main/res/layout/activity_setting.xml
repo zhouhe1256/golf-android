@@ -204,7 +204,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="5dp"
-        android:textSize="15sp"
+        android:textSize="@dimen/main_textSize"
         android:visibility="gone"
         android:text="退出登录" />
 

@@ -52,6 +52,7 @@ public class DialogExchFragment extends DialogFragment {
     private ExchangeResult exchangeResult;
     private String phone;
     private Long id;
+    private String name;
 
 
     public DialogExchFragment() {
@@ -70,11 +71,12 @@ public class DialogExchFragment extends DialogFragment {
         this.num = num;
     }
 
-    public void setItems(UserModel items, String user, String phone, Long id) {
+    public void setItems(UserModel items, String user, String phone, Long id,String name) {
         this.userModel = items;
         this.type = user;
         this.phone = phone;
         this.id = id;
+        this.name=name;
     }
 
     @Override
@@ -158,7 +160,7 @@ public class DialogExchFragment extends DialogFragment {
                     }
                 });
             } else {
-                note.setText(getString(R.string.dialog_sure_to_send_a_card, phone));
+                note.setText(getString(R.string.dialog_sure_to_send_a_card,name, phone));
                 sure.setText("确认赠送");
                 sure.setOnClickListener(new View.OnClickListener() {
                     @Override

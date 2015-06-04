@@ -54,17 +54,19 @@ public class DialogSureOrderFragment extends DialogFragment {
     ImageView plus;
     TextView fourPlus;
     private ProgressDialog dialog = null;
+    private int currentPrice;
 
     public DialogSureOrderFragment() {
     }
 
     @SuppressLint("ValidFragment")
-    public DialogSureOrderFragment(Context context, ProductModel stadiumModel, String date, int number) {
+    public DialogSureOrderFragment(Context context, ProductModel stadiumModel, int currentPrice,String date, int number) {
         // super();
         this.date = date;
         this.number = number;
         this.context = context;
         this.stadiumModel = stadiumModel;
+        this.currentPrice=currentPrice;
     }
 
     @Override
@@ -111,7 +113,7 @@ public class DialogSureOrderFragment extends DialogFragment {
             number_.setVisibility(View.GONE);
             number_.setText("" + 4 + "人+");
             number = 5;
-            price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+            price.setText("￥" + currentPrice * number);
             linearLayout.setVisibility(View.VISIBLE);
             minas.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +121,7 @@ public class DialogSureOrderFragment extends DialogFragment {
                     if (number > 5) {
                         number--;
                         fourPlus.setText(number < 10 ? " " + number : number + "");
-                        price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+                        price.setText("￥" + currentPrice * number);
                     }
                 }
             });
@@ -129,7 +131,7 @@ public class DialogSureOrderFragment extends DialogFragment {
                     // if(number>=5){
                     number++;
                     fourPlus.setText(number < 10 ? " " + number : number + "");
-                    price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number);
+                    price.setText("￥" + currentPrice * number);
                     //  }
                 }
             });
@@ -137,7 +139,7 @@ public class DialogSureOrderFragment extends DialogFragment {
         } else {
             number_.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.GONE);
-            price.setText("￥" + (int) Math.floor(stadiumModel.getPrice()) * number + "");
+            price.setText("￥" + currentPrice * number + "");
             number_.setText("" + number + "人");
         }
         sure.setOnClickListener(new View.OnClickListener() {

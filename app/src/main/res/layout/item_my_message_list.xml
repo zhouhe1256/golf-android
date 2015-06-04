@@ -46,6 +46,7 @@
                     android:id="@+id/message_relativeDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/exchange_text_color"
                     android:text="刚刚"
                     android:textSize="12sp"
                     android:layout_marginRight="10dp"

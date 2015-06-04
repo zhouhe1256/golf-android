@@ -67,6 +67,12 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     private List<SortModel> SourceDateList;
     private PinyinComparator pinyinComparator;
     private TopView topView;
+    private TextView netNote;
+    private Long id;
+    private  Drawable imgLeft;
+    private   LinearLayout centerImg;
+    private String proName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,12 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_contact_layout);
+        netNote = ViewUtil.findViewById(this, R.id.network_note);
         sideBar = (SideBar) this.findViewById(R.id.sidrbar);
         dialog = (TextView) this.findViewById(R.id.dialog);
         sortListView = (ListView) this.findViewById(R.id.sortlist);
+        netNote.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -90,14 +99,12 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
         //   mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
     }
 
-    Long id;
-    Drawable imgLeft;
-    LinearLayout centerImg;
 
     private void initData() {
         topView.setTitleBackVisiable();
         topView.setTitleText("选择好友");
         id = getIntent().getLongExtra("id", 0);
+        proName=getIntent().getStringExtra("name");
         dialogExchFragment = new DialogExchFragment(this, this);
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
@@ -163,8 +170,10 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, dialogExchFragment);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,proName, dialogExchFragment);
                         sortListView.setAdapter(adapter);
+                        sortListView.setVisibility(View.VISIBLE);
+                        netNote.setVisibility(View.GONE);
 
                     }
                 }).fail(new ICallback() {
@@ -180,8 +189,10 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, dialogExchFragment);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,proName,dialogExchFragment);
                         sortListView.setAdapter(adapter);
+                        sortListView.setVisibility(View.VISIBLE);
+                        netNote.setVisibility(View.GONE);
                     }
                 });
                 mClearEditText = (ClearEditText) ContactActivity.this
@@ -193,10 +204,12 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                         mClearEditText.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
                         String hint;
                         if (!hasFocus) {
-                            hint = mClearEditText.getHint().toString();
-                            mClearEditText.setTag(hint);
-                            mClearEditText.setHint("");
-                            centerImg.setVisibility(View.VISIBLE);
+                            if (mClearEditText != null && mClearEditText.getHint() != null) {
+                                hint = mClearEditText.getHint().toString();
+                                mClearEditText.setTag(hint);
+                                mClearEditText.setHint("");
+                                centerImg.setVisibility(View.VISIBLE);
+                            }
                         } else {
                             centerImg.setVisibility(View.GONE);
                             hint = mClearEditText.getTag().toString();

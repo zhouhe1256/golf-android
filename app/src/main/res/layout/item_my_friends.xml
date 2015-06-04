@@ -8,15 +8,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/my_friend_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
             android:text="2015-05-04"

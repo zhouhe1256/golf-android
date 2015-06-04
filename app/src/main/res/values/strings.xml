@@ -95,9 +95,9 @@
     <string name="share_shortmessage_text">给你分享一个%1$s很不错,你也看看。%2$s 更多详情:%3$s</string>
     <string name="message_to_detail"><u>点击查看详情</u></string>
     <string name="dialog_to_exchange_a_card">您将兑换一枚%1$s兑换卡,\n本次兑换将消耗%2$d枚果岭币。</string>
-    <string name="dialog_cant_to_exchange_a_card">您的果岭币不足，暂不能兑换哦~\n快去邀请亲友团捧场吧</string>
+    <string name="dialog_cant_to_exchange_a_card">您的果岭币不足，暂不能兑换哦~快去邀请亲友团捧场吧</string>
     <string name="dialog_cant_to_send_a_card">抱歉，用户\n%1$s\n不是我们的会员，无法赠送。</string>
-    <string name="dialog_sure_to_send_a_card">您将把一枚初级赛事兑换送给你的小伙伴%1$s</string>
+    <string name="dialog_sure_to_send_a_card">您将把一枚%1$s送给你的小伙伴%2$s</string>
     <string name="what_is_glb">什么是果岭币</string>
     <string name="this_is_glb">果岭币是7铁内部流通的货币类种，通过发展自己的亲友团并得到亲友团的捧场来获得，当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以免费参加相关赛事。</string>
     <string name="how_to_get_glb">如何获得果岭币</string>

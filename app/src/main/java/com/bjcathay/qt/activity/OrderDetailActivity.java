@@ -96,21 +96,21 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderModel = arguments.get(0);
         ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
         orderName.setText(orderModel.getTitle());
-        orderSale.setText("包含服务: " + orderModel.getPriceInclude());
-        orderConDate.setText("预约日期: " + DateUtil.stringToDateToOrderString(orderModel.getDate()));
-        orderConNum.setText("预约人数: " + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
+        orderSale.setText("包含服务：" + orderModel.getPriceInclude());
+        orderConDate.setText("预约日期：" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
+        orderConNum.setText("预约人数：" + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
         if (orderModel.getPeopleNumber() == 0)
             orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
             orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         if (orderModel.getPeopleNumber() == 0)
-            orderPay.setText("订单金额: ￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+            orderPay.setText("订单金额：￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
-            orderPay.setText("订单金额: ￥" + (int) Math.floor(orderModel.getTotalPrice()));
-        orderPhone.setText("手机号码: " + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
-        orderNum.setText("订单号: " + orderModel.getOrderId());
-        orderPayDate.setText("交易日期: " + DateUtil.shortDateString(orderModel.getCreatedAt()));
-        orderAddress.setText("球场地址: " + orderModel.getAddress());
+            orderPay.setText("订单金额：￥" + (int) Math.floor(orderModel.getTotalPrice()));
+        orderPhone.setText("手机号码：" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
+        orderNum.setText("订单号：" + orderModel.getOrderId());
+        orderPayDate.setText("交易日期：" + DateUtil.shortDateString(orderModel.getCreatedAt()));
+        orderAddress.setText("球场地址：" + orderModel.getAddress());
         if ("PENDING".equals(orderModel.getStatus())) {
             orderToPay.setVisibility(View.GONE);
             orderStatus.setText("确认中");

@@ -347,6 +347,7 @@
                         android:textSize="20sp"
                         android:layout_marginLeft="35dp"
                         android:text="￥--"
+                        android:textStyle="bold"
                         android:textColor="@color/order_price_color" />
 
                 </LinearLayout>
@@ -378,6 +379,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:background="@drawable/yellow_big_bg"
+                    android:textSize="@dimen/main_textSize"
                     android:text="提交订单" />
 
             </LinearLayout>

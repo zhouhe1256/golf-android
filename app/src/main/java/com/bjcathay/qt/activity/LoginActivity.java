@@ -123,7 +123,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
 
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             gApplication.updateApiToken();
-            DialogUtil.showMessage("登陆成功");
+            DialogUtil.showMessage("登录成功");
             UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {

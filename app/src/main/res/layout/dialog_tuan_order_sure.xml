@@ -173,7 +173,7 @@
 
                 <TextView
                     android:id="@+id/dialog_order_sure_price"
-
+android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/guolinbi_color"
@@ -197,6 +197,7 @@
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/yellow_big_bg"
+            android:textSize="@dimen/main_textSize"
             android:text="团购并付款" />
 
         <LinearLayout

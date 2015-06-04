@@ -21,6 +21,7 @@ public class ShareActivity extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.share_back:
                 finish();
+                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
                 break;
         }
     }

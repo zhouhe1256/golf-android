@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="50dp"
-        android:textSize="12sp"
+        android:textSize="@dimen/sub_textSize"
         android:textColor="@color/exchange_text_color"
         android:text="您将兑换一枚一级兑换卡"/>
     <Button

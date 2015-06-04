@@ -26,7 +26,7 @@
             <Button
                 android:id="@+id/to_exchange"
                 android:layout_width="50dp"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/sub_textSize"
@@ -51,26 +51,14 @@
                     android:paddingRight="5dp"
                     android:textColor="@color/mian_text_color"
                     android:text="PGA赛事兑换卡" />
-
-                <TextView
-                    android:paddingTop="5dp"
-                    android:id="@+id/exchange_need_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="５个有效用户"
-                    android:textSize="@dimen/sub_textSize"
-                    android:textColor="@color/order_price_color" />
-
                 <TextView
                     android:paddingTop="5dp"
                     android:id="@+id/exchange_note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:paddingRight="5dp"
-                    android:singleLine="true"
+                    android:maxLines="3"
+                    android:layout_marginRight="40dp"
                     android:textSize="@dimen/sub_textSize"
                     android:text="领取此卡即可免费参加PGA赛事hsakljdl;sakjd;lsak'das" />
 

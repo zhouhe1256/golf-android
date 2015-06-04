@@ -94,12 +94,18 @@
         <activity android:name="com.bjcathay.qt.activity.FeedbackActivity" />
         <activity android:name="com.bjcathay.qt.activity.OrderSucTEActivity" />
         <activity android:name="com.bjcathay.qt.activity.OrderSucTuanActivity" />
-        <activity android:name="com.bjcathay.qt.activity.SelectPayWayActivity" />
+        <!--微信APPID-->
+        <activity android:name="com.bjcathay.qt.activity.SelectPayWayActivity">
+            <intent-filter>
+                <data android:scheme="wxf2f565574a968187" />
+            </intent-filter>
+        </activity>
+
+
         <activity android:name="com.bjcathay.qt.activity.ForgetPwdActivity" />
         <activity android:name="com.bjcathay.qt.activity.ForgetSetNewPwdActivity" />
         <activity android:name="com.bjcathay.qt.activity.EditPwdActivity" />
         <activity android:name="com.bjcathay.qt.activity.UserEditNicknameActivity" />
-        <activity android:name=".activity.CourseDetailActivity" />
         <activity android:name=".activity.GolfCourseDetailActicity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".activity.ShareActivity" />
@@ -110,9 +116,8 @@
         <activity android:name=".activity.BaiduAddressActivity" />
         <activity android:name=".widget.DSActivity" />
         <activity android:name=".lib.TextActivity" />
-        <activity android:name=".fragment.PlaceOrderFragment" />
-        <activity android:name=".activity.AttendSucActivity"/>
-        <activity android:name=".activity.SendToPhoneActivity"/>
+        <activity android:name=".activity.AttendSucActivity" />
+        <activity android:name=".activity.SendToPhoneActivity" />
 
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
@@ -248,16 +253,6 @@
         <!--分享end-->
 
         <!--支付start-->
-        <!-- Ping++ SDK 注册 -->
-        <activity
-            android:name="com.pingplusplus.android.PaymentActivity"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity-alias
-            android:name=".wxapi.WXPayEntryActivity"
-            android:targetActivity="com.pingplusplus.android.PaymentActivity"
-            android:exported="true" />
-
         <!--支付end-->
 
         <!--友盟 android appkey :555d71d467e58ecee60031b1-->
@@ -273,5 +268,16 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"></activity>
+        <!-- 微信支付start-->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <receiver android:name="wxpay.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        <!--微信支付end-->
     </application>
 </manifest>

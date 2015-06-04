@@ -68,18 +68,18 @@ public class MyOrderAdapter extends BaseAdapter {
         }
 
         OrderModel orderModel = items.get(position);
-        holder.detail.setText("订单号: " + orderModel.getOrderId());
+        holder.detail.setText("订单号：" + orderModel.getOrderId());
         ImageViewAdapter.adapt(holder.img, orderModel.getImageUrl(), R.drawable.exchange_default);
         holder.title.setText(orderModel.getTitle());
-        holder.discount.setText("包含服务: "+orderModel.getPriceInclude());
+        holder.discount.setText("包含服务："+orderModel.getPriceInclude());
         if (orderModel.getPeopleNumber() == 0)
             holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
             holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
 
-        holder.number.setText("预约人数: " + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
+        holder.number.setText("预约人数：" + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
         String currentTime = DateUtil.stringToDateToOrderString(orderModel.getDate());
-        holder.time.setText("预约时间: " + currentTime);
+        holder.time.setText("预约时间：" + currentTime);
         //PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
         //PENDING|UNPAID|PAID|FINISH|CANCEL
         if ("PENDING".equals(orderModel.getStatus()))

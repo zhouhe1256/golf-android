@@ -44,7 +44,7 @@ public class ApiUrl {
 
     public static final String ORDER_PAY_SUCESS = "/api/alipay_notify_url"; //订单支付成功回调URL(POST /api/alipay_notify_url)
 
-    public static final String DELETE_MESSAGE = "/api/user/message"; //删除消息(DELETE /api/user/message)
+    public static final String DELETE_MESSAGE = "/api/user/empty_message"; // 清空消息(DELETE /api/user/empty_message)
     public static final String ALREADY_READ_MESSAGE = "/api/user/message"; //消息状态改为已读(PUT /api/user/message)
     public static final String MY_MESSAGE = "/api/user/message"; //我的消息(GET /api/user/message)
     public static final String MY_PROPS = "/api/user/prop"; //我的兑换(GET /api/user/prop)

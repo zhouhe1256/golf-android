@@ -1,65 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_color">
+
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_edit_pwd_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/home_title_color" />
-    <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/edit_old_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="旧的密码"
-        android:padding="15dp"
-        android:inputType="textPassword"
-        android:textCursorDrawable="@null"
-        android:layout_margin="10dp"
-        android:textColorHint="@color/mian_text_color"
-        android:textColor="@color/mian_text_color"
-        android:textSize="15dp"
-        android:background="@android:color/transparent" />
 
-    <View
-        android:layout_height="1dp"
+    <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:background="@drawable/line_divide_hor" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/edit_new_pwd"
-        android:padding="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:textColorHint="@color/mian_text_color"
-        android:textColor="@color/mian_text_color"
-        android:hint="新的密码"
-        android:textSize="15dp"
-        android:layout_margin="10dp"
-        android:background="@android:color/transparent" />
-    <View
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/touying_bg" />
-    <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/edit_sure_new_pwd"
-        android:padding="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:textColorHint="@color/mian_text_color"
-        android:textColor="@color/mian_text_color"
-        android:hint="确认密码"
-        android:textSize="15dp"
-        android:layout_margin="10dp"
-        android:background="@android:color/transparent" />
-    <View
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/touying_bg" />
+        <com.bjcathay.qt.view.ClearEditText
+            android:id="@+id/edit_old_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="旧的密码"
+            android:paddingLeft="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@null"
+            android:textColorHint="@color/mian_text_color"
+            android:textColor="@color/mian_text_color"
+            android:textSize="15dp"
+            android:background="@android:color/transparent" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
+
+        <com.bjcathay.qt.view.ClearEditText
+            android:id="@+id/edit_new_pwd"
+            android:paddingLeft="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColorHint="@color/mian_text_color"
+            android:textColor="@color/mian_text_color"
+            android:hint="新的密码"
+            android:textSize="15dp"
+            android:background="@android:color/transparent" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/touying_bg" />
+
+        <com.bjcathay.qt.view.ClearEditText
+            android:id="@+id/edit_sure_new_pwd"
+            android:paddingLeft="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColorHint="@color/mian_text_color"
+            android:textColor="@color/mian_text_color"
+            android:hint="确认密码"
+            android:textSize="15dp"
+            android:background="@android:color/transparent" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/touying_bg" />
+
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/edit_sure_btn"

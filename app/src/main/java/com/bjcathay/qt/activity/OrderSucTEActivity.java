@@ -56,6 +56,8 @@ public class OrderSucTEActivity extends Activity implements View.OnClickListener
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.title_back_img:
+                intent=new Intent(this,MainActivity.class);
+                ViewUtil.startTopActivity(this,intent);
                 finish();
                 break;
             case R.id.call_phone:

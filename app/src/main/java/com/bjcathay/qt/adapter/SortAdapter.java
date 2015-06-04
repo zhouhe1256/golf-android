@@ -39,11 +39,13 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private FragmentActivity mContext;
     private Long id;
     private DialogExchFragment dialogExchFragment;
+    private String name;
 
-    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id, DialogExchFragment dialogExchFragment) {
+    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id,String name, DialogExchFragment dialogExchFragment) {
         this.mContext = mContext;
         this.list = list;
         this.id = id;
+        this.name=name;
         this.dialogExchFragment = dialogExchFragment;
     }
 
@@ -110,7 +112,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
                     //
                     UserModel userModel = new UserModel();
                     userModel.setMobileNumber(mContent.getPhone());
-                    dialogExchFragment.setItems(userModel, "user", mContent.getPhone(), id);
+                    dialogExchFragment.setItems(userModel, "user", mContent.getPhone(), id,name);
 
                     dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");
 

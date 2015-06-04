@@ -2,14 +2,11 @@ package com.bjcathay.qt.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -22,7 +19,6 @@ import com.bjcathay.qt.activity.GolfCourseDetailActicity;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogSureOrderFragment;
-import com.bjcathay.qt.fragment.PlaceOrderFragment;
 import com.bjcathay.qt.lib.WheelDate;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
@@ -34,7 +30,6 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +73,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private TextView temaiCount;
     private TextView soldOut;
     List<PriceModel> priceModels;
+    private int currentPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +199,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
 
     private void showDialog() {
         if (stadiumModel != null) {
-            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, getDate(), attendNumber);
+            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel,currentPrice, getDate(), attendNumber);
             dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
         }
     }
@@ -454,19 +450,25 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             if (priceModels != null && priceModels.size() > 0)
                 for (PriceModel priceModel : priceModels) {
                     if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                        if (attendNumber == 0)
+                        if (attendNumber == 0) {
                             stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
-                        else
+                            currentPrice=(int) Math.floor(priceModel.getPrice());
+                        } else {
                             stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
+                            currentPrice=(int) Math.floor(priceModel.getPrice());
+                        }
                         return;
                     }
                 }
             return;
         }
-        if (attendNumber == 0)
+        if (attendNumber == 0) {
             stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * 4) + "+");
-        else
+            currentPrice=(int) Math.floor(stadiumModel.getPrice());
+        } else {
             stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * attendNumber));
+            currentPrice=(int) Math.floor(stadiumModel.getPrice());
+        }
 
     }
 

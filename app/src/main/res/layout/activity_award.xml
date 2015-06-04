@@ -43,7 +43,7 @@
                     android:text="@string/usable_user_number"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/main_textSize"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
 

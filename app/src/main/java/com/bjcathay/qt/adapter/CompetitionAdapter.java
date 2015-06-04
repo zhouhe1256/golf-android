@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.EventModel;
+import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
 
@@ -86,9 +87,9 @@ public class CompetitionAdapter extends BaseAdapter {
         }
 
         holder.title.setText(eventModel.getName());
-        holder.address.setText("地址:" + eventModel.getAddress());
-        holder.time.setText("时间:" + eventModel.getStartAt().substring(0, 10) + "~" + eventModel.getEndAt().substring(0, 10));
-        holder.count.setText("参加人数:" + eventModel.getSignUpAmount());
+        holder.address.setText("地址：" + eventModel.getAddress());
+        holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
+        holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
         if (eventModel.getSignedAmount() == 0)
             holder.detail.setText("正在报名");
         else

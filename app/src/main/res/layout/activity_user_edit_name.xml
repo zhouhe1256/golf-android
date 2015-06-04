@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@drawable/yellow_big_bg"
+        android:textSize="@dimen/main_textSize"
         android:text="确认修改"
         android:onClick="onClick"/>
 

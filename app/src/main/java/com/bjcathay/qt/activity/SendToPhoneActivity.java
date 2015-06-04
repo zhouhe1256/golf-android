@@ -30,6 +30,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     private TopView topView;
     private Long id;
     private String number;
+    private String proName;
     private DialogExchFragment dialogExchFragment;
 
     @Override
@@ -51,6 +52,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
+        proName=intent.getStringExtra("name");
         // number = inputNumber.getText().toString().trim();
         dialogExchFragment = new DialogExchFragment(this, this);
     }
@@ -67,7 +69,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.edit_sure:
                 String phone = phoneEdit.getText().toString();
-                if (phone.length() > 16) {
+                if (phone.length() > 11) {
                     DialogUtil.showMessage("长度超出范围");
                     return;
                 } else if (!phone.isEmpty()) {
@@ -81,9 +83,9 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
                             public void call(Arguments arguments) {
                                 UserListModle userModel = arguments.get(0);
                                 if (userModel.getUsers() == null || userModel.getUsers().size() < 1) {
-                                    dialogExchFragment.setItems(null, "user", phoneEdit.getText().toString().trim(), id);
+                                    dialogExchFragment.setItems(null, "user", phoneEdit.getText().toString().trim(), id,proName);
                                 } else {
-                                    dialogExchFragment.setItems(userModel.getUsers().get(0), "user", phoneEdit.getText().toString().trim(), id);
+                                    dialogExchFragment.setItems(userModel.getUsers().get(0), "user", phoneEdit.getText().toString().trim(), id,proName);
                                 }
                                 dialogExchFragment.show(getSupportFragmentManager(), "send");
 
@@ -109,7 +111,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
         String nickname = phoneEdit.getText().toString();
         int length = nickname.length();
         phoneLengthText.setText(length + "/11");
-        if (length > 16) {
+        if (length > 11) {
             phoneLengthText.setTextColor(getResources().getColor(R.color.red));
         }
     }

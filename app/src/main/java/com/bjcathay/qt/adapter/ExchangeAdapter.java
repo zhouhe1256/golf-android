@@ -88,7 +88,7 @@ public class ExchangeAdapter extends BaseAdapter {
         holder.title.setText(propModel.getName());
         ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
-        holder.price.setText(propModel.getNeedAmount() + "个有效用户");
+        holder.price.setText(propModel.getNeedAmount() + "个果岭币");
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,72 +114,6 @@ public class ExchangeAdapter extends BaseAdapter {
                     dialogExchFragment.show(context.getSupportFragmentManager(),"exchange");
                 }
             });
-          /*  holder.toExch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {*/
-                   /* final LayoutInflater inflater = context.getLayoutInflater();
-                    ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_exchange_award, null);
-                    final Dialog dialog = new Dialog(context, R.style.myDialogTheme);
-                    TopView topView = ViewUtil.findViewById(rootView, R.id.dialog_award_title);
-                    topView.setDeleteVisiable();
-
-                    Button sure = ViewUtil.findViewById(rootView, R.id.sure_to_exchange);
-                    topView.getRightbtn().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.setContentView(rootView);
-                    sure.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            if (gApplication.isLogin() == true) {
-                                PropModel.getProp(propModel.getId()).done(new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        JSONObject jsonObject = arguments.get(0);
-                                        if (jsonObject.optBoolean("success")) {
-                                            PropModel propModel = JSONUtil.load(PropModel.class, jsonObject.optJSONObject("prop"));
-                                            DialogUtil.showMessage("成功兑换一枚" + propModel.getName());
-                                            UserModel.get().done(new ICallback() {
-                                                @Override
-                                                public void call(Arguments arguments) {
-                                                    UserModel userModel = arguments.get(0);
-                                                    number.setText("" + userModel.getInviteAmount());
-                                                    PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
-
-
-                                                }
-                                            });
-                                            Intent intent = new Intent(context, SendExchangeSucActivity.class);
-                                            intent.putExtra("prop", propModel);
-                                            intent.putExtra("title", "兑换");
-                                            ViewUtil.startActivity(context, intent);
-                                        } else {
-                                            int code = jsonObject.optInt("code");
-                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                        }
-                                    }
-                                });
-                            } else {
-                                Intent intent = new Intent(context, LoginActivity.class);
-                                ViewUtil.startActivity(context, intent);
-                            }
-                        }
-                    });
-                    rootView.findViewById(R.id.title_delete_img).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
-                    //dialog.create();*/
-                    // dialog.setContentView(rootView);
-                    //dialog.show();
-              //  }
-           // });
 
         return convertView;
     }
