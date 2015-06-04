@@ -17,41 +17,54 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
-	
-	private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
-	
+
+    private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
+
     private IWXAPI api;
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acvitity_pay_success);
-        
-    	api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
+
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 
         api.handleIntent(getIntent(), this);
     }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
         api.handleIntent(intent, this);
-	}
+    }
 
-	@Override
-	public void onReq(BaseReq req) {
-	}
+    @Override
+    public void onReq(BaseReq req) {
+    }
 
-	@Override
-	public void onResp(BaseResp resp) {
-		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+    @Override
+    public void onResp(BaseResp resp) {
+        Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 
-		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("提示");
-			builder.setMessage("微信支付结果"+ resp.errStr +";code=" + String.valueOf(resp.errCode));
-			builder.show();
-		}
-	}
+        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+            Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+
+            String msg = "";
+
+            if (resp.errCode == 0) {
+                msg = "支付成功";
+            } else if (resp.errCode == -1) {
+                msg = "已取消支付";
+            } else if (resp.errCode == -2) {
+                msg = "支付失败";
+            }
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("提示");
+            builder.setMessage("微信支付结果" + resp.errStr + ";code=" + String.valueOf(resp.errCode));
+            builder.show();
+        }
+    }
 }

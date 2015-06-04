@@ -25,7 +25,6 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
  * Created by bjcathay on 15-5-14.
  */
 public class SelectPayWayActivity extends Activity implements View.OnClickListener, Alipay.PaySucessOrNot {
-    private static final String APP_ID = "";
     private IWXAPI api;
     private Activity context;
     private TopView topView;
@@ -43,7 +42,6 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_detail);
-        regToWx();
         initView();
         initData();
         initEvent();
@@ -84,11 +82,6 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     private static final int REQUEST_CODE_PAYMENT = 1;
     private static final String CHANNEL_UPMP = "upmp";
     private static final String CHANNEL_ALIPAY = "alipay";
-
-    private void regToWx() {
-        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
-        api.registerApp(APP_ID);
-    }
 
     @Override
     public void onClick(View view) {

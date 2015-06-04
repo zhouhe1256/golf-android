@@ -157,15 +157,17 @@
 
                                 <ImageView
                                     android:id="@+id/order_detail_temai"
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginLeft="5dp"
                                     android:layout_gravity="center"
                                     android:src="@drawable/ic_te_icon" />
 
                                 <ImageView
                                     android:id="@+id/order_detail_tuangou"
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginLeft="5dp"
                                     android:src="@drawable/ic_tuan_icon"
                                     android:layout_gravity="center" />
 

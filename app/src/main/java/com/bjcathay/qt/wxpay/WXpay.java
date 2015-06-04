@@ -32,15 +32,17 @@ public class WXpay {
 
     public WXpay(Activity activity) {
         this.activity = activity;
+        msgApi = WXAPIFactory.createWXAPI(activity, null);
+        msgApi.registerApp(Constants.APP_ID);
     }
 
     private static final String TAG = "MicroMsg.SDKSample.PayActivity";
 
-    PayReq req;
-    final IWXAPI msgApi = WXAPIFactory.createWXAPI(activity, null);
+    PayReq req = new PayReq();
+    final IWXAPI msgApi;
     // TextView show;
-    Map<String, String> resultunifiedorder;
-    StringBuffer sb;
+    Map<String, String> resultunifiedorder = new HashMap<String, String>();
+    StringBuffer sb = new StringBuffer();
 
     //生成prepay_id
     public void prepareID() {
@@ -76,9 +78,9 @@ public class WXpay {
             }
             sb.append("prepay_id\n" + result.get("prepay_id") + "\n\n");
             // show.setText(sb.toString());
-            DialogUtil.showMessage(sb.toString());
 
             resultunifiedorder = result;
+            DialogUtil.showMessage(sb.toString());
             genPayReq();
 
         }
@@ -166,8 +168,6 @@ public class WXpay {
     }
 
     private void sendPayReq() {
-
-
         msgApi.registerApp(Constants.APP_ID);
         msgApi.sendReq(req);
     }
