@@ -19,7 +19,6 @@ import com.bjcathay.qt.activity.GolfCourseDetailActicity;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogSureOrderFragment;
-import com.bjcathay.qt.lib.WheelDate;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.ShareModel;
@@ -39,7 +38,7 @@ import java.util.regex.Pattern;
 /**
  * Created by bjcathay on 15-5-31.
  */
-public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener, WheelDate.OnOptionsSelectListener {
+public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener{
     public int screenheight;
     WheelView mOption1 = null;
     WheelView mOption2 = null;
@@ -493,40 +492,5 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                     dialogSureOrderFragment.dismiss();
                 break;
         }
-    }
-
-    @Override
-    public void onOptionsSelect(String options1, String option2, String options3) {
-        if ("GROUP".equals(stadiumModel.getType())) {
-            select = stadiumModel.getDate();
-            return;
-        } else if ("下午".equals(option2)) {
-            options3 = DateUtil.To24(options3);
-        }
-        Calendar c = Calendar.getInstance();
-        Date d = null;
-        if ("SPECIAL".equals(stadiumModel.getType())) {
-            d = DateUtil.stringToDate(stadiumModel.getDate());
-        } else {
-            d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
-        }
-        c.setTime(d);
-        //取得系统日期:
-        int year = c.get(Calendar.YEAR);
-        if (options1 == null) {
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            options1 = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月" + (day > 10 ? day : "0" + day) + "日";
-        }
-        String regEx = "[^0-9]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(options1);
-        String day = m.replaceAll("").trim();
-        String daysub = day.substring(2);
-        select = year + "-" + day.substring(0, 2) + "-"
-                + (daysub.length() == 1 ? "0" + daysub : daysub)
-                + " " + (options3.length() == 1 ? "0" + options3 : options3) + ":00";
-        Log.e("选择的日期是", select);
-        getDayPrice(0);
     }
 }

@@ -73,8 +73,6 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.WelcomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.ScheduleActivity"
-            android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.OrderSucActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.ExerciseActivity"
@@ -126,7 +124,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxf2f565574a968187" />
+                <data android:scheme="wxf65eb087de20ad75" />
             </intent-filter>
         </activity>
 
@@ -139,8 +137,6 @@
         <activity android:name="com.bjcathay.qt.activity.UserEditNicknameActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.GolfCourseDetailActicity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.AddressActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ShareActivity"
             android:screenOrientation="portrait" />
@@ -156,8 +152,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".widget.DSActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".lib.TextActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".activity.AttendSucActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SendToPhoneActivity"
@@ -166,7 +160,7 @@
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="iFpMnzWacEqxVgRGKhjGj5XZ" />
+            android:value="bDvD4SE1hNS3Tbvj3EakoYjH" />
 
         <!--百度地图end-->
 

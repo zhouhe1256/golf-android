@@ -53,7 +53,7 @@
     -->
     
     <ShareSDK 
-        AppKey = "androidv1101"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+        AppKey = "7b21535d7e5f"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"wxf65eb087de20ad75-->
     <Wechat
         Id="4"
         SortId="1"
@@ -65,9 +65,9 @@
     <WechatMoments
         Id="5"
         SortId="2"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="true"
+        AppId="wxf65eb087de20ad75"
+        AppSecret="861f5cd89c59abd72a5f1bfd0ba859c1"
+        BypassApproval="false"
         Enable="true" />
     
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

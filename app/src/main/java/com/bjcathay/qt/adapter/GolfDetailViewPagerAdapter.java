@@ -1,7 +1,6 @@
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,6 @@ import android.widget.ImageView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.activity.ExerciseActivity;
-import com.bjcathay.qt.activity.ScheduleActivity;
-import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.OutlineContainer;

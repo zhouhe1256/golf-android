@@ -89,8 +89,9 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
             case R.id.pay_wx:
                 //  DialogUtil.showMessage("银联支付哦！！！");
                 findViewById(R.id.pay_wx).setOnClickListener(null);
-                WXpay wXpay = new WXpay(this);
+                WXpay wXpay = new WXpay(this,orderModel);
                 wXpay.prepareID();
+                //wXpay.wxpay();
                 break;
             case R.id.pay_ipay:
                 // DialogUtil.showMessage("支付宝支付哦！！！");

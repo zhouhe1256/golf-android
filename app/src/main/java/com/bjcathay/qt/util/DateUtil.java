@@ -2,7 +2,6 @@ package com.bjcathay.qt.util;
 
 import android.content.Context;
 
-import com.bjcathay.qt.model.DateModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 
@@ -17,7 +16,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by bjcathay on 15-4-24.
@@ -51,9 +49,9 @@ public class DateUtil {
                     today = "今天";
                 } else if (day == now_daye + 1) {
                     today = "明天";
-                } else if (day == now_daye + 2) {
+                }/* else if (day == now_daye + 2) {
                     today = "后天";
-                } else {
+                } */else {
                     switch (day1) {
                         case 2:
                             today = "周一";

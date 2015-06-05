@@ -41,7 +41,9 @@ public class ApiUrl {
 
     public static final String COMMIT_ORDER = "/api/user/order";//提交订单(POST /api/user/order)
     public static final String ORDER_TO_PAY = "/api/user/order/pay";//订单支付 (GET /api/user/order/pay)
+    public static final String WX_ORDER_TO_PAY = "/api/wx_pay";//订单支付 api/wx_pay?id= post
 
+    ///api/wx_notify_url?id= post
     public static final String ORDER_PAY_SUCESS = "/api/alipay_notify_url"; //订单支付成功回调URL(POST /api/alipay_notify_url)
 
     public static final String DELETE_MESSAGE = "/api/user/empty_message"; // 清空消息(DELETE /api/user/empty_message)

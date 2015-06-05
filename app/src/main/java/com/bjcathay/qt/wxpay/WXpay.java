@@ -7,6 +7,11 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.R;
+import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.WXPayModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -15,6 +20,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
@@ -29,10 +35,12 @@ import java.util.Random;
  */
 public class WXpay {
     private Activity activity;
+    private OrderModel orderModel;
 
-    public WXpay(Activity activity) {
+    public WXpay(Activity activity, OrderModel orderModel) {
         this.activity = activity;
-        msgApi = WXAPIFactory.createWXAPI(activity, null);
+        this.orderModel = orderModel;
+        msgApi = WXAPIFactory.createWXAPI(activity, Constants.APP_ID);
         msgApi.registerApp(Constants.APP_ID);
     }
 
@@ -53,6 +61,31 @@ public class WXpay {
     //生成微信支付参数
     public void params() {
         genPayReq();
+    }
+
+    public void wxpay() {
+        WXPayModel.paytext(orderModel.getId()).done(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                JSONObject jsonObject = arguments.get(0);
+                if (jsonObject.optBoolean("success")) {
+                    Map<String, String> xml = decodeXml(jsonObject.optString("prepay"));
+                    req.appId = xml.get("appId");
+                    req.partnerId =xml.get("partnerId");
+                    req.prepayId = xml.get("prepayId");
+                    req.packageValue =  xml.get("packageValue");//packageValue
+                    req.nonceStr = xml.get("nonceStr");
+                    req.timeStamp = xml.get("timeStamp");
+                    req.sign = xml.get("sign");
+                    sendPayReq();
+                }
+            }
+        }).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+
+            }
+        });
     }
 
     //微信支付
@@ -78,7 +111,6 @@ public class WXpay {
             }
             sb.append("prepay_id\n" + result.get("prepay_id") + "\n\n");
             // show.setText(sb.toString());
-
             resultunifiedorder = result;
             DialogUtil.showMessage(sb.toString());
             genPayReq();
@@ -94,16 +126,14 @@ public class WXpay {
         protected Map<String, String> doInBackground(Void... params) {
 
             String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
+            //
+           // url=activity.getString(R.string.host)+"?id="+Long.toString(orderModel.getId());
             String entity = genProductArgs();
-
-            Log.e("orion", entity);
-
+            Log.e("orionentity", entity);
             byte[] buf = Util.httpPost(url, entity);
-
             String content = new String(buf);
-            Log.e("orion", content);
+            Log.e("orioncontent", content);
             Map<String, String> xml = decodeXml(content);
-
             return xml;
         }
     }
@@ -127,8 +157,8 @@ public class WXpay {
             String sign = genPackageSign(packageParams);
             packageParams.add(new BasicNameValuePair("sign", sign));
             String xmlstring = toXml(packageParams);
+            Log.e("genProductArgs", xmlstring);
             return xmlstring;
-
         } catch (Exception e) {
             Log.e(TAG, "genProductArgs fail, ex = " + e.getMessage());
             return null;
@@ -145,8 +175,6 @@ public class WXpay {
         req.packageValue = "Sign=WXPay";
         req.nonceStr = genNonceStr();
         req.timeStamp = String.valueOf(genTimeStamp());
-
-
         List<NameValuePair> signParams = new LinkedList<NameValuePair>();
         signParams.add(new BasicNameValuePair("appid", req.appId));
         signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
@@ -162,7 +190,7 @@ public class WXpay {
         //  show.setText(sb.toString());
         DialogUtil.showMessage(sb.toString());
 
-        Log.e("orion", signParams.toString());
+        Log.e("oriongenPayReq", signParams.toString());
         sendPayReq();
 
     }
@@ -234,7 +262,7 @@ public class WXpay {
         }
         sb.append("</xml>");
 
-        Log.e("orion", sb.toString());
+        Log.e("oriontoXml", sb.toString());
         return sb.toString();
     }
 
@@ -252,7 +280,7 @@ public class WXpay {
 
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
         String appSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
-        Log.e("orion", appSign);
+        Log.e("orionappSign", appSign);
         return appSign;
     }
 
@@ -274,7 +302,7 @@ public class WXpay {
 
 
         String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
-        Log.e("orion", packageSign);
+        Log.e("orionpackageSign", packageSign);
         return packageSign;
     }
 }
