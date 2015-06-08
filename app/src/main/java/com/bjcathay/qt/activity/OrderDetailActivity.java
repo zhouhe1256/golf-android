@@ -200,8 +200,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         if (id != 0)
             OrderModel.orderDetail(id).done(this);
     }

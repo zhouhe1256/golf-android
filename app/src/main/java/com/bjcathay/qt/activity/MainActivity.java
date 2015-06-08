@@ -2,6 +2,8 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -25,6 +27,8 @@ import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -38,6 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private LinearLayout exchbtn;
     private LinearLayout usercenter;
     private LinearLayout shareBtn;
+    private static final String FILE_NAME="golf_share.png";
+    public static String TEST_IMAGE;
     private JazzyViewPager bannerViewPager;
     private TopView topView;
     private Activity context;
@@ -139,6 +145,34 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 bannerViewPager.setCurrentItem(page, true);
             }
         }, 5000);
+        new Thread() {
+            public void run() {
+                initImagePath();
+            }
+        }.start();
+
+    }
+    //把图片从drawable复制到sdcard中
+    private void initImagePath() {
+        try {
+            String cachePath=com.mob.tools.utils.R.getCachePath(this, null);
+            TEST_IMAGE = cachePath + FILE_NAME;
+            File file = new File(TEST_IMAGE);
+            // TEST_IMAGE="/sdcard/mallfm/"+FILE_NAME;
+            //File file = new File(TEST_IMAGE);
+            if (!file.exists()) {
+                file.createNewFile();
+                Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                FileOutputStream fos = new FileOutputStream(file);
+                pic.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.flush();
+                fos.close();
+            }
+
+        } catch(Throwable t) {
+            t.printStackTrace();
+            TEST_IMAGE = null;
+        }
     }
 
     private void initData() {

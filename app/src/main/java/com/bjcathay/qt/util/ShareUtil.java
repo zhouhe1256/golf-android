@@ -3,6 +3,7 @@ package com.bjcathay.qt.util;
 import android.content.Context;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.MainActivity;
 import com.bjcathay.qt.model.ShareModel;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -62,7 +63,7 @@ public class ShareUtil {
         oks.setTitleUrl(shareModel.getUrl());
         oks.setText(shareModel.getDescription());
         // oks.setImagePath(shareModel.getPicture());
-        oks.setImagePath("");
+        oks.setImagePath(MainActivity.TEST_IMAGE);
         // oks.setImageUrl(shareModel.getImageUrl());
         oks.setUrl(shareModel.getUrl());
         oks.setFilePath("");
