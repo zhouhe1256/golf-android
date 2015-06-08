@@ -12,15 +12,19 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.DateUtil;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
+
+import org.json.JSONObject;
 
 /**
  * Created by bjcathay on 15-4-29.
@@ -87,7 +91,18 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
 
-        OrderModel.orderDetail(id).done(this);
+        OrderModel.orderDetail(id).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                JSONObject jsonObject = arguments.get(0);
+               /* if (jsonObject.optBoolean("success")) {
+
+                } else {
+                    int code = jsonObject.optInt("code");
+                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                }*/
+            }
+        });
 
     }
 

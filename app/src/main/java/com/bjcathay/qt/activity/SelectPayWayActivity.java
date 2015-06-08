@@ -1,15 +1,21 @@
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.alipay.Alipay;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -20,6 +26,8 @@ import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.wxpay.WXpay;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.json.JSONObject;
 
 /**
  * Created by bjcathay on 15-5-14.
@@ -37,12 +45,14 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     private TextView orderConNum;
     private TextView orderPay;
     private TextView orderPhone;
+    private WXPAYBroadcastReceiver wxpayBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_detail);
         initView();
+        initReceiver();
         initData();
         initEvent();
     }
@@ -57,6 +67,13 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderPay.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         orderPhone.setText("" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
 
+    }
+
+    private void initReceiver() {
+        wxpayBroadcastReceiver = new WXPAYBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("WXPAY");
+        this.registerReceiver(wxpayBroadcastReceiver, intentFilter);
     }
 
     private void initView() {
@@ -89,9 +106,9 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
             case R.id.pay_wx:
                 //  DialogUtil.showMessage("银联支付哦！！！");
                 findViewById(R.id.pay_wx).setOnClickListener(null);
-                WXpay wXpay = new WXpay(this,orderModel);
-                wXpay.prepareID();
-                //wXpay.wxpay();
+                WXpay wXpay = new WXpay(this, orderModel);
+                // wXpay.prepareID();
+                wXpay.wxpay();
                 break;
             case R.id.pay_ipay:
                 // DialogUtil.showMessage("支付宝支付哦！！！");
@@ -119,6 +136,29 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         if (isPay) {
             if ("sucess".equals(status)) {
                 Intent intent;
+               /* OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            Intent intent;
+                            if ("GROUP".equals(orderModel.getType())) {
+                                intent = new Intent(context, OrderSucTuanActivity.class);
+                                intent.putExtra("id", orderModel.getId());
+                            } else {
+                                intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+                            }
+                            intent.putExtra("order", orderModel);
+                            ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                            finish();
+                        } else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
+                    }
+                });*/
+
+
                 if ("GROUP".equals(orderModel.getType())) {
                     intent = new Intent(context, SelectPayWayActivity.class);
                 } else {
@@ -131,6 +171,56 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                 DialogUtil.showMessage("支付结果确认中");
             } else if ("fail".equals(status)) {
                 DialogUtil.showMessage("支付失败");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (wxpayBroadcastReceiver != null) {
+            this.unregisterReceiver(wxpayBroadcastReceiver);
+        }
+    }
+
+    private class WXPAYBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if ("WXPAY".equals(action)) {
+                /*OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            Intent intent;
+                            if ("GROUP".equals(orderModel.getType())) {
+                                intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+                                intent.putExtra("id", orderModel.getId());
+                            } else {
+                                intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+                            }
+                            intent.putExtra("order", orderModel);
+                            ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                            finish();
+                        } else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
+                    }
+                });*/
+
+                Intent intent1;
+                if ("GROUP".equals(orderModel.getType())) {
+                    intent1 = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+                    intent1.putExtra("id", orderModel.getId());
+                } else {
+                    intent1 = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+                }
+                intent1.putExtra("order", orderModel);
+                ViewUtil.startActivity(SelectPayWayActivity.this, intent1);
+                finish();
             }
         }
     }

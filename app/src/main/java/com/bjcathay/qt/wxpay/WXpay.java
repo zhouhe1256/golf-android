@@ -70,12 +70,12 @@ public class WXpay {
                 JSONObject jsonObject = arguments.get(0);
                 if (jsonObject.optBoolean("success")) {
                     Map<String, String> xml = decodeXml(jsonObject.optString("prepay"));
-                    req.appId = xml.get("appId");
-                    req.partnerId =xml.get("partnerId");
-                    req.prepayId = xml.get("prepayId");
-                    req.packageValue =  xml.get("packageValue");//packageValue
-                    req.nonceStr = xml.get("nonceStr");
-                    req.timeStamp = xml.get("timeStamp");
+                    req.appId = xml.get("appid");
+                    req.partnerId =xml.get("partnerid");
+                    req.prepayId = xml.get("prepayid");
+                    req.packageValue =  xml.get("package");//packageValue
+                    req.nonceStr = xml.get("noncestr");
+                    req.timeStamp = xml.get("timestamp");
                     req.sign = xml.get("sign");
                     sendPayReq();
                 }

@@ -265,8 +265,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:background="@drawable/line_divide_hor" />
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/pay_yinlian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
