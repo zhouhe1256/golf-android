@@ -15,13 +15,15 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.view.DeleteInfoDialog;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import org.json.JSONObject;
 
 /**
  * Created by bjcathay on 15-5-26.
  */
-public class WebJSInterface {
+public class WebJSInterface implements DeleteInfoDialog.DeleteInfoDialogResult {
     private final int CODE = 0x717;
     private Context mContext;
     private Activity mActivity;
@@ -61,9 +63,68 @@ public class WebJSInterface {
      * js调用页面进行报名
      */
     @JavascriptInterface
-    public void signup(Long id) {
+    public void signup(String id, final String message) {
         if (GApplication.getInstance().isLogin()) {
-            EventModel.attendEvent(id).done(new ICallback() {
+            if (!StringUtils.isEmpty(message)) {
+                DeleteInfoDialog infoDialog = new DeleteInfoDialog(mActivity,
+                        R.style.InfoDialog, message, Long.valueOf(id), WebJSInterface.this);
+                infoDialog.show();
+            } else {
+                EventModel.attendEvent(Long.valueOf(id)).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            DialogUtil.showMessage("报名成功");
+                        } else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
+                    }
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage("报名失败");
+                    }
+                });
+            }
+        } else {
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            ViewUtil.startActivity(mActivity, intent);
+            mActivity.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+        }
+    }
+
+    /**
+     * js调用进行分享
+     */
+    @JavascriptInterface
+    public void golfshare(Long id, String kind) {
+        final String KIND = kind;
+        final Long id_ = id;
+        final String type;
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+
+            public void run() {
+                // 更新UI界面元素代码
+                ShareModel.shareProducts(id_).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        ShareModel shareModel = arguments.get(0);
+                        ShareUtil.getInstance().shareDemo(mContext, shareModel);
+                    }
+                });
+            }
+
+        });
+
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete)
+            EventModel.attendEvent(targetId).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
@@ -80,48 +141,5 @@ public class WebJSInterface {
                     DialogUtil.showMessage("报名失败");
                 }
             });
-        } else {
-            Intent intent = new Intent(mContext, LoginActivity.class);
-            ViewUtil.startActivity(mContext, intent);
-            mActivity.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
-        }
-    }
-
-    /**
-     * js调用进行分享
-     */
-    @JavascriptInterface
-    public void golfshare(Long id, String kind) {
-        final String KIND = kind;
-        final Long id_ = id;
-        final String type;
-        if (kind.startsWith("PRODUCT")) {
-            type = "产品";
-        } else if (kind.startsWith("GROUP")) {
-            type = "团购";
-        } else if (kind.startsWith("ACT")) {
-            type = "活动";
-        } else if (kind.startsWith("GIFT")) {
-            type = "代金券";
-        } else {
-            type = "产品";
-        }
-        Handler handler = new Handler();
-
-        handler.post(new Runnable() {
-
-            public void run() {
-                // 更新UI界面元素代码
-                ShareModel.shareProducts(id_).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        ShareModel shareModel = arguments.get(0);
-                        ShareUtil.getInstance().shareDemo(mContext, shareModel);
-                    }
-                });
-            }
-
-        });
-
     }
 }

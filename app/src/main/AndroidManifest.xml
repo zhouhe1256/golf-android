@@ -57,7 +57,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.bjcathay.qt.activity.MainActivity"
+            android:name="com.bjcathay.qt.activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -71,7 +71,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.PlaceListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.WelcomeActivity"
+        <activity android:name="com.bjcathay.qt.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.OrderSucActivity"
             android:screenOrientation="portrait" />
@@ -139,6 +139,7 @@
         <activity android:name=".activity.GolfCourseDetailActicity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ShareActivity"
+            android:theme="@style/activityTheme"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyFriendActivity"
             android:screenOrientation="portrait" />
@@ -156,6 +157,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SendToPhoneActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.ShareWithFriendsActivity"
+            android:screenOrientation="portrait"/>
 
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data

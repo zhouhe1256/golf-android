@@ -119,7 +119,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@color/login_color"
+            android:background="@drawable/login_btn_selector"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textStyle="bold"

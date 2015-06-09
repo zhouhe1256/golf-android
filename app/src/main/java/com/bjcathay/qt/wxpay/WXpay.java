@@ -64,6 +64,10 @@ public class WXpay {
     }
 
     public void wxpay() {
+        if (!msgApi.isWXAppInstalled()) {
+            DialogUtil.showMessage("尚未安装微信");
+            return;
+        }
         WXPayModel.paytext(orderModel.getId()).done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
@@ -71,9 +75,9 @@ public class WXpay {
                 if (jsonObject.optBoolean("success")) {
                     Map<String, String> xml = decodeXml(jsonObject.optString("prepay"));
                     req.appId = xml.get("appid");
-                    req.partnerId =xml.get("partnerid");
+                    req.partnerId = xml.get("partnerid");
                     req.prepayId = xml.get("prepayid");
-                    req.packageValue =  xml.get("package");//packageValue
+                    req.packageValue = xml.get("package");//packageValue
                     req.nonceStr = xml.get("noncestr");
                     req.timeStamp = xml.get("timestamp");
                     req.sign = xml.get("sign");
@@ -83,7 +87,7 @@ public class WXpay {
         }).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-
+                DialogUtil.showMessage(activity.getString(R.string.empty_net_text));
             }
         });
     }
@@ -127,7 +131,7 @@ public class WXpay {
 
             String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
             //
-           // url=activity.getString(R.string.host)+"?id="+Long.toString(orderModel.getId());
+            // url=activity.getString(R.string.host)+"?id="+Long.toString(orderModel.getId());
             String entity = genProductArgs();
             Log.e("orionentity", entity);
             byte[] buf = Util.httpPost(url, entity);

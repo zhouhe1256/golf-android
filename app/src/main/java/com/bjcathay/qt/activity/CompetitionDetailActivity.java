@@ -93,6 +93,11 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
         if (url != null) {
             if (!url.contains("?"))
                 url += "?";
+            if (GApplication.getInstance().isLogin()) {
+                if (!url.contains("token"))
+                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+
+            }
             webview.loadUrl(url);
         }
     }
@@ -124,8 +129,16 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
     public void call(Arguments arguments) {
         eventModel = arguments.get(0);
         url = eventModel.getUrl();
-        if (webview != null)
+        if (webview != null) {
+            if (!url.contains("?"))
+                url += "?";
+            if (GApplication.getInstance().isLogin()) {
+                if (!url.contains("token"))
+                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+
+            }
             webview.loadUrl(url);
+        }
     }
 
     @Override
@@ -180,7 +193,15 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
     @Override
     protected void onResume() {
         super.onResume();
-        if (webview != null)
+        if (webview != null) {
+            if (!url.contains("?"))
+                url += "?";
+            if (GApplication.getInstance().isLogin()) {
+                if (!url.contains("token"))
+                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+
+            }
             webview.loadUrl(url);
+        }
     }
 }

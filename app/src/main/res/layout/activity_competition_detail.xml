@@ -12,6 +12,7 @@
         android:background="@color/home_title_color"/>
     <Button
         android:id="@+id/attend_now"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="马上报名"

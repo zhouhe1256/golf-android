@@ -3,6 +3,8 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,7 +30,7 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-4-23.
  */
-public class LoginActivity extends Activity implements View.OnClickListener, ICallback {
+public class LoginActivity extends Activity implements View.OnClickListener, ICallback,View.OnTouchListener {
     private GApplication gApplication;
     private Button loginbtn;
     private ImageView topView;
@@ -36,19 +38,44 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     private TextView forgetbtn;
     private ClearEditText loginUser;
     private ClearEditText loginpwd;
-
+    private GestureDetector mGestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         gApplication = GApplication.getInstance();
+        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
+                // // System.out.println("水平方向移动距离过大");
+                // return true;
+                // }
+                if (Math.abs(velocityY) < 100) {
+                    // System.out.println("手指移动的太慢了");
+                    return true;
+                }
+
+                // 手势向下 down
+                if ((e2.getRawY() - e1.getRawY()) > 200) {
+                    //finish();//在此处控制关闭
+                    return true;
+                }
+                // 手势向上 up
+                if ((e1.getRawY() - e2.getRawY()) > 0) {
+                    finish();
+                    overridePendingTransition(R.anim.activity_close_up,R.anim.activity_close_up);
+                    return true;
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
         initView();
         initEvent();
         initData();
 
     }
-
     private void initView() {
         loginbtn = ViewUtil.findViewById(this, R.id.login_btn);
         topView = ViewUtil.findViewById(this, R.id.top_login_layout);
@@ -60,7 +87,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
-        topView.setOnClickListener(this);
+        topView.setOnTouchListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
         forgetbtn.setOnClickListener(this);
@@ -100,10 +127,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 intent = new Intent(this, ForgetPwdActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-            case R.id.top_login_layout:
+          /*  case R.id.top_login_layout:
                 finish();
                 overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
-                break;
+                break;*/
         }
     }
 
@@ -135,5 +162,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return mGestureDetector.onTouchEvent(motionEvent);
     }
 }

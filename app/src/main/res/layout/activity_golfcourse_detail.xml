@@ -318,17 +318,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/main_textSize"
-
                         android:text="球场地址:" />
 
                     <TextView
                         android:textSize="@dimen/sub_textSize"
-
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/golfcourse_address_note"
                         android:id="@+id/golfcourse_address"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" />
 
                     <ImageView
                         android:id="@+id/golfcourse_map"

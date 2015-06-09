@@ -18,6 +18,7 @@ public class TopView extends LinearLayout {
     private TextView leftbtn;
     private TextView rightbtn;
     private TextView daohangbtn;
+    private TextView invitebtn;
     private TextView title;
     private Activity activity;
     private ImageView titleBack;
@@ -32,6 +33,7 @@ public class TopView extends LinearLayout {
         leftbtn = ViewUtil.findViewById(this, R.id.title_back);
         rightbtn = ViewUtil.findViewById(this, R.id.title_right);
         daohangbtn = ViewUtil.findViewById(this, R.id.title_daohang);
+        invitebtn = ViewUtil.findViewById(this, R.id.title_invite);
         title = ViewUtil.findViewById(this, R.id.title_title);
         titleBack = ViewUtil.findViewById(this, R.id.title_back_img);
         homeBack = ViewUtil.findViewById(this, R.id.home_back_img);
@@ -70,9 +72,15 @@ public class TopView extends LinearLayout {
     public void setExchangeVisiable() {
         exchange.setVisibility(VISIBLE);
     }
-    public void setDHVisiable(){
+
+    public void setDHVisiable() {
         daohangbtn.setVisibility(VISIBLE);
     }
+
+    public void setInvitebtnVisiable() {
+        invitebtn.setVisibility(VISIBLE);
+    }
+
 
     public void setDeleteVisiable() {
         closeimg.setVisibility(VISIBLE);

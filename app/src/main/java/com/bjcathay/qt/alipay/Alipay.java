@@ -218,7 +218,7 @@ public class Alipay {
         orderInfo += "&body=" + "\"" + body + "\"";
 
         // 商品金额
-        orderInfo += "&total_fee=" + "\"" + 0.01 + "\"";
+        orderInfo += "&total_fee=" + "\"" + orderModel.getTotalPrice() + "\"";
 
         // 服务器异步通知页面路径
         orderInfo += "&notify_url=" + "\"" + "http://api.7tiegolf.com/api/alipay_notify_url"

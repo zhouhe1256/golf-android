@@ -204,7 +204,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:text="分享" />
+                        android:text="邀请" />
 
                     <ImageView
                         android:layout_width="wrap_content"

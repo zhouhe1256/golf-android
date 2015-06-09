@@ -110,7 +110,8 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 PreferencesUtils.putBoolean(this, PreferencesConstant.NEW_MESSAGE_FLAG, false);
                 break;
             case R.id.my_personal:
-                intent = new Intent(this, MyFriendActivity.class);
+                intent = new Intent(this, ShareWithFriendsActivity.class);
+                intent.putExtra("user", userModel);
                 IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_exchange:

@@ -106,4 +106,5 @@
     <string name="pay_success_note">请您在%1$s到%2$s球场尽情挥杆~</string>
     <string name="attend_success_note">您已成功报名%$s.</string>
     <string name="copyright_text">copyright©2015  北京国泰银科科技有限公司  版权所有</string>
+    <string name="share_with_friend_text">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以<font color="#FFAC41">免费</font>参加诸如<font color="#FFAC41">美国圆石滩邀请赛</font>之类的赛事。</string>
 </resources>

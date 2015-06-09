@@ -85,7 +85,7 @@ public class MyOrderAdapter extends BaseAdapter {
         if ("PENDING".equals(orderModel.getStatus()))
             holder.status.setText("确认中");
         else if ("UNPAID".equals(orderModel.getStatus()))
-            holder.status.setText("未支付");
+            holder.status.setText("待支付");
         else if ("PAID".equals(orderModel.getStatus()))
             holder.status.setText("已支付");
         else if ("FINISH".equals(orderModel.getStatus()))

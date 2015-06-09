@@ -136,7 +136,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         if (isPay) {
             if ("sucess".equals(status)) {
                 Intent intent;
-               /* OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+                OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
@@ -156,17 +156,17 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
                         }
                     }
-                });*/
+                });
 
 
-                if ("GROUP".equals(orderModel.getType())) {
+               /* if ("GROUP".equals(orderModel.getType())) {
                     intent = new Intent(context, SelectPayWayActivity.class);
                 } else {
                     intent = new Intent(this, PaySuccessActivity.class);
                 }
                 intent.putExtra("order", orderModel);
                 ViewUtil.startActivity(this, intent);
-                finish();
+                finish();*/
             } else if ("process".equals(status)) {
                 DialogUtil.showMessage("支付结果确认中");
             } else if ("fail".equals(status)) {
@@ -189,7 +189,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if ("WXPAY".equals(action)) {
-                /*OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+                OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
@@ -209,9 +209,9 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
                         }
                     }
-                });*/
+                });
 
-                Intent intent1;
+               /* Intent intent1;
                 if ("GROUP".equals(orderModel.getType())) {
                     intent1 = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
                     intent1.putExtra("id", orderModel.getId());
@@ -220,7 +220,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                 }
                 intent1.putExtra("order", orderModel);
                 ViewUtil.startActivity(SelectPayWayActivity.this, intent1);
-                finish();
+                finish();*/
             }
         }
     }

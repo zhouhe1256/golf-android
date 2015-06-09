@@ -21,6 +21,8 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
@@ -42,7 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private LinearLayout exchbtn;
     private LinearLayout usercenter;
     private LinearLayout shareBtn;
-    private static final String FILE_NAME="golf_share.png";
+    private static final String FILE_NAME = "golf_share.png";
     public static String TEST_IMAGE;
     private JazzyViewPager bannerViewPager;
     private TopView topView;
@@ -152,10 +154,11 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         }.start();
 
     }
+
     //把图片从drawable复制到sdcard中
     private void initImagePath() {
         try {
-            String cachePath=com.mob.tools.utils.R.getCachePath(this, null);
+            String cachePath = com.mob.tools.utils.R.getCachePath(this, null);
             TEST_IMAGE = cachePath + FILE_NAME;
             File file = new File(TEST_IMAGE);
             // TEST_IMAGE="/sdcard/mallfm/"+FILE_NAME;
@@ -169,13 +172,14 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 fos.close();
             }
 
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
             TEST_IMAGE = null;
         }
     }
 
     private void initData() {
+        PreferencesUtils.putBoolean(this, PreferencesConstant.FRIST_OPEN, false);
         BannerListModel.getHomeBanners().done(this);
         if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false)
             UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
@@ -212,15 +216,6 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         shareBtn = ViewUtil.findViewById(this, R.id.home_share_title);
         bannerViewPager = ViewUtil.findViewById(this, R.id.jazzy_viewpager);
         dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_main_ly);
-       /* Drawable drawable1 = getResources().getDrawable(R.drawable.home_order);
-        drawable1.setBounds(0, 0, 100, 200);
-        orderbtn.setCompoundDrawables(null, null, null, drawable1);*/
-       /* compebtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
-        exchbtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
-        usercenter.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));
-        shareBtn.setCompoundDrawables(null, null, null, getResources().getDrawable(R.drawable.home_order));*/
-
-
     }
 
     private void initEvent() {

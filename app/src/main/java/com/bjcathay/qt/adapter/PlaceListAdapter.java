@@ -90,7 +90,7 @@ public class PlaceListAdapter extends BaseAdapter {
             if (diff < 0) {
                 holder.tuanCount.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
                 holder.tuanCount.setText("仅剩0天0小时0分");
-                holder.tuanCount.setTextColor(Color.WHITE);
+                holder.tuanCount.setTextColor(Color.GRAY);
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
             } else {
                 long days = diff / (1000 * 60 * 60 * 24);
@@ -107,29 +107,6 @@ public class PlaceListAdapter extends BaseAdapter {
                 // holder.tuanCount.setTextColor(Color.WHITE);
                 holder.tuanImg.setImageResource(R.drawable.ic_tu_icon);
             }
-            // imageView.setImageResource(R.drawable.ic_tuan_disable);
-            // holder.tuanCount.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
-          /*  try {
-                Date d1 = df.parse(start);
-                Date d2 = df.parse(end);
-
-                new TimeCount(difftime, 1000,new TimeCount.TimeUpdate() {
-                    @Override
-                    public void onTick(long diff) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        notifyDataSetChanged();
-                    }
-                }).start();
-
-//                TimeView timeView = new TimeView(difftime, 1000, holder.tuanCount);
-//                timeView.start();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }*/
         } else if ("SPECIAL".equals(productModel.getType())) {
             holder.temaiImg.setVisibility(View.VISIBLE);
             holder.temaiCount.setVisibility(View.VISIBLE);
@@ -140,7 +117,7 @@ public class PlaceListAdapter extends BaseAdapter {
             else {
                 holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
                 holder.temaiCount.setText("已售罄");
-                holder.temaiCount.setTextColor(Color.WHITE);
+                holder.temaiCount.setTextColor(Color.GRAY);
                 holder.temaiImg.setImageResource(R.drawable.ic_te_finished);
             }
         } else if ("LIMIT".equals(productModel.getType())) {

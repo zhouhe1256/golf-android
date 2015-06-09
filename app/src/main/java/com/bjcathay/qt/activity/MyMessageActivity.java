@@ -98,7 +98,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             MessageListModel result = (MessageListModel) msg.obj;
-            boolean hasNext=result.isHasNext();
+            boolean hasNext = result.isHasNext();
             if (result != null && result.getMessages() != null && !result.getMessages().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -111,7 +111,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         messageModels.addAll(result.getMessages());
                         break;
                 }
-                lstv.setResultSize(messageModels.size(),hasNext);
+                lstv.setResultSize(messageModels.size(), hasNext);
                 myMessageAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -123,7 +123,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         break;
                 }
                 messageModels.clear();
-                lstv.setResultSize(messageModels.size(),hasNext);
+                lstv.setResultSize(messageModels.size(), hasNext);
                 myMessageAdapter.notifyDataSetChanged();
             }
         }
@@ -181,25 +181,26 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            MessageListModel.deleteMessages().done(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    JSONObject jsonObject = arguments.get(0);
-                    if (jsonObject.optBoolean("success")) {
-                        DialogUtil.showMessage("已清空消息");
-                        loadData(AutoListView.REFRESH);
-                        // }
-                    } else {
-                        int code = jsonObject.optInt("code");
-                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            if (messageModels != null && messageModels.size() > 0)
+                MessageListModel.deleteMessages().done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            DialogUtil.showMessage("已清空消息");
+                            loadData(AutoListView.REFRESH);
+                            // }
+                        } else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
                     }
-                }
-            }).fail(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    DialogUtil.showMessage("网络连接异常");
-                }
-            });
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage("网络连接异常");
+                    }
+                });
         }
     }
 

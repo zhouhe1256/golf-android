@@ -340,7 +340,7 @@
                 <TextView
                     android:textSize="@dimen/main_textSize"
                     android:textColor="@color/mian_text_color"
-                    android:text="我的亲友团"
+                    android:text="邀请有礼"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="10dp"

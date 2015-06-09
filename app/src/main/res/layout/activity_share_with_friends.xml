@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_share_with_friend_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
+
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/invite_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sub_textSize"
+            android:textColor="@color/exchange_text_color"
+            android:text="@string/share_with_friend_text" />
+
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/exchange_text_color"
+                android:text="您的邀请码为" />
+
+            <TextView
+                android:id="@+id/your_invite_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_textSize"
+                android:text="123456"
+                android:textColor="@color/home_title_color" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/invite_sure"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_textSize"
+            android:textColor="@color/white"
+            android:background="@drawable/yellow_big_bg"
+            android:text="立即邀请"
+            android:onClick="onClick" />
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/input_your_invite_code"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+
+            android:text=""
+            android:inputType="number"
+            android:maxLength="11"
+            android:hint="输入推荐人邀请码"
+            android:textSize="@dimen/sub_textSize"
+            android:singleLine="true"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:textColor="#363636"
+            android:paddingBottom="20dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/line_divide_hor" />
+
+        <Button
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/input_invite_sure"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_textSize"
+            android:textColor="@color/white"
+            android:background="@drawable/yellow_big_bg"
+            android:text="确定"
+            android:onClick="onClick" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
+
+</LinearLayout>

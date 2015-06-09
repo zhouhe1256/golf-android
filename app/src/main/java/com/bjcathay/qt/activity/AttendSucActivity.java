@@ -47,6 +47,8 @@ public class AttendSucActivity extends Activity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_back_img:
+                Intent intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);
                 finish();
                 break;
         }
