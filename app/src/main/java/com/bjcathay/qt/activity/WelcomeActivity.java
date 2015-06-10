@@ -42,15 +42,15 @@ public class WelcomeActivity extends Activity {
 
     private void splash() {
         final boolean firstOpen = PreferencesUtils.getBoolean(this, PreferencesConstant.FRIST_OPEN, true);
-        if (firstOpen) {
+      /*  if (firstOpen) {
             imageView.setVisibility(View.GONE);
             setupBanner(imgIdArray);
             viewPager.setVisibility(View.VISIBLE);
-        } else {
+        } else {*/
             imageView.setVisibility(View.VISIBLE);
             viewPager.setVisibility(View.GONE);
             startMainActivity();
-        }
+      //  }
     }
 
     private void startMainActivity() {

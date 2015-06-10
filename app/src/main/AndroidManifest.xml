@@ -86,7 +86,8 @@
         <activity android:name="com.bjcathay.qt.activity.CompetitionDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.RegisterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activityTheme"/>
         <activity android:name="com.bjcathay.qt.activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.SendFriendActivity"
@@ -106,7 +107,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.MyExchangeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SendExchangeSucActivity"
+        <activity android:name=".activity.ExchangeSucActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bjcathay.qt.activity.UserEditNnameActivity"
             android:screenOrientation="portrait" />
@@ -130,9 +131,11 @@
 
 
         <activity android:name="com.bjcathay.qt.activity.ForgetPwdActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activityTheme"/>
         <activity android:name="com.bjcathay.qt.activity.ForgetSetNewPwdActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activityTheme"/>
         <activity android:name="com.bjcathay.qt.activity.EditPwdActivity" />
         <activity android:name="com.bjcathay.qt.activity.UserEditNicknameActivity"
             android:screenOrientation="portrait" />
@@ -159,6 +162,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ShareWithFriendsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SendExchangeSucActivity"/>
 
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data

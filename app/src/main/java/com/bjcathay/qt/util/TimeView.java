@@ -51,8 +51,8 @@ public class TimeView extends CountDownTimer {
 
     @Override
     public void onFinish() {
-        textView.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
-        textView.setText("仅剩0天0小时0分");
+        textView.setBackgroundResource(R.drawable.solid_bg);
+        textView.setText("已售罄");
        // imageView.setImageResource(R.drawable.ic_tuan_disable);
         okbtn.setBackgroundResource(R.drawable.bg_sold_out);
         okbtn.setOnClickListener(null);

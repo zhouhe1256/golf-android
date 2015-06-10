@@ -58,7 +58,7 @@ public class ShareUtil {
 
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
-        oks.disableSSOWhenAuthorize();
+       // oks.disableSSOWhenAuthorize();
         oks.setTitle(shareModel.getTitle());
         oks.setTitleUrl(shareModel.getUrl());
         oks.setText(shareModel.getDescription());
@@ -71,7 +71,7 @@ public class ShareUtil {
         oks.setSite(context.getString(R.string.app_name));
         oks.setSiteUrl(shareModel.getUrl());
         oks.setVenueName(context.getString(R.string.app_name));
-        oks.setVenueDescription("This is a beautiful place!");
+        oks.setVenueDescription("7铁高尔夫!");
         oks.setSilent(true);
         oks.setTheme(OnekeyShareTheme.CLASSIC);
         oks.setDialogMode();

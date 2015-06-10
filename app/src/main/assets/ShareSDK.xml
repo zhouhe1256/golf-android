@@ -76,7 +76,7 @@
         SortId="3"
         AppKey="3795289118"
         AppSecret="c0449a18a5a3bb480376ded3f51f43ab"
-        RedirectUrl="http://www.sharesdk.cn"
+        RedirectUrl="http://www.7tiegolf.com"
         ShareByAppClient="false"
         Enable="true" />
 
@@ -87,7 +87,7 @@
         SortId="4"
         AppId="1104559439"
         AppKey="6tzchQhR28nMSIll"
-        ShareByAppClient="true"
+        ShareByAppClient="false"
         Enable="true" />
     
     <!-- 
@@ -115,7 +115,8 @@
     <ShortMessage
         Id="13" 
         SortId="5"
-        Enable="true" />
+        Enable="true"
+        ShortLinkConversationEnable="false"/>
     
 
 

@@ -25,13 +25,16 @@
 
             <Button
                 android:id="@+id/to_exchange"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/sub_textSize"
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_gray_bg"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/solid_bg"
                 android:text="兑换" />
 
             <LinearLayout

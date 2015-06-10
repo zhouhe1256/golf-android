@@ -77,8 +77,8 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
                 }
                 break;
             case R.id.title_back_img:
-               /* intent = new Intent(this, MyOrderActivity.class);
-                ViewUtil.startActivity(this, intent);*/
+                intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);
                 finish();
                 break;
             case R.id.call_phone:
@@ -92,10 +92,11 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       /* Intent intent = new Intent(this, MyOrderActivity.class);
-        ViewUtil.startActivity(this, intent);*/
+        Intent intent = new Intent(this, MainActivity.class);
+        ViewUtil.startTopActivity(this, intent);
         finish();
     }
+
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {

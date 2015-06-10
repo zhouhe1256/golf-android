@@ -1,7 +1,5 @@
 package com.bjcathay.qt.adapter;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bjcathay.android.async.Arguments;
-import com.bjcathay.android.async.ICallback;
-import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.AwardActivity;
-import com.bjcathay.qt.activity.LoginActivity;
-import com.bjcathay.qt.activity.SendExchangeSucActivity;
 import com.bjcathay.qt.application.GApplication;
-import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.PropModel;
-import com.bjcathay.qt.model.UserModel;
-import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
-import com.bjcathay.qt.view.TopView;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,14 +73,14 @@ public class ExchangeAdapter extends BaseAdapter {
         holder.title.setText(propModel.getName());
         ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
-        holder.price.setText(propModel.getNeedAmount() + "个果岭币");
+        holder.price.setText(propModel.getValue());
        /* convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogUtil.hintMessage("选档期");
             }
         });*/
-
+        holder.toExch.setText(propModel.getNeedAmount() + "币兑换");
         if (gApplication.isLogin() == true) {
 
             num = Integer.valueOf(number.getText().toString().trim());
@@ -104,7 +89,7 @@ public class ExchangeAdapter extends BaseAdapter {
         }
 
         if (propModel.getNeedAmount() > num) {
-            holder.toExch.setBackgroundResource(R.drawable.btn_gray_bg);
+            holder.toExch.setBackgroundResource(R.drawable.solid_bg);
         } else {
             holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);}
             holder.toExch.setOnClickListener(new View.OnClickListener() {

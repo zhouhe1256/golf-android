@@ -23,6 +23,15 @@ public class UserModel implements Serializable {
     private double longitude;
     private double latitude;
     private int inviteAmount;
+    private boolean inviteUserId;
+
+    public boolean isInviteUserId() {
+        return inviteUserId;
+    }
+
+    public void setInviteUserId(boolean inviteUserId) {
+        this.inviteUserId = inviteUserId;
+    }
 
     public Long getId() {
         return id;
@@ -169,6 +178,11 @@ public class UserModel implements Serializable {
                 param("pushClientId", pushClientId)
                 .param("longitude", longitude).
                         param("latitude", latitude).contentDecoder(decoder).run();
+    }
+    //更新用户邀请信息
+    public static IPromise updateUserInfo(String inviteCode) {
+        return Http.instance().put(ApiUrl.CHANGE_USER_INFO).
+                param("inviteCode", inviteCode).run();
     }
 
     //设置用户头像

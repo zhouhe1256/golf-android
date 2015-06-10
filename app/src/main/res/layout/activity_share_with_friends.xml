@@ -29,7 +29,7 @@
 
         <LinearLayout
             android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -70,6 +70,7 @@
         android:background="@drawable/touying_bg" />
 
     <LinearLayout
+        android:id="@+id/your_invite_code_linear"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,10 +81,9 @@
             android:id="@+id/input_your_invite_code"
             android:layout_width="match_parent"
             android:background="@color/white"
-
             android:text=""
             android:inputType="number"
-            android:maxLength="11"
+            android:maxLength="6"
             android:hint="输入推荐人邀请码"
             android:textSize="@dimen/sub_textSize"
             android:singleLine="true"

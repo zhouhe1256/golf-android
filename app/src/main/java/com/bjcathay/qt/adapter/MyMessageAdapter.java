@@ -15,6 +15,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
+import com.bjcathay.qt.activity.MyCompetitionActivity;
 import com.bjcathay.qt.activity.MyMessageActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.application.GApplication;
@@ -145,8 +146,10 @@ public class MyMessageAdapter extends BaseAdapter {
                         intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
                         ViewUtil.startActivity(context, intent);
                     } else if ("COMPETITION".equals(messageModel.getType())) {
-                        Intent intent = new Intent(context, CompetitionDetailActivity.class);
+                       /* Intent intent = new Intent(context, CompetitionDetailActivity.class);
                         intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
+                        ViewUtil.startActivity(context, intent);*/
+                        Intent intent = new Intent(context, MyCompetitionActivity.class);
                         ViewUtil.startActivity(context, intent);
                     }
                 }

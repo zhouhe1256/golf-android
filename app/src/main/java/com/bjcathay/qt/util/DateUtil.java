@@ -47,9 +47,9 @@ public class DateUtil {
                 day1 = rights.get(Calendar.DAY_OF_WEEK);
                 if (day == now_daye) {
                     today = "今天";
-                } else if (day == now_daye + 1) {
+                }/* else if (day == now_daye + 1) {
                     today = "明天";
-                }/* else if (day == now_daye + 2) {
+                }*//* else if (day == now_daye + 2) {
                     today = "后天";
                 } */else {
                     switch (day1) {

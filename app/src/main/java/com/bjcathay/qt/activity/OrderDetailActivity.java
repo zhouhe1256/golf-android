@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -51,6 +52,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private Button orderToPay;
     private ImageView tuangou;
     private ImageView temai;
+    private LinearLayout orderUndel;
+    private TextView orderDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +82,24 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderToPay = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
         tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
         temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
+        orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
+        orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
     }
 
     private void initEvent() {
         topView.setTitleBackVisiable();
-        topView.setShareVisiable();
+      //  topView.setShareVisiable();
         topView.setTitleText("订单详情");
     }
 
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
-
         OrderModel.orderDetail(id).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                JSONObject jsonObject = arguments.get(0);
-               /* if (jsonObject.optBoolean("success")) {
-
-                } else {
-                    int code = jsonObject.optInt("code");
-                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                }*/
+                orderDel.setVisibility(View.VISIBLE);
+                orderUndel.setVisibility(View.GONE);
             }
         });
 
@@ -109,6 +108,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     @Override
     public void call(Arguments arguments) {
         orderModel = arguments.get(0);
+        topView.setShareVisiable();
         ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
         orderName.setText(orderModel.getTitle());
         orderSale.setText("包含服务：" + orderModel.getPriceInclude());
@@ -131,7 +131,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             orderStatus.setText("确认中");
         } else if ("UNPAID".equals(orderModel.getStatus())) {
             orderToPay.setVisibility(View.VISIBLE);
-            orderStatus.setText("未支付");
+            orderStatus.setText("待支付");
         } else if ("PAID".equals(orderModel.getStatus())) {
             orderToPay.setVisibility(View.GONE);
             orderStatus.setText("已支付");
@@ -203,6 +203,13 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     protected void onResume() {
         super.onResume();
         if (id != 0)
-            OrderModel.orderDetail(id).done(this);
+            OrderModel.orderDetail(id).done(this).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    orderDel.setVisibility(View.VISIBLE);
+                    orderUndel.setVisibility(View.GONE);
+
+                }
+            });
     }
 }

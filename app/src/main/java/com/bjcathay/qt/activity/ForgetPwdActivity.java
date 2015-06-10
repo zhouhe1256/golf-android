@@ -3,6 +3,8 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,7 +28,7 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-5-15.
  */
-public class ForgetPwdActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate {
+public class ForgetPwdActivity extends Activity implements View.OnClickListener ,View.OnTouchListener,ICallback, TimeCount.TimeUpdate {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userCode;
@@ -34,12 +36,39 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     private TextView userCodeBtn;
     private TimeCount time;
     private ImageView topView;
+    private GestureDetector mGestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd);
         gApplication = GApplication.getInstance();
+        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
+                // // System.out.println("水平方向移动距离过大");
+                // return true;
+                // }
+                if (Math.abs(velocityY) < 100) {
+                    // System.out.println("手指移动的太慢了");
+                    return true;
+                }
+
+                // 手势向下 down
+                if ((e2.getRawY() - e1.getRawY()) > 200) {
+                    //finish();//在此处控制关闭
+                    return true;
+                }
+                // 手势向上 up
+                if ((e1.getRawY() - e2.getRawY()) > 0) {
+                    finish();
+                    overridePendingTransition(R.anim.activity_close_up,R.anim.activity_close_up);
+                    return true;
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
         initView();
         initDate();
         initEvent();
@@ -60,7 +89,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     }
 
     private void initEvent() {
-        topView.setOnClickListener(this);
+        topView.setOnTouchListener(this);
         userPhone.setOnClickListener(this);
         userCode.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
@@ -126,9 +155,9 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
                 //下一步
                 forget();
                 break;
-            case R.id.top_forget_layout:
+           /* case R.id.top_forget_layout:
                 finish();
-                break;
+                break;*/
         }
     }
 
@@ -160,5 +189,9 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     public void onFinish() {
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
+    }
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return mGestureDetector.onTouchEvent(motionEvent);
     }
 }

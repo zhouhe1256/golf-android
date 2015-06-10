@@ -66,7 +66,7 @@ public class CompetitionAdapter extends BaseAdapter {
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         } else {
             if ("NOT_START".equals(eventModel.getStatus())) {
-                holder.status.setText("未开始");
+                holder.status.setText("即将开始");
                 holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
             } else if ("START".equals(eventModel.getStatus())) {
 

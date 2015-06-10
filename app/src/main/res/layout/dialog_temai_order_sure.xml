@@ -125,7 +125,7 @@
                         android:id="@+id/dialog_order_minas"
                         android:paddingLeft="5dp"
                         android:paddingTop="17dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="40dp"
                         android:layout_height="fill_parent"
                         android:src="@drawable/ic_plus" />
                     <TextView
@@ -133,6 +133,7 @@
                         android:id="@+id/dialog_order_sure_number_edit"
                         android:textSize="14sp"
                         android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:textColor="@color/mian_text_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -141,7 +142,7 @@
                         android:paddingTop="17dp"
                         android:id="@+id/dialog_order_plus"
                         android:paddingLeft="5dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="40dp"
                         android:layout_height="fill_parent"
                         android:src="@drawable/ic_minas" />
                     <TextView

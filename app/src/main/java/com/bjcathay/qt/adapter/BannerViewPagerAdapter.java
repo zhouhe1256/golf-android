@@ -91,7 +91,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     ViewUtil.startActivity(context, intent);
                 } else if ("COMPETITION".equals(target)) {
                     intent = new Intent(context, CompetitionDetailActivity.class);
-                    intent.putExtra("url", bannerModel.getTarget());
+                    intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
                     ViewUtil.startActivity(context, intent);
                 }
                 // DialogUtil.hintMessage(carouselModel, context);

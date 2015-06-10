@@ -30,7 +30,7 @@ public class UserEditNicknameActivity extends Activity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_edit_name);
+        setContentView(R.layout.activity_user_edit_nickname);
         initView();
         initData();
         initEvent();

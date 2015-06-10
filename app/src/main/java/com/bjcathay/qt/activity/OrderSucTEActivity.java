@@ -74,4 +74,11 @@ public class OrderSucTEActivity extends Activity implements View.OnClickListener
             this.startActivity(intent);
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        ViewUtil.startTopActivity(this, intent);
+        finish();
+    }
 }

@@ -76,7 +76,7 @@ public class MessageReceiver extends BroadcastReceiver {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else if ("COMPETITION".equals(pushModel.getT())) {
             intent = new Intent(context, CompetitionDetailActivity.class);
-            intent.putExtra("url", pushModel.getG());
+            intent.putExtra("id",Long.parseLong(pushModel.getG()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
 

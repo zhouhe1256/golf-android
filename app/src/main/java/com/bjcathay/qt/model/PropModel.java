@@ -20,7 +20,16 @@ public class PropModel implements Serializable {
     private String imageUrl;// "/upload/image/xxx.png"
  /*   private String exchange;// true|false, 是否已兑换
     private String status;// UNUSED|USED*/
+    private String value;
     private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(PropModel.class, "prop");
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     //兑换道具
     public static IPromise getProp(Long id) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -30,13 +31,14 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-4-28.
  */
-public class CompetitionDetailActivity extends Activity implements ICallback, View.OnClickListener {
+public class CompetitionDetailActivity extends FragmentActivity implements ICallback, View.OnClickListener {
     private TopView topView;
     private Long id;
     private EventModel eventModel;
     private WebView webview;
     private WebChromeClient webChromeClient;
     private String url;
+    private ShareModel shareModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +123,15 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         url = intent.getStringExtra("url");
-        if (id != 0)
+        if (id != 0) {
             EventModel.getEventDetail(id).done(this);
+            ShareModel.shareCompetitions(id).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    shareModel = arguments.get(0);
+                }
+            });
+        }
     }
 
     @Override
@@ -177,15 +186,8 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
                 finish();
                 break;
             case R.id.title_share_img:
-                if (id != 0)
-                    ShareModel.shareCompetitions(id).done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            ShareModel shareModel = arguments.get(0);
-                            ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this, shareModel);
-                        }
-                    });
-
+                if (shareModel != null)
+                    ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this, shareModel);
                 break;
         }
     }
@@ -193,7 +195,7 @@ public class CompetitionDetailActivity extends Activity implements ICallback, Vi
     @Override
     protected void onResume() {
         super.onResume();
-        if (webview != null) {
+        if (webview != null && url != null) {
             if (!url.contains("?"))
                 url += "?";
             if (GApplication.getInstance().isLogin()) {

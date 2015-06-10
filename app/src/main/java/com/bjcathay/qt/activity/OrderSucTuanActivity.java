@@ -76,4 +76,11 @@ public class OrderSucTuanActivity extends Activity implements View.OnClickListen
             this.startActivity(intent);
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        ViewUtil.startTopActivity(this, intent);
+        finish();
+    }
 }

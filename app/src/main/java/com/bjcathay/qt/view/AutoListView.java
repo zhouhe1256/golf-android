@@ -389,6 +389,7 @@ public class AutoListView extends ListView implements OnScrollListener {
                 /*removeFooterView(empty);
                 removeFooterView(footer);
                 addFooterView(empty);*/
+                ((ViewGroup) this.getParent()).removeView(empty);
                 ((ViewGroup) this.getParent()).addView(empty);
                 setEmptyView(empty);
             } else {//已加载完全部

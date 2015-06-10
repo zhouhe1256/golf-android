@@ -88,8 +88,8 @@ public class PlaceListAdapter extends BaseAdapter {
             Date end = DateUtil.stringToDate(productModel.getEnd());
             long diff = end.getTime() - start.getTime();
             if (diff < 0) {
-                holder.tuanCount.setBackgroundResource(R.drawable.tuanxiangqingjiesh_bg);
-                holder.tuanCount.setText("仅剩0天0小时0分");
+                holder.tuanCount.setBackgroundResource(R.drawable.stroke_bg);
+                holder.tuanCount.setText("已售罄");
                 holder.tuanCount.setTextColor(Color.GRAY);
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
             } else {
@@ -112,8 +112,16 @@ public class PlaceListAdapter extends BaseAdapter {
             holder.temaiCount.setVisibility(View.VISIBLE);
             holder.tuanImg.setVisibility(View.GONE);
             holder.tuanCount.setVisibility(View.INVISIBLE);
-            if (productModel.getAmount() > 0)
+            if (productModel.getAmount() > 0){
                 holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
+            holder.temaiCount.setBackgroundResource(R.drawable.temai_bg);
+            Resources resource = context.getResources();
+            ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.order_price_color);
+            if (csl != null) {
+                holder.temaiCount.setTextColor(csl);
+            }
+            // holder.tuanCount.setTextColor(Color.WHITE);
+            holder.temaiImg.setImageResource(R.drawable.ic_te_icon);}
             else {
                 holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
                 holder.temaiCount.setText("已售罄");

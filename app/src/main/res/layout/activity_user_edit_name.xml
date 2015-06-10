@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_edit_name_layout"
         android:layout_height="wrap_content"
@@ -16,25 +17,34 @@
         android:layout_width="match_parent"
         android:background="#FCFCFC"
         android:text=""
+        android:hint="真实姓名"
+        android:textColorHint="@color/exchange_text_color"
+        android:textSize="@dimen/sub_textSize"
         android:maxLength="10"
         android:singleLine="true"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
         android:textColor="#363636"
-        android:paddingBottom="10dp"
+        android:paddingBottom="20dp"
         android:layout_height="wrap_content" />
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
     <TextView
         android:text="0/10"
         android:textColor="#7c8595"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
         android:layout_gravity="right"
+        android:visibility="invisible"
         android:id="@+id/edit_nickname_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/edit_sure"
         android:padding="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"

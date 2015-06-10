@@ -9,26 +9,19 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.activity.OrderSucActivity;
-import com.bjcathay.qt.activity.OrderSucTEActivity;
-import com.bjcathay.qt.activity.OrderSucTuanActivity;
+import com.bjcathay.qt.activity.ExchangeSucActivity;
 import com.bjcathay.qt.activity.SendExchangeSucActivity;
 import com.bjcathay.qt.constant.ErrorCode;
-import com.bjcathay.qt.model.OrderModel;
-import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 
@@ -71,12 +64,12 @@ public class DialogExchFragment extends DialogFragment {
         this.num = num;
     }
 
-    public void setItems(UserModel items, String user, String phone, Long id,String name) {
+    public void setItems(UserModel items, String user, String phone, Long id, String name) {
         this.userModel = items;
         this.type = user;
         this.phone = phone;
         this.id = id;
-        this.name=name;
+        this.name = name;
     }
 
     @Override
@@ -100,14 +93,14 @@ public class DialogExchFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         dismiss();
-                            ShareModel.share().done(new ICallback() {
-                                @Override
-                                public void call(Arguments arguments) {
-                                    ShareModel shareModel = arguments.get(0);
-                                    ShareUtil.getInstance().shareDemo(context, shareModel);
-                                }
-                            });
-                        }
+                        ShareModel.share().done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                ShareModel shareModel = arguments.get(0);
+                                ShareUtil.getInstance().shareDemo(context, shareModel);
+                            }
+                        });
+                    }
 
                 });
             } else {
@@ -132,7 +125,7 @@ public class DialogExchFragment extends DialogFragment {
                                             dismiss();
                                         }
                                     });
-                                    Intent intent = new Intent(context, SendExchangeSucActivity.class);
+                                    Intent intent = new Intent(context, ExchangeSucActivity.class);
                                     intent.putExtra("prop", propModel);
                                     intent.putExtra("title", "兑换");
                                     ViewUtil.startActivity(context, intent);
@@ -160,7 +153,7 @@ public class DialogExchFragment extends DialogFragment {
                     }
                 });
             } else {
-                note.setText(getString(R.string.dialog_sure_to_send_a_card,name, phone));
+                note.setText(getString(R.string.dialog_sure_to_send_a_card, name, phone));
                 sure.setText("确认赠送");
                 sure.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -172,8 +165,13 @@ public class DialogExchFragment extends DialogFragment {
                                           public void call(Arguments arguments) {
                                               JSONObject jsonObject = arguments.get(0);
                                               if (jsonObject.optBoolean("success")) {
-                                                  DialogUtil.showMessage("赠送成功");
+                                                  //DialogUtil.showMessage("赠送成功");
                                                   exchangeResult.exchangeResult(userModel, true);
+                                                  Intent intent = new Intent(context, SendExchangeSucActivity.class);
+                                                  intent.putExtra("name", name);
+                                                  intent.putExtra("phone", phone);
+                                                  intent.putExtra("title", "赠送");
+                                                  ViewUtil.startActivity(context, intent);
                                               } else {
                                                   int code = jsonObject.optInt("code");
                                                   DialogUtil.showMessage(ErrorCode.getCodeName(code));

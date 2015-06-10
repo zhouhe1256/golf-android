@@ -18,13 +18,12 @@ import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-6-10.
+ * Created by bjcathay on 15-5-8.
  */
-public class SendExchangeSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+public class ExchangeSucActivity extends Activity implements View.OnClickListener , DeleteInfoDialog.DeleteInfoDialogResult {
     private Activity context;
     private TopView topView;
-    private String name;
-    private String phone;
+    private PropModel propModel;
     private TextView title;
     private TextView content;
     private TextView first;
@@ -60,18 +59,19 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
 
     private void initData() {
         Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        phone = intent.getStringExtra("phone");
-        topView.setTitleText("赠送好友");
-        title.setText("赠送成功！");
-        content.setText("您已成功赠送用户" + phone + "一枚" + name);
+        propModel = (PropModel) intent.getSerializableExtra("prop");
+        String titleString = intent.getStringExtra("title");
+        topView.setTitleText(titleString);
+        title.setText("兑换成功！");
+       content.setText("您已成功兑换一枚" + propModel.getName());
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.remind_first:
-                Intent intent = new Intent(context, MyExchangeActivity.class);
+                Intent intent = new Intent(context, SendFriendActivity.class);
+                intent.putExtra("id", propModel.getId());
                 ViewUtil.startActivity(context, intent);
                 finish();
                 break;
@@ -85,8 +85,8 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
                 });
                 break;
             case R.id.title_back_img:
-                intent = new Intent(this, MainActivity.class);
-                ViewUtil.startTopActivity(this, intent);
+                intent=new Intent(this,MainActivity.class);
+                ViewUtil.startTopActivity(this,intent);
                 finish();
                 break;
             case R.id.call_phone:
@@ -104,7 +104,6 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
             this.startActivity(intent);
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -113,4 +112,3 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
         finish();
     }
 }
-

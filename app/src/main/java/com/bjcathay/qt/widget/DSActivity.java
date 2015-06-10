@@ -367,7 +367,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
             } else {
                 temaiImg.setImageResource(R.drawable.ic_te_disable);
-                temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
+                temaiCount.setBackgroundResource(R.drawable.solid_bg);
                 okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                 okbtn.setOnClickListener(null);
                 temaiCount.setText("已售罄");
