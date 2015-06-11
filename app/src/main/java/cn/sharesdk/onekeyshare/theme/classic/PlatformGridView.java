@@ -452,7 +452,7 @@ public class PlatformGridView extends LinearLayout implements
             ll.addView(iv);
 
             TextView tv = new TextView(context);
-            tv.setTextColor(0xff000000);
+            tv.setTextColor(0xff8c8c8c);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             tv.setSingleLine();
             tv.setIncludeFontPadding(false);

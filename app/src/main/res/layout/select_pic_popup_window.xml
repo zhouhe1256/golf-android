@@ -5,7 +5,6 @@
     android:gravity="center_horizontal"
     android:background="#55000000"
     android:orientation="vertical">
-
     <LinearLayout
         android:id="@+id/pop_layout"
         android:layout_width="match_parent"
@@ -13,42 +12,41 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF">
-
-        <Button
-            android:id="@+id/btn_take_photo"
+        android:background="@android:color/transparent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:textColor="@color/red"
-            android:text="拍照" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/message_delete_cirle"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_take_photo"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textColor="@color/red"
+                android:background="@null"
+                android:text="拍照" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/line_divide_hor" />
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
-
-        <Button
-            android:id="@+id/btn_pick_photo"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:textColor="@color/home_title_color"
-            android:text="从相册选择" />
-
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
-
+            <Button
+                android:id="@+id/btn_pick_photo"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:textColor="@color/home_title_color"
+                android:text="从相册选择" />
+        </LinearLayout>
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/message_delete_cirle"
             android:textColor="@color/home_title_color"
             android:text="取消"
             android:layout_marginBottom="10dp" />

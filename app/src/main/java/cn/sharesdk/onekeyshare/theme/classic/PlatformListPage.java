@@ -100,7 +100,7 @@ public class PlatformListPage extends PlatformListFakeActivity implements View.O
         //line
         int dp_5 = com.mob.tools.utils.R.dipToPx(getContext(), 5);
         view = new View(getContext());
-        view.setBackgroundResource(R.drawable.line_divide_hor);
+        view.setBackgroundResource(R.drawable.touying_bg);
         LinearLayout.LayoutParams lpTv = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 
@@ -130,7 +130,7 @@ public class PlatformListPage extends PlatformListFakeActivity implements View.O
                 LinearLayout.LayoutParams.MATCH_PARENT, com.mob.tools.utils.R.dipToPx(getContext(), 45));
         //int dp_10 = com.mob.tools.utils.R.dipToPx(getContext(), 10);
         //int dp_top_40=com.mob.tools.utils.R.dipToPx(getContext(), 40);
-        lpBtn.setMargins(dp_10, dp_10, dp_10, 10);
+        lpBtn.setMargins(dp_10, dp_5, dp_10, 5);
         btnCancel.setLayoutParams(lpBtn);
         llPage.addView(btnCancel);
     }
