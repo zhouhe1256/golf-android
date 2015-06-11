@@ -15,18 +15,15 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
-
                 android:id="@+id/dialog_content"
                 android:text="您访问的内容不存在或者已被删除．"
                 android:gravity="center"
                 android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/sub_textSize"
+                android:textSize="@dimen/main_textSize"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
             <View
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor"

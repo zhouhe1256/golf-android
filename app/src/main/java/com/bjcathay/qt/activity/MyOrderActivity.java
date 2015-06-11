@@ -89,7 +89,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
                         R.style.InfoDialog, "确认删除该订单", orderModels.get(i - 1).getId(), MyOrderActivity.this);
                 infoDialog.show();
-                return false;
+                return true;
             }
         });
     }
