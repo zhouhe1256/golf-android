@@ -18,6 +18,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -125,12 +126,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
         url = intent.getStringExtra("url");
         if (id != 0) {
             EventModel.getEventDetail(id).done(this);
-            ShareModel.shareCompetitions(id).done(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    shareModel = arguments.get(0);
-                }
-            });
+
         }
     }
 
@@ -152,6 +148,9 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.attend_now:
                 if (id != 0)
@@ -187,6 +186,14 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                 break;
             case R.id.title_share_img:
                 if (shareModel != null)
+                    ShareModel.shareCompetitions(id).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            shareModel = arguments.get(0);
+                            ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this, shareModel);
+                        }
+                    });
+                else
                     ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this, shareModel);
                 break;
         }

@@ -65,7 +65,8 @@
                     android:id="@+id/golfcourse_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sub_textSize"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/middle_textSize"
                     android:background="@color/white" />
 
                 <View
@@ -95,14 +96,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_textSize"
 
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:text="球场类型:" />
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
 
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:id="@+id/golfcourse_mode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -118,7 +121,8 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,8 +130,8 @@
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
-
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:id="@+id/golfcourse_length"
 
                         android:layout_width="wrap_content"
@@ -144,7 +148,8 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -152,8 +157,8 @@
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
-
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:id="@+id/golfcourse_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -169,16 +174,17 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
-
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="球场面积:" />
 
                     <TextView
+                        android:layout_marginLeft="5dp"
                         android:id="@+id/golfcourse_area"
-                        android:textSize="@dimen/sub_textSize"
-
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -194,15 +200,16 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
-
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="建立时间:" />
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:id="@+id/golfcourse_date"
 
@@ -220,7 +227,8 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -228,7 +236,8 @@
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:id="@+id/golfcourse_greenGrass"
                         android:layout_width="wrap_content"
@@ -245,7 +254,8 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -253,7 +263,8 @@
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
 
                         android:id="@+id/golfcourse_fairwayGrass"
                         android:layout_width="wrap_content"
@@ -290,7 +301,8 @@
                         android:id="@+id/golfcourse_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_textSize"
+
+                        android:textSize="@dimen/middle_textSize"
 
                         android:textColor="@color/home_title_color" />
                 </LinearLayout>
@@ -321,7 +333,8 @@
                         android:text="球场地址:" />
 
                     <TextView
-                        android:textSize="@dimen/sub_textSize"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/middle_textSize"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/golfcourse_address_note"
                         android:id="@+id/golfcourse_address"

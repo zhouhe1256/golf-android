@@ -17,6 +17,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -32,7 +33,7 @@ import org.json.JSONObject;
 /**
  * Created by bjcathay on 15-4-23.
  */
-public class RegisterActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate,View.OnTouchListener {
+public class RegisterActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate, View.OnTouchListener {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userPwd;
@@ -69,7 +70,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) > 0) {
                     finish();
-                    overridePendingTransition(R.anim.activity_close_up,R.anim.activity_close_up);
+                    overridePendingTransition(R.anim.activity_close_up, R.anim.activity_close_up);
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
@@ -156,6 +157,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.register_get_code_btn:
                 //获取验证码

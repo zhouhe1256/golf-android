@@ -20,6 +20,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.PropModel;
+import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
@@ -40,12 +41,13 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private Long id;
     private DialogExchFragment dialogExchFragment;
     private String name;
+    private ShareModel shareModel;
 
-    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id,String name, DialogExchFragment dialogExchFragment) {
+    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id, String name, DialogExchFragment dialogExchFragment) {
         this.mContext = mContext;
         this.list = list;
         this.id = id;
-        this.name=name;
+        this.name = name;
         this.dialogExchFragment = dialogExchFragment;
     }
 
@@ -109,28 +111,13 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.statusTrue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //
                     UserModel userModel = new UserModel();
                     userModel.setMobileNumber(mContent.getPhone());
-                    dialogExchFragment.setItems(userModel, "user", mContent.getPhone(), id,name);
+                    dialogExchFragment.setItems(userModel, "user", mContent.getPhone(), id, name);
 
                     dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");
-
-                   /* PropModel.sendProp(id, mContent.getPhone()).done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            JSONObject jsonObject = arguments.get(0);
-                            if (jsonObject.optBoolean("success")) {
-                                DialogUtil.showMessage("赠送成功");
-                            } else {
-                                int code = jsonObject.optInt("code");
-                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                            }
-                        }
-                    });*/
                 }
             });
-            // viewHolder.statusFalse.setVisibility(View.GONE);
         } else {
             viewHolder.statusTrue.setVisibility(View.VISIBLE);
             viewHolder.statusTrue.setText("邀请");
@@ -140,20 +127,31 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
                 public void onClick(View view) {
                    /* dialogExchFragment.setItems(null, "user", mContent.getPhone(), id);
                     dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");*/
-                    Uri uri = Uri.parse("smsto:" + mContent.getPhone());
-                    Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-                    sendIntent.putExtra("sms_body", "");
-                    ViewUtil.startActivity(mContext, sendIntent);
+                    if (shareModel == null)
+                        ShareModel.share().done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                shareModel = arguments.get(0);
+                                sendMessage(mContent.getPhone(), shareModel.getSmsContent());
+                            }
+                        });
+                    else {
+                        sendMessage(mContent.getPhone(), shareModel.getSmsContent());
+                    }
                 }
             });
-            // viewHolder.statusTrue.setVisibility(View.GONE);
-            // viewHolder.statusFalse.setVisibility(View.VISIBLE);
         }
 
         return view;
 
     }
 
+    private void sendMessage(String phone, String message) {
+        Uri uri = Uri.parse("smsto:" + phone);
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+        sendIntent.putExtra("sms_body", message);
+        ViewUtil.startActivity(mContext, sendIntent);
+    }
 
     final static class ViewHolder {
         TextView tvLetter;

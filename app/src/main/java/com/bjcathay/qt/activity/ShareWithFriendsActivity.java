@@ -16,6 +16,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -60,8 +61,8 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
         yourInvite.setText(userModel.getInviteCode());
-        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text)+"<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
-        if (userModel.isInviteUserId()) {
+        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text) + "<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
+        if (userModel.getInviteUserId() != null) {
             linearLayout.setVisibility(View.GONE);
         } else {
             linearLayout.setVisibility(View.VISIBLE);
@@ -81,7 +82,7 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
             DialogUtil.showMessage("邀请码不能为空");
             return;
         }
-        if(inviteCode.equals(yourInvite.getText().toString().trim())){
+        if (inviteCode.equals(yourInvite.getText().toString().trim())) {
             DialogUtil.showMessage("不能填写自己的邀请码");
             return;
         }
@@ -108,6 +109,9 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.title_back_img:

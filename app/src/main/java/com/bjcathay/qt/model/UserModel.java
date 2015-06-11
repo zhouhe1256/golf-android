@@ -23,13 +23,13 @@ public class UserModel implements Serializable {
     private double longitude;
     private double latitude;
     private int inviteAmount;
-    private boolean inviteUserId;
+    private Long inviteUserId;
 
-    public boolean isInviteUserId() {
+    public Long getInviteUserId() {
         return inviteUserId;
     }
 
-    public void setInviteUserId(boolean inviteUserId) {
+    public void setInviteUserId(Long inviteUserId) {
         this.inviteUserId = inviteUserId;
     }
 

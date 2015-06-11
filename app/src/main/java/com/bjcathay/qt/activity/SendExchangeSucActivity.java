@@ -12,6 +12,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
@@ -31,6 +32,7 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
     private TextView firstNote;
     private TextView second;
     private TextView secondNote;
+    private ShareModel shareModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,9 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.remind_first:
                 Intent intent = new Intent(context, MyExchangeActivity.class);
@@ -76,13 +81,15 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
                 finish();
                 break;
             case R.id.remind_second:
-                ShareModel.share().done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        ShareModel shareModel = arguments.get(0);
-                        ShareUtil.getInstance().shareDemo(context, shareModel);
-                    }
-                });
+                if (shareModel == null)
+                    ShareModel.share().done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            shareModel = arguments.get(0);
+                            ShareUtil.getInstance().shareDemo(context, shareModel);
+                        }
+                    });
+                else ShareUtil.getInstance().shareDemo(context, shareModel);
                 break;
             case R.id.title_back_img:
                 intent = new Intent(this, MainActivity.class);

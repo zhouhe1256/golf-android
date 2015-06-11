@@ -12,6 +12,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -28,6 +29,7 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
     private Long id;
     private OrderModel orderModel;
     private TextView textView;
+    private ShareModel shareModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,9 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.order_suc_first:
@@ -67,13 +72,15 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.order_suc_second:
                 if (id != 0) {
-                    ShareModel.shareOrders(id).done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            ShareModel shareModel = arguments.get(0);
-                            ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
-                        }
-                    });
+                    if (shareModel == null)
+                        ShareModel.shareOrders(id).done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                shareModel = arguments.get(0);
+                                ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
+                            }
+                        });
+                    else ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
                 }
                 break;
             case R.id.title_back_img:

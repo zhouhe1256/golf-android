@@ -17,6 +17,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.alipay.Alipay;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -102,6 +103,9 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.pay_wx:
                 //  DialogUtil.showMessage("银联支付哦！！！");
@@ -189,6 +193,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if ("WXPAY".equals(action)) {
+                findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
                 OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {

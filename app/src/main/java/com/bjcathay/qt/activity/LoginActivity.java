@@ -17,6 +17,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -112,6 +113,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.login_btn:

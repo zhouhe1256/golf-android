@@ -15,6 +15,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.UserListModle;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -66,6 +67,9 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (v.getId()) {
             case R.id.edit_sure:
                 String phone = phoneEdit.getText().toString();

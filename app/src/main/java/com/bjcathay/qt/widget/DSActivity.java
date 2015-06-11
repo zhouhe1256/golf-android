@@ -22,6 +22,7 @@ import com.bjcathay.qt.fragment.DialogSureOrderFragment;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.TimeView;
@@ -38,8 +39,7 @@ import java.util.regex.Pattern;
 /**
  * Created by bjcathay on 15-5-31.
  */
-public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener{
-    public int screenheight;
+public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener {
     WheelView mOption1 = null;
     WheelView mOption2 = null;
     WheelView mOption3 = null;
@@ -73,6 +73,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private TextView soldOut;
     List<PriceModel> priceModels;
     private int currentPrice;
+    private ShareModel shareModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +199,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
 
     private void showDialog() {
         if (stadiumModel != null) {
-            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel,currentPrice, getDate(), attendNumber);
+            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, currentPrice, getDate(), attendNumber);
             dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
         }
     }
@@ -451,10 +452,10 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                     if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
                         if (attendNumber == 0) {
                             stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
-                            currentPrice=(int) Math.floor(priceModel.getPrice());
+                            currentPrice = (int) Math.floor(priceModel.getPrice());
                         } else {
                             stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
-                            currentPrice=(int) Math.floor(priceModel.getPrice());
+                            currentPrice = (int) Math.floor(priceModel.getPrice());
                         }
                         return;
                     }
@@ -463,29 +464,33 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         }
         if (attendNumber == 0) {
             stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * 4) + "+");
-            currentPrice=(int) Math.floor(stadiumModel.getPrice());
+            currentPrice = (int) Math.floor(stadiumModel.getPrice());
         } else {
             stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * attendNumber));
-            currentPrice=(int) Math.floor(stadiumModel.getPrice());
+            currentPrice = (int) Math.floor(stadiumModel.getPrice());
         }
 
     }
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.title_back_img:
                 finish();
                 break;
             case R.id.title_share_img:
-                ShareModel.shareProducts(id).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        ShareModel shareModel = arguments.get(0);
-                        ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
-                    }
-                });
-
+                if (shareModel == null)
+                    ShareModel.shareProducts(id).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            shareModel = arguments.get(0);
+                            ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
+                        }
+                    });
+                else ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
                 break;
             case R.id.title_delete_img:
                 if (dialogSureOrderFragment != null)

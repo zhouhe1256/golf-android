@@ -62,7 +62,13 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private void initDate() {
         if (gApplication.isLogin())
-            UserModel.get().done(this);
+            UserModel.get().done(this).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    if (GApplication.getInstance().isLogin())
+                        userPhone.setText(PreferencesUtils.getString(UserCenterActivity.this, PreferencesConstant.USER_PHONE));
+                }
+            });
         updateMessage();
 
     }

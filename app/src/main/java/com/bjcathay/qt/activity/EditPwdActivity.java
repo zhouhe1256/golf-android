@@ -9,6 +9,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -80,6 +81,9 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.edit_sure_btn:
                 edit();

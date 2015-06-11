@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:background="@drawable/message_delete_cirle"
+        android:layout_width="280dp"
+        android:layout_height="160dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/dialog_content"
+                android:text="您访问的内容不存在或者已被删除．"
+                android:gravity="center"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@drawable/line_divide_hor"
+                android:layout_height="0.5dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    android:id="@+id/dialog_confirm"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:clickable="true"
+                    android:textColor="@color/home_title_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

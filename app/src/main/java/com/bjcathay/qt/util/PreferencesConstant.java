@@ -17,4 +17,5 @@ public class PreferencesConstant {
     public static final String SHARE_CLICK = "share_click";
     public static final String PUSH_CLIENT_ID = "push_client_id";
     public static final String FRIST_OPEN = "first_open";
+    public static final String USER_INFO="user_info";
 }

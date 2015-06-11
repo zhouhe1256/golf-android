@@ -11,15 +11,18 @@ import com.bjcathay.android.async.LooperCallbackExecutor;
 import com.bjcathay.android.cache.ChainedCache;
 import com.bjcathay.android.cache.DiskCache;
 import com.bjcathay.android.cache.MemoryCache;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.HttpOption;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.qt.constant.ApiUrl;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.igexin.sdk.PushManager;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import org.json.JSONObject;
 
@@ -34,7 +37,33 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     private static GApplication gApplication;
     private static volatile boolean httpInited;
     private static File baseDir;
+
+
+    private UserModel user;
     //  private static File errorLogDir;
+
+
+    public UserModel getUser() {
+        if (user == null) {
+            String userJson = PreferencesUtils.getString(this, PreferencesConstant.USER_INFO, "");
+            if (StringUtils.isEmpty(userJson)) {
+                return null;
+            }
+            user = JSONUtil.load(UserModel.class, userJson);
+        }
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+        PreferencesUtils.putString(this, PreferencesConstant.USER_INFO, JSONUtil.dump(user));
+        Http.instance().param("t", user.getApiToken());
+
+    }
+
+    public boolean isUserLogin() {
+        return user != null;
+    }
 
     @Override
     public void onCreate() {

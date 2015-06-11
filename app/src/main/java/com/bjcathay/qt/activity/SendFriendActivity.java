@@ -69,40 +69,6 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
         topView.setTitleBackVisiable();
         sendToList.setOnClickListener(this);
         inputNumber.setOnClickListener(this);
-       /* inputNumber.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER&&keyEvent.getAction()==KeyEvent.ACTION_UP) {
-                    // 先隐藏键盘
-                   *//* ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(
-                                    context
-                                            .getCurrentFocus()
-                                            .getWindowToken(),
-                                    InputMethodManager.HIDE_NOT_ALWAYS
-                            );*//*
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(inputMethodManager.isActive()){
-                        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-                    }
-                    UserListModle.searchUser(inputNumber.getText().toString().trim()).done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            UserListModle userModel = arguments.get(0);
-                            if (userModel.getUsers() == null || userModel.getUsers().size() < 1) {
-                                dialogExchFragment.setItems(null, "user", inputNumber.getText().toString().trim(), id);
-                            } else {
-                                dialogExchFragment.setItems(userModel.getUsers().get(0), "user", inputNumber.getText().toString().trim(), id);
-                            }
-                            dialogExchFragment.show(getSupportFragmentManager(), "send");
-                            return ;
-                        }
-                    });
-                   return true;
-                }
-                return false;
-            }
-        });*/
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.StadiumModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -145,6 +146,9 @@ public class DialogSureOrderFragment extends DialogFragment {
         sure.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        if (ClickUtil.isFastClick()) {
+                                            return;
+                                        }
                                         if (dialog == null) {
                                             dialog = ProgressDialog.show(context, "", "正在提交订单，请稍等...", false);
                                             dialog.setCanceledOnTouchOutside(false);//创建ProgressDialog

@@ -14,4 +14,5 @@
     <dimen name="small_textSize">12dp</dimen>
     <dimen name="xsmall_textSize">6dp</dimen>
     <dimen name="main_padding">8dp</dimen>
+    <dimen name="middle_textSize">15sp</dimen>
 </resources>

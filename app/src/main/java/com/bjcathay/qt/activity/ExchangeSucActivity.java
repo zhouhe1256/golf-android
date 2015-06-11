@@ -12,6 +12,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
@@ -68,6 +69,9 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.remind_first:
                 Intent intent = new Intent(context, SendFriendActivity.class);

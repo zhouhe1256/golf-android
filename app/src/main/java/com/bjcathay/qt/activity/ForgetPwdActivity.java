@@ -16,6 +16,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ValidformUtil;
@@ -146,6 +147,9 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.register_get_code_btn:
                 //获取验证码

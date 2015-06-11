@@ -23,7 +23,7 @@
             android:id="@+id/invite_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_textSize"
+            android:textSize="@dimen/middle_textSize"
             android:textColor="@color/exchange_text_color"
             android:text="@string/share_with_friend_text" />
 
@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_textSize"
+                android:textSize="@dimen/middle_textSize"
                 android:textColor="@color/exchange_text_color"
                 android:text="您的邀请码为" />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/your_invite_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_textSize"
+                android:textSize="@dimen/middle_textSize"
                 android:text="123456"
                 android:textColor="@color/home_title_color" />
 
@@ -78,14 +78,15 @@
         android:orientation="vertical">
 
         <EditText
+            android:layout_margin="10dp"
             android:id="@+id/input_your_invite_code"
             android:layout_width="match_parent"
-            android:background="@color/white"
+            android:background="@drawable/invite_input_bg"
             android:text=""
             android:inputType="number"
             android:maxLength="6"
             android:hint="输入推荐人邀请码"
-            android:textSize="@dimen/sub_textSize"
+            android:textSize="@dimen/middle_textSize"
             android:singleLine="true"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
@@ -93,13 +94,8 @@
             android:paddingBottom="20dp"
             android:layout_height="wrap_content" />
 
-        <View
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
-
         <Button
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"

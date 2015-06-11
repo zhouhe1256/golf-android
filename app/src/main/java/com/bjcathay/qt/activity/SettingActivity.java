@@ -14,6 +14,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.uptutil.DownloadManager;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -31,6 +32,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private TopView topView;
     private boolean shareFlag;
     private RelativeLayout shareLayout;
+    private ShareModel shareModel;
 
 
     @Override
@@ -64,6 +66,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.logout_btn:
@@ -77,14 +82,16 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.setting_share:
                 shareLayout.setOnClickListener(null);
-                ShareModel.share().done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        ShareModel shareModel = arguments.get(0);
-                        ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
-                        shareLayout.setOnClickListener(SettingActivity.this);
-                    }
-                });
+                if (shareModel == null)
+                    ShareModel.share().done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            shareModel = arguments.get(0);
+                            ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
+                            shareLayout.setOnClickListener(SettingActivity.this);
+                        }
+                    });
+                else ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
                 break;
             case R.id.setting_change_pwd:
                 intent = new Intent(this, EditPwdActivity.class);

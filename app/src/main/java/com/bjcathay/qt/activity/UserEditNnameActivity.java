@@ -13,6 +13,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
@@ -62,6 +63,9 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         switch (v.getId()) {
             case R.id.edit_sure:
                 String nickname = nicknameEdit.getText().toString();

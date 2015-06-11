@@ -46,6 +46,7 @@ public class DialogExchFragment extends DialogFragment {
     private String phone;
     private Long id;
     private String name;
+    private ShareModel shareModel;
 
 
     public DialogExchFragment() {
@@ -93,13 +94,15 @@ public class DialogExchFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         dismiss();
-                        ShareModel.share().done(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                ShareModel shareModel = arguments.get(0);
-                                ShareUtil.getInstance().shareDemo(context, shareModel);
-                            }
-                        });
+                        if (shareModel == null)
+                            ShareModel.share().done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    shareModel = arguments.get(0);
+                                    ShareUtil.getInstance().shareDemo(context, shareModel);
+                                }
+                            });
+                        else ShareUtil.getInstance().shareDemo(context, shareModel);
                     }
 
                 });

@@ -1,6 +1,8 @@
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
+import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 
@@ -37,6 +40,7 @@ public class MyMessageAdapter extends BaseAdapter {
     private List<MessageModel> items;
     private Activity context;
     private int nowPosition;
+    private Dialog dialog;
 
     public MyMessageAdapter(List<MessageModel> items, Activity activity) {
         if (items == null) {
@@ -45,6 +49,14 @@ public class MyMessageAdapter extends BaseAdapter {
         this.items = items;
         this.context = activity;
         nowPosition = 0;
+        dialog=new Dialog(context,R.style.myMessageDialogTheme);
+        dialog.setContentView(R.layout.dialog_message_delete);
+        dialog.findViewById(R.id.dialog_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -142,9 +154,24 @@ public class MyMessageAdapter extends BaseAdapter {
                 if (holder.detail.getVisibility() == View.VISIBLE) {
 
                     if ("ORDER".equals(messageModel.getType())) {
-                        Intent intent = new Intent(context, OrderDetailActivity.class);
+                        OrderModel.orderDetail(Long.valueOf(messageModel.getTarget())).done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                OrderModel orderModel=arguments.get(0);
+                                Intent intent = new Intent(context, OrderDetailActivity.class);
+                                intent.setAction("message");
+                                intent.putExtra("orderModel", orderModel);
+                                ViewUtil.startActivity(context, intent);
+                            }
+                        }).fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                               dialog.show();
+                            }
+                        });
+                       /* Intent intent = new Intent(context, OrderDetailActivity.class);
                         intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
-                        ViewUtil.startActivity(context, intent);
+                        ViewUtil.startActivity(context, intent);*/
                     } else if ("COMPETITION".equals(messageModel.getType())) {
                        /* Intent intent = new Intent(context, CompetitionDetailActivity.class);
                         intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
