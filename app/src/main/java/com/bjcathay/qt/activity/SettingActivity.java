@@ -100,7 +100,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.setting_feedback:
                 intent = new Intent(this, FeedbackActivity.class);
-                ViewUtil.startActivity(this, intent);
+
+                //todo　暂时未登录不能提交反馈
+                IsLoginUtil.isLogin(this, intent);
                 // DialogUtil.showMessage("share");
                 break;
             case R.id.setting_about:

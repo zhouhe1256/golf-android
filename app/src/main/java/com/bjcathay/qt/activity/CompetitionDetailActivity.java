@@ -185,7 +185,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                 finish();
                 break;
             case R.id.title_share_img:
-                if (shareModel != null)
+                if (shareModel == null)
                     ShareModel.shareCompetitions(id).done(new ICallback() {
                         @Override
                         public void call(Arguments arguments) {

@@ -321,7 +321,7 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent"
             android:launchMode="singleTop" />
-        <receiver android:name="wxpay.AppRegister">
+        <receiver android:name=".wxpay.AppRegister">
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>

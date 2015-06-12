@@ -150,7 +150,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
         @Override
         protected Integer doInBackground(Integer... arg0) {
             int result = -1;
-            callRecords = ConstactUtil.readAllContacts(ContactActivity.this);
+            callRecords = ConstactUtil.getQuickRecords(ContactActivity.this);
             result = 1;
             return result;
         }

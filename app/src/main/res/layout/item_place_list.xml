@@ -67,7 +67,7 @@
                             android:layout_height="20dp"
                             android:layout_marginLeft="5dp"
                             android:gravity="center"
-                            android:src="@drawable/ic_tu_icon" />
+                            android:src="@drawable/ic_tuan_icon" />
 
 
                         <ImageView

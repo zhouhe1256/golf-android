@@ -66,7 +66,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
         lstv.setListViewEmptyImage(R.drawable.ic_empty_order);
-        lstv.setListViewEmptyMessage(getString(R.string.empty_msg_text));
+        lstv.setListViewEmptyMessage(getString(R.string.empty_order_text));
     }
 
     private void initEvent() {

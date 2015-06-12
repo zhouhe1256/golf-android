@@ -36,34 +36,6 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher" />
 
-                <ImageView
-                    android:id="@+id/tuan_img"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_tag_tuangou"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/temai_img"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_tag_temai"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/tuan_disable_img"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_tuan_disable"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/temai_disable_img"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_te_disable"
-                    android:visibility="gone" />
-
                 <TextView
                     android:id="@+id/tuan_short"
                     android:layout_width="wrap_content"
@@ -80,8 +52,7 @@
                     android:background="@drawable/bg_tuangouxiangqing"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:text="选择人数:" />
-
+                    android:text="" />
                 <TextView
                     android:id="@+id/temai_short"
                     android:layout_width="wrap_content"
@@ -98,7 +69,7 @@
                     android:background="@drawable/bg_temaixiangqing"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:text="选择人数:" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/seld_out_short"
@@ -194,7 +165,7 @@
                         <RadioButton
                             android:layout_marginLeft="10dp"
                             android:layout_width="51dp"
-                            android:layout_height="25dp"
+                            android:layout_height="30dp"
                             android:text="1人"
                             android:id="@+id/btn_0"
                             android:textSize="12.0sp"
@@ -208,7 +179,7 @@
                         <RadioButton
                             android:layout_marginLeft="5dp"
                             android:layout_width="51dp"
-                            android:layout_height="25dp"
+                            android:layout_height="30dp"
                             android:text="2人"
                             android:id="@+id/btn_1"
                             android:textSize="12.0sp"
@@ -221,7 +192,7 @@
                         <RadioButton
                             android:layout_marginLeft="5dp"
                             android:layout_width="51dp"
-                            android:layout_height="25dp"
+                            android:layout_height="30dp"
                             android:text="3人"
                             android:id="@+id/btn_2"
                             android:textSize="12.0sp"
@@ -234,7 +205,7 @@
                         <RadioButton
                             android:layout_marginLeft="5dp"
                             android:layout_width="51dp"
-                            android:layout_height="25dp"
+                            android:layout_height="30dp"
                             android:text="4人"
                             android:id="@+id/btn_3"
                             android:textSize="12.0sp"
@@ -247,8 +218,8 @@
                         <RadioButton
                             android:layout_marginLeft="5dp"
                             android:layout_width="55dp"
-                            android:layout_height="26dp"
-                            android:text="4人以上"
+                            android:layout_height="30dp"
+                            android:text="4人+"
                             android:id="@+id/btn_4"
                             android:ellipsize="end"
                             android:singleLine="true"

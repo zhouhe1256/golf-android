@@ -64,10 +64,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private int attendNumber = 1;
     private int selectDay = 0;
     //状态标识
-    private ImageView tuanImg;
-    private ImageView tuanDisableImg;
-    private ImageView temaiImg;
-    private ImageView temaiDisableImg;
+
+
     private TextView tuanCount;
     private TextView temaiCount;
     private TextView soldOut;
@@ -96,11 +94,6 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         //根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
         topView.setTitleText("加载中");
-        //状态标识
-        tuanImg = ViewUtil.findViewById(this, R.id.tuan_img);
-        tuanDisableImg = ViewUtil.findViewById(this, R.id.tuan_disable_img);
-        temaiImg = ViewUtil.findViewById(this, R.id.temai_img);
-        temaiDisableImg = ViewUtil.findViewById(this, R.id.temai_disable_img);
         tuanCount = ViewUtil.findViewById(this, R.id.tuan_short);
         temaiCount = ViewUtil.findViewById(this, R.id.temai_short);
         soldOut = ViewUtil.findViewById(this, R.id.seld_out_short);
@@ -367,7 +360,6 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             if (stadiumModel.getAmount() > 0) {
                 temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
             } else {
-                temaiImg.setImageResource(R.drawable.ic_te_disable);
                 temaiCount.setBackgroundResource(R.drawable.solid_bg);
                 okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                 okbtn.setOnClickListener(null);

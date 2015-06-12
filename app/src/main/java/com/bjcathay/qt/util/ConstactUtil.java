@@ -21,63 +21,43 @@ public class ConstactUtil {
      *
      * @return
      */
-    public static List<BookModel> getAllCallRecords(Context context) {
-        List<BookModel> bookModelList = new ArrayList<BookModel>();
-        Map<String, String> temp = new HashMap<String, String>();
-        Cursor c = context.getContentResolver().query(
-                ContactsContract.Contacts.CONTENT_URI,
-                null,
-                null,
-                null,
-                ContactsContract.Contacts.DISPLAY_NAME
-                        + " COLLATE LOCALIZED ASC"
-        );
-        if (c.moveToFirst()) {
-            do {
-                BookModel bookModel = new BookModel();
-                // 获得联系人的ID号
-                String contactId = c.getString(c
-                        .getColumnIndex(ContactsContract.Contacts._ID));
-                // 获得联系人姓名
-                String name = c
-                        .getString(c
-                                .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+    private final static String[] mContactsProjection = new String[]{
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+            ContactsContract.CommonDataKinds.Phone.TYPE,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.Contacts.PHOTO_ID,
+    };
 
-                // 查看该联系人有多少个电话号码。如果没有这返回值为0
-                int phoneCount = c
-                        .getInt(c
-                                .getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                String number = null;
-                if (phoneCount > 0) {
-                    // 获得联系人的电话号码
-                    Cursor phones = context.getContentResolver().query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-                                    + " = " + contactId, null, null
-                    );
-                    if (phones.moveToFirst()) {
-                        number = phones
-                                .getString(phones
-                                        .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    }
-                    phones.close();
-                }
+    public static List<BookModel> getQuickRecords(Context context) {
+        List<BookModel> bookModelList = new ArrayList<BookModel>();
+        Cursor phoneCursor = context.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, mContactsProjection, null,
+                null, null);
+        if (0 < phoneCursor.getCount()) {
+            phoneCursor.moveToFirst();
+            while (phoneCursor.getPosition() != phoneCursor.getCount()) {
+                BookModel bookModel = new BookModel();
+                String phoneNumber = phoneCursor.getString(2)
+                        .replace("-", "");
                 String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
-                Matcher m = p.matcher(number);
+                Matcher m = p.matcher(phoneNumber);
                 String number_ = m.replaceAll("").trim();
-                temp.put(name, number_);
-                bookModel.setName(name);
+                if (number_.startsWith("86")) {
+                    number_ = number_.substring(2);
+                }
                 bookModel.setPhone(number_);
+                String name = phoneCursor.getString(3).replace("-", "");
+                bookModel.setName(phoneCursor.getString(3).replace("-", ""));
+                Log.i("phone:name:", number_ + ":" + name);
+                phoneCursor.moveToNext();
                 bookModelList.add(bookModel);
-
-            } while (c.moveToNext());
+            }
         }
-        c.close();
+        phoneCursor.close();
         return bookModelList;
     }
-
     private static String TAG = "read";
 
     /*

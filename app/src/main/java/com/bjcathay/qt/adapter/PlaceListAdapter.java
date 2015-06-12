@@ -105,7 +105,7 @@ public class PlaceListAdapter extends BaseAdapter {
                     holder.tuanCount.setTextColor(csl);
                 }
                 // holder.tuanCount.setTextColor(Color.WHITE);
-                holder.tuanImg.setImageResource(R.drawable.ic_tu_icon);
+                holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
             }
         } else if ("SPECIAL".equals(productModel.getType())) {
             holder.temaiImg.setVisibility(View.VISIBLE);
