@@ -30,7 +30,7 @@ import com.bjcathay.qt.view.TopView;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-4-28.
+ * Created by dengt on 15-4-28.
  */
 public class CompetitionDetailActivity extends FragmentActivity implements ICallback, View.OnClickListener {
     private TopView topView;

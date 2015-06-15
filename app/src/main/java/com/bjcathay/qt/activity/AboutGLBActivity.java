@@ -9,7 +9,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-5-25.
+ * Created by dengt on 15-5-25.
  */
 public class AboutGLBActivity extends Activity implements View.OnClickListener {
     private TopView topView;

@@ -13,7 +13,7 @@ import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-5-14.
+ * Created by dengt on 15-5-14.
  */
 public class OrderSucTuanActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;

@@ -31,7 +31,7 @@ import com.igexin.sdk.PushManager;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-4-23.
+ * Created by dengt on 15-4-23.
  */
 public class RegisterActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate, View.OnTouchListener {
     private GApplication gApplication;
@@ -68,9 +68,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 0) {
+                if ((e1.getRawY() - e2.getRawY()) < 0) {
                     finish();
-                    overridePendingTransition(R.anim.activity_close_up, R.anim.activity_close_up);
+                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
@@ -131,8 +131,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                         int code = jsonObject.optInt("code");
                         DialogUtil.showMessage(ErrorCode.getCodeName(code));
                     }
-
-
                 }
             });
         }
@@ -149,7 +147,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         }
         if (password.length() >= 6 && password.length() <= 18) {
             if (phone.length() > 0 && password.length() > 0 && code.length() > 0)
-                UserModel.register(phone, password, code, inviteCode).done(this);
+                UserModel.register(phone, password, code, inviteCode).done(this).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage(getString(R.string.empty_net_text));
+                    }
+                });
         } else {
             DialogUtil.showMessage("密码长度必须大于6位小于18位");
         }
@@ -185,6 +188,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
             // userModel.setCurrentUser(userModel);
             String token = userModel.getApiToken();
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
+            PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME, userModel.getNickname());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE, userModel.getMobileNumber());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
+            PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
+            gApplication.setUser(userModel);
             gApplication.updateApiToken();
             DialogUtil.showMessage("注册成功");
             UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {

@@ -35,6 +35,7 @@ public class AutoListView extends ListView implements OnScrollListener {
     // 区分当前操作是刷新还是加载
     public static final int REFRESH = 0;
     public static final int LOAD = 1;
+    private Context context;
 
     // 区分PULL和RELEASE的距离的大小
     private static final int SPACE = 20;
@@ -85,16 +86,20 @@ public class AutoListView extends ListView implements OnScrollListener {
 
     public AutoListView(Context context) {
         super(context);
+        this.context=context;
         initView(context);
+
     }
 
     public AutoListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context=context;
         initView(context);
     }
 
     public AutoListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.context=context;
         initView(context);
     }
 
@@ -170,6 +175,7 @@ public class AutoListView extends ListView implements OnScrollListener {
         headerContentInitialHeight = header.getPaddingTop();
         measureView(header);
         headerContentHeight = header.getMeasuredHeight();
+
         topPadding(-headerContentHeight);
         this.addHeaderView(header);
         this.addFooterView(footer);
@@ -392,7 +398,14 @@ public class AutoListView extends ListView implements OnScrollListener {
                 ((ViewGroup) this.getParent()).removeView(empty);
                 ((ViewGroup) this.getParent()).addView(empty);
                 setEmptyView(empty);
-            } else {//已加载完全部
+            } else if(resultSize==-1){
+                emptyImg.setImageResource(R.drawable.ic_network_error);
+                emptyText.setText(context.getString(R.string.empty_net_text));
+                isLoadFull = true;
+                ((ViewGroup) this.getParent()).removeView(empty);
+                ((ViewGroup) this.getParent()).addView(empty);
+                setEmptyView(empty);
+            }else {//已加载完全部
                 isLoadFull = true;
                 loadFull.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);

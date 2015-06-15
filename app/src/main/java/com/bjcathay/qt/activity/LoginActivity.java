@@ -29,9 +29,9 @@ import com.igexin.sdk.PushManager;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-4-23.
+ * Created by dengt on 15-4-23.
  */
-public class LoginActivity extends Activity implements View.OnClickListener, ICallback,View.OnTouchListener {
+public class LoginActivity extends Activity implements View.OnClickListener, ICallback, View.OnTouchListener {
     private GApplication gApplication;
     private Button loginbtn;
     private ImageView topView;
@@ -64,9 +64,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 0) {
+                if ((e1.getRawY() - e2.getRawY()) < 0) {
                     finish();
-                    overridePendingTransition(R.anim.activity_close_up,R.anim.activity_close_up);
+                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
@@ -77,6 +77,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         initData();
 
     }
+
     private void initView() {
         loginbtn = ViewUtil.findViewById(this, R.id.login_btn);
         topView = ViewUtil.findViewById(this, R.id.top_login_layout);
@@ -108,7 +109,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             DialogUtil.showMessage("用户名或密码不能为空");
             return;
         }
-        UserModel.login(user, password).done(this);
+        UserModel.login(user, password).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                DialogUtil.showMessage(getString(R.string.empty_net_text));
+            }
+        });
     }
 
     @Override
@@ -151,8 +157,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, loginUser.getText().toString().trim());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD, loginpwd.getText().toString().trim());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
 
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
+            gApplication.setUser(userModel);
             gApplication.updateApiToken();
             DialogUtil.showMessage("登录成功");
             UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
@@ -161,7 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 }
             });
             finish();
-            overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+            overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
         } else {
             int code = jsonObject.optInt("code");
             DialogUtil.showMessage(ErrorCode.getCodeName(code));

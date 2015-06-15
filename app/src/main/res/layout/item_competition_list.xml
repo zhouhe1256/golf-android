@@ -41,8 +41,8 @@
                     android:layout_gravity="right"
                     android:textColor="@color/white"
                     android:layout_marginRight="10dp"
-                    android:paddingTop="10dp"
-                    android:gravity="center_horizontal"
+                    android:paddingBottom="10dp"
+                    android:gravity="center"
                     android:ems="1"
                     android:text="已结束"
                     android:layout_alignParentRight="true" />

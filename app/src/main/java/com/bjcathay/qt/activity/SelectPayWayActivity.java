@@ -31,7 +31,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-5-14.
+ * Created by dengt on 15-5-14.
  */
 public class SelectPayWayActivity extends Activity implements View.OnClickListener, Alipay.PaySucessOrNot {
     private IWXAPI api;

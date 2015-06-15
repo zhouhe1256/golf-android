@@ -28,7 +28,7 @@ import com.bjcathay.qt.view.TopView;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class SendFriendActivity extends FragmentActivity implements View.OnClickListener, DialogExchFragment.ExchangeResult {
     private FragmentActivity context;

@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyMessageActivity extends Activity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult, View.OnClickListener {
@@ -122,7 +122,6 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         lstv.onLoadComplete();
                         break;
                 }
-                messageModels.clear();
                 lstv.setResultSize(messageModels.size(), hasNext);
                 myMessageAdapter.notifyDataSetChanged();
             }
@@ -158,8 +157,10 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
         MessageListModel.getMyMessage(page, lastUpdate).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }

@@ -25,7 +25,7 @@ import com.igexin.sdk.PushManager;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-5-15.
+ * Created by dengt on 15-5-15.
  */
 public class ForgetSetNewPwdActivity extends Activity implements View.OnClickListener,View.OnTouchListener {
     private ImageView topView;
@@ -57,9 +57,9 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 0) {
+                if ((e1.getRawY() - e2.getRawY()) < 0) {
                     finish();
-                    overridePendingTransition(R.anim.activity_close_up,R.anim.activity_close_up);
+                    overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);

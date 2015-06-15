@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-24.
+ * Created by dengt on 15-4-24.
  */
 public class DateUtil {
     //根据起始时间决定日期
@@ -134,6 +134,8 @@ public class DateUtil {
         String today = "周一";
         Calendar c = Calendar.getInstance();
         List<String> days = new ArrayList<String>();
+        Calendar now = Calendar.getInstance();
+        int now_daye = now.get(Calendar.DAY_OF_MONTH);
         for (int i = 0; i < 7; i++) {
             //取得系统日期:
             int year = c.get(Calendar.YEAR);
@@ -141,7 +143,11 @@ public class DateUtil {
             int day = c.get(Calendar.DAY_OF_MONTH);
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
+
             int day1 = c.get(Calendar.DAY_OF_WEEK);
+            if (day == now_daye) {
+                today = "今天";
+            }else
             switch (day1) {
                 case 2:
                     today = "周一";
@@ -408,9 +414,14 @@ public class DateUtil {
         Date s = stringToDate(date);
         Calendar c = Calendar.getInstance();
         c.setTime(s);
+        Calendar now = Calendar.getInstance();
+        int now_daye = now.get(Calendar.DAY_OF_MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int day1 = c.get(Calendar.DAY_OF_WEEK);
+        if (day == now_daye) {
+            today = "今天";
+        }else
         switch (day1) {
             case 2:
                 today = "周一";

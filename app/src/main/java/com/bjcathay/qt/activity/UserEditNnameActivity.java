@@ -20,7 +20,7 @@ import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class UserEditNnameActivity extends Activity implements View.OnClickListener, TextWatcher {
     private Activity context;
@@ -73,7 +73,7 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
                     DialogUtil.showMessage("姓名长度超出范围");
                     return;
                 } else if (!nickname.isEmpty()) {
-                    UserModel.updateUserInfo(null, nickname, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+                    UserModel.updateUserInfo(null, nickname, null, null, null).done(new ICallback() {
                         @Override
                         public void call(Arguments arguments) {
                             UserModel userModel = arguments.get(0);
@@ -82,6 +82,11 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
                             setResult(5, intent);
                             DialogUtil.showMessage("修改成功");
                             ViewUtil.finish(UserEditNnameActivity.this);
+                        }
+                    }).fail(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            DialogUtil.showMessage(getString(R.string.empty_net_text));
                         }
                     });
                 } else {

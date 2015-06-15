@@ -1,56 +1,44 @@
 package com.bjcathay.qt.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SortAdapter;
-import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BooksModel;
-import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.SortListModel;
 import com.bjcathay.qt.model.SortModel;
-import com.bjcathay.qt.model.UserListModle;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
-import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PinyinComparator;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.SideBar;
 import com.bjcathay.qt.view.TopView;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class ContactActivity extends FragmentActivity implements View.OnClickListener, DialogExchFragment.ExchangeResult {
     private DialogExchFragment dialogExchFragment;
@@ -69,8 +57,8 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     private TopView topView;
     private TextView netNote;
     private Long id;
-    private  Drawable imgLeft;
-    private   LinearLayout centerImg;
+    private Drawable imgLeft;
+    private LinearLayout centerImg;
     private String proName;
 
 
@@ -104,7 +92,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
         topView.setTitleBackVisiable();
         topView.setTitleText("选择好友");
         id = getIntent().getLongExtra("id", 0);
-        proName=getIntent().getStringExtra("name");
+        proName = getIntent().getStringExtra("name");
         dialogExchFragment = new DialogExchFragment(this, this);
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
@@ -170,7 +158,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,proName, dialogExchFragment);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, proName, dialogExchFragment);
                         sortListView.setAdapter(adapter);
                         sortListView.setVisibility(View.VISIBLE);
                         netNote.setVisibility(View.GONE);
@@ -189,7 +177,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                         SourceDateList = filledData(sortModels);
                         // 根据a-z进行排序源数据
                         Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,proName,dialogExchFragment);
+                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, proName, dialogExchFragment);
                         sortListView.setAdapter(adapter);
                         sortListView.setVisibility(View.VISIBLE);
                         netNote.setVisibility(View.GONE);

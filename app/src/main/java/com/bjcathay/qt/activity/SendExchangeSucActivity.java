@@ -19,7 +19,7 @@ import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-6-10.
+ * Created by dengt on 15-6-10.
  */
 public class SendExchangeSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
     private Activity context;

@@ -111,5 +111,30 @@
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/empty_net_lin"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/list_net_image_empty"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:src="@drawable/ic_network_error" />
+        <TextView
+            android:layout_marginTop="30dp"
+            android:id="@+id/list_net_view_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_net_text"
+            android:textColor="@color/exchange_text_color"
+            android:textSize="@dimen/main_textSize" />
+    </LinearLayout>
 
 </LinearLayout>

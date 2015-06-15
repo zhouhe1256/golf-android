@@ -17,11 +17,20 @@ public class PropModel implements Serializable {
     private String type;// COMPETITION,
     private int needAmount;// 5,
     private int targetId;// 2,
+    private int amount;
     private String imageUrl;// "/upload/image/xxx.png"
  /*   private String exchange;// true|false, 是否已兑换
     private String status;// UNUSED|USED*/
     private String value;
     private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(PropModel.class, "prop");
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public String getValue() {
         return value;

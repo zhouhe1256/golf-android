@@ -61,7 +61,7 @@ public class CompetitionAdapter extends BaseAdapter {
         }
         EventModel eventModel = items.get(position);
         ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
-        if (eventModel.isAttend()) {
+      /*  if (eventModel.isAttend()) {
             holder.status.setText("已报名");
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         } else {
@@ -84,8 +84,12 @@ public class CompetitionAdapter extends BaseAdapter {
                 holder.status.setText("已完成");
                 holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
             }
-        }
-
+        }*/
+        holder.status.setText(eventModel.getStatusLabel());
+        if(eventModel.getStatus()==4){
+            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
+        }else
+            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));

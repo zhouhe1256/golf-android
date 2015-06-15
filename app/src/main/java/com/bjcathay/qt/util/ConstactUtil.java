@@ -46,18 +46,22 @@ public class ConstactUtil {
                 String number_ = m.replaceAll("").trim();
                 if (number_.startsWith("86")) {
                     number_ = number_.substring(2);
+                } else if (number_.startsWith("010")) {
+                    number_ = number_.substring(3);
                 }
                 bookModel.setPhone(number_);
                 String name = phoneCursor.getString(3).replace("-", "");
                 bookModel.setName(phoneCursor.getString(3).replace("-", ""));
                 Log.i("phone:name:", number_ + ":" + name);
                 phoneCursor.moveToNext();
-                bookModelList.add(bookModel);
+                if (ValidformUtil.isMobileNo(number_))
+                    bookModelList.add(bookModel);
             }
         }
         phoneCursor.close();
         return bookModelList;
     }
+
     private static String TAG = "read";
 
     /*
@@ -103,6 +107,7 @@ public class ConstactUtil {
                 if (number_.startsWith("86")) {
                     number_ = number_.substring(1);
                 }
+
                 bookModel.setPhone(number_);
             }
 

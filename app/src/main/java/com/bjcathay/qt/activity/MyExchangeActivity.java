@@ -4,14 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -27,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyExchangeActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback,View.OnClickListener {
+        AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private MyPropAdapter myPropAdapter;
     private List<PropModel> eventModels;
     private TopView topView;
@@ -77,7 +71,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             PropListModel result = (PropListModel) msg.obj;
-            boolean hasNext=false;
+            boolean hasNext = false;
             if (result != null && result.getProps() != null && !result.getProps().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -90,7 +84,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                         eventModels.addAll(result.getProps());
                         break;
                 }
-                lstv.setResultSize(eventModels.size(),hasNext);
+                lstv.setResultSize(eventModels.size(), hasNext);
                 myPropAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -101,7 +95,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
                         lstv.onLoadComplete();
                         break;
                 }
-                lstv.setResultSize(eventModels.size(),hasNext);
+                lstv.setResultSize(eventModels.size(), hasNext);
                 myPropAdapter.notifyDataSetChanged();
             }
         }
@@ -135,8 +129,10 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
         PropListModel.getMyProps().done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }
@@ -153,6 +149,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
         msg.obj = propListModel;
         handler.sendMessage(msg);
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

@@ -22,7 +22,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-6-1.
+ * Created by dengt on 15-6-1.
  */
 public class SendToPhoneActivity extends FragmentActivity implements View.OnClickListener, TextWatcher, DialogExchFragment.ExchangeResult {
     private FragmentActivity context;
@@ -45,7 +45,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
 
     private void initEvent() {
         topView.setTitleBackVisiable();
-        topView.setTitleText("赠送好友");
+        topView.setTitleText("输入手机号码");
         phoneEdit.addTextChangedListener(this);
 
     }

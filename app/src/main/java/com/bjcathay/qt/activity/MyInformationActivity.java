@@ -15,6 +15,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.util.FileUtils;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
@@ -24,7 +25,7 @@ import com.bjcathay.qt.view.TopView;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyInformationActivity extends Activity implements SelectPicPopupWindow.SelectResult ,View.OnClickListener{
     private TopView topView;
@@ -67,12 +68,15 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
+        userModel= GApplication.getInstance().getUser();
         if(userModel!=null) {
             ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
             userName.setText(userModel.getRealName());
             userNickName.setText(userModel.getNickname());
             userPhone.setText(userModel.getMobileNumber());
             userInvite.setText(userModel.getInviteCode());
+        }else{
+            userModel= GApplication.getInstance().getUser();
         }
     }
 

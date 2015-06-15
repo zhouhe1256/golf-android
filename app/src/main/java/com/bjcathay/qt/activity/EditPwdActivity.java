@@ -20,7 +20,7 @@ import com.bjcathay.qt.view.TopView;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-5-15.
+ * Created by dengt on 15-5-15.
  */
 public class EditPwdActivity extends Activity implements View.OnClickListener {
     private TopView topView;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.UserModel;
@@ -25,7 +26,7 @@ import com.bjcathay.qt.view.TopView;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-6-8.
+ * Created by dengt on 15-6-8.
  */
 public class ShareWithFriendsActivity extends Activity implements View.OnClickListener {
     private TopView topView;
@@ -60,8 +61,11 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
+        if(userModel==null){
+            userModel= GApplication.getInstance().getUser();
+        }
         yourInvite.setText(userModel.getInviteCode());
-        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text) + "<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
+        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text)+"<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
         if (userModel.getInviteUserId() != null) {
             linearLayout.setVisibility(View.GONE);
         } else {

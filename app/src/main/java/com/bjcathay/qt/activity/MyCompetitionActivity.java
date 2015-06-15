@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyCompetitionActivity extends Activity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult, View.OnClickListener {
@@ -73,22 +73,8 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         lstv.setAdapter(myCompetitionAdapter);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
-        LayoutInflater inflater = getLayoutInflater();
-        empty = inflater.inflate(R.layout.listview_empty, null);
-        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        lpLl.gravity = Gravity.CENTER;
-        empty.setLayoutParams(lpLl);
-        emptyImg = (ImageView) empty.findViewById(R.id.list_image_empty);
-        emptyText = (TextView) empty.findViewById(R.id.list_view_empty);
-        emptyImg.setImageResource(R.drawable.ic_empty_comp);
-        emptyText.setText(getString(R.string.empty_com_text));
-        ((ViewGroup)lstv.getParent()).addView(empty);
-        lstv.setEmptyView(empty);
-
-     //   lstv.setListViewEmptyImage(R.drawable.ic_empty_comp);
-       // lstv.setListViewEmptyMessage(getString(R.string.empty_com_text));
-
+        lstv.setListViewEmptyImage(R.drawable.ic_empty_comp);
+        lstv.setListViewEmptyMessage(getString(R.string.empty_com_text));
     }
 
     private void initEvent() {
@@ -177,8 +163,10 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         EventListModel.getMyEvent(page).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }

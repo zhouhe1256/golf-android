@@ -35,7 +35,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
 /**
- * Created by bjcathay on 15-5-28.
+ * Created by dengt on 15-5-28.
  */
 public class BaiduAddressActivity extends Activity implements View.OnClickListener, SelectMapPopupWindow.SelectMapResult {
     MapView mMapView = null;

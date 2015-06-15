@@ -142,8 +142,10 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
         EventListModel.get(page).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (listView != null)
+                if (listView != null) {
                     listView.onRefreshComplete();
+                    listView.setResultSize(-1, false);
+                }
             }
         });
     }

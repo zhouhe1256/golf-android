@@ -31,7 +31,7 @@ import com.bjcathay.qt.view.TopView;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-20.
+ * Created by dengt on 15-5-20.
  */
 public class GolfCourseDetailActicity extends Activity implements ICallback, View.OnClickListener,DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;

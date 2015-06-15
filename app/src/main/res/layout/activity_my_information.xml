@@ -93,7 +93,7 @@
             android:id="@+id/info_nick_name"
             android:layout_toLeftOf="@id/nick_name_go"
             android:layout_toRightOf="@id/info_nick_name_note"
-            android:text="张三"
+            android:text=""
             android:layout_marginRight="20dp"
             android:textSize="@dimen/sub_textSize"
             android:textColor="@color/exchange_text_color"
@@ -132,7 +132,7 @@
             android:id="@+id/info_name"
             android:layout_toRightOf="@id/info_name_note"
             android:layout_toLeftOf="@+id/name_go"
-            android:text="张三"
+            android:text=""
             android:gravity="right"
             android:layout_marginRight="20dp"
             android:textSize="@dimen/sub_textSize"
@@ -183,7 +183,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="123"/>
+            android:text=""/>
 
 
     </LinearLayout>

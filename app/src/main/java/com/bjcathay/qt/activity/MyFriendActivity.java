@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 /**
- * Created by bjcathay on 15-5-20.
+ * Created by dengt on 15-5-20.
  */
 public class MyFriendActivity extends Activity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, View.OnClickListener {
@@ -48,6 +48,7 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
     private AutoListView lstv;
 
     private int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +107,8 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
                 }
                 //  inviteModelList.clear();
                 lstv.setResultSize(inviteModelList.size(), hasNext);
-
-                myFriendTitle.setVisibility(View.GONE);
+                if (inviteModelList.size() == 0)
+                    myFriendTitle.setVisibility(View.GONE);
                 myFriendAdapter.notifyDataSetChanged();
             }
         }
@@ -141,8 +142,11 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
         InviteListModel.getInvite(page).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
+                    myFriendTitle.setVisibility(View.GONE);
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }

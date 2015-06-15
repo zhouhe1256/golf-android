@@ -57,7 +57,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     public void setUser(UserModel user) {
         this.user = user;
         PreferencesUtils.putString(this, PreferencesConstant.USER_INFO, JSONUtil.dump(user));
-        Http.instance().param("t", user.getApiToken());
+      //  Http.instance().param("t", user.getApiToken());
 
     }
 

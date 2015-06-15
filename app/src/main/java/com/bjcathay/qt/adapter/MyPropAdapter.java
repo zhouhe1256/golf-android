@@ -65,6 +65,7 @@ public class MyPropAdapter extends BaseAdapter {
         holder.title.setText(propModel.getName());
         ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
+        holder.number.setText(Integer.toString(propModel.getAmount()));
         //int num=Integer.valueOf(number.getText().toString().trim());
         holder.toExch.setText("赠送");
         holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
@@ -73,7 +74,7 @@ public class MyPropAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, SendFriendActivity.class);
                 intent.putExtra("id", propModel.getId());
-                intent.putExtra("name",propModel.getName());
+                intent.putExtra("name", propModel.getName());
                 ViewUtil.startActivity(context, intent);
             }
         });
@@ -86,12 +87,14 @@ public class MyPropAdapter extends BaseAdapter {
         TextView title;
         TextView sale;
         Button toExch;
+        TextView number;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.exchange_image);
             title = ViewUtil.findViewById(view, R.id.exchange_title);
             sale = ViewUtil.findViewById(view, R.id.exchange_note);
             toExch = ViewUtil.findViewById(view, R.id.to_exchange);
+            number = ViewUtil.findViewById(view, R.id.exchange_number);
         }
     }
 }

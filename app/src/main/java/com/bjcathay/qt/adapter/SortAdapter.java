@@ -1,6 +1,5 @@
 package com.bjcathay.qt.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
@@ -16,18 +15,11 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.fragment.DialogExchFragment;
-import com.bjcathay.qt.model.BookModel;
-import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
-import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
-import com.bjcathay.qt.view.ImageTextView;
-
-import org.json.JSONObject;
 
 import java.util.List;
 

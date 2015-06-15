@@ -20,7 +20,7 @@ import com.bjcathay.qt.view.TopView;
 import org.json.JSONObject;
 
 /**
- * Created by bjcathay on 15-5-14.
+ * Created by dengt on 15-5-14.
  */
 public class FeedbackActivity extends Activity implements View.OnClickListener, ICallback {
     private EditText editText;

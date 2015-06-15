@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-28.
+ * Created by dengt on 15-4-28.
  */
 public class MyOrderActivity extends Activity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult, View.OnClickListener {
@@ -121,7 +121,6 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                         lstv.onLoadComplete();
                         break;
                 }
-                orderModels.clear();
                 lstv.setResultSize(orderModels.size(), hasNext);
                 myOrderAdapter.notifyDataSetChanged();
             }
@@ -156,8 +155,10 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         OrderListModel.getMyOrder(page).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }

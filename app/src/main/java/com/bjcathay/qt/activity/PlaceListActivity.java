@@ -158,8 +158,10 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         ProductListModel.productList(page).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                if (lstv != null)
+                if (lstv != null) {
                     lstv.onRefreshComplete();
+                    lstv.setResultSize(-1, false);
+                }
             }
         });
     }

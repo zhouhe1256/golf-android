@@ -24,11 +24,28 @@ public class EventModel implements Serializable {
     private int signedAmount;//已报名人数
     private String websiteUrl;
     private String resultStatus;
-    private String status;
+    private int status;
     private boolean attend;
     private String date;// 赛事时间
     private String url;
     private boolean isPass;
+    private String statusLabel;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getStatusLabel() {
+        return statusLabel;
+    }
+
+    public void setStatusLabel(String statusLabel) {
+        this.statusLabel = statusLabel;
+    }
 
     public boolean isPass() {
         return isPass;
@@ -168,14 +185,6 @@ public class EventModel implements Serializable {
 
     public void setResultStatus(String resultStatus) {
         this.resultStatus = resultStatus;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     private static IContentDecoder<EventModel> decoder = new IContentDecoder.BeanDecoder<EventModel>(EventModel.class, "event");

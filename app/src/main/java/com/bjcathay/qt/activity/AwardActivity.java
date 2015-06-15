@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.util.List;
  * 兑换页面
  * Created by dengt on 15-4-20.
  */
-public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener,DialogExchFragment.ExchangeResult {
+public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener, DialogExchFragment.ExchangeResult {
     private GApplication gApplication;
     private TopView topView;
     private ListView awardingFirst;
@@ -38,6 +39,9 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     private List<PropModel> propModels;
     private TextView inviteNum;
     private LinearLayout empty;
+    private LinearLayout emptyNet;
+    private ImageView emptyNetimg;
+    private TextView emptyNettext;
     private DialogExchFragment dialogExchFragment;
 
     @Override
@@ -55,16 +59,20 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         awardingFirst = ViewUtil.findViewById(this, R.id.exchange_list);
         inviteNum = ViewUtil.findViewById(this, R.id.exchange_invite_numb);
         empty = ViewUtil.findViewById(this, R.id.empty_lin);
-        awardingFirst.setEmptyView(empty);
+        emptyNetimg = ViewUtil.findViewById(this, R.id.list_image_empty);
+        emptyNettext = ViewUtil.findViewById(this, R.id.list_view_empty);
+        emptyNet = ViewUtil.findViewById(this, R.id.empty_net_lin);
+
         propModels = new ArrayList<PropModel>();
-        dialogExchFragment = new DialogExchFragment(this,this);
-        exchangeAdapter = new ExchangeAdapter(propModels, this, inviteNum,dialogExchFragment);
+        dialogExchFragment = new DialogExchFragment(this, this);
+        exchangeAdapter = new ExchangeAdapter(propModels, this, inviteNum, dialogExchFragment);
     }
 
     private void initEvent() {
         topView.setTitleText("兑换");
         topView.setHomeBackVisiable();
         topView.setExchangeVisiable();
+        awardingFirst.setEmptyView(empty);
         awardingFirst.setAdapter(exchangeAdapter);
        /* awardingFirst.setOnClickListener(this);
         awardingFirst.setOnLongClickListener(this);*/
@@ -73,7 +81,14 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     private void initData() {
         if (gApplication.isLogin() == true)
             inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0) + "");
-        PropListModel.get().done(this);
+        PropListModel.get().done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                emptyNettext.setText(getString(R.string.empty_net_text));
+                emptyNetimg.setImageResource(R.drawable.ic_network_error);
+               // awardingFirst.setEmptyView(emptyNet);
+            }
+        });
     }
 
     @Override
@@ -89,28 +104,17 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         switch (view.getId()) {
             case R.id.title_exchange_img:
                 intent = new Intent(AwardActivity.this, MyExchangeActivity.class);
-                IsLoginUtil.isLogin(this,intent);
+                IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.home_back_img:
                 finish();
                 break;
             case R.id.about_glb:
                 intent = new Intent(this, AboutGLBActivity.class);
-                ViewUtil.startActivity(this,intent);
+                ViewUtil.startActivity(this, intent);
                 break;
         }
     }
-    /*@Override
-    public boolean onLongClick(View view) {
-        Intent intent;
-        switch (view.getId()){
-            case R.id.exchange_first:
-                intent = new Intent(this, SendFriendActivity.class);
-                ViewUtil.startActivity(this, intent);
-            return true;
-        }
-        return false;
-    }*/
 
     @Override
     protected void onStart() {

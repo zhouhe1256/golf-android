@@ -65,8 +65,14 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
             UserModel.get().done(this).fail(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
-                    if (GApplication.getInstance().isLogin())
-                        userPhone.setText(PreferencesUtils.getString(UserCenterActivity.this, PreferencesConstant.USER_PHONE));
+                    if (GApplication.getInstance().isLogin()) {
+                        UserModel userModel1 = GApplication.getInstance().getUser();
+                        ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(), R.drawable.ic_default_user);
+                        if (userModel1.getNickname() == null)
+                            userPhone.setText(userModel1.getMobileNumber());
+                        else
+                            userPhone.setText(userModel1.getNickname());
+                    }
                 }
             });
         updateMessage();
@@ -148,7 +154,9 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     @Override
     public void call(Arguments arguments) {
         userModel = arguments.get(0);
+        gApplication.setUser(userModel);
         PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
+        PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
         if (userModel.getNickname() == null)
             userPhone.setText(userModel.getMobileNumber());
