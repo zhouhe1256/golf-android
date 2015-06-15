@@ -27,6 +27,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -212,4 +213,14 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         }
     }
     /*头部 end*/
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

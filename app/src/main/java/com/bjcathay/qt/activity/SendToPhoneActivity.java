@@ -20,6 +20,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-6-1.
@@ -129,5 +130,15 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     public void exchangeResult(UserModel userModel, boolean isExchange) {
         if (isExchange)
             finish();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

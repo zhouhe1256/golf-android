@@ -24,6 +24,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -97,5 +98,15 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
     @Override
     public void exchangeResult(UserModel userModel, boolean isExchange) {
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

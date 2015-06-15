@@ -28,6 +28,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -255,6 +256,15 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 break;
         }
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
 }

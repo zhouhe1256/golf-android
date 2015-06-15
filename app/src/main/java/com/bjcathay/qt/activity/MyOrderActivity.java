@@ -27,6 +27,7 @@ import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog.DeleteInfoDialogResult;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -214,5 +215,11 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     protected void onResume() {
         super.onResume();
         initData();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

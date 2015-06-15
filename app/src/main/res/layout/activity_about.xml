@@ -38,29 +38,47 @@
             android:textColor="@color/mian_text_color"
             android:text="7铁高尔夫" />
 
-        <TextView
+        <LinearLayout
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_textSize"
-            android:textColor="@color/exchange_text_color"
-            android:text="版本1.0" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/exchange_text_color"
+                android:text="版本" />
+
+            <TextView
+                android:id="@+id/app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_textSize"
+                android:textColor="@color/exchange_text_color"
+                android:text="" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:textSize="@dimen/small_textSize"
-        android:textColor="@color/exchange_text_color"
-        android:layout_marginBottom="10dp"
-        android:text="@string/copyright_text" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="@dimen/small_textSize"
+            android:textColor="@color/exchange_text_color"
+            android:layout_marginBottom="10dp"
+            android:text="@string/copyright_text" />
+
+    </LinearLayout>
 
 </LinearLayout>

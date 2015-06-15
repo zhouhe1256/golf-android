@@ -26,6 +26,7 @@ import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.util.WebJSInterface;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -212,5 +213,10 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
             }
             webview.loadUrl(url);
         }
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -39,17 +39,13 @@
     <!--支付权限START-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <!-- 支付权限end-->
-
     <!--地图-->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-
     <application
         android:name="com.bjcathay.qt.application.GApplication"
         android:allowBackup="true"
@@ -303,8 +299,10 @@
         <!--支付end-->
 
         <!--友盟 android appkey :555d71d467e58ecee60031b1-->
+        <meta-data android:value="555d71d467e58ecee60031b1" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="bjcathay" android:name="UMENG_CHANNEL"/>
 
-        <!--ＺＨＩＦＢＡＯ-->
+        <!--支付宝-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

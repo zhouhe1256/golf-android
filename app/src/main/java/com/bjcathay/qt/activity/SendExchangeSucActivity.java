@@ -17,6 +17,7 @@ import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-6-10.
@@ -118,6 +119,16 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent(this, MainActivity.class);
         ViewUtil.startTopActivity(this, intent);
         finish();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
 

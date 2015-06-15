@@ -21,6 +21,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
 import com.bjcathay.qt.view.SelectPicPopupWindow;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.ByteArrayOutputStream;
 
@@ -186,5 +187,14 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
                 break;
         }
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

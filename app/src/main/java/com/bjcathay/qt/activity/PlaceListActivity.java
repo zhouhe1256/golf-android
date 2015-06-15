@@ -30,6 +30,7 @@ import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.AutoListView.OnLoadListener;
 import com.bjcathay.qt.view.AutoListView.OnRefreshListener;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -220,7 +221,13 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     }
 
     @Override
-    protected void onPause() {
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

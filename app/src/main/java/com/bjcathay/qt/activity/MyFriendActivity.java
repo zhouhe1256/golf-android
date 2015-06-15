@@ -28,6 +28,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -171,5 +172,15 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
                 finish();
                 break;
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

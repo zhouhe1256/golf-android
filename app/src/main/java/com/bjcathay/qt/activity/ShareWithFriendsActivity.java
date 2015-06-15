@@ -22,6 +22,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -140,5 +141,15 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
                 update();
                 break;
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -20,6 +20,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-5-21.
@@ -114,5 +115,15 @@ public class ShareActivity extends Activity implements View.OnClickListener, Vie
     public boolean onTouch(View view, MotionEvent motionEvent) {
         // OnGestureListener will analyzes the given motion event
         return mGestureDetector.onTouchEvent(motionEvent);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

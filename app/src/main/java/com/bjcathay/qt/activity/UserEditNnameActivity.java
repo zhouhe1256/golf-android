@@ -18,6 +18,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-5-11.
@@ -117,5 +118,15 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

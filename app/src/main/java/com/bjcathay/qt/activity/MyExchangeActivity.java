@@ -16,6 +16,7 @@ import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,5 +164,11 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     protected void onResume() {
         super.onResume();
         initData();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

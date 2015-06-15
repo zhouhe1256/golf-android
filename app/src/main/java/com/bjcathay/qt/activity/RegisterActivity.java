@@ -27,6 +27,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -224,5 +225,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return mGestureDetector.onTouchEvent(motionEvent);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

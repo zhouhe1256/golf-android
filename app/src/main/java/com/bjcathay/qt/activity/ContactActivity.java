@@ -32,6 +32,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.SideBar;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -288,5 +289,14 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
             adapter.updateListView(filterDateList);
         }
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

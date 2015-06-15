@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-4-27.
@@ -98,5 +99,15 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

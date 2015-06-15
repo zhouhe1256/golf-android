@@ -27,6 +27,7 @@ import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.wxpay.WXpay;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -228,5 +229,15 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                 finish();*/
             }
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

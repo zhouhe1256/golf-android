@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.location.LocationClientOption;
@@ -29,6 +31,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.SelectMapPopupWindow;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -114,14 +117,19 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
 //在地图上添加Marker，并显示
         mBaiduMap.addOverlay(option);
         //创建InfoWindow展示的view
-        TextView button = new TextView(getApplicationContext());
-        button.setBackgroundColor(Color.WHITE);
-       // button.setText(title+"\n"+content);
-        button.setText(title);
+        View text = getLayoutInflater().inflate(R.layout.address_content, null);
+        FrameLayout.LayoutParams lpLl = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        lpLl.gravity = Gravity.CENTER;
+        text.setLayoutParams(lpLl);
+        TextView t=ViewUtil.findViewById(text,R.id.address_title);
+        TextView c=ViewUtil.findViewById(text,R.id.address_content);
+        t.setText(title);
+        c.setText(content);
 //定义用于显示该InfoWindow的坐标点
         LatLng pt = new LatLng(lat, lon);
 //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
-        InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
+        InfoWindow mInfoWindow = new InfoWindow(text, pt, -47);
 //显示InfoWindow
         mBaiduMap.showInfoWindow(mInfoWindow);
     }
@@ -138,6 +146,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -145,6 +154,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
+        MobclickAgent.onPause(this);
     }
 
     SelectMapPopupWindow menuWindow;

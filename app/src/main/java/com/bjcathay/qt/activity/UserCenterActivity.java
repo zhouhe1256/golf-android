@@ -20,6 +20,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
 import com.bjcathay.qt.view.SelectPicPopupWindow;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-4-21.
@@ -173,6 +174,11 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     protected void onResume() {
         super.onResume();
         initDate();
+        MobclickAgent.onResume(this);
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }
