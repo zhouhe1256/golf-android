@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private LinearLayout exchbtn;
     private LinearLayout usercenter;
     private LinearLayout shareBtn;
-    private static final String FILE_NAME = "golf_share.png";
+    private static final String FILE_NAME = "qtgolf.png";
     public static String TEST_IMAGE;
     private JazzyViewPager bannerViewPager;
     private TopView topView;
@@ -168,7 +168,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             //File file = new File(TEST_IMAGE);
             if (!file.exists()) {
                 file.createNewFile();
-                Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.icon_share_logo);
                 FileOutputStream fos = new FileOutputStream(file);
                 pic.compress(Bitmap.CompressFormat.PNG, 100, fos);
                 fos.flush();

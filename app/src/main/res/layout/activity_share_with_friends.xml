@@ -71,7 +71,7 @@
 
     <LinearLayout
         android:id="@+id/your_invite_code_linear"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -81,7 +81,7 @@
             android:layout_margin="10dp"
             android:id="@+id/input_your_invite_code"
             android:layout_width="match_parent"
-            android:background="@drawable/invite_input_bg"
+            android:background="@drawable/shurukuang_bg"
             android:text=""
             android:inputType="number"
             android:maxLength="6"

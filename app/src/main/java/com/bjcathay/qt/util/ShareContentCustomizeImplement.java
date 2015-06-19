@@ -44,8 +44,6 @@ public class ShareContentCustomizeImplement implements ShareContentCustomizeCall
         } else if ("SinaWeibo".equals(platform.getName())) {
           //  platform.removeAccount(true);
             paramsToShare.setText(text);
-            paramsToShare.setImagePath("");
-            paramsToShare.setImageUrl("");
         } else if ("Email".equals(platform.getName())) {
             paramsToShare.setText(text);
 

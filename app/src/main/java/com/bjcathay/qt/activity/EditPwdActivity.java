@@ -62,7 +62,7 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
             DialogUtil.showMessage("两次输入的密码不一样");
             return;
         }
-
+        if (pwd2.length() >= 6 && pwd2.length() <= 18) {
         UserModel.changePassword(oldPwd.getText().toString().trim(), newPwd.getText().toString().trim()).done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
@@ -78,6 +78,9 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
                 }
             }
         });
+        } else {
+            DialogUtil.showMessage("密码长度必须大于6位小于18位");
+        }
     }
 
     @Override

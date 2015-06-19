@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 19
         versionCode 1
-        versionName '1.0'
+        versionName '1.1'
         manifestPlaceholders = [CHANNEL_NAME: "bjcathay"]
     }
     signingConfigs {
@@ -40,9 +40,6 @@ android {
         }
     }
     productFlavors {
-        wandoujia {}
-        yingyongbao {}
-        uc {}
         bjcathay {}
 
         productFlavors.all { flavor ->

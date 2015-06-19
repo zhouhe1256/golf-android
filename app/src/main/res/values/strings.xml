@@ -90,7 +90,7 @@
     <string name="course_address">http://api.map.baidu.com/marker?output=html</string>
 
     <string name="message_to_detail"><u>点击查看详情</u></string>
-    <string name="dialog_to_exchange_a_card">您将兑换一枚%1$s兑换卡,\n本次兑换将消耗%2$d枚果岭币。</string>
+    <string name="dialog_to_exchange_a_card">您将兑换一枚%1$s兑换卡,本次兑换将消耗%2$d枚果岭币。</string>
     <string name="dialog_cant_to_exchange_a_card">您的果岭币不足，暂不能兑换哦~快去邀请亲友团捧场吧</string>
     <string name="dialog_cant_to_send_a_card">抱歉，用户\n%1$s\n不是我们的会员，无法赠送。</string>
     <string name="dialog_sure_to_send_a_card">您将把一枚%1$s送给你的小伙伴%2$s</string>

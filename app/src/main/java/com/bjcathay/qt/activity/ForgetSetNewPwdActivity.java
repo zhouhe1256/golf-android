@@ -101,7 +101,7 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
             DialogUtil.showMessage("两次输入的密码不一样");
             return;
         }
-
+        if (pwd2.length() >= 6 && pwd2.length() <= 18) {
         UserModel.resetPassword(phone, newPwd.getText().toString().trim(), code).done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
@@ -123,6 +123,9 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
                 }
             }
         });
+        } else {
+            DialogUtil.showMessage("密码长度必须大于6位小于18位");
+        }
     }
 
     @Override
