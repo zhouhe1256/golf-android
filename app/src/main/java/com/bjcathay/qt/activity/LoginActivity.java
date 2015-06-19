@@ -32,7 +32,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-4-23.
  */
-public class LoginActivity extends Activity implements View.OnClickListener, ICallback, View.OnTouchListener {
+public class LoginActivity extends Activity implements View.OnClickListener, ICallback/*, View.OnTouchListener*/ {
     private GApplication gApplication;
     private Button loginbtn;
     private ImageView topView;
@@ -62,7 +62,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
                     //finish();//在此处控制关闭
-                    return true;
+                   // return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -90,7 +90,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
-        topView.setOnTouchListener(this);
+       // topView.setOnTouchListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
         forgetbtn.setOnClickListener(this);
@@ -177,9 +177,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         }
     }
 
-    @Override
+   /* @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return mGestureDetector.onTouchEvent(motionEvent);
+    }*/
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
     @Override
     public void onResume() {

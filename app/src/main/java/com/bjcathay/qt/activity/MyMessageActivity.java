@@ -190,6 +190,7 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {
                             DialogUtil.showMessage("已清空消息");
+                            messageModels.clear();
                             loadData(AutoListView.REFRESH);
                             // }
                         } else {

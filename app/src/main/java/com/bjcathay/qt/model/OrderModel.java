@@ -205,7 +205,7 @@ public class OrderModel implements Serializable {
                 param("productId", id).
                 param("count", count).
                 param("date", date).
-                contentDecoder(decoder).run();
+                run();
     }
 
     public static IPromise orderVerify(Long id) {

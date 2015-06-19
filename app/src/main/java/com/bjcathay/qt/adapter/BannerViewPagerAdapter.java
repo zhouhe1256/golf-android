@@ -14,11 +14,11 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
+import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
 import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.OutlineContainer;
-import com.bjcathay.qt.widget.DSActivity;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     intent.putExtra("url", bannerModel.getTarget());
                     ViewUtil.startActivity(context, intent);
                 } else if ("PRODUCT".equals(target)) {
-                    intent = new Intent(context, DSActivity.class);
+                    intent = new Intent(context, OrderStadiumDetailActivity.class);
                     intent.putExtra("imageurl", bannerModel.getImageUrl());
                     intent.putExtra("id", Long.valueOf(bannerModel.getTarget()));
                     ViewUtil.startActivity(context, intent);

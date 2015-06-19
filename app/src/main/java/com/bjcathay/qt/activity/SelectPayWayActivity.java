@@ -64,7 +64,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderModel = (OrderModel) intent.getSerializableExtra("order");
         orderName.setText(orderModel.getTitle());
         orderSale.setText(orderModel.getPriceInclude());
-        orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
+        orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
         orderConNum.setText("" + Integer.toString(orderModel.getPeopleNumber()) + "人");
         orderPay.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         orderPhone.setText("" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
@@ -141,14 +141,14 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         if (isPay) {
             if ("sucess".equals(status)) {
                 Intent intent;
-                OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+              /*  OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
-                        if (jsonObject.optBoolean("success")) {
-                            Intent intent;
+                        if (jsonObject.optBoolean("success")) {*/
+                           // Intent intent;
                             if ("GROUP".equals(orderModel.getType())) {
-                                intent = new Intent(context, OrderSucTuanActivity.class);
+                                intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
                                 intent.putExtra("id", orderModel.getId());
                             } else {
                                 intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
@@ -156,12 +156,12 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                             intent.putExtra("order", orderModel);
                             ViewUtil.startActivity(SelectPayWayActivity.this, intent);
                             finish();
-                        } else {
+                       /* } else {
                             int code = jsonObject.optInt("code");
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                        }
-                    }
-                });
+                        }*/
+             /*       }
+                });*/
 
 
                /* if ("GROUP".equals(orderModel.getType())) {
@@ -195,12 +195,12 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
             String action = intent.getAction();
             if ("WXPAY".equals(action)) {
                 findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
-                OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
+              /*  OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
-                        if (jsonObject.optBoolean("success")) {
-                            Intent intent;
+                        if (jsonObject.optBoolean("success")) {*/
+                            //Intent intent;
                             if ("GROUP".equals(orderModel.getType())) {
                                 intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
                                 intent.putExtra("id", orderModel.getId());
@@ -210,12 +210,12 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                             intent.putExtra("order", orderModel);
                             ViewUtil.startActivity(SelectPayWayActivity.this, intent);
                             finish();
-                        } else {
+                       /* } else {
                             int code = jsonObject.optInt("code");
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
                         }
                     }
-                });
+                });*/
 
                /* Intent intent1;
                 if ("GROUP".equals(orderModel.getType())) {

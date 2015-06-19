@@ -68,7 +68,7 @@
             android:inputType="textPassword"
             android:textColorHint="@color/exchange_text_color"
             android:textColor="@color/mian_text_color"
-            android:hint="确认密码"
+            android:hint="重复新的密码"
             android:textSize="15dp"
             android:background="@android:color/transparent" />
 

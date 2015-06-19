@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">7铁高尔夫</string>
+    <string name="app_name">7铁</string>
     <!--api 接口 http://api.zlkcx.com/
     web 地址 http://admin.zlkcx.com/
     图片地址 http://image.zlkcx.com/-->
-   <!-- <string name="host">http://192.168.1.54:8081</string>
-    <string name="img_host">http://192.168.1.54:8081</string>-->
+    <string name="host">http://192.168.1.22:8080</string>
+    <string name="img_host">http://192.168.1.22:8080</string>
     <!--接口：http://192.168.1.54:8081/ 图片地址：http://192.168.1.54:8081/-->
-    <string name="host">http://api.7tiegolf.com</string>
-    <string name="img_host">http://image.7tiegolf.com</string>
+  <!--  <string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>-->
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -42,19 +42,10 @@
     <!-- 消除警告，可忽略 -->
     <string name="d">图片描述</string>
     <string name="forget_secret"><u>忘记密码？</u></string>
-    <string name="register_invate_note">邀请码　 <font size="12">（选填）</font></string>
+    <string name="register_invate_note">邀请码</string>
     <string name="usable_user_number">果岭币</string>
 
     <!-- 日期时间选择 -->
-    <string name="pick_date_time">选择日期时间</string>
-    <string name="panel_start_time">开始时间</string>
-    <string name="panel_end_time">结束时间</string>
-    <string name="shortcut_one_day">一日内</string>
-    <string name="shortcut_three_days">三日内</string>
-    <string name="shortcut_one_week">一周内</string>
-    <string name="title_pick_date_time">选择日期时间（%1$d天%2$d时%3$d分）</string>
-    <string name="msg_end_before_start">结束时间需大于开始时间！</string>
-    <color name="green_2">#FF1EB95D</color>
     <string name="order_sucess_to_show_order"><u>查看订单</u>
       </string>
     <string name="order_sucess_to_show_order_note">点击查看订单详细内容</string>
@@ -67,9 +58,13 @@
     <!--成功提示-->
     <string name="order_com_suc_note_a">客服确认完成后．若出现信息冲突，客服会及时给你回访，</string>
     <string name="order_com_suc_note_b">7铁高尔夫客服电话:</string>
-    <string name="service_tel"><u>4000777777</u></string>
+    <string name="service_tel"><u>4006099977</u></string>
     <string name="order_success_tuan_share"><u>分享给好友</u></string>
      <string name="order_sucess_to_send_to_friend"><u>赠送朋友</u>
+      </string>
+    <string name="order_sucess_to_send_to_my_friend"><u>我的兑换</u>
+      </string>
+    <string name="order_sucess_to_check_my_friend">查看我的兑换卡
       </string>
     <string name="order_sucess_to_show_share">和朋友一起分享赛事乐趣</string>
     <string name="order_sucess_to_invite_friend"><u>邀请朋友</u>

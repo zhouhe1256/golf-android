@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.OrderSucActivity;
@@ -23,6 +24,7 @@ import com.bjcathay.qt.activity.OrderSucTEActivity;
 import com.bjcathay.qt.activity.OrderSucTuanActivity;
 import com.bjcathay.qt.activity.SelectPayWayActivity;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.StadiumModel;
@@ -33,6 +35,8 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+
+import org.json.JSONObject;
 
 /**
  * Created by dengt on 15-4-27.
@@ -61,13 +65,13 @@ public class DialogSureOrderFragment extends DialogFragment {
     }
 
     @SuppressLint("ValidFragment")
-    public DialogSureOrderFragment(Context context, ProductModel stadiumModel, int currentPrice,String date, int number) {
+    public DialogSureOrderFragment(Context context, ProductModel stadiumModel, int currentPrice, String date, int number) {
         // super();
         this.date = date;
         this.number = number;
         this.context = context;
         this.stadiumModel = stadiumModel;
-        this.currentPrice=currentPrice;
+        this.currentPrice = currentPrice;
     }
 
     @Override
@@ -154,39 +158,44 @@ public class DialogSureOrderFragment extends DialogFragment {
                                             dialog.setCanceledOnTouchOutside(false);//创建ProgressDialog
                                         }
                                         OrderModel.commitOrder(stadiumModel.getId(), number, date).done(new ICallback() {
-                                            @Override
-                                            public void call(Arguments arguments) {
-                                                //JSONObject jsonObject = arguments.get(0);
-                                                dismiss();
-                                                OrderModel orderModel = arguments.get(0);
-                                                Intent intent = null;
-                                                dialog.dismiss();
-                                                if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
-                                                    intent = new Intent(context, OrderSucActivity.class);
-                                                } else if ("SPECIAL".equals(stadiumModel.getType())) {
-                                                    intent = new Intent(context, OrderSucTEActivity.class);
-                                                } else if ("GROUP".equals(stadiumModel.getType())) {
-                                                    intent = new Intent(context, SelectPayWayActivity.class);
-                                                    intent.putExtra("order", orderModel);
-                                                }
-                                                intent.putExtra("id", orderModel.getId());
-                                                ViewUtil.startActivity(context, intent);
-                                            }
-                                        }).fail(new ICallback() {
-                                            @Override
-                                            public void call(Arguments arguments) {
-                                                dialog.dismiss();
-                                                dismiss();
-                                                DialogUtil.showMessage("下单失败");
-                                            }
-                                        });
-
-
+                                                                                                            @Override
+                                                                                                            public void call(Arguments arguments) {
+                                                                                                                JSONObject jsonObject = arguments.get(0);
+                                                                                                                if (jsonObject.optBoolean("success")) {
+                                                                                                                    OrderModel orderModel = JSONUtil.load(OrderModel.class, jsonObject.optJSONObject("order"));
+                                                                                                                    dismiss();
+                                                                                                                    Intent intent = null;
+                                                                                                                    dialog.dismiss();
+                                                                                                                    if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
+                                                                                                                        intent = new Intent(context, OrderSucActivity.class);
+                                                                                                                    } else if ("SPECIAL".equals(stadiumModel.getType())) {
+                                                                                                                        intent = new Intent(context, OrderSucTEActivity.class);
+                                                                                                                    } else if ("GROUP".equals(stadiumModel.getType())) {
+                                                                                                                        intent = new Intent(context, SelectPayWayActivity.class);
+                                                                                                                        intent.putExtra("order", orderModel);
+                                                                                                                    }
+                                                                                                                    intent.putExtra("id", orderModel.getId());
+                                                                                                                    ViewUtil.startActivity(context, intent);
+                                                                                                                } else {
+                                                                                                                    dismiss();
+                                                                                                                    dialog.dismiss();
+                                                                                                                    int code = jsonObject.optInt("code");
+                                                                                                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                        ). fail(new ICallback() {
+                                                         @Override
+                                                         public void call(Arguments arguments) {
+                                                             dialog.dismiss();
+                                                             dismiss();
+                                                             DialogUtil.showMessage("下单失败");
+                                                         }
+                                                     }
+                                                );
                                     }
                                 }
         );
-
-        // textView= (TextView) view.findViewById(R.id.text_1);
         return rootView;
     }
 }

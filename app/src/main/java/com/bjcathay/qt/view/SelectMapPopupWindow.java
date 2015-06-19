@@ -16,6 +16,8 @@ import android.widget.PopupWindow;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
 
+import java.io.File;
+
 /**
  * Created by bjcathay on 15-5-29.
  */
@@ -25,33 +27,41 @@ public class SelectMapPopupWindow extends PopupWindow {
         void selectBDMapResult();
 
         void selectGDMapResult();
+        void selectTXMapResult();
+        void selectSGMapResult();
+
     }
 
-    private Button btn_bd, btn_gd, btn_cancel;
+    private LinearLayout btn_bd, btn_gd,btn_tx,btn_sg;
+    private Button btn_cancel;
     private View mMenuView;
     private Animation animShow;
     // sliding down animation
     private Animation animHide;
     LinearLayout poplayout;
-    boolean bd;
-    boolean gd;
 
-    public SelectMapPopupWindow(Activity context, boolean bd, boolean gd, final SelectMapResult selectResult) {
+    public SelectMapPopupWindow(Activity context,final SelectMapResult selectResult) {
         super(context);
         initAnim();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.select_map_popuo_window, null);
         poplayout = ViewUtil.findViewById(mMenuView, R.id.pop_layout);
-        this.bd = bd;
-        this.gd = gd;
-        btn_bd = (Button) mMenuView.findViewById(R.id.btn_take_photo);
-        btn_gd = (Button) mMenuView.findViewById(R.id.btn_pick_photo);
-        if (bd) {
+        btn_bd = ViewUtil.findViewById(mMenuView,R.id.btn_take_photo);
+        btn_gd = ViewUtil.findViewById(mMenuView,R.id.btn_pick_photo);
+        btn_tx = ViewUtil.findViewById(mMenuView,R.id.tx_map);
+        btn_sg =  ViewUtil.findViewById(mMenuView,R.id.sg_map);
+        if(isInstallByread("com.baidu.BaiduMap")){
             btn_bd.setVisibility(View.VISIBLE);
         }
-        if (gd) {
+        if(isInstallByread("com.autonavi.minimap")){
             btn_gd.setVisibility(View.VISIBLE);
+        }
+        if(isInstallByread("com.tencent.map")){
+            btn_tx.setVisibility(View.VISIBLE);
+        }
+        if(isInstallByread("com.sogou.map.android.maps")){
+           // btn_sg.setVisibility(View.VISIBLE);
         }
         btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
         //取消按钮
@@ -77,6 +87,21 @@ public class SelectMapPopupWindow extends PopupWindow {
             @Override
             public void onClick(View v) {
                 selectResult.selectGDMapResult();
+                dismiss();
+            }
+        });
+        //todo
+        btn_tx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectResult.selectTXMapResult();
+                dismiss();
+            }
+        });
+        btn_sg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectResult.selectSGMapResult();
                 dismiss();
             }
         });
@@ -145,5 +170,8 @@ public class SelectMapPopupWindow extends PopupWindow {
                 dismiss();
             }
         });
+    }
+    private boolean isInstallByread(String packageName) {
+        return new File("/data/data/" + packageName).exists();
     }
 }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bjcathay.qt"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.1">
 
     <uses-sdk
         android:minSdkVersion="5"
@@ -11,9 +11,9 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
-    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!--个推权限start-->
@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="getui.permission.GetuiService.com.bjcathay.golf" />
+    <uses-permission android:name="getui.permission.GetuiService.com.bjcathay.qt" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!--自定义权限-->
     <permission
@@ -159,6 +159,7 @@
         <activity android:name=".activity.ShareWithFriendsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SendExchangeSucActivity"/>
+        <activity android:name=".activity.OrderStadiumDetailActivity"/>
 
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
@@ -300,7 +301,7 @@
 
         <!--友盟 android appkey :555d71d467e58ecee60031b1-->
         <meta-data android:value="555d71d467e58ecee60031b1" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="bjcathay" android:name="UMENG_CHANNEL"/>
+        <meta-data android:name="UMENG_CHANNEL" android:value="${CHANNEL_NAME}" />
 
         <!--支付宝-->
         <activity

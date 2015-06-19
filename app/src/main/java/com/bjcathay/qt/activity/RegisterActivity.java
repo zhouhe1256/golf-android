@@ -3,6 +3,8 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-4-23.
  */
-public class RegisterActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate, View.OnTouchListener {
+public class RegisterActivity extends Activity implements View.OnClickListener, ICallback, TimeCount.TimeUpdate/*, View.OnTouchListener*/ {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userPwd;
@@ -46,6 +49,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private GestureDetector mGestureDetector;
     private ImageView topView;
 
+    private TextView inviteNoteView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +70,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
                     //finish();//在此处控制关闭
-                    return true;
+                  //  return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -90,13 +94,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         userInvite = ViewUtil.findViewById(this, R.id.register_user_invite_code);
         registerBtn = ViewUtil.findViewById(this, R.id.register_btn);
         userCodeBtn = ViewUtil.findViewById(this, R.id.register_get_code_btn);
-
-
+        inviteNoteView =ViewUtil.findViewById(this,R.id.invite_note);
     }
 
     private void initEvent() {
         //topView.setActivity(this);
-        topView.setOnTouchListener(this);
+        //topView.setOnTouchListener(this);
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);
         userCode.setOnClickListener(this);
@@ -104,7 +107,26 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         registerBtn.setOnClickListener(this);
         userCodeBtn.setOnClickListener(this);
 
+        userInvite.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(!StringUtils.isEmpty(String.valueOf(userInvite.getText()))){
+                    inviteNoteView.setVisibility(View.GONE);
+                }else{
+                    inviteNoteView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void initDate() {
@@ -124,7 +146,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
-                        DialogUtil.showMessage("验证码已发送");
+                       // DialogUtil.showMessage("验证码已发送");
                     } else {
                         time.cancel();
                         userCodeBtn.setText("获取验证码");
@@ -145,6 +167,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         if (phone.length() == 0) {
             DialogUtil.showMessage("请输入手机号码");
             return;
+        }
+        if(code.length()==0){
+            DialogUtil.showMessage("请输入验证码");
         }
         if (password.length() >= 6 && password.length() <= 18) {
             if (phone.length() > 0 && password.length() > 0 && code.length() > 0)
@@ -221,11 +246,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
     }
-
+/*
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return mGestureDetector.onTouchEvent(motionEvent);
-    }
+    }*/
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+    mGestureDetector.onTouchEvent(event);
+    return super.onTouchEvent(event);
+}
     @Override
     public void onResume() {
         super.onResume();

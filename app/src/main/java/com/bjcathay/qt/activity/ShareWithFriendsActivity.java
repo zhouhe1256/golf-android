@@ -38,6 +38,7 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     private Button inputCodeBtn;
     private UserModel userModel;
     private LinearLayout linearLayout;
+    private ShareModel shareModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,15 +128,14 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.invite_sure:
-                findViewById(R.id.invite_sure).setOnClickListener(null);
+                if (shareModel == null)
                 ShareModel.share().done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         ShareModel shareModel = arguments.get(0);
                         ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this, shareModel);
-                        findViewById(R.id.invite_sure).setOnClickListener(ShareWithFriendsActivity.this);
                     }
-                });
+                });   else ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this, shareModel);
                 break;
             case R.id.input_invite_sure:
                 update();

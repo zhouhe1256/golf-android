@@ -51,28 +51,28 @@ public class DateUtil {
                     today = "明天";
                 }*//* else if (day == now_daye + 2) {
                     today = "后天";
-                } */else {
+                } */ else {
                     switch (day1) {
                         case 2:
-                            today = "周一";
+                            today = "星期一";
                             break;
                         case 3:
-                            today = "周二";
+                            today = "星期二";
                             break;
                         case 4:
-                            today = "周三";
+                            today = "星期三";
                             break;
                         case 5:
-                            today = "周四";
+                            today = "星期四";
                             break;
                         case 6:
-                            today = "周五";
+                            today = "星期五";
                             break;
                         case 7:
-                            today = "周六";
+                            today = "星期六";
                             break;
                         case 1:
-                            today = "周日";
+                            today = "星期日";
                             break;
                     }
                 }
@@ -131,7 +131,7 @@ public class DateUtil {
     }
 
     public static List<String> getDate(Context context) {
-        String today = "周一";
+        String today = "星期一";
         Calendar c = Calendar.getInstance();
         List<String> days = new ArrayList<String>();
         Calendar now = Calendar.getInstance();
@@ -147,30 +147,30 @@ public class DateUtil {
             int day1 = c.get(Calendar.DAY_OF_WEEK);
             if (day == now_daye) {
                 today = "今天";
-            }else
-            switch (day1) {
-                case 2:
-                    today = "周一";
-                    break;
-                case 3:
-                    today = "周二";
-                    break;
-                case 4:
-                    today = "周三";
-                    break;
-                case 5:
-                    today = "周四";
-                    break;
-                case 6:
-                    today = "周五";
-                    break;
-                case 7:
-                    today = "周六";
-                    break;
-                case 1:
-                    today = "周日";
-                    break;
-            }
+            } else
+                switch (day1) {
+                    case 2:
+                        today = "星期一";
+                        break;
+                    case 3:
+                        today = "星期二";
+                        break;
+                    case 4:
+                        today = "星期三";
+                        break;
+                    case 5:
+                        today = "星期四";
+                        break;
+                    case 6:
+                        today = "星期五";
+                        break;
+                    case 7:
+                        today = "星期六";
+                        break;
+                    case 1:
+                        today = "星期日";
+                        break;
+                }
             if (month < 9) {
                 days.add("0" + (month + 1) + "月" + day + "日" + "(" + today + ")");
             } else
@@ -338,9 +338,9 @@ public class DateUtil {
         return dateValue;
     }
 
-    public static Date stringNormalToDate(String dateString) {
+    public static Date stringDateToDate(String dateString) {
         ParsePosition position = new ParsePosition(0);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         Date dateValue = simpleDateFormat.parse(dateString, position);
         return dateValue;
     }
@@ -409,7 +409,7 @@ public class DateUtil {
     }
 
     public static String getTuanFinalDays(String date) {
-        String today = "周一";
+        String today = "星期一";
 
         Date s = stringToDate(date);
         Calendar c = Calendar.getInstance();
@@ -421,30 +421,30 @@ public class DateUtil {
         int day1 = c.get(Calendar.DAY_OF_WEEK);
         if (day == now_daye) {
             today = "今天";
-        }else
-        switch (day1) {
-            case 2:
-                today = "周一";
-                break;
-            case 3:
-                today = "周二";
-                break;
-            case 4:
-                today = "周三";
-                break;
-            case 5:
-                today = "周四";
-                break;
-            case 6:
-                today = "周五";
-                break;
-            case 7:
-                today = "周六";
-                break;
-            case 1:
-                today = "周日";
-                break;
-        }
+        } else
+            switch (day1) {
+                case 2:
+                    today = "星期一";
+                    break;
+                case 3:
+                    today = "星期二";
+                    break;
+                case 4:
+                    today = "星期三";
+                    break;
+                case 5:
+                    today = "星期四";
+                    break;
+                case 6:
+                    today = "星期五";
+                    break;
+                case 7:
+                    today = "星期六";
+                    break;
+                case 1:
+                    today = "星期日";
+                    break;
+            }
         if (month < 9) {
             return "0" + (month + 1) + "月" + day + "日" + "(" + today + ")";
         } else
@@ -453,7 +453,7 @@ public class DateUtil {
     }
 
     public static String getTuanFinalAMoPM(String date) {
-        String today = "周一";
+        String today = "星期一";
 
         Date s = stringToDate(date);
         Calendar c = Calendar.getInstance();
@@ -468,5 +468,41 @@ public class DateUtil {
         } else
             return "上午";
 
+    }
+
+    public static String getTuanAMoPM(String date) {
+        String today = "星期一";
+
+        Date s = stringDateToDate(date);
+        Calendar c = Calendar.getInstance();
+        c.setTime(s);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int day1 = c.get(Calendar.DAY_OF_WEEK);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+
+        if (hour >= 12) {
+            return "下午";
+        } else
+            return "上午";
+
+    }
+
+    public static boolean CompareNowTime(String start) {
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date1 = sd.parse(start);
+            Date date2 = new Date();
+            long s = date1.getTime();
+            long e = date2.getTime();
+            if (s > e) {
+                return true;
+            } else
+                return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

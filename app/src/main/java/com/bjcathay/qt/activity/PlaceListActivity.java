@@ -87,8 +87,8 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= stadiumModelList.size()) {
                     //todo
-                    // Intent intent = new Intent(PlaceListActivity.this, CourseDetailActivity.class);
-                    Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
+                     Intent intent = new Intent(PlaceListActivity.this, OrderStadiumDetailActivity.class);
+                  //  Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
                     intent.putExtra("type", stadiumModelList.get(i - 1).getType());

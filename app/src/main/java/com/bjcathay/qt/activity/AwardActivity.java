@@ -40,7 +40,6 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     private List<PropModel> propModels;
     private TextView inviteNum;
     private LinearLayout empty;
-    private LinearLayout emptyNet;
     private ImageView emptyNetimg;
     private TextView emptyNettext;
     private DialogExchFragment dialogExchFragment;
@@ -62,7 +61,6 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         empty = ViewUtil.findViewById(this, R.id.empty_lin);
         emptyNetimg = ViewUtil.findViewById(this, R.id.list_image_empty);
         emptyNettext = ViewUtil.findViewById(this, R.id.list_view_empty);
-        emptyNet = ViewUtil.findViewById(this, R.id.empty_net_lin);
 
         propModels = new ArrayList<PropModel>();
         dialogExchFragment = new DialogExchFragment(this, this);
@@ -70,7 +68,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     }
 
     private void initEvent() {
-        topView.setTitleText("兑换");
+        topView.setTitleText("兑换商城");
         topView.setHomeBackVisiable();
         topView.setExchangeVisiable();
         awardingFirst.setEmptyView(empty);
@@ -87,7 +85,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
             public void call(Arguments arguments) {
                 emptyNettext.setText(getString(R.string.empty_net_text));
                 emptyNetimg.setImageResource(R.drawable.ic_network_error);
-               // awardingFirst.setEmptyView(emptyNet);
+                // awardingFirst.setEmptyView(emptyNet);
             }
         });
     }
@@ -130,11 +128,25 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
+        if (gApplication.isLogin()) {
+            UserModel.get().done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    UserModel userModel = arguments.get(0);
+                    gApplication.setUser(userModel);
+                    inviteNum.setText(Integer.toString(userModel.getInviteAmount()));
+                    PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
+                    PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
+                }
+            });
+        }
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

@@ -14,35 +14,107 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/message_delete_cirle"
-        android:orientation="vertical">
-        <Button
-            android:id="@+id/btn_take_photo"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@null"
-            android:textColor="@color/red"
-            android:visibility="gone"
-            android:text="百度地图" />
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@drawable/line_divide_hor" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/message_delete_cirle"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_pick_photo"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:background="@null"
-            android:visibility="gone"
-            android:textColor="@color/home_title_color"
-            android:text="高德地图" />
+            <LinearLayout
+                android:id="@+id/btn_take_photo"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/sub_textSize"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:textColor="@color/red"
+                    android:text="百度地图" />
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_pick_photo"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/sub_textSize"
+                    android:background="@null"
+                    android:textColor="@color/home_title_color"
+                    android:focusable="false"
+                    android:text="高德地图" />
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tx_map"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/sub_textSize"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:textColor="@color/home_title_color"
+                    android:text="腾讯地图" />
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/line_divide_hor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sg_map"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/sub_textSize"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:textColor="@color/home_title_color"
+                    android:text="搜狗地图" />
+            </LinearLayout>
         </LinearLayout>
 
         <Button

@@ -68,11 +68,13 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 public void call(Arguments arguments) {
                     if (GApplication.getInstance().isLogin()) {
                         UserModel userModel1 = GApplication.getInstance().getUser();
-                        ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(), R.drawable.ic_default_user);
-                        if (userModel1.getNickname() == null)
-                            userPhone.setText(userModel1.getMobileNumber());
-                        else
-                            userPhone.setText(userModel1.getNickname());
+                        if (userModel1 != null) {
+                            ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(), R.drawable.ic_default_user);
+                            if (userModel1.getNickname() == null)
+                                userPhone.setText(userModel1.getMobileNumber());
+                            else
+                                userPhone.setText(userModel1.getNickname());
+                        }
                     }
                 }
             });
@@ -176,6 +178,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         initDate();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

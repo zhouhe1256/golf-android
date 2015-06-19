@@ -25,7 +25,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-5-21.
  */
-public class ShareActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class ShareActivity extends Activity implements View.OnClickListener/*, View.OnTouchListener*/ {
     private ImageView imageView;
     private LinearLayout linearLayout;
     private TextView inviteCode;
@@ -52,7 +52,7 @@ public class ShareActivity extends Activity implements View.OnClickListener, Vie
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
                     //finish();//在此处控制关闭
-                    return true;
+                   // return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -85,7 +85,7 @@ public class ShareActivity extends Activity implements View.OnClickListener, Vie
     }
 
     private void initEvent() {
-        imageView.setOnTouchListener(this);
+      //  imageView.setOnTouchListener(this);
         share.setOnClickListener(this);
     }
 
@@ -110,12 +110,16 @@ public class ShareActivity extends Activity implements View.OnClickListener, Vie
     }
 
     private GestureDetector mGestureDetector;
-
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+   /* @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         // OnGestureListener will analyzes the given motion event
         return mGestureDetector.onTouchEvent(motionEvent);
-    }
+    }*/
     @Override
     public void onResume() {
         super.onResume();

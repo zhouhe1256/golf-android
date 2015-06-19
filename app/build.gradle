@@ -9,7 +9,7 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName '1.0'
-
+        manifestPlaceholders = [CHANNEL_NAME: "bjcathay"]
     }
     signingConfigs {
         release {
@@ -25,13 +25,29 @@ android {
             keyPassword 'bjcathay2307golf'
         }
     }
+
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
     productFlavors {
+        wandoujia {}
+        yingyongbao {}
+        uc {}
+        bjcathay {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [CHANNEL_NAME: name]
+        }
     }
 }
 

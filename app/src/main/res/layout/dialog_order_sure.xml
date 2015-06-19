@@ -136,14 +136,15 @@
                         android:textSize="14sp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
+                        android:gravity="center_horizontal"
+                        android:minEms="2"
                         android:textColor="@color/mian_text_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="５" />
+                        android:text="5" />
                     <ImageView
                         android:paddingTop="17dp"
                         android:id="@+id/dialog_order_plus"
-                        android:paddingLeft="5dp"
                         android:layout_width="40dp"
                         android:layout_height="fill_parent"
                         android:src="@drawable/ic_minas" />

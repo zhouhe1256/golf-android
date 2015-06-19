@@ -175,6 +175,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     @Override
     public void onResume() {
         super.onResume();
+        //initData();
         MobclickAgent.onResume(this);
     }
     @Override

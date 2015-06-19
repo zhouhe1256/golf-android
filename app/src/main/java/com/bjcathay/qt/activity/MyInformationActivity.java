@@ -3,6 +3,7 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -24,11 +25,12 @@ import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by dengt on 15-4-29.
  */
-public class MyInformationActivity extends Activity implements SelectPicPopupWindow.SelectResult ,View.OnClickListener{
+public class MyInformationActivity extends Activity implements SelectPicPopupWindow.SelectResult, View.OnClickListener {
     private TopView topView;
     private CircleImageView userImg;
     private TextView userName;
@@ -69,15 +71,16 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
-        userModel= GApplication.getInstance().getUser();
-        if(userModel!=null) {
+        if (userModel == null)
+            userModel = GApplication.getInstance().getUser();
+        if (userModel != null) {
             ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
             userName.setText(userModel.getRealName());
             userNickName.setText(userModel.getNickname());
             userPhone.setText(userModel.getMobileNumber());
             userInvite.setText(userModel.getInviteCode());
-        }else{
-            userModel= GApplication.getInstance().getUser();
+        } else {
+            userModel = GApplication.getInstance().getUser();
         }
     }
 
@@ -94,8 +97,17 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     @Override
     public void resultPicture() {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        //intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*");
+         /*  intent.setType("image*//*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 96);
+        intent.putExtra("outputY", 96);
+        intent.putExtra("return-data", true);*/
         startActivityForResult(intent, selectCode);
     }
 
@@ -106,36 +118,53 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
         startActivityForResult(intent, resultPictureCode);
     }
 
+    Uri uri;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) {
             return;
         }
+
         if (selectCode == requestCode) {
+            uri = data.getData();
             Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setData(data.getData());
+            intent.setDataAndType(uri, "image/*");
             intent.putExtra("crop", "true");
             intent.putExtra("aspectX", 1);
             intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 96);
-            intent.putExtra("outputY", 96);
+            intent.putExtra("outputX", 60);
+            intent.putExtra("outputY", 60);
+            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
             intent.putExtra("noFaceDetection", true);
-            intent.putExtra("return-data", true);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra("return-data", true);//设置为不返回数据
             startActivityForResult(intent, requestCropIcon);
         } else if (requestCropIcon == requestCode) {
             Bundle extras = data.getExtras();
             if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
-                UserModel.setAvatar(FileUtils.Bitmap2Bytes(photo)).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        UserModel user = arguments.get(0);
-                        initUserData(user, false);
-                    }
-                });
+                //  uri=extras.getParcelable(MediaStore.EXTRA_OUTPUT);
+                if (uri == null) {
+                    return;
+                }
+                //  Bitmap photo = extras.getParcelable("data");
+                Bitmap photo = null;
+                try {
+                    photo = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+                    UserModel.setAvatar(FileUtils.Bitmap2Bytes(photo)).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            UserModel user = arguments.get(0);
+                            initUserData(user, false);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         } else if (resultPictureCode == requestCode) {
             Bundle extras = data.getExtras();
@@ -173,12 +202,12 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
 
                 break;
             case R.id.info_name_relative:
-                 intent = new Intent(this, UserEditNnameActivity.class);
+                intent = new Intent(this, UserEditNnameActivity.class);
                 intent.putExtra("name", userName.getText().toString().trim());
                 startActivityForResult(intent, resultEditName);
                 break;
             case R.id.info_nick_name_relative:
-                 intent = new Intent(this, UserEditNicknameActivity.class);
+                intent = new Intent(this, UserEditNicknameActivity.class);
                 intent.putExtra("nickname", userNickName.getText().toString().trim());
                 startActivityForResult(intent, resultEditNickName);
                 break;
@@ -187,11 +216,13 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@color/white" />
 
                 <TextView
                     android:id="@+id/tuan_short"
@@ -140,7 +140,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
@@ -168,7 +168,7 @@
                             android:layout_height="30dp"
                             android:text="1人"
                             android:id="@+id/btn_0"
-                            android:textSize="12.0sp"
+                            android:textSize="16.0sp"
                             android:textColor="@color/radio_text"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -182,7 +182,7 @@
                             android:layout_height="30dp"
                             android:text="2人"
                             android:id="@+id/btn_1"
-                            android:textSize="12.0sp"
+                            android:textSize="16.0sp"
                             android:textColor="@color/radio_text"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -195,7 +195,7 @@
                             android:layout_height="30dp"
                             android:text="3人"
                             android:id="@+id/btn_2"
-                            android:textSize="12.0sp"
+                            android:textSize="16.0sp"
                             android:textColor="@color/radio_text"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -208,7 +208,7 @@
                             android:layout_height="30dp"
                             android:text="4人"
                             android:id="@+id/btn_3"
-                            android:textSize="12.0sp"
+                            android:textSize="16.0sp"
                             android:textColor="@color/radio_text"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -217,13 +217,11 @@
 
                         <RadioButton
                             android:layout_marginLeft="5dp"
-                            android:layout_width="55dp"
+                            android:layout_width="51dp"
                             android:layout_height="30dp"
-                            android:text="4人+"
+                            android:text="4人＋"
                             android:id="@+id/btn_4"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:textSize="12.0sp"
+                            android:textSize="16.0sp"
                             android:textColor="@color/radio_text"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -282,6 +280,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginRight="35dp"
                         android:textSize="@dimen/sub_textSize"
                         android:singleLine="true"
                         android:ellipsize="end"

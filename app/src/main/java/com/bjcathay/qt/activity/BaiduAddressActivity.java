@@ -164,10 +164,13 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         Intent intent;
         switch (view.getId()) {
             case R.id.title_daohang:
-                if (isInstallByread("com.baidu.BaiduMap") == false && isInstallByread("com.autonavi.minimap")==false)
+                if (isInstallByread("com.baidu.BaiduMap") == false
+                        && isInstallByread("com.autonavi.minimap")==false
+                        &&isInstallByread("com.tencent.map")==false
+                        &&isInstallByread("com.sogou.map.android.maps")==false )
                     DialogUtil.showMessage("您尚未安装地图客户端");
                 else {
-                    menuWindow = new SelectMapPopupWindow(this, isInstallByread("com.baidu.BaiduMap"), isInstallByread("com.autonavi.minimap"), this);
+                    menuWindow = new SelectMapPopupWindow(this, this);
                     //显示窗口
                     menuWindow.showAtLocation(this.findViewById(R.id.bmapView), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 }
@@ -277,5 +280,36 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void selectTXMapResult() {
+        //http://apis.map.qq.com/uri/v1/routeplan?type=bus&from=我的家&fromcoord=39.980683,116.302&to=中关村&tocoord=39.9836,116.3164&policy=1&referer=tengxun
+       // qqmap://map/routeplan?type=drive&from=中关村&to=望京&policy=0&referer=tengxun   fromcoord=CurrentLocation
+        LatLng latLng = new LatLng(lat, lon);
+        latLng = transformFromWGSToGCJ(latLng);
+        StringBuffer sb = new StringBuffer();
+        sb.append("qqmap://map/routeplan?");
+        sb.append("referer=").append("tengxun");
+        sb.append("&to=").append(title);
+        sb.append("&tocoord=").append(latLng.longitude+","+latLng.latitude);
+        sb.append("&type=").append("drive");
+        sb.append("&fromcoord=").append("CurrentLocation");
+        Intent intent = null;
+        try {
+            intent = Intent.getIntent(sb.toString());
+            startActivity(intent); //启动调用
+            Log.e("GasStation", "腾讯地图客户端已经安装");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void selectSGMapResult() {
+       /* LatLng latLng = new LatLng(lat, lon);
+        latLng = transformFromWGSToGCJ(latLng);
+        Uri mUri =  Uri.parse("geo:" + latLng.latitude + "," + latLng.longitude +  "?q=" + title);  Intent mIntent = new Intent(Intent.ACTION_VIEW,  mUri);
+        startActivity(mIntent);*/
     }
 }

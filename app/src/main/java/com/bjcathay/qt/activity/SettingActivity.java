@@ -82,14 +82,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 ViewUtil.startTopActivity(this, intent);
                 break;
             case R.id.setting_share:
-                shareLayout.setOnClickListener(null);
                 if (shareModel == null)
                     ShareModel.share().done(new ICallback() {
                         @Override
                         public void call(Arguments arguments) {
                             shareModel = arguments.get(0);
                             ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
-                            shareLayout.setOnClickListener(SettingActivity.this);
                         }
                     });
                 else ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);

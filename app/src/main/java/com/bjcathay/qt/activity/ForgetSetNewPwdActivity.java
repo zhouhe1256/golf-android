@@ -28,7 +28,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-5-15.
  */
-public class ForgetSetNewPwdActivity extends Activity implements View.OnClickListener,View.OnTouchListener {
+public class ForgetSetNewPwdActivity extends Activity implements View.OnClickListener/*,View.OnTouchListener*/ {
     private ImageView topView;
     private ClearEditText newPwd;
     private ClearEditText surePwd;
@@ -55,7 +55,7 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
                     //finish();//在此处控制关闭
-                    return true;
+                   // return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -84,7 +84,7 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
     }
 
     private void initEvent() {
-        topView.setOnTouchListener(this);
+       // topView.setOnTouchListener(this);
         //  topView.setTitleText("设置新密码");
 
     }
@@ -141,10 +141,15 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
         }
     }
 
-    @Override
+  /*  @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return mGestureDetector.onTouchEvent(motionEvent);
-    }
+    }*/
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+      mGestureDetector.onTouchEvent(event);
+      return super.onTouchEvent(event);
+  }
     @Override
     public void onResume() {
         super.onResume();

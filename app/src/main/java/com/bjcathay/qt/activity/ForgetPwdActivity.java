@@ -30,7 +30,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-5-15.
  */
-public class ForgetPwdActivity extends Activity implements View.OnClickListener ,View.OnTouchListener,ICallback, TimeCount.TimeUpdate {
+public class ForgetPwdActivity extends Activity implements View.OnClickListener/* ,View.OnTouchListener*/,ICallback, TimeCount.TimeUpdate {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userCode;
@@ -60,7 +60,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
                     //finish();//在此处控制关闭
-                    return true;
+                  //  return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -91,7 +91,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
     }
 
     private void initEvent() {
-        topView.setOnTouchListener(this);
+        //topView.setOnTouchListener(this);
         userPhone.setOnClickListener(this);
         userCode.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
@@ -117,7 +117,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
-                        DialogUtil.showMessage("验证码已发送");
+                       // DialogUtil.showMessage("验证码已发送");
                     } else {
                         time.cancel();
                         userCodeBtn.setText("获取验证码");
@@ -141,6 +141,9 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
         if (!ValidformUtil.isMobileNo(phone)) {
             DialogUtil.showMessage("请填写正确的手机号码");
             return;
+        }
+        if(code.length()==0){
+            DialogUtil.showMessage("请输入验证码");
         }
         if (phone.length() > 0 && code.length() > 0)
             UserModel.verifyCheckCode(phone, code, "FORGET_PWD").done(this);
@@ -195,9 +198,14 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener 
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
     }
-    @Override
+   /* @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return mGestureDetector.onTouchEvent(motionEvent);
+    }*/
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
     @Override
     public void onResume() {

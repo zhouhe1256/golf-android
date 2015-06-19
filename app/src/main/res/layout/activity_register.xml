@@ -58,32 +58,6 @@
         android:background="@drawable/line_divide_hor" />
 
     <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/register_user_pwd"
-        android:drawableLeft="@drawable/ic_login_pwd"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:textSize="@dimen/main_textSize"
-        android:inputType="textPassword"
-        android:textCursorDrawable="@null"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/white"
-        android:padding="10dp"
-        android:drawablePadding="20dp"
-        android:background="@android:color/transparent" />
-
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/line_divide_hor" />
-
-    <com.bjcathay.qt.view.ClearEditText
         android:id="@+id/register_user_code"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -108,25 +82,69 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/line_divide_hor" />
-
     <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/register_user_invite_code"
+        android:id="@+id/register_user_pwd"
+        android:drawableLeft="@drawable/ic_login_pwd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/register_invate_note"
-        android:inputType="number"
+        android:hint="密码"
+        android:textSize="@dimen/main_textSize"
+        android:inputType="textPassword"
+        android:textCursorDrawable="@null"
+        android:textColor="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:textSize="@dimen/main_textSize"
         android:textColorHint="@color/white"
         android:padding="10dp"
-        android:drawableLeft="@drawable/ic_register_invite_code"
-        android:textCursorDrawable="@null"
-        android:drawablePadding="14dp"
-        android:textColor="@color/white"
+        android:drawablePadding="20dp"
         android:background="@android:color/transparent" />
+
+
+    <View
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/line_divide_hor" />
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            android:textColor="@color/white"
+            android:text="(选填)"
+            android:id="@+id/invite_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.bjcathay.qt.view.ClearEditText
+            android:id="@+id/register_user_invite_code"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_invate_note"
+            android:inputType="number"
+            android:textSize="@dimen/main_textSize"
+            android:textColorHint="@color/white"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_register_invite_code"
+            android:textCursorDrawable="@null"
+            android:drawablePadding="14dp"
+            android:textColor="@color/white"
+            android:background="@android:color/transparent" />
+        </RelativeLayout>
+
+
 
     <View
         android:layout_marginLeft="20dp"

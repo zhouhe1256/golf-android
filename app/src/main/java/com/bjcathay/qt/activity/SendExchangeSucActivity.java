@@ -65,7 +65,7 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         phone = intent.getStringExtra("phone");
-        topView.setTitleText("赠送好友");
+        topView.setTitleText("赠送成功");
         title.setText("赠送成功！");
         content.setText("您已成功赠送用户" + phone + "一枚" + name);
     }

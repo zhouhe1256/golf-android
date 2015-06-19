@@ -86,7 +86,6 @@ public class ClearEditText extends EditText implements
         }
     }
 
-
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
      * @param visible
