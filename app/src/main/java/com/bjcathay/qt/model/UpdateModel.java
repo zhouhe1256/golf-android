@@ -14,7 +14,15 @@ public class UpdateModel implements Serializable {
 
     private double version;
     private String url;
+    private String description;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public double getVersion() {
         return version;

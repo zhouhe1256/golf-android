@@ -67,6 +67,9 @@ public class WebJSInterface implements /*DeleteInfoDialog.DeleteInfoDialogResult
      */
     @JavascriptInterface
     public void signup(String id, final String message) {
+        if (ClickUtil.isFastClick()) {
+            return;
+        }
         if (GApplication.getInstance().isLogin()) {
             if (!StringUtils.isEmpty(message)) {
                /* DeleteInfoDialog infoDialog = new DeleteInfoDialog(mActivity,

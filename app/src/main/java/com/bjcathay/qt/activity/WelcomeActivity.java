@@ -2,6 +2,7 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -29,16 +30,37 @@ public class WelcomeActivity extends Activity {
     private LinearLayout dotoParendLinearLayout;
     ImageView[] dots;
     private ImageView imageView;
+    private String action;
+    private String competionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
+
+        getWebEvent();
         viewPager = (JazzyViewPager) findViewById(R.id.viewPager_welcome);
         dotoParendLinearLayout = ViewUtil.findViewById(this, R.id.doto_ly);
         imageView = ViewUtil.findViewById(this, R.id.splash_bg);
         imgIdArray = new int[]{R.drawable.shanping, R.drawable.shanping};
         splash();
+    }
+
+    private void getWebEvent() {
+        Intent i_getvalue = getIntent();
+        String action_ = i_getvalue.getAction();
+
+        if (Intent.ACTION_VIEW.equals(action_)) {
+            Uri uri = i_getvalue.getData();
+            if (uri != null) {
+                competionId = uri.getQueryParameter("id");
+                action = "web";
+            }
+        }
     }
 
     private void splash() {
@@ -48,10 +70,10 @@ public class WelcomeActivity extends Activity {
             setupBanner(imgIdArray);
             viewPager.setVisibility(View.VISIBLE);
         } else {*/
-            imageView.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.GONE);
-            startMainActivity();
-      //  }
+        imageView.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.GONE);
+        startMainActivity();
+        //  }
     }
 
     private void startMainActivity() {
@@ -59,6 +81,10 @@ public class WelcomeActivity extends Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                if (action != null && competionId != null) {
+                    intent.setAction(action);
+                    intent.putExtra("id", Long.valueOf(competionId));
+                }
                 ViewUtil.startActivity(WelcomeActivity.this, intent);
                 finish();
             }
@@ -125,11 +151,13 @@ public class WelcomeActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

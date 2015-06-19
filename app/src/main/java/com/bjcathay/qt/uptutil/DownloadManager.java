@@ -89,7 +89,8 @@ public class DownloadManager{
                                     UpdateModel updateModel = arguments.get(0);
                                     double version = updateModel.getVersion();
                                     String downurl = updateModel.getUrl();
-                                    apkinfo = new ApkInfo(downurl, version, null,0, null, null);
+                                    String description=updateModel.getDescription();
+                                    apkinfo = new ApkInfo(downurl, version, null,0, null, description);
                                     if (apkinfo != null && checkApkVercode()) {//检查版本号
                                        // alreayCheckTodayUpdate();    //设置今天已经检查过更新
                                         handler.sendEmptyMessage(CHECK_SUCCESS);
@@ -113,9 +114,9 @@ public class DownloadManager{
     /* 弹出软件更新提示对话框*/
     private void showNoticeDialog(){
         StringBuffer sb = new StringBuffer();
-      /*  sb*//*.append("版本号："+apkinfo.getApkVersion()+"\n")
-                .append("文件大小："+apkinfo.getApkSize()+"\n")*//*
-                .append("更新日志：\n"+apkinfo.getApkLog());*/
+        sb/*.append("版本号："+apkinfo.getApkVersion()+"\n")
+                .append("文件大小："+apkinfo.getApkSize()+"\n")*/
+                .append("更新日志：\n"+apkinfo.getApkLog());
         Builder builder = new Builder(mContext);
         builder.setTitle("版本更新").setMessage(sb.toString());
         builder.setPositiveButton("下载", new DialogInterface.OnClickListener(){

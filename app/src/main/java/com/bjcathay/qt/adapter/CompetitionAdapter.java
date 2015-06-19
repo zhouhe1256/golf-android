@@ -94,9 +94,9 @@ public class CompetitionAdapter extends BaseAdapter {
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
         holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
-        if (eventModel.getSignedAmount() == 0)
+      /*  if (eventModel.getSignedAmount() == 0)
             holder.detail.setText("正在报名");
-        else
+        else*/
             holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
 
        /* convertView.setOnClickListener(new View.OnClickListener() {

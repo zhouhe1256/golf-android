@@ -136,10 +136,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            finish();
-            return;
-        }
+
         gApplication = GApplication.getInstance();
         initView();
         initEvent();
@@ -155,7 +152,14 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 initImagePath();
             }
         }.start();
-
+        Intent intent = getIntent();
+        if ("web".equals(intent.getAction())) {
+            Long webid = intent.getLongExtra("id", 0l);
+            intent = new Intent(context, CompetitionDetailActivity.class);
+            intent.putExtra("id", webid);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ViewUtil.startActivity(context, intent);
+        }
     }
 
     //把图片从drawable复制到sdcard中
@@ -198,15 +202,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     @Override
     public void call(Arguments arguments) {
-       /* Log.i("argument---",arguments.toString());
-        JSONObject jsonObject = arguments.get(0);
-        if(jsonObject.optBoolean("success")){*/
         BannerListModel bannerListModel = arguments.get(0);
         setupBanner(bannerListModel.getBanners());
-       /* }else{
-            DialogUtil.showMessage("暂无数据");
-        }*/
-
     }
 
     private void initView() {
@@ -258,12 +255,13 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 break;
         }
     }
+
     private long exitTime = 0;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-exitTime) > 2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
@@ -274,11 +272,13 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
