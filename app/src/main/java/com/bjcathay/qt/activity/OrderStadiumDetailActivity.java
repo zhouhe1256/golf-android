@@ -357,8 +357,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
 
             //todo 目前写死
             // hours = DateUtil.getAM(stadiumModel.getDate());
-            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
-            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
+            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
+            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
             hourSelect = hoursAM.get(0);
             beforSelect = "上午";
             //  wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
@@ -378,8 +378,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         } else if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days.clear();
-            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
-            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
+            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
+            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
             //todo
             hourSelect = hoursAM.get(0);
             beforSelect = "上午";
