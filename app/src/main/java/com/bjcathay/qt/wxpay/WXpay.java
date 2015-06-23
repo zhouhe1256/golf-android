@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.WXPayModel;
@@ -133,10 +134,10 @@ public class WXpay {
             //
             // url=activity.getString(R.string.host)+"?id="+Long.toString(orderModel.getId());
             String entity = genProductArgs();
-            Log.e("orionentity", entity);
+            LogUtil.e("orionentity", entity);
             byte[] buf = Util.httpPost(url, entity);
             String content = new String(buf);
-            Log.e("orioncontent", content);
+            LogUtil.e("orioncontent", content);
             Map<String, String> xml = decodeXml(content);
             return xml;
         }
@@ -161,10 +162,10 @@ public class WXpay {
             String sign = genPackageSign(packageParams);
             packageParams.add(new BasicNameValuePair("sign", sign));
             String xmlstring = toXml(packageParams);
-            Log.e("genProductArgs", xmlstring);
+            LogUtil.e("genProductArgs", xmlstring);
             return xmlstring;
         } catch (Exception e) {
-            Log.e(TAG, "genProductArgs fail, ex = " + e.getMessage());
+            LogUtil.e(TAG, "genProductArgs fail, ex = " + e.getMessage());
             return null;
         }
 
@@ -194,7 +195,7 @@ public class WXpay {
         //  show.setText(sb.toString());
         DialogUtil.showMessage(sb.toString());
 
-        Log.e("oriongenPayReq", signParams.toString());
+        LogUtil.e("oriongenPayReq", signParams.toString());
         sendPayReq();
 
     }
@@ -248,7 +249,7 @@ public class WXpay {
 
             return xml;
         } catch (Exception e) {
-            Log.e("orion", e.toString());
+            LogUtil.e("orion", e.toString());
         }
         return null;
 
@@ -266,7 +267,7 @@ public class WXpay {
         }
         sb.append("</xml>");
 
-        Log.e("oriontoXml", sb.toString());
+        LogUtil.e("oriontoXml", sb.toString());
         return sb.toString();
     }
 
@@ -284,7 +285,7 @@ public class WXpay {
 
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
         String appSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
-        Log.e("orionappSign", appSign);
+        LogUtil.e("orionappSign", appSign);
         return appSign;
     }
 
@@ -306,7 +307,7 @@ public class WXpay {
 
 
         String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
-        Log.e("orionpackageSign", packageSign);
+        LogUtil.e("orionpackageSign", packageSign);
         return packageSign;
     }
 }

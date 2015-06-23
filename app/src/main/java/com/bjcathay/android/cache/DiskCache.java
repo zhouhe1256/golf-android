@@ -2,9 +2,11 @@ package com.bjcathay.android.cache;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+
 import com.bjcathay.android.async.WorkQueue;
 import com.bjcathay.android.security.MD5;
+import com.bjcathay.android.util.LogUtil;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -60,7 +62,7 @@ public class DiskCache<K, V> implements ICache<K, V> {
         File parent = file.getParentFile();
         if (!parent.exists()) {
             if (!parent.mkdirs()) {
-                Log.w("DiskCache", "create directory(" + parent + ") failed");
+                LogUtil.w("DiskCache", "create directory(" + parent + ") failed");
                 return;
             }
         }
@@ -136,7 +138,7 @@ public class DiskCache<K, V> implements ICache<K, V> {
                         BaseSerialization.this.write(out, k, v);
                         out.flush();
                     } catch (IOException e) {
-                        Log.w("DiskCache", "save failed: " + e.getMessage());
+                        LogUtil.w("DiskCache", "save failed: " + e.getMessage());
                     } finally {
                         if (out != null) {
                             try {
@@ -158,7 +160,7 @@ public class DiskCache<K, V> implements ICache<K, V> {
                 in = new FileInputStream(file);
                 return read(file, in, k);
             } catch (Exception e) {
-                Log.w("DiskCache", "read " + file + "failed: " + e.getMessage());
+                LogUtil.w("DiskCache", "read " + file + "failed: " + e.getMessage());
                 return null;
             } finally {
                 if (in != null) {

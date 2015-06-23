@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.bjcathay.android.remote.Http;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.wxpay.Constants;
@@ -44,10 +46,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+        LogUtil.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+            LogUtil.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 
             String msg = "";
 
@@ -55,7 +57,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 msg = "支付成功";
                 Intent intent = new Intent();
                 intent.setAction("WXPAY");
-                this.sendBroadcast(intent);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
                 finish();
             } else if (resp.errCode == -1) {
                 msg = "支付失败";

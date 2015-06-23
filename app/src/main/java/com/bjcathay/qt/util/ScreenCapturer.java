@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.bjcathay.android.util.IOUtils;
+import com.bjcathay.android.util.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,7 +64,7 @@ public class ScreenCapturer {
             out.flush();
             return file;
         } catch (Exception e) {
-            Log.w("ScreenCapturer", "save screen shot failed", e);
+            LogUtil.w("ScreenCapturer", "save screen shot failed", e);
             return null;
         } finally {
             IOUtils.closeQuietly(out);

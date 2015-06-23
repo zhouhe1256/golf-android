@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.view.animation.Transformation;
 import android.widget.Scroller;
 
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 
 
@@ -1883,7 +1884,7 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Added by LiHong at 2011/09/07 end =====================
 
         if (localLOGV)
-            Log.v(TAG, String.valueOf(e2.getX() - e1.getX()));
+            LogUtil.v(TAG, String.valueOf(e2.getX() - e1.getX()));
 
         /*
          * Now's a good time to tell our parent to stop intercepting our events! The user has moved
@@ -2945,7 +2946,7 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      */
     protected void Log(String msg) {
         if (localLOGV) {
-            Log.d(TAG, msg);
+            LogUtil.d(TAG, msg);
         }
     }
 

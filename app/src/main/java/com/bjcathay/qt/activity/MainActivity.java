@@ -23,6 +23,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.SizeUtil;
@@ -187,9 +188,12 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     private void initData() {
         PreferencesUtils.putBoolean(this, PreferencesConstant.FRIST_OPEN, false);
+        LocationUtil.getLocation(this);
         BannerListModel.getHomeBanners().done(this);
-        if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false)
-            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+        if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false) {
+            String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
+            String longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), longitude, latitude).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     UserModel userModel = arguments.get(0);
@@ -198,6 +202,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                     }
                 }
             });
+        }
     }
 
     @Override

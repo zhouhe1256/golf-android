@@ -2,7 +2,8 @@ package com.bjcathay.android.async;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+
+import com.bjcathay.android.util.LogUtil;
 
 public class LooperCallbackExecutor implements ICallbackExecutor {
 
@@ -24,7 +25,7 @@ public class LooperCallbackExecutor implements ICallbackExecutor {
                 try {
                     callback.call(arguments);
                 } catch (Exception e) {
-                    Log.e("async", "run callback failed", e);
+                    LogUtil.e("async", "run callback failed", e);
                 }
             }
         };

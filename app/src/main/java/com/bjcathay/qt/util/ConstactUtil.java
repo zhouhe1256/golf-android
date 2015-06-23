@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.model.BookModel;
 import com.igexin.getuiext.data.a;
 
@@ -52,7 +53,7 @@ public class ConstactUtil {
                 bookModel.setPhone(number_);
                 String name = phoneCursor.getString(3).replace("-", "");
                 bookModel.setName(phoneCursor.getString(3).replace("-", ""));
-                Log.i("phone:name:", number_ + ":" + name);
+                LogUtil.i("phone:name:", number_ + ":" + name);
                 phoneCursor.moveToNext();
                 if (ValidformUtil.isMobileNo(number_))
                     bookModelList.add(bookModel);
@@ -82,8 +83,8 @@ public class ConstactUtil {
             BookModel bookModel = new BookModel();
             String contactId = cursor.getString(contactIdIndex);
             String name = cursor.getString(nameIndex);
-            Log.i(TAG, contactId);
-            Log.i(TAG, name);
+            LogUtil.i(TAG, contactId);
+            LogUtil.i(TAG, name);
             bookModel.setName(name);
 
 			/*
@@ -99,7 +100,7 @@ public class ConstactUtil {
             }
             while (phones.moveToNext()) {
                 String phoneNumber = phones.getString(phoneIndex);
-                Log.i(TAG, phoneNumber);
+                LogUtil.i(TAG, phoneNumber);
                 String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
                 Matcher m = p.matcher(phoneNumber);
@@ -124,7 +125,7 @@ public class ConstactUtil {
             }
             while (emails.moveToNext()) {
                 String email = emails.getString(emailIndex);
-                Log.i(TAG, email);
+                LogUtil.i(TAG, email);
                 bookModel.setData(email);
             }
             bookModelList.add(bookModel);

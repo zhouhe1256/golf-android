@@ -7,9 +7,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.bjcathay.android.json.JSONUtil;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
@@ -39,7 +39,7 @@ public class MessageReceiver extends BroadcastReceiver {
                 boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid, messageid, 90001);
                 if (payload != null) {
                     String data = new String(payload);
-                    Log.d("GetuiSdkDemo", "Got Payload:" + data);//{"type":"ORDER","target":33}
+                    LogUtil.d("GetuiSdkDemo", "Got Payload:" + data);//{"type":"ORDER","target":33}
                     PushModel pushModel = JSONUtil.load(PushModel.class, data);
                     if (pushModel != null) {
                         handlePush(context, pushModel);

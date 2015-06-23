@@ -11,9 +11,9 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!--个推权限start-->
@@ -42,131 +42,222 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 支付权限end-->
     <!--地图-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
     <application
         android:name="com.bjcathay.qt.application.GApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.bjcathay.qt.activity.WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <data android:scheme="golfqt"/>
+                <data android:scheme="golfqt" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name="com.bjcathay.qt.activity.AwardActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.CompetitionActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.PlaceListActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.OrderSucActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.ExerciseActivity"
-            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.bjcathay.qt.activity.AwardActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.CompetitionActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.PlaceListActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.OrderSucActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.ExerciseActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name="com.bjcathay.qt.activity.LoginActivity"
             android:theme="@style/activityTheme"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.UserCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.CompetitionDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activityTheme"/>
-        <activity android:name="com.bjcathay.qt.activity.MyOrderActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.SendFriendActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.OrderDetailActivity"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.UserCenterActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.CompetitionDetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/activityTheme" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MyOrderActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.SendFriendActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.OrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name="com.bjcathay.qt.activity.ContactActivity"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.MyCompetitionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MyCompetitionActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
-        <activity android:name="com.bjcathay.qt.activity.MyMessageActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.MyInformationActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.MyExchangeActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.ExchangeSucActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.UserEditNnameActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.SettingActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.FeedbackActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.OrderSucTEActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.bjcathay.qt.activity.OrderSucTuanActivity"
-            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MyMessageActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MyInformationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.MyExchangeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ExchangeSucActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.UserEditNnameActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.FeedbackActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.OrderSucTEActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.OrderSucTuanActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <!--微信APPID-->
-        <activity android:name="com.bjcathay.qt.activity.SelectPayWayActivity"
-            android:screenOrientation="portrait" >
+        <activity
+            android:name="com.bjcathay.qt.activity.SelectPayWayActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="wxf65eb087de20ad75" />
             </intent-filter>
         </activity>
 
 
-        <activity android:name="com.bjcathay.qt.activity.ForgetPwdActivity"
+        <activity
+            android:name="com.bjcathay.qt.activity.ForgetPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activityTheme"/>
-        <activity android:name="com.bjcathay.qt.activity.ForgetSetNewPwdActivity"
+            android:exported="false"
+            android:theme="@style/activityTheme" />
+        <activity
+            android:name="com.bjcathay.qt.activity.ForgetSetNewPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activityTheme"/>
-        <activity android:name="com.bjcathay.qt.activity.EditPwdActivity" />
-        <activity android:name="com.bjcathay.qt.activity.UserEditNicknameActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.GolfCourseDetailActicity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.ShareActivity"
+            android:exported="false"
+            android:theme="@style/activityTheme" />
+        <activity
+            android:name="com.bjcathay.qt.activity.EditPwdActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="com.bjcathay.qt.activity.UserEditNicknameActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GolfCourseDetailActicity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ShareActivity"
             android:theme="@style/activityTheme"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyFriendActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.AboutGLBActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.AboutActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.PaySuccessActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.BaiduAddressActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".widget.DSActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.AttendSucActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.SendToPhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.ShareWithFriendsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SendExchangeSucActivity"/>
-        <activity android:name=".activity.OrderStadiumDetailActivity"/>
-
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyFriendActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AboutGLBActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PaySuccessActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BaiduAddressActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".widget.DSActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AttendSucActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SendToPhoneActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ShareWithFriendsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SendExchangeSucActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OrderStadiumDetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -227,7 +318,7 @@
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait"></activity>
         <!--配置弹框activity-->
         <activity
             android:name="com.igexin.getuiext.activity.GetuiExtActivity"
@@ -252,18 +343,7 @@
             android:name="com.igexin.getuiext.service.GetuiExtService"
             android:process=":pushservice" />
         <!--个推download模块配置-->
-        <service
-            android:name="com.igexin.download.DownloadService"
-            android:process=":pushservice" />
-        <receiver android:name="com.igexin.download.DownloadReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        <provider
-            android:name="com.igexin.download.DownloadProvider"
-            android:process=":pushservice"
-            android:authorities="downloads.com.bjcathay.qt" />
+
         <!--替换为downloads.第三方包名-->
 
         <!-- 配置第三方Receiver -->
@@ -306,8 +386,12 @@
         <!--支付end-->
 
         <!--友盟 android appkey :555d71d467e58ecee60031b1-->
-        <meta-data android:value="555d71d467e58ecee60031b1" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:name="UMENG_CHANNEL" android:value="${CHANNEL_NAME}" />
+        <meta-data
+            android:value="555d71d467e58ecee60031b1"
+            android:name="UMENG_APPKEY"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${CHANNEL_NAME}" />
 
         <!--支付宝-->
         <activity

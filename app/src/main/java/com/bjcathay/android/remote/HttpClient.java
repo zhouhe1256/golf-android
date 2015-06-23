@@ -11,6 +11,7 @@ import com.bjcathay.android.async.IPromise;
 import com.bjcathay.android.async.State;
 import com.bjcathay.android.cache.ICache;
 import com.bjcathay.android.json.JSONUtil;
+import com.bjcathay.android.util.LogUtil;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -393,7 +394,7 @@ public class HttpClient implements ICancellable {
             if (url.contains("?")) {
                 return url + "&" + queryString;
             }
-            Log.e("url", url + "?" + queryString);
+            LogUtil.e("url", url + "?" + queryString);
             return url + "?" + queryString;
         }
 

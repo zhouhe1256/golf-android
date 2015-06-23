@@ -67,6 +67,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         // listView = ViewUtil.findViewById(this, R.id.place_list);
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
         topView.setHomeBackVisiable();
+        topView.setSearchVisiable();
         topView.setTitleText("约场");
         stadiumModelList = new ArrayList<ProductModel>();
         placeListAdapter = new PlaceListAdapter(stadiumModelList, this);
@@ -87,8 +88,8 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= stadiumModelList.size()) {
                     //todo
-                     Intent intent = new Intent(PlaceListActivity.this, OrderStadiumDetailActivity.class);
-                  //  Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
+                    Intent intent = new Intent(PlaceListActivity.this, OrderStadiumDetailActivity.class);
+                    //  Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
                     intent.putExtra("type", stadiumModelList.get(i - 1).getType());
@@ -203,11 +204,16 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.home_back_img:
-                Intent intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, MainActivity.class);
                 ViewUtil.startTopActivity(this, intent);
                 finish();
+                break;
+            case R.id.title_search_img:
+                intent = new Intent(this, SearchActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
         }
     }
@@ -225,6 +231,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

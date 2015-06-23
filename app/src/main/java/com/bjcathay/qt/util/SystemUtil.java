@@ -18,7 +18,7 @@ import java.util.Locale;
 public class SystemUtil {
     /**
      * 获取操作系统版本
-     * */
+     */
     public static String getVersion() {
         String[] version = {"null", "null", "null", "null"};
         String str1 = "/proc/version";
@@ -38,21 +38,23 @@ public class SystemUtil {
         version[2] = Build.MODEL;//model
         version[3] = Build.DISPLAY;//system version
         //3.0.64-mokee-gf91c1d54.4.4GT-I9100mk_i9100-userdebug+4.4.4+KTU84Q+7ecadc7930+test-keys
-       // return version[0]+version[1]+version[2]+version[3];
-        return "Android"+version[1];
+        // return version[0]+version[1]+version[2]+version[3];
+        return "Android" + version[1];
     }
+
     /**
      * 获取当前版本号
+     *
      * @param mContext
      * @return
      */
-    public static String getCurrentVersionName(Context mContext){
+    public static String getCurrentVersionName(Context mContext) {
         // 获取packagemanager的实例
-        PackageManager packageManager =mContext.getPackageManager();
+        PackageManager packageManager = mContext.getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = null;
         try {
-            packInfo = packageManager.getPackageInfo(mContext.getPackageName(),0);
+            packInfo = packageManager.getPackageInfo(mContext.getPackageName(), 0);
             String version = packInfo.versionName;
             return version;
         } catch (PackageManager.NameNotFoundException e) {

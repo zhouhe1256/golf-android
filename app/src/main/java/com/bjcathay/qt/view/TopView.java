@@ -25,6 +25,7 @@ public class TopView extends LinearLayout {
     private ImageView homeBack;
     private ImageView share;
     private ImageView setting;
+    private ImageView searchimg;
     private ImageView exchange;
     private ImageView closeimg;
 
@@ -39,6 +40,7 @@ public class TopView extends LinearLayout {
         homeBack = ViewUtil.findViewById(this, R.id.home_back_img);
         share = ViewUtil.findViewById(this, R.id.title_share_img);
         setting = ViewUtil.findViewById(this, R.id.title_setting_img);
+        searchimg = ViewUtil.findViewById(this, R.id.title_search_img);
         exchange = ViewUtil.findViewById(this, R.id.title_exchange_img);
         closeimg = ViewUtil.findViewById(this, R.id.title_delete_img);
 
@@ -68,6 +70,10 @@ public class TopView extends LinearLayout {
     public void setSettingVisiable() {
         setting.setVisibility(VISIBLE);
     }
+    public void setSearchVisiable() {
+        searchimg.setVisibility(VISIBLE);
+    }
+
 
     public void setExchangeVisiable() {
         exchange.setVisibility(VISIBLE);

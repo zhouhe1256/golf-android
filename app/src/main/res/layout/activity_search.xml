@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_search_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/select_city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/main_textSize"
+            android:drawableLeft="@drawable/ic_select_city"
+            android:background="@android:color/transparent"
+            android:textColor="@color/exchange_text_color"
+            android:text="选择城市" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_into_list"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/input_place"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/main_textSize"
+            android:drawableLeft="@drawable/ic_input_place"
+            android:background="@android:color/transparent"
+            android:textColor="@color/exchange_text_color"
+            android:text="输入关键字（比如北京伯爵园）" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_into_list"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/touying_bg" />
+
+    <Button
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/select_sure"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/main_textSize"
+        android:textColor="@color/white"
+        android:background="@drawable/yellow_big_bg"
+        android:text="开始搜索"
+        android:onClick="onClick" />
+</LinearLayout>

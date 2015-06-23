@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 
 import java.util.HashMap;
@@ -202,7 +203,7 @@ public class JazzyViewPager extends ViewPager {
 //}
 
 	private void logState(View v, String title) {
-		Log.v(TAG, title + ": ROT (" + ViewHelper.getRotation(v) + ", " +
+        LogUtil.v(TAG, title + ": ROT (" + ViewHelper.getRotation(v) + ", " +
                 ViewHelper.getRotationX(v) + ", " +
                 ViewHelper.getRotationY(v) + "), TRANS (" +
                 ViewHelper.getTranslationX(v) + ", " +

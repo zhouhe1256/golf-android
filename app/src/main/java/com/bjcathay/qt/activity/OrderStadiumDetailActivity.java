@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
@@ -440,7 +441,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         select = year + "-" + day.substring(0, 2) + "-"
                 + (daysub.length() == 1 ? "0" + daysub : daysub)
                 + " " + (hourSelect.length() == 1 ? "0" + hourSelect : hourSelect) + ":00";
-        Log.e("选择的日期是", select);
+        LogUtil.e("选择的日期是", select);
         // getDayPrice(stadiumModel.getPrices());
         return select;
     }

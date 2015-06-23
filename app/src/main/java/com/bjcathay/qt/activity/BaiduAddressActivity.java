@@ -25,6 +25,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.util.DialogUtil;
@@ -252,7 +253,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         try {
             intent = Intent.getIntent(bduri);
             startActivity(intent); //启动调用
-            Log.e("GasStation", "百度地图客户端已经安装");
+            LogUtil.e("GasStation", "百度地图客户端已经安装");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -275,7 +276,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         try {
             intent = Intent.getIntent(sb.toString());
             startActivity(intent); //启动调用
-            Log.e("GasStation", "高德地图客户端已经安装");
+            LogUtil.e("GasStation", "高德地图客户端已经安装");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -299,7 +300,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
         try {
             intent = Intent.getIntent(sb.toString());
             startActivity(intent); //启动调用
-            Log.e("GasStation", "腾讯地图客户端已经安装");
+            LogUtil.e("GasStation", "腾讯地图客户端已经安装");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
