@@ -258,6 +258,10 @@
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
+        <activity
+            android:name=".activity.CitySelectActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
