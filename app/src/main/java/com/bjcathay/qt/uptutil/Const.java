@@ -13,7 +13,7 @@ public final class Const {
     /* 检查是否升级url*/
     public final static String apkCheckUpdateUrl = "";
 
-    public static final String apkSavepath = "/sdcard/golf/";
+    public static final String apkSavepath = "/sdcard/qtgolf/";
 
     public static final String saveFileName = apkSavepath + "qtgolf.apk";
 

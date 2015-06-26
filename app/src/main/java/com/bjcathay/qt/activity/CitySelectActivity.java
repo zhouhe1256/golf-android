@@ -145,7 +145,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             cityAdapter.updateListView(pModels);
                             setListViewHeight(listView);
                         }
+                    }).fail(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            DialogUtil.showMessage(getString(R.string.empty_net_text));
+                        }
                     });
+                }
+            }).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    DialogUtil.showMessage(getString(R.string.empty_net_text));
                 }
             });
         } else {

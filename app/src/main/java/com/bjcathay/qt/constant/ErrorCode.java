@@ -90,7 +90,7 @@ public enum ErrorCode {
     PROP_CONDITION_NOT_MEET(14004, "赠送用户已被冻结"),
 
     GIVE_USER_FROZE(14005, "参与条件尚未满足"),
-
+    ACTIVITY_SIGN_NOT_START(12005, "赛事还没有开始"),
     ACTIVITY_CONDITION_NOT_MEET(14006, "参与条件尚未满足"),
     FEED_BACK(15001, "反馈内容不能为空");
 
