@@ -7,11 +7,11 @@
     图片地址 http://image.zlkcx.com/-->
   <!--  <string name="host">http://192.168.1.22:8080</string>
     <string name="img_host">http://192.168.1.22:8080</string>-->
-   <!-- <string name="host">http://api0.bjcathay.com:81</string>
-    <string name="img_host">http://api0.bjcathay.com:81</string>-->
+    <string name="host">http://api0.bjcathay.com:81</string>
+    <string name="img_host">http://api0.bjcathay.com:81</string>
     <!--接口：http://192.168.1.54:8081/ 图片地址：http://192.168.1.54:8081/-->
-    <string name="host">http://api.7tiegolf.com</string>
-    <string name="img_host">http://image.7tiegolf.com</string>
+    <!--<string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>-->
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -77,13 +77,13 @@
 
 
 
-    <string name="empty_com_text">哎呀,您还没有赛事，赶快去参加吧～</string>
-    <string name="empty_msg_text">哎呀,您还没有消息呢～</string>
-    <string name="empty_order_text">哎呀,您还没有订单，赶快去下单吧～</string>
-    <string name="empty_exchange_text">哎呀,您还没有兑换卡，赶快去兑换吧～</string>
+    <string name="empty_com_text">哎呀，您还没有赛事，赶快去参加吧～</string>
+    <string name="empty_msg_text">哎呀，您还没有消息呢～</string>
+    <string name="empty_order_text">哎呀，您还没有订单，赶快去下单吧～</string>
+    <string name="empty_exchange_text">哎呀，您还没有“徽章”，赶紧邀请朋友赚果岭币吧！</string>
     <string name="empty_shop_text">一大波兑换卡即将来临～一起期待吧～</string>
     <string name="empty_free_compet_text">一大波赛事即将来临～一起期待吧～</string>
-    <string name="empty_friend_text">哎呀,您的亲友团暂时没人，赶快去壮大吧～</string>
+    <string name="empty_friend_text">哎呀，您的亲友团暂时没人，赶快去壮大吧～</string>
     <string name="empty_net_text">无网络，请您检查网络链接后重试</string>
     <string name="empty_sys_text">系统异常，请稍后重试</string>
     <!--地址地图展示-->
@@ -97,13 +97,13 @@
     <string name="dialog_cant_to_send_a_card">抱歉，用户\n%1$s\n不是我们的会员，无法赠送。</string>
     <string name="dialog_sure_to_send_a_card">您将把一枚%1$s送给你的小伙伴%2$s</string>
     <string name="what_is_glb">什么是果岭币</string>
-    <string name="this_is_glb">果岭币是7铁内部流通的货币类种，通过发展自己的亲友团并得到亲友团的捧场来获得，当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以免费参加相关赛事。</string>
+    <string name="this_is_glb">果岭币是7铁赠送的虚拟货币，可兑换平台内不同级别的赛事资格。\n每个果岭币含金量约100~150元人民币。\n果岭币可以在7铁会员间相互馈赠。</string>
     <string name="how_to_get_glb">如何获得果岭币</string>
-    <string name="this_way_to_get_glb">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。
-</string>
+    <string name="this_way_to_get_glb">邀请一名球友注册7铁会员，并成功完成一次订场、打球，可获得一枚果岭币。</string>
     <string name="pay_success_note">请您在%1$s到%2$s球场尽情挥杆~</string>
     <string name="attend_success_note">您已成功报名%1$s.</string>
     <string name="copyright_text">copyright©2015  北京国泰银科科技有限公司  版权所有</string>
     <string name="share_with_friend_text">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以</string>
     <string name="share_with_friend_text_color"><font color='#FFAC41'>免费</font>参加诸如<font color='#FFAC41'>美国圆石滩邀请赛</font>之类的赛事。</string>
+    <string name="history_clear"><u>清除历史记录</u></string>
 </resources>

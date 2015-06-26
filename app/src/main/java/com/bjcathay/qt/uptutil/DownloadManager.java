@@ -111,6 +111,47 @@ public class DownloadManager{
             }
         }.start();
     }
+    public void checkDownload(boolean flag){
+       // if(isAccord) progressDialog = ProgressDialog.show(mContext, "", "正在检查更新内容...");
+        //progressDialog.setCanceledOnTouchOutside(true);
+        new Thread() {
+            @Override
+            public void run() {
+                if(!IntentUtil.isConnect(mContext)){ //检查网络连接是否正常
+                    handler.sendEmptyMessage(CHECK_NETFAIL);
+                }else if(/*checkTodayUpdate() ||*/ isAccord){//判断今天是否已自动检查过更新 ；如果手动检查更新，直接进入
+                    //String result = HttpRequestUtil.getSourceResult(Const.apkCheckUpdateUrl, null, mContext);
+
+                    try {
+                        UpdateModel.sendVersion().done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                try {
+                                    UpdateModel updateModel = arguments.get(0);
+                                    double version = updateModel.getVersion();
+                                    String downurl = updateModel.getUrl();
+                                    String description=updateModel.getDescription();
+                                    apkinfo = new ApkInfo(downurl, version, null,0, null, description);
+                                    if (apkinfo != null && checkApkVercode()) {//检查版本号
+                                        // alreayCheckTodayUpdate();    //设置今天已经检查过更新
+                                        handler.sendEmptyMessage(CHECK_SUCCESS);
+                                    } else {
+                                      //  handler.sendEmptyMessage(CHECK_NOUPGRADE);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                  //  handler.sendEmptyMessage(CHECK_FAIL);
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                      //  handler.sendEmptyMessage(CHECK_FAIL);
+                    }
+                }
+            }
+        }.start();
+    }
     /* 弹出软件更新提示对话框*/
     private void showNoticeDialog(){
         StringBuffer sb = new StringBuffer();

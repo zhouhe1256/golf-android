@@ -42,8 +42,12 @@ public class ProductListModel implements Serializable {
     private String now;
 
     private static IContentDecoder<ProductListModel> decoder = new IContentDecoder.BeanDecoder<ProductListModel>(ProductListModel.class);
-    public static IPromise productList(int page) {
+    public static IPromise productList(int page,String lat,String lon ) {
         return Http.instance().get(ApiUrl.PRODUCT_LIST).
-                param("page", page).contentDecoder(decoder).run();
+                param("page", page).param("lat", lat).param("lon", lon).contentDecoder(decoder).run();
+    }
+    public static IPromise searchProduct(String cityId,String golfCourseId) {
+        return Http.instance().get(ApiUrl.PRODUCT_RESEARCH).
+                param("cityId", cityId).param("golfCourseId", golfCourseId).contentDecoder(decoder).run();
     }
 }

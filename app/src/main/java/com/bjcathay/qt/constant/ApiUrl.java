@@ -57,6 +57,14 @@ public class ApiUrl {
     public static final String SHARE_COMPETITION = "/api/share/competitions"; //分享赛事 (GET /api/share/competitions)
     public static final String SHARE_ORDER = "/api/share/orders"; //分享订单 (GET /api/share/orders)
     public static final String SOFT_UPDATE = "/api/update"; //检查更新(GET /api/update)
+    public static final String PRODUCT_RESEARCH = "/api/products/search"; //产品搜索(GET /api/products/search)
+    public static final String GOLF_RESEARCH = "/api/golfCourses"; //获取球场信息(GET /api/golfCourses)
+    public static final String PROVINCES = "/api/province"; //获取省份(GET /api/province)
+    public static final String CITIES = "/api/cities"; //获取城市(GET /api/cities)
+
+
+
+
 
 
     //产品详情(GET /api/products/:id)

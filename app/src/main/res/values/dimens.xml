@@ -10,6 +10,7 @@
     <dimen name="small_margin">6dp</dimen>
     <dimen name="xsmall_margin">4dp</dimen>
     <dimen name="main_textSize">17sp</dimen>
+    <dimen name="city_title">16sp</dimen>
     <dimen name="sub_textSize">14sp</dimen>
     <dimen name="small_textSize">12dp</dimen>
     <dimen name="xsmall_textSize">6dp</dimen>

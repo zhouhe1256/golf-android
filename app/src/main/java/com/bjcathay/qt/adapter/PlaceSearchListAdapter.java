@@ -25,22 +25,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by dengt on 15-4-20.
+ * Created by bjcathay on 15-6-25.
  */
-public class PlaceListAdapter extends BaseAdapter {
+public class PlaceSearchListAdapter extends BaseAdapter {
     private List<ProductModel> items;
-    private Activity context;
+    private ProductSearchResultActivity context;
     private int count = 0;
-
-    public PlaceListAdapter(List<ProductModel> items, PlaceListActivity activity) {
-        if (items == null) {
-            items = new ArrayList<ProductModel>();
-        }
-        this.items = items;
-        this.context = activity;
-    }
-
-    public PlaceListAdapter(List<ProductModel> items, ProductSearchResultActivity activity) {
+    public PlaceSearchListAdapter(List<ProductModel> items, ProductSearchResultActivity activity) {
         if (items == null) {
             items = new ArrayList<ProductModel>();
         }
@@ -94,12 +85,7 @@ public class PlaceListAdapter extends BaseAdapter {
             holder.tuanCount.setVisibility(View.VISIBLE);
             holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
-            Date start = null;
-            if (context instanceof PlaceListActivity) {
-                start = ((PlaceListActivity) context).getNow();
-            } else if (context instanceof PlaceListActivity) {
-                start = ((ProductSearchResultActivity) context).getNow();
-            }
+            Date start = context.getNow();
             //Date start = context.getNow();
             Date end = DateUtil.stringToDate(productModel.getEnd());
             long diff = end.getTime() - start.getTime();
@@ -183,3 +169,4 @@ public class PlaceListAdapter extends BaseAdapter {
         }
     }
 }
+

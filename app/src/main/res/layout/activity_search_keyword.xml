@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
+
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_search_keyword_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/home_title_color" />
+
+    <EditText
+        android:id="@+id/search_key"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="#FCFCFC"
+        android:text=""
+        android:hint="(球场名称，地理位置等关键字)"
+        android:textColorHint="@color/exchange_text_color"
+        android:textSize="@dimen/sub_textSize"
+        android:singleLine="true"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:textColor="#363636"
+        android:paddingBottom="20dp"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/golflist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@drawable/comm_btn_selector"
+        android:scrollbars="none"
+        android:layout_gravity="center" />
+    <Button
+        android:id="@+id/history_clear"
+        android:layout_width="150dp"
+        android:padding="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/home_title_color"
+        android:textSize="@dimen/sub_textSize"
+        android:text="@string/history_clear"
+        android:visibility="gone"
+        android:background="@null" />
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/select_click">
+
+    <TextView
+        android:id="@+id/golf_search_name"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sub_textSize"
+        android:textColor="@color/mian_text_color"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="jfdsajds" />
+</LinearLayout>

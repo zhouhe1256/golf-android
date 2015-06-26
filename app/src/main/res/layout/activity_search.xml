@@ -23,6 +23,7 @@
         android:clickable="true">
 
         <TextView
+            android:id="@+id/select_city_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -59,6 +60,7 @@
         android:clickable="true">
 
         <TextView
+            android:id="@+id/select_place_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"

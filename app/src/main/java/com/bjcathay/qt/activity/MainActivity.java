@@ -23,6 +23,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.uptutil.DownloadManager;
 import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -203,6 +204,9 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 }
             });
         }
+        //版本更新
+        DownloadManager downManger = new DownloadManager(this, true);
+        downManger.checkDownload(true);
     }
 
     @Override

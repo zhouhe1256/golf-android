@@ -46,4 +46,5 @@
     <color name="background_color">#E6E6E6</color>
     <color name="wheel_timebtn_nor">#54a3fa</color>
     <color name="wheel_timebtn_pre">#CCCCCC</color>
+    <color name="city_color">#f9f9f9</color>
 </resources>

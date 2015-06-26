@@ -299,6 +299,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
+        if(imaUrl!=null)
         ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this);
     }
@@ -307,6 +308,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     @Override
     public void call(Arguments arguments) {
         stadiumModel = arguments.get(0);
+        if(imaUrl==null)
+            ImageViewAdapter.adapt(imageView, stadiumModel.getImageUrl(), R.drawable.exchange_default);
         topView.setTitleText(stadiumModel.getName());
         //控制LIMIT最低人数
         if ("LIMIT".equals(stadiumModel.getType())) {
