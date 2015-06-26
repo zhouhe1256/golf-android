@@ -81,13 +81,13 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
                 ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
                 String address = addressComponent.city;
-                if (address.endsWith("市")) {
+                /*if (address.endsWith("市")) {
                     address = address.substring(0, address.length() - 1);
-                }
+                }*/
                 if (!getCity.isEmpty()) {
                     int j = 0;
                     for (int i = 0; i < getCity.size(); i++) {
-                        if (address.equals(getCity.get(i).getName())) {
+                        if (getCity.get(i).getName().startsWith(address)) {
                             j = i;
                             break;
                         }
@@ -103,9 +103,13 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         });
         String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
         String longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
-        LatLng ptCenter = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                .location(ptCenter));
+        if (latitude != null && longitude != null) {
+            LatLng ptCenter = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                    .location(ptCenter));
+        }else{
+            DialogUtil.showMessage("请打开位置定位以获取您的位置");
+        }
     }
 
     private void initData() {
@@ -135,10 +139,11 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             DBManager.getInstance().addCitys(getCity);
                             pModels = CitySelectUtil.getCities(province, getCity);
                             cModels = CitySelectUtil.getHot(getCity);
-                            setListViewHeight(listView);
+
                             //hotCityAdapter.notifyDataSetChanged();
                             hotCityAdapter.updateListView(cModels);
                             cityAdapter.updateListView(pModels);
+                            setListViewHeight(listView);
                         }
                     });
                 }

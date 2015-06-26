@@ -117,11 +117,11 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     }
 
     private void setImageBackground(int currentPosition) {
-        if (currentPosition == 4) {
+        /*if (currentPosition == 4) {
             dotoParendLinearLayout.setVisibility(View.INVISIBLE);
-        } else {
+        } else {*/
             dotoParendLinearLayout.setVisibility(View.VISIBLE);
-        }
+      //  }
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {

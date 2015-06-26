@@ -30,8 +30,10 @@ public class LocationUtil {
         LogUtil.i("8023", "------位置服务：" + providerName);
         if (providerName != null) {
             Location location = lm.getLastKnownLocation(providerName);
-            PreferencesUtils.putString(context,PreferencesConstant.LATITUDE,String.valueOf(location.getLatitude()));
-            PreferencesUtils.putString(context,PreferencesConstant.LONGITUDE,String.valueOf(location.getLongitude()));
+            if (location != null) {
+                PreferencesUtils.putString(context, PreferencesConstant.LATITUDE, String.valueOf(location.getLatitude()));
+                PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE, String.valueOf(location.getLongitude()));
+            }
             LogUtil.i("8023", "-------" + location);
             return location;
         } else {
