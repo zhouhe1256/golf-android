@@ -81,9 +81,9 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
                 ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
                 String address = addressComponent.city;
-                /*if (address.endsWith("市")) {
+                if (address.endsWith("市")) {
                     address = address.substring(0, address.length() - 1);
-                }*/
+                }
                 if (!getCity.isEmpty()) {
                     int j = 0;
                     for (int i = 0; i < getCity.size(); i++) {
@@ -105,6 +105,8 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         String longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
         if (latitude != null && longitude != null) {
             LatLng ptCenter = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            //113.134437,41.014679
+            //LatLng ptCenter = new LatLng(41.014679,113.134437);
             mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                     .location(ptCenter));
         }else{
