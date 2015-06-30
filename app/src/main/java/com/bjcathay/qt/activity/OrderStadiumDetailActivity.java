@@ -334,7 +334,9 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             beforSelect = tuan_am_pm;
             //   wheelView1.setData(minits);
             if ("下午".equals(tuan_am_pm)) {
-                hoursPM = DateUtil.getPMShort(stadiumModel.getDate());
+               // hoursPM = DateUtil.getPMShort(stadiumModel.getDate());
+               // hoursPM.add(stadiumModel.getDate());
+                hoursPM=DateUtil.To12(stadiumModel.getDate());
                 hourSelect = hoursPM.get(0);
             } else {
                 hoursAM.add(stadiumModel.getDate());

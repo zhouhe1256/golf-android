@@ -111,12 +111,14 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
             return;
         }
         if (phone.length() > 0) {
-            time.start();
+            userCodeBtn.setClickable(false);
+
             UserModel.sendCheckCode(phone, "FORGET_PWD").done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
+                        time.start();
                        // DialogUtil.showMessage("验证码已发送");
                     } else {
                         time.cancel();
@@ -125,6 +127,12 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
                         int code = jsonObject.optInt("code");
                         DialogUtil.showMessage(ErrorCode.getCodeName(code));
                     }
+                }
+            }).fail(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    userCodeBtn.setClickable(true);
+                    DialogUtil.showMessage("网络出现故障");
                 }
             });
         }

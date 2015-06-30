@@ -47,25 +47,23 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         LogUtil.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             LogUtil.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-
             String msg = "";
-
+            Intent intent = new Intent();
+            intent.setAction("WXPAY");
             if (resp.errCode == 0) {
                 msg = "支付成功";
-                Intent intent = new Intent();
-                intent.setAction("WXPAY");
-                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-                finish();
+                intent.putExtra("tag","sucess");
             } else if (resp.errCode == -1) {
                 msg = "支付失败";
-                finish();
+                intent.putExtra("tag","fail");
             } else if (resp.errCode == -2) {
                 msg = "用户已取消";
-                finish();
+                intent.putExtra("tag","cancal");
             }
+            /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(intent);
+            finish();
             DialogUtil.showMessage(msg);
 
           /*  AlertDialog.Builder builder = new AlertDialog.Builder(this);

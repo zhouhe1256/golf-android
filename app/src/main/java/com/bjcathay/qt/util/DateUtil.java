@@ -243,7 +243,22 @@ public class DateUtil {
         }
         return null;
     }
+    public static List<String> To12(String pm) {
 
+        try {
+            List<String> ams = new ArrayList<String>();
+            DateFormat dff = new SimpleDateFormat("hh:mm");
+            Date dt = dff.parse(pm);
+            Calendar end = Calendar.getInstance();
+            end.setTime(dt);
+            Date a = end.getTime();
+            ams.add(dff.format(a));
+            return ams;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static List<String> getPMShort(String pm) {
 
         try {

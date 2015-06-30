@@ -70,7 +70,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
         topView.setHomeBackVisiable();
         topView.setSearchVisiable();
-        topView.setTitleText("约场");
+        topView.setTitleText("推荐");
         stadiumModelList = new ArrayList<ProductModel>();
         placeListAdapter = new PlaceListAdapter(stadiumModelList, this);
 

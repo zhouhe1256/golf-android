@@ -36,7 +36,7 @@ import org.json.JSONObject;
  */
 public class SelectPayWayActivity extends Activity implements View.OnClickListener, Alipay.PaySucessOrNot {
     private IWXAPI api;
-    private Activity context;
+    private Activity activity;
     private TopView topView;
     LinearLayout ipay;
     LinearLayout yinlian;
@@ -53,6 +53,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_detail);
+        activity = this;
         initView();
         initReceiver();
         initData();
@@ -146,16 +147,16 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {*/
-                           // Intent intent;
-                            if ("GROUP".equals(orderModel.getType())) {
-                                intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
-                                intent.putExtra("id", orderModel.getId());
-                            } else {
-                                intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
-                            }
-                            intent.putExtra("order", orderModel);
-                            ViewUtil.startActivity(SelectPayWayActivity.this, intent);
-                            finish();
+                // Intent intent;
+                if ("GROUP".equals(orderModel.getType())) {
+                    intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+                    intent.putExtra("id", orderModel.getId());
+                } else {
+                    intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+                }
+                intent.putExtra("order", orderModel);
+                ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                finish();
                        /* } else {
                             int code = jsonObject.optInt("code");
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
@@ -194,22 +195,27 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if ("WXPAY".equals(action)) {
-                findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
+                activity.findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
               /*  OrderModel.orderVerify(orderModel.getId()).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {*/
-                            //Intent intent;
-                            if ("GROUP".equals(orderModel.getType())) {
-                                intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
-                                intent.putExtra("id", orderModel.getId());
-                            } else {
-                                intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
-                            }
-                            intent.putExtra("order", orderModel);
-                            ViewUtil.startActivity(SelectPayWayActivity.this, intent);
-                            finish();
+                //Intent intent;
+                String tag = intent.getStringExtra("tag");
+                if ("sucess".equals(tag)) {
+                    if ("GROUP".equals(orderModel.getType())) {
+                        intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+                        intent.putExtra("id", orderModel.getId());
+                    } else {
+                        intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+                    }
+                    intent.putExtra("order", orderModel);
+                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                    finish();
+                } else {
+
+                }
                        /* } else {
                             int code = jsonObject.optInt("code");
                             DialogUtil.showMessage(ErrorCode.getCodeName(code));
@@ -230,11 +236,13 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

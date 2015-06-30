@@ -56,9 +56,9 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     private void initView() {
         // listView = ViewUtil.findViewById(this, R.id.place_list);
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
-        topView.setHomeBackVisiable();
-        topView.setSearchVisiable();
-        topView.setTitleText("约场");
+        topView.setTitleBackVisiable();
+        //topView.setSearchVisiable();
+        topView.setTitleText("相关球场");
         stadiumModelList = new ArrayList<ProductModel>();
         placeListAdapter = new PlaceSearchListAdapter(stadiumModelList, this);
 
@@ -71,8 +71,8 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     private void initEvent() {
         //   listView.setAdapter(placeListAdapter);
 
-        lstv.setListViewEmptyImage(R.drawable.ic_network_error);
-        lstv.setListViewEmptyMessage("无搜索结果");
+        lstv.setListViewEmptyImage(R.drawable.yuechang);
+        lstv.setListViewEmptyMessage("没有查到相关球场～");
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -199,15 +199,15 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.home_back_img:
-                intent = new Intent(this, MainActivity.class);
-                ViewUtil.startTopActivity(this, intent);
+            case R.id.title_back_img:
+               /* intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);*/
                 finish();
                 break;
-            case R.id.title_search_img:
+           /* case R.id.title_search_img:
                 intent = new Intent(this, SearchActivity.class);
                 ViewUtil.startActivity(this, intent);
-                break;
+                break;*/
         }
     }
 
