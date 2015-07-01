@@ -458,12 +458,20 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if (priceModels != null && priceModels.size() > 0)
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+                    if(priceModel.getPrice()==-1){
+                        okbtn.setBackgroundResource(R.drawable.bg_sold_out);
+                        okbtn.setOnClickListener(null);
+                        stadiumPrice.setText("封场");
+                    }else{
+                        okbtn.setBackgroundResource(R.drawable.yellow_big_bg);
+                        okbtn.setOnClickListener(this);
                     if (attendNumber == 0) {
                         stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
                         currentPrice = (int) Math.floor(priceModel.getPrice());
                     } else {
                         stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
                         currentPrice = (int) Math.floor(priceModel.getPrice());
+                    }
                     }
                     return;
                 }

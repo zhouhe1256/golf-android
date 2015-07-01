@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
@@ -42,7 +44,7 @@ import java.util.List;
  * 主页面
  * Created by dengt on 15-4-20.
  */
-public class MainActivity extends Activity implements View.OnClickListener, ICallback {
+public class MainActivity extends Activity implements View.OnClickListener, ICallback,DeleteInfoDialog.DeleteInfoDialogResult {
     private GApplication gApplication;
     private LinearLayout orderbtn;
     private LinearLayout compebtn;
@@ -230,6 +232,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private void initEvent() {
         topView.setVisiable(View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
         topView.setTitleText("7铁");
+        topView.setPhonebtnVisiable();
         orderbtn.setOnClickListener(this);
         compebtn.setOnClickListener(this);
         exchbtn.setOnClickListener(this);
@@ -262,9 +265,20 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 ViewUtil.startActivity(this, intent);
                 overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
                 break;
+            case R.id.title_phone_img:
+                DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
+                        R.style.InfoDialog, "呼叫" + getResources().getString(R.string.service_tel).toString().trim() + "？", 0l, this);
+                infoDialog.show();
+                break;
         }
     }
-
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            this.startActivity(intent);
+        }
+    }
     private long exitTime = 0;
 
     @Override

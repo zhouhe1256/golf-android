@@ -152,6 +152,18 @@
         android:layout_height="46dp"
         android:onClick="onClick"
         android:clickable="true" />
+    <ImageView
+        android:id="@+id/title_phone_img"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_login_phone"
+        android:padding="12dp"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:onClick="onClick"
+        android:clickable="true" />
 
     <ImageView
         android:id="@+id/title_exchange_img"

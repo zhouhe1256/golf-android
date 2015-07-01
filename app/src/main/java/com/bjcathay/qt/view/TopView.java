@@ -28,6 +28,7 @@ public class TopView extends LinearLayout {
     private ImageView searchimg;
     private ImageView exchange;
     private ImageView closeimg;
+    private ImageView phoneimg;
 
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);
@@ -43,6 +44,7 @@ public class TopView extends LinearLayout {
         searchimg = ViewUtil.findViewById(this, R.id.title_search_img);
         exchange = ViewUtil.findViewById(this, R.id.title_exchange_img);
         closeimg = ViewUtil.findViewById(this, R.id.title_delete_img);
+        phoneimg = ViewUtil.findViewById(this, R.id.title_phone_img);
 
         leftbtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -86,6 +88,10 @@ public class TopView extends LinearLayout {
     public void setInvitebtnVisiable() {
         invitebtn.setVisibility(VISIBLE);
     }
+    public void setPhonebtnVisiable() {
+        phoneimg.setVisibility(VISIBLE);
+    }
+
 
 
     public void setDeleteVisiable() {
