@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -16,7 +17,8 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-6-1.
  */
-public class AttendSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+public class AttendSucActivity extends Activity implements View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;
     private TextView textView;
     String tiele;
@@ -56,7 +58,9 @@ public class AttendSucActivity extends Activity implements View.OnClickListener,
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
-                        R.style.InfoDialog, "呼叫" + getResources().getString(R.string.service_tel).toString().trim() + "？", 0l, this);
+                        R.style.InfoDialog, "呼叫"
+                                + getResources().getString(R.string.service_tel).toString().trim()
+                                + "？", 0l, this);
                 infoDialog.show();
                 break;
         }
@@ -65,10 +69,12 @@ public class AttendSucActivity extends Activity implements View.OnClickListener,
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -76,11 +82,13 @@ public class AttendSucActivity extends Activity implements View.OnClickListener,
         ViewUtil.startTopActivity(this, intent);
         finish();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

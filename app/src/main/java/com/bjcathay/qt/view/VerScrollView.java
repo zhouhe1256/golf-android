@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
+import com.bjcathay.qt.R;
 import com.bjcathay.qt.widget.WheelView;
 
 /**
@@ -23,14 +24,20 @@ public class VerScrollView extends ScrollView {
         mGestureListener = new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+               /* if(view.getId()== R.id.weelviewlinear){
+                    requestDisallowInterceptTouchEvent(false);
+                }else{
+                    requestDisallowInterceptTouchEvent(true);
+                }*/
                 if (view instanceof WheelView) {
                     requestDisallowInterceptTouchEvent(false);
                 } else {
-                    requestDisallowInterceptTouchEvent(true);
+                    //requestDisallowInterceptTouchEvent(true);
                 }
                 return false;
             }
         };
+        setOnTouchListener(mGestureListener);
         setFadingEdgeLength(0);
     }
 

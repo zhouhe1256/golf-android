@@ -1,9 +1,11 @@
+
 package com.bjcathay.qt.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,9 +41,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by bjcathay on 15-6-17.
+ * Created by dengt on 15-6-17.
  */
-public class OrderStadiumDetailActivity extends FragmentActivity implements ICallback, View.OnClickListener {
+public class OrderStadiumDetailActivity extends FragmentActivity implements ICallback,
+        View.OnClickListener {
     WheelView mOption1 = null;
     WheelView mOption2 = null;
     WheelView mOption3 = null;
@@ -62,12 +65,11 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     private Long id;
     private String imaUrl;
     private String daySelect;
-    private String beforSelect;//0上午　１下午
+    private String beforSelect;// 0上午　１下午
     private String hourSelect = "07:00";
     private int attendNumber = 1;
     private int selectDay = 0;
-    //状态标识
-
+    // 状态标识
 
     private TextView tuanCount;
     private TextView temaiCount;
@@ -75,6 +77,9 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     List<PriceModel> priceModels;
     private int currentPrice;
     private ShareModel shareModel;
+    //todo
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
         stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
-        //根据ID找到RadioGroup实例
+        // 根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
         topView.setTitleText("加载中");
         tuanCount = ViewUtil.findViewById(this, R.id.tuan_short);
@@ -118,22 +123,16 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         mOption2.setAdapter(new WheelTextAdapter(this));
         mOption3.setAdapter(new WheelTextAdapter(this));
 
-
     }
 
     private void initEvent() {
-        okbtn.setOnClickListener(new View.OnClickListener() {
+       /* okbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gApplication.isLogin() == true) {
-                    showDialog();
-                } else {
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    ViewUtil.startActivity(context, intent);
-                    context.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
-                }
+
             }
-        });
+        });*/
+        okbtn.setOnClickListener(this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,19 +152,19 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                     intent.putExtra("lon", stadiumModel.getLon());
                     intent.putExtra("title", stadiumModel.getName());
                     intent.putExtra("content", stadiumModel.getAddress());
-                    //intent.putExtra("address",stationAddress.getText().toString().trim());
+                    // intent.putExtra("address",stationAddress.getText().toString().trim());
                     intent.putExtra("src", "A|GOLF");
                     ViewUtil.startActivity(context, intent);
                 }
             }
         });
-        //绑定一个匿名监听器
+        // 绑定一个匿名监听器
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 // TODO Auto-generated method stub
-                //获取变更后的选中项的ID
+                // 获取变更后的选中项的ID
                 int radioButtonId = arg0.getCheckedRadioButtonId();
                 switch (radioButtonId) {
                     case R.id.btn_0:
@@ -181,8 +180,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                         attendNumber = 4;
                         break;
                     case R.id.btn_4:
-                        //转人工
-                        //showSureDialog();
+                        // 转人工
+                        // showSureDialog();
                         attendNumber = 0;
                         break;
                 }
@@ -198,7 +197,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if (stadiumModel != null) {
             String orderDate = getDate();
             if (DateUtil.CompareNowTime(orderDate)) {
-                dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, currentPrice, orderDate, attendNumber);
+                dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel,
+                        currentPrice, orderDate, attendNumber);
                 dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
             } else {
                 DialogUtil.showMessage("您选的时间已过呦～");
@@ -227,10 +227,11 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                         setHour(info);
                     }
                 }
-                //算天数据   mSelDateTxt.setText(formatDate());
+                // 算天数据 mSelDateTxt.setText(formatDate());
                 if (stadiumModel != null) {
                     getDate();
-                    if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType()))
+                    if ("LIMIT".equals(stadiumModel.getType())
+                            || "NONE".equals(stadiumModel.getType()))
                         getDayPrice(0);
                     else
                         getDayPrice(stadiumModel.getPrice());
@@ -270,7 +271,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         } else
             ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
 
-        //  prepareDayData(year, month, day);
+        // prepareDayData(year, month, day);
         if (priceModels != null && priceModels.size() == 1) {
             mOption1.setSelection(0);
         } else
@@ -299,19 +300,19 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
-        if(imaUrl!=null)
-        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
+        if (imaUrl != null)
+            ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this);
     }
-
 
     @Override
     public void call(Arguments arguments) {
         stadiumModel = arguments.get(0);
-        if(imaUrl==null)
-            ImageViewAdapter.adapt(imageView, stadiumModel.getImageUrl(), R.drawable.exchange_default);
+        if (imaUrl == null)
+            ImageViewAdapter.adapt(imageView, stadiumModel.getImageUrl(),
+                    R.drawable.exchange_default);
         topView.setTitleText(stadiumModel.getName());
-        //控制LIMIT最低人数
+        // 控制LIMIT最低人数
         if ("LIMIT".equals(stadiumModel.getType())) {
             topView.setShareVisiable();
             int num = stadiumModel.getAmount();
@@ -323,28 +324,28 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if ("GROUP".equals(stadiumModel.getType())) {
             topView.setShareVisiable();
             days.clear();
-            //  select = stadiumModel.getDate();
+            // select = stadiumModel.getDate();
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days = DateUtil.getLimitDate(priceModels);
-            //  dayView.setData(days);
+            // dayView.setData(days);
             String tuan_am_pm = DateUtil.getTuanAMoPM(stadiumModel.getDate());
             minits.clear();
             minits.add(tuan_am_pm);
 
             beforSelect = tuan_am_pm;
-            //   wheelView1.setData(minits);
+            // wheelView1.setData(minits);
             if ("下午".equals(tuan_am_pm)) {
-               // hoursPM = DateUtil.getPMShort(stadiumModel.getDate());
-               // hoursPM.add(stadiumModel.getDate());
-                hoursPM=DateUtil.To12(stadiumModel.getDate());
+                // hoursPM = DateUtil.getPMShort(stadiumModel.getDate());
+                // hoursPM.add(stadiumModel.getDate());
+                hoursPM = DateUtil.To12(stadiumModel.getDate());
                 hourSelect = hoursPM.get(0);
             } else {
                 hoursAM.add(stadiumModel.getDate());
                 hourSelect = hoursAM.get(0);
             }
-            //  hourView.setData(hours);
+            // hourView.setData(hours);
             getDayPrice(stadiumModel.getPrice());
-            //    wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
+            // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
             prepareData(0);
             // tuanImg.setVisibility(View.VISIBLE);
             tuanCount.setVisibility(View.VISIBLE);
@@ -357,20 +358,20 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         } else if ("SPECIAL".equals(stadiumModel.getType())) {
             topView.setShareVisiable();
             days.clear();
-            //select = stadiumModel.getDate();
+            // select = stadiumModel.getDate();
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days = DateUtil.getLimitDate(priceModels);
 
-            //todo 目前写死
+            // todo 目前写死
             // hours = DateUtil.getAM(stadiumModel.getDate());
             hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
             hourSelect = hoursAM.get(0);
             beforSelect = "上午";
-            //  wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
+            // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
             prepareData(1);
             getDayPrice(stadiumModel.getPrice());
-            //   temaiImg.setVisibility(View.VISIBLE);
+            // temaiImg.setVisibility(View.VISIBLE);
             temaiCount.setVisibility(View.VISIBLE);
             if (stadiumModel.getAmount() > 0) {
                 temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
@@ -380,13 +381,13 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 okbtn.setOnClickListener(null);
                 temaiCount.setText("已售罄");
             }
-            //NONE
+            // NONE
         } else if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days.clear();
             hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
-            //todo
+            // todo
             hourSelect = hoursAM.get(0);
             beforSelect = "上午";
             days = DateUtil.getLimitDate(priceModels);
@@ -410,9 +411,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     private String select;
 
     private String getDate() {
-       /* if ("GROUP".equals(stadiumModel.getType()))
-            return stadiumModel.getDate();
-        else */
+        /*
+         * if ("GROUP".equals(stadiumModel.getType())) return
+         * stadiumModel.getDate(); else
+         */
         if ("下午".equals(beforSelect)) {
             hourSelect = DateUtil.To24(hourSelect);
         }
@@ -431,12 +433,13 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             }
         }
         c.setTime(d);
-        //取得系统日期:
+        // 取得系统日期:
         int year = c.get(Calendar.YEAR);
         if (daySelect == null) {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月" + (day > 10 ? day : "0" + day) + "日";
+            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月"
+                    + (day > 10 ? day : "0" + day) + "日";
         }
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
@@ -450,41 +453,52 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         // getDayPrice(stadiumModel.getPrices());
         return select;
     }
-
+    ColorStateList csl;
     private void getDayPrice(double price) {
-        // if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
+        // if ("LIMIT".equals(stadiumModel.getType()) ||
+        // "NONE".equals(stadiumModel.getType())) {
         if (select == null)
             getDate();
         if (priceModels != null && priceModels.size() > 0)
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                    if(priceModel.getPrice()==-1){
+                    if (priceModel.getPrice()<0) {
                         okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                         okbtn.setOnClickListener(null);
-                        stadiumPrice.setText("封场");
-                    }else{
+                        stadiumPrice.setText("球场休息");
+                        stadiumPrice.setTextColor(Color.GRAY);
+                    } else {
                         okbtn.setBackgroundResource(R.drawable.yellow_big_bg);
                         okbtn.setOnClickListener(this);
-                    if (attendNumber == 0) {
-                        stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
-                        currentPrice = (int) Math.floor(priceModel.getPrice());
-                    } else {
-                        stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
-                        currentPrice = (int) Math.floor(priceModel.getPrice());
-                    }
+                        if (csl != null) {
+                            stadiumPrice.setTextColor(csl);
+                        }else{
+                            csl =getResources().getColorStateList(R.color.order_price_color);
+                            stadiumPrice.setTextColor(csl);
+                        }
+                        if (attendNumber == 0) {
+                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4
+                                    + "+");
+                            currentPrice = (int) Math.floor(priceModel.getPrice());
+                        } else {
+                            stadiumPrice.setText("￥"
+                                    + (int) Math.floor(priceModel.getPrice() * attendNumber));
+                            currentPrice = (int) Math.floor(priceModel.getPrice());
+                        }
                     }
                     return;
                 }
             }
         return;
-        //   }
-       /* if (attendNumber == 0) {
-            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * 4) + "+");
-            currentPrice = (int) Math.floor(stadiumModel.getPrice());
-        } else {
-            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * attendNumber));
-            currentPrice = (int) Math.floor(stadiumModel.getPrice());
-        }*/
+        // }
+        /*
+         * if (attendNumber == 0) { stadiumPrice.setText("￥" + (int)
+         * Math.floor(stadiumModel.getPrice() * 4) + "+"); currentPrice = (int)
+         * Math.floor(stadiumModel.getPrice()); } else {
+         * stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() *
+         * attendNumber)); currentPrice = (int)
+         * Math.floor(stadiumModel.getPrice()); }
+         */
 
     }
 
@@ -506,11 +520,21 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                             ShareUtil.getInstance().shareDemo(context, shareModel);
                         }
                     });
-                else ShareUtil.getInstance().shareDemo(context, shareModel);
+                else
+                    ShareUtil.getInstance().shareDemo(context, shareModel);
                 break;
             case R.id.title_delete_img:
                 if (dialogSureOrderFragment != null)
                     dialogSureOrderFragment.dismiss();
+                break;
+            case R.id.ok:
+                if (gApplication.isLogin() == true) {
+                    showDialog();
+                } else {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    ViewUtil.startActivity(context, intent);
+                    context.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+                }
                 break;
         }
     }
