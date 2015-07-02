@@ -18,6 +18,7 @@ import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.fragment.DialogOrderInformationFragment;
 import com.bjcathay.qt.fragment.DialogSureOrderFragment;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
@@ -186,13 +187,16 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         });
     }
 
-    DialogSureOrderFragment dialogSureOrderFragment;
+    DialogOrderInformationFragment dialogSureOrderFragment;
 
     private void showDialog() {
         if (stadiumModel != null) {
             String orderDate = getDate();
             if (DateUtil.CompareNowTime(orderDate)) {
-                dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel,
+               /* dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel,
+                        currentPrice, orderDate, attendNumber);
+                dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");*/
+                dialogSureOrderFragment = new DialogOrderInformationFragment(this, stadiumModel,
                         currentPrice, orderDate, attendNumber);
                 dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
             } else {
@@ -520,10 +524,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 else
                     ShareUtil.getInstance().shareDemo(context, shareModel);
                 break;
-            case R.id.title_delete_img:
+           /* case R.id.title_delete_img:
                 if (dialogSureOrderFragment != null)
                     dialogSureOrderFragment.dismiss();
-                break;
+                break;*/
             case R.id.ok:
                 if (gApplication.isLogin() == true) {
                     showDialog();

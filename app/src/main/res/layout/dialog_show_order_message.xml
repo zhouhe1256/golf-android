@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/order_dialog_bg"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_order_sure_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京清河湾高尔夫俱乐部"
+                android:textColor="@color/mian_text_color"
+                android:textSize="@dimen/main_textSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dialog_order_sure_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015.4.26  2:30"
+                android:textColor="@color/mian_text_color"
+                android:textSize="@dimen/main_textSize"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/order_need_know_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订场须知："
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/order_need_know_note1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="本次订场倒萨滑动撒娇的可怜撒娇倒萨绝对是垃圾登录撒记得ｕｆｏ啊赛欧的胡搜啊结婚那是级发烧就度搜啊就豆沙"
+                android:textColor="@color/mian_text_color"
+                android:textSize="@dimen/sub_textSize" />
+
+            <TextView
+                android:id="@+id/order_need_know_note2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预订成功补课取消大ｓ卡加的撒绝对是那范德萨激动撒泼机会的撒娇的拉萨"
+                android:textColor="@color/mian_text_color"
+                android:textSize="@dimen/sub_textSize" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sure_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/yellow_big_selector"
+            android:gravity="bottom|center_horizontal"
+            android:padding="15dp"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_textSize"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

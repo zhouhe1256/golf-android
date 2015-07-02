@@ -327,8 +327,8 @@
                         android:layout_marginLeft="35dp"
                         android:text="￥--"
                         android:textColor="@color/order_price_color"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp"
+                        />
                 </LinearLayout>
             </LinearLayout>
 

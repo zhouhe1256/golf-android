@@ -1,7 +1,9 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
@@ -32,13 +35,14 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-4-29.
  */
-public class OrderDetailActivity extends Activity implements ICallback, View.OnClickListener {
+public class OrderDetailActivity extends Activity implements ICallback, View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
 
     private Activity context;
     private TopView topView;
     private Long id = 0l;
     private String imaUrl;
-    private RoundCornerImageView orderImg;
+    // private RoundCornerImageView orderImg;
     private TextView orderName;
     private TextView orderSale;
     private TextView orderConDate;
@@ -52,8 +56,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private OrderModel orderModel;
     private TextView orderAddress;
     private Button orderToPay;
-    private ImageView tuangou;
-    private ImageView temai;
+    private Button contactUs;
+   // private ImageView tuangou;
+   // private ImageView temai;
     private LinearLayout orderUndel;
     private TextView orderDel;
     private ShareModel shareModel;
@@ -61,7 +66,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_new_order_detail);
         context = this;
         initView();
         initData();
@@ -70,7 +75,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_order_detail_layout);
-        orderImg = ViewUtil.findViewById(this, R.id.order_detail_img);
+        // orderImg = ViewUtil.findViewById(this, R.id.order_detail_img);
         orderName = ViewUtil.findViewById(this, R.id.order_detail_name);
         orderSale = ViewUtil.findViewById(this, R.id.order_detail_sale);
         orderConDate = ViewUtil.findViewById(this, R.id.order_detail_comsumer_date);
@@ -83,15 +88,16 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderStatus = ViewUtil.findViewById(this, R.id.order_detail_status);
         orderAddress = ViewUtil.findViewById(this, R.id.order_detail_address);
         orderToPay = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
-        tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
-        temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
+       // tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
+       // temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
         orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
         orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
+        contactUs = ViewUtil.findViewById(this, R.id.contact_us);
     }
 
     private void initEvent() {
         topView.setTitleBackVisiable();
-        //  topView.setShareVisiable();
+        // topView.setShareVisiable();
         topView.setTitleText("订单详情");
     }
 
@@ -121,22 +127,23 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private void initViewData() {
         if (orderModel != null) {
             topView.setShareVisiable();
-            ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
+            // ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(),
+            // R.drawable.exchange_default);
             orderName.setText(orderModel.getTitle());
-            orderSale.setText("包含服务：" + orderModel.getPriceInclude());
-            orderConDate.setText("预约日期：" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
-            orderConNum.setText("预约人数：" + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel.getPeopleNumber() + "人")));
+            orderSale.setText("" + orderModel.getPriceInclude());
+            orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
+            orderConNum.setText(""
+                    + (orderModel.getPeopleNumber() == 0 ? "4人+"
+                            : (orderModel.getPeopleNumber() + "人")));
             if (orderModel.getPeopleNumber() == 0)
-                orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+                orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
             else
-                orderPrice.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
-            if (orderModel.getPeopleNumber() == 0)
-                orderPay.setText("订单金额：￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
-            else
-                orderPay.setText("订单金额：￥" + (int) Math.floor(orderModel.getTotalPrice()));
-            orderPhone.setText("手机号码：" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
-            orderNum.setText("订单号：" + orderModel.getOrderId());
-            orderPayDate.setText("交易日期：" + DateUtil.shortDateString(orderModel.getCreatedAt()));
+                orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+            orderPay.setText("0");
+            orderPhone.setText(""
+                    + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
+            orderNum.setText("" + orderModel.getOrderId());
+            orderPayDate.setText("" + DateUtil.shortDateString(orderModel.getCreatedAt()));
             orderAddress.setText("球场地址：" + orderModel.getAddress());
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
@@ -147,17 +154,24 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else if ("PAID".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已支付");
+                if (orderModel.getPeopleNumber() == 0)
+                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+                else
+                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
             } else if ("FINISH".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已完成");
+                if (orderModel.getPeopleNumber() == 0)
+                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
+                else
+                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
             } else if ("CANCEL".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已取消");
             }
 
-
-            if ("SPECIAL".equals(orderModel.getType())) {
-                temai.setVisibility(View.VISIBLE);
+            /*if ("SPECIAL".equals(orderModel.getType())) {
+               // temai.setVisibility(View.VISIBLE);
                 tuangou.setVisibility(View.GONE);
             } else if ("GROUP".equals(orderModel.getType())) {
                 tuangou.setVisibility(View.VISIBLE);
@@ -165,13 +179,23 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else {
                 tuangou.setVisibility(View.GONE);
                 temai.setVisibility(View.GONE);
-            }
+            }*/
             orderToPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SelectPayWayActivity.class);
                     intent.putExtra("order", orderModel);
                     ViewUtil.startActivity(context, intent);
+                }
+            });
+            contactUs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DeleteInfoDialog infoDialog = new DeleteInfoDialog(OrderDetailActivity.this,
+                            R.style.InfoDialog, "呼叫"
+                                    + getResources().getString(R.string.service_tel).toString()
+                                            .trim() + "？", 0l, OrderDetailActivity.this);
+                    infoDialog.show();
                 }
             });
             orderAddress.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +208,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     intent.putExtra("lon", orderModel.getLon());
                     intent.putExtra("title", orderModel.getTitle());
                     intent.putExtra("content", orderModel.getAddress());
-                    //intent.putExtra("address",stationAddress.getText().toString().trim());
+                    // intent.putExtra("address",stationAddress.getText().toString().trim());
                     intent.putExtra("src", "A|GOLF");
                     ViewUtil.startActivity(context, intent);
                 }
@@ -232,9 +256,19 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             });
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
+            this.startActivity(intent);
+        }
     }
 }

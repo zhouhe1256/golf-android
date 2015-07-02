@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
+
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_select_player_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/home_title_color" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/left_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_minas" />
+
+        <ImageView
+            android:id="@+id/right_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@drawable/ic_send_list" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/right_img"
+            android:layout_toRightOf="@id/left_img"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:hint="请输入打球人姓名"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/mian_text_color"
+            android:textColorHint="@color/exchange_text_color"
+            android:textSize="@dimen/main_textSize" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="填写真实姓名，更能保证您的顺利订场哦．"
+        android:textColor="@color/exchange_text_color"
+        android:textSize="@dimen/small_textSize" />
+
+</LinearLayout>
