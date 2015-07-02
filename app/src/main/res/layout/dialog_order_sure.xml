@@ -199,7 +199,8 @@
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/main_textSize"
-            android:background="@drawable/yellow_big_bg"
+            android:textStyle="bold"
+            android:background="@drawable/yellow_big_selector"
             android:text="确认下单" />
 
         <LinearLayout

@@ -42,7 +42,8 @@
                     android:clickable="true"
                     android:textColor="@color/home_title_color"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/message_delete_selector"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -198,13 +198,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/yellow_big_bg"
+        android:background="@drawable/yellow_big_selector"
         android:textColor="@color/white"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:padding="5dp"
+        android:padding="15dp"
         android:textSize="@dimen/main_textSize"
+        android:textStyle="bold"
         android:visibility="gone"
         android:text="退出登录" />
 

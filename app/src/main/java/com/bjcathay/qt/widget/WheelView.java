@@ -9,6 +9,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 
@@ -187,5 +188,29 @@ public class WheelView extends TosGallery {
 
         mBottomShadow.setBounds(0, getHeight() - height, getWidth(), getHeight());
         mBottomShadow.draw(canvas);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
+            case MotionEvent.ACTION_DOWN:
+                setParentScrollAble(false);
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                // 当手指松开时，让父控件重新获取onTouch权限
+                setParentScrollAble(true);
+                break;
+
+        }
+        return super.onInterceptTouchEvent(ev);
+
+    }
+
+    // 设置父控件是否可以获取到触摸处理权限
+    private void setParentScrollAble(boolean flag) {
+        getParent().requestDisallowInterceptTouchEvent(!flag);
     }
 }

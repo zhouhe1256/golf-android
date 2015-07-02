@@ -44,7 +44,9 @@
                     android:layout_weight="1"
                     android:textColor="@color/red"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/right_btn_selector"
+                    android:bottomRightRadius="5dp"/>
 
                 <View
                     android:layout_width="0.5dp"
@@ -59,7 +61,8 @@
                     android:clickable="true"
                     android:textColor="@color/home_title_color"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/left_btn_selector"/>
 
             </LinearLayout>
         </LinearLayout>

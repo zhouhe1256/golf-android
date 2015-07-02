@@ -77,9 +77,6 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     List<PriceModel> priceModels;
     private int currentPrice;
     private ShareModel shareModel;
-    //todo
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,12 +123,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     }
 
     private void initEvent() {
-       /* okbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
+        /*
+         * okbtn.setOnClickListener(new View.OnClickListener() {
+         * @Override public void onClick(View view) { } });
+         */
         okbtn.setOnClickListener(this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -453,7 +448,9 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         // getDayPrice(stadiumModel.getPrices());
         return select;
     }
+
     ColorStateList csl;
+
     private void getDayPrice(double price) {
         // if ("LIMIT".equals(stadiumModel.getType()) ||
         // "NONE".equals(stadiumModel.getType())) {
@@ -462,18 +459,18 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if (priceModels != null && priceModels.size() > 0)
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                    if (priceModel.getPrice()<0) {
+                    if (priceModel.getPrice() <= 0) {
                         okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                         okbtn.setOnClickListener(null);
                         stadiumPrice.setText("球场休息");
                         stadiumPrice.setTextColor(Color.GRAY);
                     } else {
-                        okbtn.setBackgroundResource(R.drawable.yellow_big_bg);
+                        okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
                         okbtn.setOnClickListener(this);
                         if (csl != null) {
                             stadiumPrice.setTextColor(csl);
-                        }else{
-                            csl =getResources().getColorStateList(R.color.order_price_color);
+                        } else {
+                            csl = getResources().getColorStateList(R.color.order_price_color);
                             stadiumPrice.setTextColor(csl);
                         }
                         if (attendNumber == 0) {

@@ -222,7 +222,7 @@ public class Alipay {
 //http://api0.bjcathay.com:81/api/alipay_notify_url
         //http://api.7tiegolf.com/api/alipay_notify_url
         // 服务器异步通知页面路径　http://api.qt.bjcathay.com/api/alipay_notify_url
-        orderInfo += "&notify_url=" + "\"" + "http://api.7tiegolf.com/api/alipay_notify_url"
+        orderInfo += "&notify_url=" + "\"" + "http://api0.bjcathay.com:81/api/alipay_notify_url"
                 + "\"";
 
         // 服务接口名称， 固定值

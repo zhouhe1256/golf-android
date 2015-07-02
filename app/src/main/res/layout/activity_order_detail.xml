@@ -287,7 +287,8 @@
                         android:textSize="@dimen/main_textSize"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:background="@drawable/yellow_big_bg"
+                        android:textStyle="bold"
+                        android:background="@drawable/yellow_big_selector"
                         android:text="立即支付" />
                 </LinearLayout>
             </LinearLayout>

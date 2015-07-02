@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_award_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/home_title_color" />
 
     <LinearLayout
-        android:id="@+id/usable_number"
+        android:id="@+id/about_glb"
         android:layout_width="match_parent"
-        android:background="@drawable/item_click"
         android:layout_height="50dp"
+        android:background="@drawable/item_click"
+        android:clickable="true"
+        android:onClick="onClick"
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/ic_glb"
             android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_margin="12dp"
             android:layout_marginLeft="12dp"
-            android:layout_height="23dp" />
+            android:src="@drawable/ic_glb" />
 
         <RelativeLayout
-            android:id="@+id/about_glb"
-            android:layout_marginLeft="17dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="onClick"
-            android:clickable="true">
+            android:layout_marginLeft="17dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -40,63 +39,66 @@
 
                 <TextView
                     android:id="@+id/exchange_invite_numb_"
-                    android:text="@string/usable_user_number"
                     android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:textSize="@dimen/main_textSize"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginRight="5dp"
+                    android:text="@string/usable_user_number"
+                    android:textSize="@dimen/main_textSize" />
 
-
-                 <ImageView
-                     android:id="@+id/usable_go"
-                     android:layout_marginRight="12dp"
-                     android:layout_centerVertical="true"
-                     android:layout_alignParentRight="true"
-                     android:src="@drawable/ic_user_center_inter"
-                     android:layout_width="9dp"
-                     android:layout_height="13dp" />
+                <ImageView
+                    android:id="@+id/usable_go"
+                    android:layout_width="9dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/ic_user_center_inter" />
 
                 <TextView
                     android:id="@+id/exchange_invite_numb"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@id/exchange_invite_numb_"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:text="0"
-                    android:textSize="15sp"
-                    android:textColor="@color/guolinbi_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/exchange_invite_numb_"
+                    android:text="0"
+                    android:textColor="@color/guolinbi_color"
+                    android:textSize="15sp" />
 
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <View
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_width="match_parent"
         android:background="@drawable/touying_bg" />
+
     <View
-        android:background="@color/transparent_color"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="10dp"
+        android:background="@color/transparent_color" />
 
     <ListView
         android:id="@+id/exchange_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:scrollbars="none"/>
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" />
+
     <LinearLayout
         android:id="@+id/empty_lin"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <ImageView
             android:id="@+id/list_image_empty"
             android:layout_width="70dp"
@@ -104,12 +106,13 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:src="@drawable/ic_empty_exchange" />
+
         <TextView
-            android:layout_marginTop="30dp"
             android:id="@+id/list_view_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:text="@string/empty_shop_text"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />

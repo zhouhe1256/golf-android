@@ -194,11 +194,12 @@ android:textStyle="bold"
             android:layout_marginTop="31dp"
             android:layout_marginBottom="20dp"
             android:padding="15dp"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/white"
-            android:background="@drawable/yellow_big_bg"
+            android:background="@drawable/yellow_big_selector"
             android:textSize="@dimen/main_textSize"
             android:text="团购并付款" />
 

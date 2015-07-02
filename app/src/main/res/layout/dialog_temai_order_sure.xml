@@ -197,8 +197,9 @@ android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/white"
-            android:background="@drawable/yellow_big_bg"
+            android:background="@drawable/yellow_big_selector"
             android:textSize="@dimen/main_textSize"
+            android:textStyle="bold"
             android:text="确认抢单" />
 
         <LinearLayout
