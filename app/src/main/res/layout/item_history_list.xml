@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sub_textSize"
-        android:textColor="@color/mian_text_color"
+        android:textColor="@color/main_text_color"
         android:singleLine="true"
         android:ellipsize="end"
         android:text="jfdsajds" />

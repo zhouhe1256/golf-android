@@ -15,7 +15,7 @@
         android:text="@string/what_is_glb"
        android:layout_margin="10dp"
         android:textSize="@dimen/main_textSize"
-        android:textColor="@color/mian_text_color"/>
+        android:textColor="@color/main_text_color"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:textSize="@dimen/main_textSize"
         android:layout_margin="10dp"
 
-        android:textColor="@color/mian_text_color"/>
+        android:textColor="@color/main_text_color"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -2,7 +2,6 @@
 package com.bjcathay.qt.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
@@ -30,6 +27,7 @@ public class DialogOrderInformationFragment extends DialogFragment {
     Button sure;
     TextView name;
     TextView time;
+    TextView note;
     String date;
     int number;
     private int currentPrice;
@@ -38,7 +36,8 @@ public class DialogOrderInformationFragment extends DialogFragment {
     }
 
     @SuppressLint("ValidFragment")
-    public DialogOrderInformationFragment(Context context, ProductModel stadiumModel, int currentPrice, String date, int number) {
+    public DialogOrderInformationFragment(Context context, ProductModel stadiumModel,
+            int currentPrice, String date, int number) {
         this.date = date;
         this.number = number;
         this.context = context;
@@ -58,8 +57,9 @@ public class DialogOrderInformationFragment extends DialogFragment {
         rootView = inflater.inflate(R.layout.dialog_show_order_message, container);
         name = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_name);
         time = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_time);
+        note=ViewUtil.findViewById(rootView,R.id.order_need_know_note1);
         name.setText(stadiumModel.getName());
-
+        note.setText(stadiumModel.getPurchasingNotice());
         time.setText(DateUtil.stringToDateToOrderString(date));
         sure = ViewUtil.findViewById(rootView, R.id.sure_order);
         sure.setOnClickListener(new View.OnClickListener() {
@@ -67,14 +67,13 @@ public class DialogOrderInformationFragment extends DialogFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(context, OrderCommitActivity.class);
                 intent.putExtra("product", stadiumModel);
-                intent.putExtra("date",date);
-                intent.putExtra("number",number);
-                intent.putExtra("currentPrice",currentPrice);
+                intent.putExtra("date", date);
+                intent.putExtra("number", number);
+                intent.putExtra("currentPrice", currentPrice);
                 ViewUtil.startActivity(context, intent);
                 dismiss();
             }
         });
         return rootView;
     }
-
 }

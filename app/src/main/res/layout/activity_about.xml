@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/main_textSize"
             android:paddingTop="20dp"
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:text="7铁高尔夫" />
 
         <LinearLayout

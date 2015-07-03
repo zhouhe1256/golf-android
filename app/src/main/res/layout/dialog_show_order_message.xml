@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京清河湾高尔夫俱乐部"
-                android:textColor="@color/mian_text_color"
+                android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize"
                 android:textStyle="bold" />
 
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2015.4.26  2:30"
-                android:textColor="@color/mian_text_color"
+                android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize"
                 android:textStyle="bold" />
 
@@ -61,17 +61,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="本次订场倒萨滑动撒娇的可怜撒娇倒萨绝对是垃圾登录撒记得ｕｆｏ啊赛欧的胡搜啊结婚那是级发烧就度搜啊就豆沙"
-                android:textColor="@color/mian_text_color"
+                android:text=""
+                android:textColor="@color/main_text_color"
                 android:textSize="@dimen/sub_textSize" />
 
             <TextView
                 android:id="@+id/order_need_know_note2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预订成功补课取消大ｓ卡加的撒绝对是那范德萨激动撒泼机会的撒娇的拉萨"
-                android:textColor="@color/mian_text_color"
-                android:textSize="@dimen/sub_textSize" />
+                android:text=""
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/sub_textSize"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -90,7 +91,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="20dp"
             android:background="@drawable/yellow_big_selector"
             android:gravity="bottom|center_horizontal"
             android:padding="15dp"

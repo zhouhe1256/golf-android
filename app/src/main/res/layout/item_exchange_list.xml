@@ -52,7 +52,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:paddingRight="5dp"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="PGA赛事兑换卡" />
 
                 <TextView

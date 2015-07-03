@@ -79,7 +79,7 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color" />
+                    android:textColor="@color/main_text_color" />
 
 
                 <ImageView
@@ -139,7 +139,7 @@
                 <TextView
                     android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="我的赛事"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
@@ -205,7 +205,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="我的兑换"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
@@ -272,7 +272,7 @@
 
                     android:paddingLeft="10dp"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="我的消息"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"
@@ -339,7 +339,7 @@
 
                 <TextView
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="邀请有礼"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="5dp"

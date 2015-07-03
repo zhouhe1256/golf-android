@@ -40,7 +40,7 @@
                     android:layout_centerVertical="true"
                     android:text="你有一个订单待付款"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color" />
+                    android:textColor="@color/main_text_color" />
 
                 <TextView
                     android:id="@+id/message_relativeDate"

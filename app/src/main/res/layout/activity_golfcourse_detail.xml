@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="球场简介" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="球场参数" />
 
                 <LinearLayout
@@ -289,7 +289,7 @@
 
                     <TextView
                         android:textStyle="bold"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:layout_width="wrap_content"
                         android:textSize="@dimen/main_textSize"
 
@@ -326,7 +326,7 @@
                     <TextView
                         android:id="@+id/golfcourse_address_note"
                         android:textStyle="bold"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/main_textSize"

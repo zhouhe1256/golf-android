@@ -54,7 +54,7 @@
                         android:textSize="@dimen/main_textSize"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:text="五星赛" />
 
                     <TextView
@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/main_textSize"
                         android:singleLine="true"
                         android:ellipsize="end"

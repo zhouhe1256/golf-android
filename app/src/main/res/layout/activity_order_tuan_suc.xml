@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="17sp"
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:text="团购成功！"
             android:layout_gravity="center" />
 

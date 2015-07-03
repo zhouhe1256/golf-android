@@ -19,7 +19,7 @@
                 android:id="@+id/dialog_content"
                 android:text="您访问的内容不存在或者已被删除．"
                 android:gravity="center"
-                android:textColor="@color/mian_text_color"
+                android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize"
                 android:layout_weight="1"
                 android:layout_width="match_parent"

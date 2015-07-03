@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent_color">
     <com.bjcathay.qt.view.TopView
-        android:id="@+id/top_select_player_layout"
+        android:id="@+id/top_edit_player_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/home_title_color" />
@@ -22,15 +22,16 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="姓名："
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/edit_player_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:background="@null"
             android:hint=""
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />
     </LinearLayout>
@@ -53,15 +54,16 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="电话："
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/edit_player_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:background="@null"
             android:hint=""
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />
     </LinearLayout>

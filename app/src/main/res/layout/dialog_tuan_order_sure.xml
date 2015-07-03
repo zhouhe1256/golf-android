@@ -27,14 +27,14 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/mian_text_color"
+                android:textColor="@color/main_text_color"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:text="北京清河湾高尔夫俱乐部" />
 
             <TextView
                 android:id="@+id/dialog_order_sure_time"
-                android:textColor="@color/mian_text_color"
+                android:textColor="@color/main_text_color"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="1234567890" />
 
             </LinearLayout>
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:text="18洞果岭/僮/车/柜" />
 
             </LinearLayout>
@@ -114,7 +114,7 @@
                     android:id="@+id/dialog_order_sure_number"
                     android:textSize="14sp"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="４人" />
@@ -137,7 +137,7 @@
                         android:paddingRight="5dp"
                         android:gravity="center_horizontal"
                         android:minEms="2"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5" />
@@ -151,7 +151,7 @@
                         android:layout_marginTop="17dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="14sp"
                         android:text="人" />
                 </LinearLayout>

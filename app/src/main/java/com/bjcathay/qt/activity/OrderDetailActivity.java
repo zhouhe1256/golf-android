@@ -57,11 +57,14 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView orderAddress;
     private Button orderToPay;
     private Button contactUs;
-   // private ImageView tuangou;
-   // private ImageView temai;
+    // private ImageView tuangou;
+    // private ImageView temai;
     private LinearLayout orderUndel;
     private TextView orderDel;
     private ShareModel shareModel;
+    private TextView userRealName;
+    private TextView personNames;
+    private TextView purchasingNotice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +91,14 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderStatus = ViewUtil.findViewById(this, R.id.order_detail_status);
         orderAddress = ViewUtil.findViewById(this, R.id.order_detail_address);
         orderToPay = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
-       // tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
-       // temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
+        // tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
+        // temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
         orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
         orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
         contactUs = ViewUtil.findViewById(this, R.id.contact_us);
+        userRealName = ViewUtil.findViewById(this, R.id.userRealName);
+        personNames = ViewUtil.findViewById(this, R.id.personNames);
+        purchasingNotice = ViewUtil.findViewById(this, R.id.purchasingNotice);
     }
 
     private void initEvent() {
@@ -144,6 +150,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
             orderNum.setText("" + orderModel.getOrderId());
             orderPayDate.setText("" + DateUtil.shortDateString(orderModel.getCreatedAt()));
+            personNames.setText(orderModel.getPersonNames());
+            userRealName.setText(orderModel.getUserRealName());
+            purchasingNotice.setText(orderModel.getPurchasingNotice());
             orderAddress.setText("球场地址：" + orderModel.getAddress());
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
@@ -170,16 +179,16 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 orderStatus.setText("已取消");
             }
 
-            /*if ("SPECIAL".equals(orderModel.getType())) {
-               // temai.setVisibility(View.VISIBLE);
-                tuangou.setVisibility(View.GONE);
-            } else if ("GROUP".equals(orderModel.getType())) {
-                tuangou.setVisibility(View.VISIBLE);
-                temai.setVisibility(View.GONE);
-            } else {
-                tuangou.setVisibility(View.GONE);
-                temai.setVisibility(View.GONE);
-            }*/
+            /*
+             * if ("SPECIAL".equals(orderModel.getType())) { //
+             * temai.setVisibility(View.VISIBLE);
+             * tuangou.setVisibility(View.GONE); } else if
+             * ("GROUP".equals(orderModel.getType())) {
+             * tuangou.setVisibility(View.VISIBLE);
+             * temai.setVisibility(View.GONE); } else {
+             * tuangou.setVisibility(View.GONE); temai.setVisibility(View.GONE);
+             * }
+             */
             orderToPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

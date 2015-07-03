@@ -67,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="实付款"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
                         <TextView
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:text="交易日期"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
                     </LinearLayout>
 
@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:padding="20dp"
                         android:text="手机号码"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
                 </LinearLayout>
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="订单号:123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
 
@@ -168,7 +168,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text=""
-                                        android:textColor="@color/mian_text_color"
+                                        android:textColor="@color/main_text_color"
                                         android:textSize="@dimen/main_textSize" />
 
                                     <ImageView
@@ -262,7 +262,7 @@
                     android:padding="20dp"
                     android:singleLine="true"
                     android:text="球场地址"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/sub_textSize" />
 
                 <View

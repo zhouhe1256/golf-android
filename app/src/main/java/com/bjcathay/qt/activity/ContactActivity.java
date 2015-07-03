@@ -91,7 +91,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
 
     private void initData() {
         topView.setTitleBackVisiable();
-        topView.setTitleText("选择好友");
+        topView.setTitleText("通讯录朋友");
         id = getIntent().getLongExtra("id", 0);
         proName = getIntent().getStringExtra("name");
         dialogExchFragment = new DialogExchFragment(this, this);

@@ -30,7 +30,7 @@
             android:inputType="textPassword"
             android:textCursorDrawable="@null"
             android:textColorHint="@color/exchange_text_color"
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:textSize="15dp"
             android:background="@android:color/transparent" />
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:textColorHint="@color/exchange_text_color"
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:hint="新的密码"
             android:textSize="15dp"
             android:background="@android:color/transparent" />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:textColorHint="@color/exchange_text_color"
-            android:textColor="@color/mian_text_color"
+            android:textColor="@color/main_text_color"
             android:hint="重复新的密码"
             android:textSize="15dp"
             android:background="@android:color/transparent" />

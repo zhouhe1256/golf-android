@@ -274,6 +274,18 @@
             android:name=".activity.OrderCommitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectContactActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

@@ -42,7 +42,7 @@
                         android:id="@+id/dialog_order_sure_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textStyle="bold"
                         android:textSize="@dimen/main_textSize"
                         android:text="北京清河湾高尔夫俱乐部" />
@@ -50,7 +50,7 @@
                     <TextView
                         android:layout_marginTop="5dp"
                         android:id="@+id/dialog_order_sure_time"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textStyle="bold"
                         android:textSize="@dimen/main_textSize"
                         android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_textSize"
                             android:paddingLeft="5dp"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:text="1234567890" />
 
                     </LinearLayout>
@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_textSize"
                             android:paddingLeft="5dp"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:text="18洞果岭/僮/车/柜" />
 
                     </LinearLayout>
@@ -129,7 +129,7 @@
                             android:id="@+id/dialog_order_sure_number"
                             android:textSize="@dimen/sub_textSize"
                             android:paddingLeft="5dp"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="４人" />
@@ -233,7 +233,7 @@
                             android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/mian_text_color" />
+                            android:textColor="@color/main_text_color" />
 
 
                         <ImageView
@@ -299,7 +299,7 @@
                             android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/mian_text_color" />
+                            android:textColor="@color/main_text_color" />
 
 
                         <ImageView
@@ -366,7 +366,7 @@
                             android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/mian_text_color" />
+                            android:textColor="@color/main_text_color" />
 
 
                         <ImageView

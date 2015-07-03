@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="选择人数:"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize"
                         android:textStyle="bold" />
 
@@ -249,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="包含服务:"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize"
                         android:textStyle="bold" />
 
@@ -276,7 +276,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="所在地址:"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize"
                         android:textStyle="bold" />
 
@@ -316,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:text="价格:"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize"
                         android:textStyle="bold" />
 

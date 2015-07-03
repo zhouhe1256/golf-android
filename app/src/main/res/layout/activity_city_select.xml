@@ -50,7 +50,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="@dimen/main_textSize"
-                android:textColor="@color/mian_text_color" />
+                android:textColor="@color/main_text_color" />
 
             <ListView
                 android:id="@+id/hot_city_list"
@@ -78,7 +78,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="@dimen/main_textSize"
-                android:textColor="@color/mian_text_color" />
+                android:textColor="@color/main_text_color" />
 
             <com.bjcathay.qt.view.QExpandedListView
                 android:id="@+id/qelistview"

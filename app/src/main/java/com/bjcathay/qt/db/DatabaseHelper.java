@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.db;
 
 import android.content.Context;
@@ -12,11 +13,11 @@ import android.util.Log;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    //数据库版本号
+    // 数据库版本号
     private static final int DATABASE_VERSION = 1;
     // 数据库名
     private static final String DATABASE_NAME = "golf.db";
-    //历史记录表名
+    // 历史记录表名
     public static final String HISTORY_TABLE_NAME = "golf_history";
     public static final String STADIUM_FULL_NAME = "stadium_full_name";
     public static final String STADIUM_ADDRESS = "stadium_address";
@@ -41,7 +42,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + CITY_NAME + " TEXT"
                     + ")";
 
-
     public static final String PROVINCE_TABLE_NAME = "golf_province";
     public static final String PROVINCE_NAME = "province_full_name";
     public static final String PROVINCE_HOT = "province_hot";
@@ -54,12 +54,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + PROVINCE_NAME + " TEXT"
                     + ")";
 
+    public static final String PLAYER_TABLE_NAME = "golf_player";
+    public static final String PLAYER_NAME = "player_name";
+    public static final String PLAYER_NUMBER = "player_number";
+
+    private static final String CREATE_TABLE_PLAYER =
+            "CREATE TABLE " + PLAYER_TABLE_NAME + "("
+                    + PLAYER_NAME + " TEXT NOT NULL PRIMARY KEY,"
+                    + PLAYER_NUMBER + " TEXT"
+                    + ")";
+
     // 构造函数，调用父类SQLiteOpenHelper的构造函数
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
+            int version) {
         super(context, name, factory, version);
     }
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
+            int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
         // SQLiteOpenHelper的构造函数参数：
         // context：上下文环境
@@ -87,26 +99,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // 构建创建表的SQL语句（可以从SQLite Expert工具的DDL粘贴过来加进StringBuffer中）
         StringBuffer lBuffer = new StringBuffer();
 
-       /* lBuffer.append("CREATE TABLE " + HISTORY_TABLE_NAME + " (");
-        lBuffer.append("pid TEXT, ");
-        lBuffer.append("cid TEXT, ");
-        lBuffer.append("stime TEXT,");
-        lBuffer.append("etime TEXT,");
-        lBuffer.append("_type TEXT)");
-        // 执行创建表的SQL语句
-        db.execSQL(lBuffer.toString());*/
+        /*
+         * lBuffer.append("CREATE TABLE " + HISTORY_TABLE_NAME + " (");
+         * lBuffer.append("pid TEXT, "); lBuffer.append("cid TEXT, ");
+         * lBuffer.append("stime TEXT,"); lBuffer.append("etime TEXT,");
+         * lBuffer.append("_type TEXT)"); // 执行创建表的SQL语句
+         * db.execSQL(lBuffer.toString());
+         */
         db.execSQL(CREATE_TABLE_HISTORY);
         db.execSQL(CREATE_TABLE_CITY);
         db.execSQL(CREATE_TABLE_PROVINCE);
-
+        db.execSQL(CREATE_TABLE_PLAYER);
         // 即便程序修改重新运行，只要数据库已经创建过，就不会再进入这个onCreate方法
-
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
-// 调用时间：如果DATABASE_VERSION值被改为别的数,系统发现现有数据库版本不同,即会调用onUpgrade
+        // 调用时间：如果DATABASE_VERSION值被改为别的数,系统发现现有数据库版本不同,即会调用onUpgrade
 
         // onUpgrade方法的三个参数，一个 SQLiteDatabase对象，一个旧的版本号和一个新的版本号
         // 这样就可以把一个数据库从旧的模型转变到新的模型
@@ -115,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CITY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PROVINCE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PLAYER_TABLE_NAME);
         onCreate(db);
         // 上述做法简单来说就是，通过检查常量值来决定如何，升级时删除旧表，然后调用onCreate来创建新表
         // 一般在实际项目中是不能这么做的，正确的做法是在更新数据表结构时，还要考虑用户存放于数据库中的数据不丢失

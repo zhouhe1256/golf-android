@@ -31,7 +31,7 @@
     <color name="line_color">#D3D3D3</color>
     <color name="guolinbi_color">#f39c11</color>
     <color name="exchange_text_color">#8c8c8c</color>
-    <color name="mian_text_color">#3c3c3c</color>
+    <color name="main_text_color">#3c3c3c</color>
     <color name="transparent_color">#f1f1f1</color>
     <color name="tuangou_color">#a165d4</color>
     <color name="unselect_color">#40BA5D</color>
@@ -45,7 +45,7 @@
 主题色#1fba5e-->
     <color name="sold_out_color">#BBBBBB</color>
     <color name="background_color">#E6E6E6</color>
-    <color name="wheel_timebtn_nor">#54a3fa</color>
-    <color name="wheel_timebtn_pre">#CCCCCC</color>
+    <color name="wheel_time_btn_nor">#54a3fa</color>
+    <color name="wheel_time_btn_pre">#CCCCCC</color>
     <color name="city_color">#f9f9f9</color>
 </resources>

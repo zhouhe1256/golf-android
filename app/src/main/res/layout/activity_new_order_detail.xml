@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -112,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -140,28 +140,7 @@
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:paddingTop="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="付款方式:"
-                            android:textColor="@color/exchange_text_color"
-                            android:textSize="@dimen/middle_textSize" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/mian_text_color"
-                            android:textSize="@dimen/middle_textSize" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -196,7 +175,7 @@
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
                         android:padding="15dp"
-                        android:text="立即支付"
+                        android:text="去支付"
                         android:textColor="@color/white"
                         android:textSize="@dimen/main_textSize"
                         android:textStyle="bold"
@@ -221,7 +200,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="清河湾巨鹿不"
-                        android:textColor="@color/mian_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/main_textSize" />
 
                     <LinearLayout
@@ -244,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -268,7 +247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="3人"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -287,12 +266,13 @@
                             android:textSize="@dimen/middle_textSize" />
 
                         <TextView
+                            android:id="@+id/personNames"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:maxLines="2"
-                            android:text="123456家大舅的拉萨加的撒经典款是哪惊呆了撒娇的拉萨绝对是那"
-                            android:textColor="@color/mian_text_color"
+                            android:text=""
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -316,10 +296,32 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="联系人姓名:"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/middle_textSize" />
+
+                        <TextView
+                            android:id="@+id/userRealName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="123456"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/middle_textSize" />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -340,7 +342,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="123456"
-                            android:textColor="@color/mian_text_color"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -363,7 +365,7 @@
                     android:padding="20dp"
                     android:singleLine="true"
                     android:text="球场地址"
-                    android:textColor="@color/mian_text_color"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/sub_textSize"
                     android:visibility="gone" />
 
@@ -377,27 +379,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="订场须知："
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/purchasingNotice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:maxLines="2"
-                        android:text="123456家大舅的拉萨加的撒经典款是哪惊呆了撒娇的拉萨绝对是那"
+                        android:padding="5dp"
+                        android:text=""
                         android:textColor="@color/exchange_text_color"
                         android:textSize="@dimen/small_textSize" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/touying_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -25,7 +25,7 @@
         android:background="@color/white"
         android:hint="想对７铁说点什么呢..."
         android:textSize="@dimen/sub_textSize"
-        android:textColor="@color/mian_text_color"
+        android:textColor="@color/main_text_color"
         android:textCursorDrawable="@null"
         android:cursorVisible="true" />
 
@@ -47,7 +47,7 @@
         android:background="@color/white"
         android:hint="留下您的联系方式吧"
         android:textSize="@dimen/sub_textSize"
-        android:textColor="@color/mian_text_color"
+        android:textColor="@color/main_text_color"
         android:textCursorDrawable="@null"
         android:cursorVisible="true" />
 

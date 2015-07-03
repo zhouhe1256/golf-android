@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -14,26 +15,54 @@ import java.io.Serializable;
 public class OrderModel implements Serializable {
 
     private Long id;// 1,
-    private String orderId;//"1000xxxxxxx"
-    private String title;//"标题",
+    private String orderId;// "1000xxxxxxx"
+    private String title;// "标题",
     private String priceInclude;// "18洞/餐/车",
     private String date;// "2015-08-08 09:00:00",//预约时间
     private double totalPrice;// 800.0,
     private double unitPrice;// 200.0,
-    private int peopleNumber;//4, // 人数
+    private int peopleNumber;// 4, // 人数
     private String createdAt;// "2015-08-08 09:00:00",
-    private String type;//GROUP|SPECIAL|LIMIT|NONE, //团购，特卖，最低起卖，无
-    private String expiredTime;//'2015-10-22 19:00:00',仅在订单未支付状态下存在
-    private String now;//'2015-10-22 19:00:00',仅在订单未支付状态下存在
-    private String status;//订单状态标识,PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
+    private String type;// GROUP|SPECIAL|LIMIT|NONE, //团购，特卖，最低起卖，无
+    private String expiredTime;// '2015-10-22 19:00:00',仅在订单未支付状态下存在
+    private String now;// '2015-10-22 19:00:00',仅在订单未支付状态下存在
+    private String status;// 订单状态标识,PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL
+                          // 待确认 确认中 待支付 已支付 已完成 已取消
     private String imageUrl;// "/upload/image/xxx.png"
     private String mobileNumber;
     private double lat;// 46.213213,
-    private double lon;//116.23213,
+    private double lon;// 116.23213,
     private String address;// "2015-08-08 09:00:00",
+    private String userRealName;
+    private String personNames;
+    private String purchasingNotice;
 
+    private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(
+            OrderModel.class, "order");
 
-    private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(OrderModel.class, "order");
+    public String getUserRealName() {
+        return userRealName;
+    }
+
+    public void setUserRealName(String userRealName) {
+        this.userRealName = userRealName;
+    }
+
+    public String getPersonNames() {
+        return personNames;
+    }
+
+    public void setPersonNames(String personNames) {
+        this.personNames = personNames;
+    }
+
+    public String getPurchasingNotice() {
+        return purchasingNotice;
+    }
+
+    public void setPurchasingNotice(String purchasingNotice) {
+        this.purchasingNotice = purchasingNotice;
+    }
 
     public Long getId() {
         return id;
@@ -42,7 +71,6 @@ public class OrderModel implements Serializable {
     public String getType() {
         return type;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -64,7 +92,6 @@ public class OrderModel implements Serializable {
         this.title = title;
     }
 
-
     public String getCreatedAt() {
         return createdAt;
     }
@@ -73,7 +100,6 @@ public class OrderModel implements Serializable {
         this.createdAt = createdAt;
     }
 
-
     public String getExpiredTime() {
         return expiredTime;
     }
@@ -81,7 +107,6 @@ public class OrderModel implements Serializable {
     public void setExpiredTime(String expiredTime) {
         this.expiredTime = expiredTime;
     }
-
 
     public double getTotalPrice() {
         return totalPrice;
@@ -196,7 +221,7 @@ public class OrderModel implements Serializable {
     public static IPromise orderDelete(Long id) {
         return Http.instance().post(ApiUrl.orderDelete()).
                 param("_method", "DELETE").
-                param("from",id).
+                param("from", id).
                 run();
     }
 
@@ -205,6 +230,21 @@ public class OrderModel implements Serializable {
                 param("productId", id).
                 param("count", count).
                 param("date", date).
+                run();
+    }
+
+    /*
+     * name: 联系人姓名 mobileNumber: 联系人电话 playBallPerson: 打球人 JSON格式字符串 不许为空，参考以下格式
+     */
+    public static IPromise commitNewOrder(Long id, int count, String date, String name, String mobileNumber,
+            String playBallPerson) {
+        return Http.instance().post(ApiUrl.COMMIT_ORDER).
+                param("productId", id).
+                param("count", count).
+                param("date", date).
+                param("name", name).
+                param("mobileNumber", mobileNumber).
+                param("playBallPerson", playBallPerson).
                 run();
     }
 

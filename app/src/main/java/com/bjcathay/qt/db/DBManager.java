@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.db;
 
 import android.database.Cursor;
@@ -5,13 +6,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.GetCitysModel;
 import com.bjcathay.qt.model.GolfCourseModel;
 import com.bjcathay.qt.model.ProvinceModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by dengt on 15-3-11.
@@ -33,47 +34,43 @@ public class DBManager {
         Log.d("db", "DBManager --> Constructor");
         fmApplication = GApplication.getInstance();
         helper = new DatabaseHelper(fmApplication);
-        // 因为getWritableDatabase内部调用了mContext.openOrCreateDatabase(mName, 0,
-        // mFactory);
-        // 所以要确保context已初始化,我们可以把实例化DBManager的步骤放在Activity的onCreate里
         db = helper.getWritableDatabase();
     }
 
     public void add(GolfCourseModel stadium) {
-        Log.d("db", "DBManager --> add" + stadium.getId() + "," + stadium.getName() + "," + stadium.getAddress());
+        Log.d("db",
+                "DBManager --> add" + stadium.getId() + "," + stadium.getName() + ","
+                        + stadium.getAddress());
 
         try {
-            // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
             db.execSQL("REPLACE INTO " + DatabaseHelper.HISTORY_TABLE_NAME
-                    + " VALUES(?,?,?)", new Object[]{String.valueOf(stadium.getId()),
-                    stadium.getAddress(), stadium.getName()});
-            // 带两个参数的execSQL()方法，采用占位符参数？，把参数值放在后面，顺序对应
-            // 一个参数的execSQL()方法中，用户输入特殊字符时需要转义
-            // 使用占位符有效区分了这种情况
+                    + " VALUES(?,?,?)", new Object[] {
+                    String.valueOf(stadium.getId()),
+                    stadium.getAddress(), stadium.getName()
+            });
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
     }
 
-    //1,　热门　
-    //2,非热门
+    // 1,　热门　
+    // 2,非热门
     public void addCitys(List<GetCitysModel> stadiums) {
         Log.d("db", "DBManager --> add");
 
         try {
-            // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
             for (GetCitysModel stadium : stadiums) {
 
                 db.execSQL("INSERT INTO " + DatabaseHelper.CITY_TABLE_NAME
-                        + " VALUES(?, ?, ?, ?)", new Object[]{String.valueOf(stadium.getId()),
-                        stadium.isHot() ? "1" : "2", String.valueOf(stadium.getProvinceId()), stadium.getName()});
+                        + " VALUES(?, ?, ?, ?)", new Object[] {
+                        String.valueOf(stadium.getId()),
+                        stadium.isHot() ? "1" : "2", String.valueOf(stadium.getProvinceId()),
+                        stadium.getName()
+                });
             }
-            // 带两个参数的execSQL()方法，采用占位符参数？，把参数值放在后面，顺序对应
-            // 一个参数的execSQL()方法中，用户输入特殊字符时需要转义
-            // 使用占位符有效区分了这种情况
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
@@ -84,45 +81,90 @@ public class DBManager {
         Log.d("db", "DBManager --> add");
 
         try {
-            // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
             for (ProvinceModel stadium : stadiums) {
 
                 db.execSQL("INSERT INTO " + DatabaseHelper.PROVINCE_TABLE_NAME
-                        + " VALUES(?, ?, ?)", new Object[]{String.valueOf(stadium.getId()),stadium.isHot() ? "1" : "2", stadium.getName()
+                        + " VALUES(?, ?, ?)",
+                        new Object[] {
+                                String.valueOf(stadium.getId()), stadium.isHot() ? "1" : "2",
+                                stadium.getName()
                         });
             }
-            // 带两个参数的execSQL()方法，采用占位符参数？，把参数值放在后面，顺序对应
-            // 一个参数的execSQL()方法中，用户输入特殊字符时需要转义
-            // 使用占位符有效区分了这种情况
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
     }
-/*
-    public void delete(List<StadiumModel> modelList) {
-        Log.d("db", "DBManager --> delete");
+
+    public void addPlayers(List<BookModel> stadiums) {
+        Log.d("db", "DBManager --> add");
+
         try {
-            // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
-            for (StadiumModel stadium : modelList) {
-                db.delete(DatabaseHelper.HISTORY_TABLE_NAME, "pid = ? and cid = ? and stime = ? and etime = ? and _type = ?",
-                        new String[]{Long.toString(stadium.getProgramId()), Long.toString(stadium.getColumnId()),
-                                Long.toString(stadium.getStartAt()), Long.toString(stadium.getEndAt()), stadium.getType()}
-                );
+            for (BookModel stadium : stadiums) {
+                db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
+                        + " VALUES(?, ?)",
+                        new Object[] {
+                                String.valueOf(stadium.getName()), stadium.getPhone()
+                        });
             }
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
-    }*/
+    }
+
+    public void updatePlayer(BookModel oldBook, BookModel newBook) {
+        Log.d("db", "DBManager --> add");
+        try {
+            db.beginTransaction(); // 开始事务
+            if (oldBook.getName().equals(newBook.getName())) {
+               // db.beginTransaction(); // 开始事务
+                db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
+                        + " VALUES(?, ?)",
+                        new Object[] {
+                                String.valueOf(newBook.getName()), newBook.getPhone()
+                        });
+                db.setTransactionSuccessful();
+            } else {
+               /* db.execSQL("DELETE FROM " + DatabaseHelper.PLAYER_TABLE_NAME
+                        + " WHERE " + DatabaseHelper.PLAYER_NAME + " = " + oldBook.getName());*/
+                db.delete(DatabaseHelper.PLAYER_TABLE_NAME,DatabaseHelper.PLAYER_NAME+" =?",new String[]{oldBook.getName()});
+               // db.setTransactionSuccessful();
+              //  db.beginTransaction(); // 开始事务
+                db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
+                        + " VALUES(?, ?)",
+                        new Object[] {
+                                String.valueOf(newBook.getName()), newBook.getPhone()
+                        });
+                db.setTransactionSuccessful();
+            }
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addPlayer(BookModel stadium) {
+        Log.d("db", "DBManager --> add");
+        try {
+            db.beginTransaction(); // 开始事务
+
+            db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
+                    + " VALUES(?, ?)",
+                    new Object[] {
+                            String.valueOf(stadium.getName()), stadium.getPhone()
+                    });
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
 
     public void clearHistory() {
-        //清空历史数据表
+        // 清空历史数据表
         Log.d("db", "DBManager --> history clear");
         try {
-            // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
             db.delete(DatabaseHelper.HISTORY_TABLE_NAME, null, null);
             db.setTransactionSuccessful();
@@ -173,7 +215,22 @@ public class DBManager {
             stadium.setId(Long.parseLong(c.getString(c.getColumnIndex(DatabaseHelper.CITY_ID))));
             stadium.setName(c.getString(c.getColumnIndex(DatabaseHelper.CITY_NAME)));
             stadium.setHot("1".equals(c.getString(c.getColumnIndex(DatabaseHelper.CITY_HOT))));
-            stadium.setProvinceId(Long.parseLong(c.getString(c.getColumnIndex(DatabaseHelper.CITY_PROVINCE_ID))));
+            stadium.setProvinceId(Long.parseLong(c.getString(c
+                    .getColumnIndex(DatabaseHelper.CITY_PROVINCE_ID))));
+            stadiums.add(stadium);
+        }
+        return stadiums;
+    }
+
+    public List<BookModel> queryPlayers() {
+        Log.d("", "DBManager -->history query");
+        List<BookModel> stadiums = new ArrayList<BookModel>();
+        Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.PLAYER_TABLE_NAME,
+                null);
+        while (c.moveToNext()) {
+            BookModel stadium = new BookModel();
+            stadium.setPhone(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NUMBER)));
+            stadium.setName(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NAME)));
             stadiums.add(stadium);
         }
         return stadiums;
@@ -186,7 +243,8 @@ public class DBManager {
      */
     private Cursor queryTheCursor() {
         Log.d("db", "DBManager --> queryTheCursor");
-        Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.HISTORY_TABLE_NAME + " order by stadium_id limit 8",
+        Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.HISTORY_TABLE_NAME
+                + " order by stadium_id limit 8",
                 null);
         return c;
     }
