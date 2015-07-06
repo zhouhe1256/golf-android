@@ -190,11 +190,11 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         now = DateUtil.stringToDate(stadiumListModel.getNow());
 //        now =new Date();
         if (timeCount == null) {
-            timeCount = new TimeCount(Long.MAX_VALUE, 1000, new TimeCount.TimeUpdate() {
+            timeCount = new TimeCount(Long.MAX_VALUE, 60000, new TimeCount.TimeUpdate() {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (now != null) {
-                        now = new Date(now.getTime() + 1000);
+                        now = new Date(now.getTime() + 60000);
                         setNow(now);
                         placeListAdapter.notifyDataSetChanged();
                     }

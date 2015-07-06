@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -38,6 +39,7 @@ public class PlaceListAdapter extends BaseAdapter {
         }
         this.items = items;
         this.context = activity;
+
     }
 
     public PlaceListAdapter(List<ProductModel> items, ProductSearchResultActivity activity) {
@@ -55,10 +57,9 @@ public class PlaceListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-       /* if (count == 0) {
-            count = 10;
-        }
-        return count;*/
+        /*
+         * if (count == 0) { count = 10; } return count;
+         */
     }
 
     @Override
@@ -76,19 +77,26 @@ public class PlaceListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_place_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_place_list, parent,
+                    false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
         ProductModel productModel = items.get(position);
-        ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(), R.drawable.exchange_default);
+        ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
+                R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
         holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
         // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
+        if ("NORMAL".equals(productModel.getLabel())) {
+            holder.hotImg.setVisibility(View.GONE);
+        } else {
+            holder.hotImg.setVisibility(View.VISIBLE);
+        }
         if ("GROUP".equals(productModel.getType())) {
             holder.tuanImg.setVisibility(View.VISIBLE);
             holder.tuanCount.setVisibility(View.VISIBLE);
@@ -100,7 +108,6 @@ public class PlaceListAdapter extends BaseAdapter {
             } else if (context instanceof PlaceListActivity) {
                 start = ((ProductSearchResultActivity) context).getNow();
             }
-            //Date start = context.getNow();
             Date end = DateUtil.stringToDate(productModel.getEnd());
             long diff = end.getTime() - start.getTime();
             if (diff < 0) {
@@ -109,18 +116,18 @@ public class PlaceListAdapter extends BaseAdapter {
                 holder.tuanCount.setTextColor(Color.GRAY);
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
             } else {
-                long days = diff / (1000 * 60 * 60 * 24);
-                long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-                long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-                //   long mm = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
-                holder.tuanCount.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分");
+                /*
+                 * long days = diff / (1000 * 60 * 60 * 24); long hours = (diff
+                 * - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60); long
+                 * minutes = (diff - days * (1000 * 60 * 60 * 24) - hours *
+                 * (1000 * 60 * 60)) / (1000 * 60);
+                 */
+                holder.tuanCount.setText(getcountTime(diff));
                 holder.tuanCount.setBackgroundResource(R.drawable.tuangou_bg);
-                Resources resource = context.getResources();
-                ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.tuangou_color);
-                if (csl != null) {
-                    holder.tuanCount.setTextColor(csl);
-                }
-                // holder.tuanCount.setTextColor(Color.WHITE);
+                // if (csl != null) {
+                holder.tuanCount.setTextColor(context.getResources().getColorStateList(
+                        R.color.tuangou_color));
+                // }
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
             }
         } else if ("SPECIAL".equals(productModel.getType())) {
@@ -131,12 +138,15 @@ public class PlaceListAdapter extends BaseAdapter {
             if (productModel.getAmount() > 0) {
                 holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
                 holder.temaiCount.setBackgroundResource(R.drawable.temai_bg);
-                Resources resource = context.getResources();
-                ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.order_price_color);
-                if (csl != null) {
-                    holder.temaiCount.setTextColor(csl);
-                }
-                // holder.tuanCount.setTextColor(Color.WHITE);
+                /*
+                 * Resources resource = context.getResources(); ColorStateList
+                 * csl = (ColorStateList)
+                 * resource.getColorStateList(R.color.order_price_color); if
+                 * (csl != null) {
+                 */
+                holder.temaiCount.setTextColor(context.getResources().getColorStateList(
+                        R.color.order_price_color));
+                // }
                 holder.temaiImg.setImageResource(R.drawable.ic_te_icon);
             } else {
                 holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
@@ -149,7 +159,6 @@ public class PlaceListAdapter extends BaseAdapter {
             holder.tuanImg.setVisibility(View.GONE);
             holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
-            //  holder.tuanCount.setText("还差" + productModel.getAmount() + "成团");
         } else {
             holder.tuanImg.setVisibility(View.GONE);
             holder.tuanCount.setVisibility(View.INVISIBLE);
@@ -159,8 +168,17 @@ public class PlaceListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private String getcountTime(long diff) {
+        long days = diff / (1000 * 60 * 60 * 24);
+        long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60))
+                / (1000 * 60);
+        return "仅剩" + days + "天" + hours + "小时" + minutes + "分";
+    }
+
     class Holder {
         ImageView tuanImg;
+        ImageView hotImg;
         ImageView temaiImg;
         RoundCornerImageView imageView;
         TextView title;
@@ -180,6 +198,7 @@ public class PlaceListAdapter extends BaseAdapter {
             temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
+            hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
         }
     }
 }

@@ -33,11 +33,20 @@ public class ProductModel implements Serializable {
     private String bhStartAt;
     private String bhEndAt;
     private String purchasingNotice;
+    private String label;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(ProductModel.class, "product");
     @JSONCollection(type = ActivityModel.class)
     private ActivityModel activity;// [ "/upload/image/xxx.png",
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
     public String getPurchasingNotice() {
         return purchasingNotice;

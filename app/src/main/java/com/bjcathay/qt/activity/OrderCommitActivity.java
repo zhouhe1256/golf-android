@@ -151,7 +151,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         sure.setOnClickListener(this);
     }
 
-    int amount = 1;
+    int amount = -1;
 
     private void initData() {
         Intent intent = getIntent();
@@ -164,6 +164,69 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         UserModel userModel1 = GApplication.getInstance().getUser();
         phone.setText(userModel1.getMobileNumber());
         cName.setText(userModel1.getRealName());
+        minas.setVisibility(View.VISIBLE);
+          plus.setVisibility(View.VISIBLE);
+        if ("LIMIT".equals(stadiumModel.getType())) {
+            amount = stadiumModel.getAmount();
+        }
+        if (number == 0) {
+           // minas.setVisibility(View.VISIBLE);
+          //  plus.setVisibility(View.VISIBLE);
+            number = 5;
+            price.setText("￥" +
+                    currentPrice * number);
+            minas.setOnClickListener(new
+                    View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (number > 5) {
+                                number--;
+                                fourPlus.setText(number < 10 ? " " + number : number + "");
+                                price.setText("￥" + currentPrice * number);
+                            }
+                        }
+                    });
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // if(number>=5){
+                    number++;
+                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                    price.setText("￥" + currentPrice * number);
+                }
+            });
+        } else {
+            minas.setOnClickListener(new
+                    View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (amount > 0) {
+                                if (number > amount) {
+                                    number--;
+                                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                                    price.setText("￥" + currentPrice * number);
+                                }
+                            } else {
+                                if (number > 1) {
+                                    number--;
+                                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                                    price.setText("￥" + currentPrice * number);
+                                }
+                            }
+                        }
+                    });
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // if(number>=5){
+                    number++;
+                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                    price.setText("￥" + currentPrice * number);
+                }
+            });
+            fourPlus.setText(number < 10 ? " " + number : number + "");
+            price.setText("￥" + currentPrice * number + "");
+        }
         /*
          * if ("LIMIT".equals(stadiumModel.getType())) {
          * amount=stadiumModel.getAmount(); if
@@ -193,7 +256,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
          * number); // } } }); fourPlus.setText(number < 10 ? " " + number :
          * number + ""); price.setText("￥" + currentPrice * number + "");
          */
-        if (number == 0) {
+        /*if (number == 0) {
             minas.setVisibility(View.VISIBLE);
             plus.setVisibility(View.VISIBLE);
             number = 5;
@@ -224,7 +287,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             plus.setVisibility(View.GONE);
             fourPlus.setText(number < 10 ? " " + number : number + "");
             price.setText("￥" + currentPrice * number + "");
-        }
+        }*/
     }
 
     @Override

@@ -57,6 +57,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView orderAddress;
     private Button orderToPay;
     private Button contactUs;
+    private Button cancleOrder;
     // private ImageView tuangou;
     // private ImageView temai;
     private LinearLayout orderUndel;
@@ -96,6 +97,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
         orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
         contactUs = ViewUtil.findViewById(this, R.id.contact_us);
+        cancleOrder = ViewUtil.findViewById(this, R.id.order_cancle);
         userRealName = ViewUtil.findViewById(this, R.id.userRealName);
         personNames = ViewUtil.findViewById(this, R.id.personNames);
         purchasingNotice = ViewUtil.findViewById(this, R.id.purchasingNotice);
@@ -157,12 +159,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("确认中");
+                cancleOrder.setVisibility(View.VISIBLE);
             } else if ("UNPAID".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.VISIBLE);
                 orderStatus.setText("待支付");
+                cancleOrder.setVisibility(View.VISIBLE);
             } else if ("PAID".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已支付");
+                cancleOrder.setVisibility(View.GONE);
                 if (orderModel.getPeopleNumber() == 0)
                     orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
                 else
@@ -170,6 +175,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else if ("FINISH".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已完成");
+                cancleOrder.setVisibility(View.GONE);
                 if (orderModel.getPeopleNumber() == 0)
                     orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
                 else
@@ -177,6 +183,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else if ("CANCEL".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已取消");
+                cancleOrder.setVisibility(View.GONE);
             }
 
             /*
@@ -197,6 +204,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     ViewUtil.startActivity(context, intent);
                 }
             });
+            cancleOrder.setOnClickListener(this);
             contactUs.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -226,6 +234,24 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     }
 
+    private void cancleOrder() {
+        OrderModel.orderCancle(orderModel.getId()).done(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                JSONObject jsonObject = arguments.get(0);
+                if (jsonObject.optBoolean("success")) {
+                    DialogUtil.showMessage("订单已取消");
+                    cancleOrder.setVisibility(View.GONE);
+                    orderToPay.setVisibility(View.GONE);
+                    orderStatus.setText("已取消");
+                } else {
+                    int code = jsonObject.optInt("code");
+                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                }
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         if (ClickUtil.isFastClick()) {
@@ -247,6 +273,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                         });
                     else
                         ShareUtil.getInstance().shareDemo(context, shareModel);
+                break;
+            case R.id.order_cancle:
+                cancleOrder();
                 break;
         }
     }

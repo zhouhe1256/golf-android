@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_list_head"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_color"
     android:orientation="vertical">
 
-    <com.bjcathay.qt.view.TopView
-        android:id="@+id/top_select_player_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/home_title_color" />
-
-
-   <!-- <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -45,7 +39,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/right_img"
             android:layout_toRightOf="@id/left_img"
-            android:background="@color/white"
+            android:background="@drawable/solid_write_bg"
             android:ellipsize="end"
             android:gravity="left|center_vertical"
             android:hint="请输入打球人姓名"
@@ -64,15 +58,6 @@
         android:layout_marginTop="20dp"
         android:text="填写真实姓名，更能保证您的顺利订场哦．"
         android:textColor="@color/exchange_text_color"
-        android:textSize="@dimen/small_textSize" />-->
+        android:textSize="@dimen/small_textSize" />
 
-    <ListView
-
-        android:id="@+id/player_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
 </LinearLayout>

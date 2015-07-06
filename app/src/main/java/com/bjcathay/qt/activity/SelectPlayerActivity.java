@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +43,8 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     private int respedit = 2;
     private int reqcontact = 3;
     private int respcontact = 4;
+    private LayoutInflater inflater;
+    private View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,14 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_select_player_layout);
-        playList = ViewUtil.findViewById(this, R.id.player_list);
-        inputPlayer = ViewUtil.findViewById(this, R.id.input_player_name);
-        leftImg = ViewUtil.findViewById(this, R.id.left_img);
-        rightImg = ViewUtil.findViewById(this, R.id.right_img);
         // callRecords = new ArrayList<BookModel>();
-
+        playList = ViewUtil.findViewById(this, R.id.player_list);
+        inflater = LayoutInflater.from(context);
+        header = inflater.inflate(R.layout.select_player_list_head, null);
+        inputPlayer = ViewUtil.findViewById(header, R.id.input_player_name);
+        leftImg = ViewUtil.findViewById(header, R.id.left_img);
+        rightImg = ViewUtil.findViewById(header, R.id.right_img);
+        playList.addHeaderView(header);
     }
 
     private void initEvent() {

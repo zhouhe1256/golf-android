@@ -128,17 +128,56 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
                         isCheckMap.put(position, isChecked);
                         if (isChecked) {
                             check.add(list.get(position));
+                            compoundButton.setChecked(true);
                         } else {
                             check.remove(list.get(position));
+                            compoundButton.setChecked(false);
                         }
                     }
                 });
+        /*
+         * view.setOnClickListener(new View.OnClickListener() {
+         * @Override public void onClick(View view) { if
+         * (isCheckMap.containsKey(position)) { if (isCheckMap.get(position)) {
+         * check.add(list.get(position)); } else {
+         * check.remove(list.get(position)); } } else { isCheckMap.put(position,
+         * true); check.add(list.get(position)); } ((CheckBox)
+         * view.findViewById(
+         * R.id.contact_status_true)).setChecked(isCheckMap.get(position)); //
+         * setitemChecked(position); } });
+         */
+        /*
+         * AdapterView.OnItemClickListener itemListener= new
+         * AdapterView.OnItemClickListener() {
+         * @Override public void onItemClick(AdapterView<?> arg0, View arg1, int
+         * arg2, long arg3) { LinearLayout view1 = (LinearLayout) arg1;
+         * RelativeLayout view = (RelativeLayout) view1.getChildAt(0); CheckBox
+         * box = (CheckBox) view.getChildAt(1);
+         * box.setChecked(!box.isChecked()); } };
+         */
+
         if (isCheckMap.get(position) == null) {
             isCheckMap.put(position, false);
         }
         viewHolder.statusTrue.setChecked(isCheckMap.get(position));
         return view;
 
+    }
+
+    /*
+     * CheckBox.OnCheckedChangeListener checkListener = new
+     * CheckBox.OnCheckedChangeListener(){
+     * @Override public void onCheckedChanged(CompoundButton buttonView, boolean
+     * isChecked) { // TODO Auto-generated method stub
+     *//*
+        * 将选择项加载到map里面寄存
+        *//*
+           * isCheckMap.put(buttonView.getId(), isChecked); if (isChecked) {
+           * check.add(list.get(buttonView.getId())); } else {
+           * check.remove(list.get(buttonView.getId())); } } };
+           */
+    private void setitemChecked(int position) {
+        // viewHolder.statusTrue.setChecked(isCheckMap.get(position));
     }
 
     private void sendMessage(String phone, String message) {

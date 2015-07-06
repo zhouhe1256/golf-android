@@ -46,10 +46,6 @@ public class PlaceSearchListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-       /* if (count == 0) {
-            count = 10;
-        }
-        return count;*/
     }
 
     @Override
@@ -79,6 +75,11 @@ public class PlaceSearchListAdapter extends BaseAdapter {
         holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
+        if("NORMAL".equals(productModel.getLabel())){
+            holder.hotImg.setVisibility(View.GONE);
+        }else{
+            holder.hotImg.setVisibility(View.VISIBLE);
+        }
         // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
         if ("GROUP".equals(productModel.getType())) {
             holder.tuanImg.setVisibility(View.VISIBLE);
@@ -148,6 +149,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
     class Holder {
         ImageView tuanImg;
         ImageView temaiImg;
+        ImageView hotImg;
         RoundCornerImageView imageView;
         TextView title;
         TextView price;
@@ -166,6 +168,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
             temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
+            hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
         }
     }
 }

@@ -52,9 +52,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:button="@drawable/contact_checkbox_selector"
+            style="@style/CustomCheckboxTheme"
             android:gravity="center"
-            android:text="赠送"
             android:textColor="@color/white"
             android:visibility="visible" />
     </RelativeLayout>
