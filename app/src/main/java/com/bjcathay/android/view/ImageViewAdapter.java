@@ -27,6 +27,8 @@ public class ImageViewAdapter {
         }
     }
 
+    private static volatile long tagSequence;
+
     private final ImageView imageView;
     private final Http http;
     private final String url;
@@ -38,6 +40,9 @@ public class ImageViewAdapter {
     private IPromise promise;
 
     private UpdatePredicate predicate = new NullUpdatePredicate();
+
+    private long tag;
+
 
     public ImageViewAdapter(ImageView imageView, String url, int defaultImageId) {
         this(imageView, url, defaultImageId, 0);
@@ -64,6 +69,9 @@ public class ImageViewAdapter {
     }
 
     public ImageViewAdapter(ImageView imageView, Http http, String url, int defaultImageId, int errorImageId, IContentDecoder<Bitmap> contentDecoder, UpdatePredicate predicate) {
+        tag = getNextTag();
+        imageView.setTag(R.string.image_view_tag, tag);
+
         this.imageView = imageView;
         this.http = http;
         //todo
@@ -89,14 +97,16 @@ public class ImageViewAdapter {
         loadImage();
     }
 
+    private synchronized long getNextTag() {
+        return tagSequence++;
+    }
+
+
     private void loadImage() {
         if (defaultImageId != 0) {
             imageView.setImageResource(defaultImageId);
         }
 
-        //添加url host
-        //url = domain + url;
-        //  url = GApplication.getInstance().getResources().getString(R.string.img_host) + url;
         HttpClient httpClient = http.get(url);
         if (contentDecoder != null) {
             httpClient.contentDecoder(contentDecoder);
@@ -104,6 +114,10 @@ public class ImageViewAdapter {
         promise = httpClient.run().done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
+                if (isImageViewChanged()) {
+                    return;
+                }
+
                 Bitmap bitmap = arguments.get(0);
                 if (predicate.accept(ImageViewAdapter.this, bitmap)) {
                     imageView.setImageBitmap(bitmap);
@@ -112,6 +126,10 @@ public class ImageViewAdapter {
         }).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
+                if (isImageViewChanged()) {
+                    return;
+                }
+
                 if (errorImageId != 0) {
                     if (predicate.accept(ImageViewAdapter.this, null)) {
                         imageView.setImageResource(errorImageId);
@@ -127,6 +145,15 @@ public class ImageViewAdapter {
             }
         });
     }
+
+    private boolean isImageViewChanged() {
+        Long currentTag = (Long) imageView.getTag(R.string.image_view_tag);
+        if (currentTag == null) {
+            return true;
+        }
+        return !currentTag.equals(tag);
+    }
+
 
     public void setPredicate(UpdatePredicate predicate) {
         this.predicate = predicate;
