@@ -16,6 +16,8 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
@@ -42,7 +44,8 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     private long cityId;
     private long placeId;
     private Date now;
-
+    String latitude;
+    String longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +131,8 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
         Intent intent = getIntent();
         cityId = intent.getLongExtra("cityId", 0l);
         placeId = intent.getLongExtra("placeId", 0l);
+        latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
+        longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
         loadData(AutoListView.REFRESH);
     }
 
@@ -150,7 +155,7 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
                 page++;
                 break;
         }
-        ProductListModel.searchProduct(cityId == 0l ? null : String.valueOf(cityId), placeId == 0l ? null : String.valueOf(placeId)).done(this).fail(new ICallback() {
+        ProductListModel.searchProduct(cityId == 0l ? null : String.valueOf(cityId), placeId == 0l ? null : String.valueOf(placeId),latitude, longitude).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 if (lstv != null) {

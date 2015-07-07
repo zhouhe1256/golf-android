@@ -1,4 +1,3 @@
-
 package com.bjcathay.qt.view;
 
 import android.app.Dialog;
@@ -11,37 +10,40 @@ import android.widget.TextView;
 import com.bjcathay.qt.R;
 import com.ta.utdid2.android.utils.StringUtils;
 
-public class DeleteInfoDialog extends Dialog {
+/**
+ * Created by dengt on 15-7-7.
+ */
+public class CancleInfoDialog extends Dialog {
 
-    public interface DeleteInfoDialogResult {
-        void deleteResult(Long targetId, boolean isDelete);
+    public interface CancleInfoDialogResult {
+        void cancleResult(Long targetId, boolean isDelete);
     }
 
     private Long targetId;
     private String text;
-    private DeleteInfoDialogResult dialogResult;
+    private CancleInfoDialogResult dialogResult;
     private TextView dialogCancel;
     private TextView dialogConfirm;
     private TextView dialogTitle;
     private String comfire;
 
-    public DeleteInfoDialog(Context context) {
+    public CancleInfoDialog(Context context) {
         this(context, 0, "", null, null);
     }
 
-    public DeleteInfoDialog(Context context, int theme, String text, Long targetId,
-            DeleteInfoDialogResult result) {
+    public CancleInfoDialog(Context context, int theme, String text, Long targetId,
+                            CancleInfoDialogResult result) {
         super(context, theme);
         this.targetId = targetId;
         this.dialogResult = result;
         this.text = text;
 
     }
-public void onCancleListen(){
+    public void onCancleListen(){
 
-}
-    public DeleteInfoDialog(Context context, int theme, String text, String comfire, Long targetId,
-            DeleteInfoDialogResult result) {
+    }
+    public CancleInfoDialog(Context context, int theme, String text, String comfire, Long targetId,
+                            CancleInfoDialogResult result) {
         super(context, theme);
         this.targetId = targetId;
         this.dialogResult = result;
@@ -66,14 +68,14 @@ public void onCancleListen(){
         dialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogResult.deleteResult(targetId, false);
+                dialogResult.cancleResult(targetId, false);
                 cancel();
             }
         });
         dialogConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogResult.deleteResult(targetId, true);
+                dialogResult.cancleResult(targetId, true);
                 cancel();
             }
         });

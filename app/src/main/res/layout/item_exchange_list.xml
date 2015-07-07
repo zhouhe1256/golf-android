@@ -75,6 +75,7 @@
                     android:paddingRight="5dp"
                     android:singleLine="true"
                     android:textSize="@dimen/sub_textSize"
+                    android:textColor="@color/exchange_text_color"
                     android:text="领取此卡即可免费参加PGA赛事hsakljdl;sakjd;lsak'das" />
 
             </LinearLayout>

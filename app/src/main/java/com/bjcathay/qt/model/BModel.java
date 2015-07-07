@@ -1,12 +1,11 @@
-
 package com.bjcathay.qt.model;
 
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-18.
+ * Created by dengt on 15-7-7.
  */
-public class BookModel implements Serializable {
+public class BModel implements Serializable {
     private String name;
     private String phone;
     private String data;
@@ -53,7 +52,7 @@ public class BookModel implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        BookModel s = (BookModel) obj;
+        BModel s = (BModel) obj;
         return phone.equals(s.phone);
     }
 
@@ -63,3 +62,4 @@ public class BookModel implements Serializable {
         return in.hashCode();
     }
 }
+

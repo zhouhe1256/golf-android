@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.bjcathay.android.util.LogUtil;
+import com.bjcathay.qt.model.BModel;
 import com.bjcathay.qt.model.BookModel;
 import com.igexin.getuiext.data.a;
 
@@ -39,6 +40,38 @@ public class ConstactUtil {
             phoneCursor.moveToFirst();
             while (phoneCursor.getPosition() != phoneCursor.getCount()) {
                 BookModel bookModel = new BookModel();
+                String phoneNumber = phoneCursor.getString(2)
+                        .replace("-", "");
+                String regEx = "[^0-9]";
+                Pattern p = Pattern.compile(regEx);
+                Matcher m = p.matcher(phoneNumber);
+                String number_ = m.replaceAll("").trim();
+                if (number_.startsWith("86")) {
+                    number_ = number_.substring(2);
+                } else if (number_.startsWith("010")) {
+                    number_ = number_.substring(3);
+                }
+                bookModel.setPhone(number_);
+                String name = phoneCursor.getString(3).replace("-", "");
+                bookModel.setName(phoneCursor.getString(3).replace("-", ""));
+                LogUtil.i("phone:name:", number_ + ":" + name);
+                phoneCursor.moveToNext();
+                if (ValidformUtil.isMobileNo(number_))
+                    bookModelList.add(bookModel);
+            }
+        }
+        phoneCursor.close();
+        return bookModelList;
+    }
+    public static List<BModel> getQuickRecordsBook(Context context) {
+        List<BModel> bookModelList = new ArrayList<BModel>();
+        Cursor phoneCursor = context.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, mContactsProjection, null,
+                null, null);
+        if (0 < phoneCursor.getCount()) {
+            phoneCursor.moveToFirst();
+            while (phoneCursor.getPosition() != phoneCursor.getCount()) {
+                BModel bookModel = new BModel();
                 String phoneNumber = phoneCursor.getString(2)
                         .replace("-", "");
                 String regEx = "[^0-9]";

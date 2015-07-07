@@ -2,6 +2,7 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -97,10 +98,16 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         if (requestCode == cityreqCode && resultCode == 1) {
             String name = data.getStringExtra("city");
             cityId = data.getLongExtra("cityId", 0l);
+            if(cityId!=0l){
+                citySelect.setTextColor(Color.BLACK);
+            }
             citySelect.setText(name);
         } else if (requestCode == placereqCode && resultCode == 2) {
             String name = data.getStringExtra("place");
             placeId = data.getLongExtra("placeId", 0l);
+            if(placeId!=0l){
+                placeSelect.setTextColor(Color.BLACK);
+            }
             placeSelect.setText(name);
         }
     }

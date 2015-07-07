@@ -6,7 +6,7 @@ import android.util.Log;
  * Created by bjcathay on 15-6-23.
  */
 public class LogUtil {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     public static void e(String TAG, String msg, Throwable tr) {
         Log.e(TAG, msg,tr);
     }

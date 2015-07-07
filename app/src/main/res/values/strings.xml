@@ -3,11 +3,11 @@
 
     <string name="app_name">7铁</string>
     <!--开发-->
-    <string name="host">http://api0.bjcathay.com:81</string>
-    <string name="img_host">http://api0.bjcathay.com:81</string>
+   <!-- <string name="host">http://api0.bjcathay.com:81</string>
+    <string name="img_host">http://api0.bjcathay.com:81</string>-->
     <!--运营-->
-   <!-- <string name="host">http://api.7tiegolf.com</string>
-    <string name="img_host">http://image.7tiegolf.com</string>-->
+    <string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>
     <!--预发布-->
     <!--<string name="host">http://api.qt.bjcathay.com</string>
     <string name="img_host">http://image.qt.bjcathay.com</string>-->
@@ -60,7 +60,7 @@
     <string name="order_com_suc_note_a">客服确认完成后．若出现信息冲突，客服会及时给你回访，</string>
     <string name="order_com_suc_note_b">7铁高尔夫客服电话:</string>
     <string name="service_tel"><u>4006099977</u></string>
-    <string name="service_tel_format"><u>400-6099-977</u></string>
+    <string name="service_tel_format"><u>400-609-9977</u></string>
     <string name="order_success_tuan_share"><u>分享给好友</u></string>
      <string name="order_sucess_to_send_to_friend"><u>赠送朋友</u>
       </string>

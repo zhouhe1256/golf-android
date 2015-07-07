@@ -3,6 +3,7 @@ package com.bjcathay.qt.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,7 +29,9 @@ import com.bjcathay.qt.adapter.SelectContactAdapter;
 import com.bjcathay.qt.adapter.SortAdapter;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.fragment.DialogExchFragment;
-import com.bjcathay.qt.model.BookModel;
+import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookListModel;
+
 import com.bjcathay.qt.model.BooksModel;
 import com.bjcathay.qt.model.SortListModel;
 import com.bjcathay.qt.model.SortModel;
@@ -37,6 +40,7 @@ import com.bjcathay.qt.util.BookPinyinComparator;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
 import com.bjcathay.qt.util.PinyinComparator;
+import com.bjcathay.qt.util.PinyinComparatorBmodel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.SideBar;
@@ -60,11 +64,11 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     private SelectContactAdapter adapter;
     private ClearEditText mClearEditText;
     // private Map<String, String> callRecords;
-    List<BookModel> callRecords;
+    List<BModel> callRecords;
     private CharacterParser characterParser;
     // private List<SortModel> SourceDateList;
-    private List<BookModel> SourceDateList;
-    private BookPinyinComparator pinyinComparator;
+    private List<BModel> SourceDateList;
+    private PinyinComparatorBmodel pinyinComparator;
     private TopView topView;
     private TextView netNote;
     private Long id;
@@ -97,12 +101,13 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
 
     private void initEvent() {
         // mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
-        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                SelectContactAdapter.ViewHolder vHollder = (SelectContactAdapter.ViewHolder) view.getTag();
-//在每次获取点击的item时将对于的checkbox状态改变，同时修改map的值。
+                    int position, long id) {
+                SelectContactAdapter.ViewHolder vHollder = (SelectContactAdapter.ViewHolder) view
+                        .getTag();
+                // 在每次获取点击的item时将对于的checkbox状态改变，同时修改map的值。
                 vHollder.statusTrue.toggle();
                 SelectContactAdapter.isCheckMap.put(position, vHollder.statusTrue.isChecked());
             }
@@ -118,7 +123,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
-        pinyinComparator = new BookPinyinComparator();
+        pinyinComparator = new PinyinComparatorBmodel();
 
         sideBar.setTextView(dialog);
 
@@ -142,42 +147,55 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.title_back_img:
+               /* intent = new Intent();
                 if (adapter != null) {
+                    BookListModel bookListModel = new BookListModel();
                     List<BookModel> bookModels = adapter.getCheckedItems();
+                    bookListModel.setPersons(bookModels);
                     if (!bookModels.isEmpty()) {
                         DBManager.getInstance().addPlayers(bookModels);
+                        intent.putExtra("contact", bookListModel);
                     }
                 }
-                setResult(2);
+                setResult(4, intent);*/
                 finish();
                 break;
             case R.id.title_finish:
+                intent = new Intent();
                 if (adapter != null) {
-                    List<BookModel> bookModels = adapter.getCheckedItems();
+                    BookListModel bookListModel = new BookListModel();
+                    List<BModel> bookModels = adapter.getCheckedItems();
+                    bookListModel.setPersons(bookModels);
                     if (!bookModels.isEmpty()) {
-                        DBManager.getInstance().addPlayers(bookModels);
+                       // DBManager.getInstance().addPlayers(bookModels);
+                        intent.putExtra("contact", bookListModel);
                     }
                 }
-                setResult(2);
+                setResult(4, intent);
                 finish();
                 break;
         }
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent();
         if (adapter != null) {
+            BookListModel bookListModel = new BookListModel();
             List<BookModel> bookModels = adapter.getCheckedItems();
+            bookListModel.setPersons(bookModels);
             if (!bookModels.isEmpty()) {
                 DBManager.getInstance().addPlayers(bookModels);
+                intent.putExtra("contact", bookListModel);
             }
         }
-        setResult(2);
+        setResult(4, intent);
         finish();
-    }
+    }*/
 
     @Override
     public void exchangeResult(UserModel userModel, boolean isExchange) {
@@ -189,7 +207,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         @Override
         protected Integer doInBackground(Integer... arg0) {
             int result = -1;
-            callRecords = ConstactUtil.getQuickRecords(context);
+            callRecords = ConstactUtil.getQuickRecordsBook(context);
             result = 1;
             return result;
         }
@@ -268,7 +286,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
      * @param sortModels
      * @return
      */
-    private List<BookModel> filledData(List<BookModel> sortModels) {
+    private List<BModel> filledData(List<BModel> sortModels) {
         for (int i = 0; i < sortModels.size(); i++) {
             String pinyin = characterParser.getSelling(sortModels.get(i).getName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
@@ -290,14 +308,14 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
      */
     private void filterData(String filterStr) {
         if (SourceDateList != null) {
-            List<BookModel> filterDateList = new ArrayList<BookModel>();
+            List<BModel> filterDateList = new ArrayList<BModel>();
             if (filterStr.matches("[A-Z]"))
                 filterStr = filterStr.toLowerCase();
             if (TextUtils.isEmpty(filterStr)) {
                 filterDateList = SourceDateList;
             } else {
                 filterDateList.clear();
-                for (BookModel sortModel : SourceDateList) {
+                for (BModel sortModel : SourceDateList) {
                     String name = sortModel.getName();
 
                     if (name.indexOf(filterStr.toString()) != -1

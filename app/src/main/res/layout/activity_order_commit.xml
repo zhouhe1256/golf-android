@@ -183,6 +183,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@null"
+            android:singleLine="true"
             android:hint="请输入联系人姓名"
             android:textColor="@color/exchange_text_color"
             android:textColorHint="@color/exchange_text_color"
@@ -218,6 +219,8 @@
             android:layout_height="fill_parent"
             android:background="@null"
             android:hint="请输入联系人电话"
+            android:inputType="number"
+            android:singleLine="true"
             android:textColor="@color/exchange_text_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />

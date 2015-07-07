@@ -36,7 +36,6 @@
             android:layout_height="17dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
             android:src="@drawable/ic_info_enter" />
 
         <com.bjcathay.qt.view.CircleImageView
@@ -87,7 +86,6 @@
             android:layout_height="17dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
             android:src="@drawable/ic_info_enter" />
 
         <TextView
@@ -138,7 +136,7 @@
             android:layout_toLeftOf="@+id/name_go"
             android:layout_toRightOf="@id/info_name_note"
             android:gravity="right"
-            android:text=""
+            android:text="ewqweq"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />
 
@@ -149,7 +147,6 @@
             android:layout_height="17dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
             android:src="@drawable/ic_info_enter" />
 
     </RelativeLayout>
@@ -180,9 +177,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="41dp"
+            android:layout_marginRight="30dp"
             android:gravity="right"
-            android:text=""
+            android:text="ewqewq"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />
 
@@ -215,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="41dp"
+            android:layout_marginRight="30dp"
             android:gravity="right"
             android:hint="(邀请朋友时使用)"
             android:textColor="@color/exchange_text_color"

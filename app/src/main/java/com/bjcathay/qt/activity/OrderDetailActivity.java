@@ -25,6 +25,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.CancleInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
@@ -36,7 +37,7 @@ import org.json.JSONObject;
  * Created by dengt on 15-4-29.
  */
 public class OrderDetailActivity extends Activity implements ICallback, View.OnClickListener,
-        DeleteInfoDialog.DeleteInfoDialogResult {
+        DeleteInfoDialog.DeleteInfoDialogResult, CancleInfoDialog.CancleInfoDialogResult {
 
     private Activity context;
     private TopView topView;
@@ -147,7 +148,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
             else
                 orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
-            orderPay.setText("0");
+            orderPay.setText("￥0");
             orderPhone.setText(""
                     + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
             orderNum.setText("" + orderModel.getOrderId());
@@ -209,7 +210,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 @Override
                 public void onClick(View view) {
                     DeleteInfoDialog infoDialog = new DeleteInfoDialog(OrderDetailActivity.this,
-                            R.style.InfoDialog, getResources().getString(R.string.service_tel_format).toString().trim(),"呼叫", 0l, OrderDetailActivity.this);
+                            R.style.InfoDialog, getResources()
+                                    .getString(R.string.service_tel_format).toString().trim(),
+                            "呼叫", 0l, OrderDetailActivity.this);
                     infoDialog.show();
                 }
             });
@@ -233,21 +236,10 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     }
 
     private void cancleOrder() {
-        OrderModel.orderCancle(orderModel.getId()).done(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                JSONObject jsonObject = arguments.get(0);
-                if (jsonObject.optBoolean("success")) {
-                    DialogUtil.showMessage("订单已取消");
-                    cancleOrder.setVisibility(View.GONE);
-                    orderToPay.setVisibility(View.GONE);
-                    orderStatus.setText("已取消");
-                } else {
-                    int code = jsonObject.optInt("code");
-                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                }
-            }
-        });
+        CancleInfoDialog infoDialog = new CancleInfoDialog(OrderDetailActivity.this,
+                R.style.InfoDialog, "确认取消订单?", 0l, OrderDetailActivity.this);
+        infoDialog.show();
+
     }
 
     @Override
@@ -306,5 +298,25 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    public void cancleResult(Long targetId, boolean isDelete) {
+        if (isDelete)
+            OrderModel.orderCancle(orderModel.getId()).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    JSONObject jsonObject = arguments.get(0);
+                    if (jsonObject.optBoolean("success")) {
+                        DialogUtil.showMessage("订单已取消");
+                        cancleOrder.setVisibility(View.GONE);
+                        orderToPay.setVisibility(View.GONE);
+                        orderStatus.setText("已取消");
+                    } else {
+                        int code = jsonObject.optInt("code");
+                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                    }
+                }
+            });
     }
 }

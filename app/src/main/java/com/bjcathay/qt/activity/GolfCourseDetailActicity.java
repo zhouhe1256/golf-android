@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -34,7 +35,8 @@ import java.util.List;
 /**
  * Created by dengt on 15-5-20.
  */
-public class GolfCourseDetailActicity extends Activity implements ICallback, View.OnClickListener,DeleteInfoDialog.DeleteInfoDialogResult {
+public class GolfCourseDetailActicity extends Activity implements ICallback, View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;
     private JazzyViewPager bannerViewPager;
     private Activity context;
@@ -71,14 +73,16 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     private void initEvent() {
         topView.setTitleBackVisiable();
         topView.setTitleText("球场详情");
-        ((TextView) findViewById(R.id.golfcourse_phone)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                        R.style.InfoDialog, "呼叫"+stadiumModel.getPhone()+"？", 0l, GolfCourseDetailActicity.this);
-                infoDialog.show();
-            }
-        });
+        ((TextView) findViewById(R.id.golfcourse_phone))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
+                                R.style.InfoDialog, "呼叫" + stadiumModel.getPhone() + "？", 0l,
+                                GolfCourseDetailActicity.this);
+                        infoDialog.show();
+                    }
+                });
         toMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +93,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
                 intent.putExtra("lon", stadiumModel.getLon());
                 intent.putExtra("title", stadiumModel.getName());
                 intent.putExtra("content", stadiumModel.getAddress());
-                //intent.putExtra("address",stationAddress.getText().toString().trim());
+                // intent.putExtra("address",stationAddress.getText().toString().trim());
                 intent.putExtra("src", "A|GOLF");
                 ViewUtil.startActivity(context, intent);
             }
@@ -109,7 +113,8 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         topView.setTitleText(stadiumModel.getName());
         setupBanner(stadiumModel.getImageUrls());
 
-        ((TextView) findViewById(R.id.golfcourse_description)).setText(stadiumModel.getDescription());
+        ((TextView) findViewById(R.id.golfcourse_description)).setText(stadiumModel
+                .getDescription());
         ((TextView) findViewById(R.id.golfcourse_mode)).setText(stadiumModel.getMode());
         ((TextView) findViewById(R.id.golfcourse_data)).setText(stadiumModel.getData());
         ((TextView) findViewById(R.id.golfcourse_area)).setText(stadiumModel.getArea());
@@ -117,8 +122,10 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         ((TextView) findViewById(R.id.golfcourse_date)).setText(stadiumModel.getDate());
         ((TextView) findViewById(R.id.golfcourse_address)).setText(stadiumModel.getAddress());
         ((TextView) findViewById(R.id.golfcourse_greenGrass)).setText(stadiumModel.getGreenGrass());
-        ((TextView) findViewById(R.id.golfcourse_fairwayGrass)).setText(stadiumModel.getFairwayGrass());
-        ((TextView) findViewById(R.id.golfcourse_phone)).setText(Html.fromHtml("<u>" + stadiumModel.getPhone() + "</u>"));
+        ((TextView) findViewById(R.id.golfcourse_fairwayGrass)).setText(stadiumModel
+                .getFairwayGrass());
+        ((TextView) findViewById(R.id.golfcourse_phone)).setText(Html.fromHtml("<u>"
+                + stadiumModel.getPhone() + "</u>"));
     }
 
     @Override
@@ -130,13 +137,14 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         }
     }
 
-    /*头部 start*/
+    /* 头部 start */
     private LinearLayout dotoParendLinearLayout;
     ImageView[] dots;
 
     private void setupBanner(final List<String> bannerModels) {
         bannerViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
-        bannerViewPager.setAdapter(new GolfDetailViewPagerAdapter(context, bannerViewPager, bannerModels));
+        bannerViewPager.setAdapter(new GolfDetailViewPagerAdapter(context, bannerViewPager,
+                bannerModels));
         bannerViewPager.setPageMargin(0);
         if (bannerModels == null || bannerModels.isEmpty()) {
             return;
@@ -146,10 +154,13 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         dots = new ImageView[count];
         int margin = SizeUtil.dip2px(context, 10);
         dotoParendLinearLayout.removeAllViews();
+        if (bannerModels.size() == 1)
+            dotoParendLinearLayout.setVisibility(View.INVISIBLE);
         for (int i = 0; i < count; i++) {
             ImageView mImageView = new ImageView(context);
             dots[i] = mImageView;
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
             layoutParams.rightMargin = margin;
             mImageView.setBackgroundResource(R.drawable.pic_22);
             dotoParendLinearLayout.setGravity(Gravity.CENTER);
@@ -183,17 +194,17 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
 
             @Override
             public void onPageScrollStateChanged(int i) {
-                //System.out.println("i" + i);
+                // System.out.println("i" + i);
             }
         });
     }
 
     private void setImageBackground(int currentPosition) {
-        if (currentPosition == 4) {
-            dotoParendLinearLayout.setVisibility(View.INVISIBLE);
-        } else {
-            dotoParendLinearLayout.setVisibility(View.VISIBLE);
-        }
+        /*
+         * if (currentPosition == 4) {
+         * dotoParendLinearLayout.setVisibility(View.INVISIBLE); } else {
+         * dotoParendLinearLayout.setVisibility(View.VISIBLE); }
+         */
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {
@@ -207,17 +218,20 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
 
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
-        if(isDelete){
-            Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + stadiumModel.getPhone()));
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + stadiumModel.getPhone()));
             startActivity(intent);
         }
     }
-    /*头部 end*/
+
+    /* 头部 end */
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

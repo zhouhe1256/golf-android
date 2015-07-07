@@ -14,7 +14,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 数据库版本号
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // 数据库名
     private static final String DATABASE_NAME = "golf.db";
     // 历史记录表名
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PLAYER =
             "CREATE TABLE " + PLAYER_TABLE_NAME + "("
-                    + PLAYER_NAME + " TEXT NOT NULL PRIMARY KEY,"
+                    + PLAYER_NAME + " TEXT,"
                     + PLAYER_NUMBER + " TEXT"
                     + ")";
 

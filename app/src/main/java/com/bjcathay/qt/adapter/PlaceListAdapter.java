@@ -21,6 +21,7 @@ import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RoundCornerImageView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,11 +92,27 @@ public class PlaceListAdapter extends BaseAdapter {
         holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
+        if (productModel.getDistance() == 0) {
+            holder.distance.setVisibility(View.GONE);
+        } else {
+            if (productModel.getDistance() < 10000 && productModel.getDistance() > 1000) {
+                double c = ((double) productModel.getDistance() / (double) 10000);
+                BigDecimal b = new BigDecimal(c);
+                double f1 = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+                holder.distance.setText(Double.toString(f1) + "km");
+            } else if (productModel.getDistance() < 1000) {
+                holder.distance.setText("0.1km");
+            } else {
+                holder.distance.setText((int) productModel.getDistance() / 1000 + "km");
+            }
+        }
         // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
         if ("NORMAL".equals(productModel.getLabel())) {
             holder.hotImg.setVisibility(View.GONE);
-        } else {
+        } else if ("HOT".equals(productModel.getLabel())) {
             holder.hotImg.setVisibility(View.VISIBLE);
+        } else {
+            holder.hotImg.setVisibility(View.GONE);
         }
         if ("GROUP".equals(productModel.getType())) {
             holder.tuanImg.setVisibility(View.VISIBLE);
@@ -187,6 +204,7 @@ public class PlaceListAdapter extends BaseAdapter {
         TextView address;
         TextView tuanCount;
         TextView temaiCount;
+        TextView distance;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -199,6 +217,7 @@ public class PlaceListAdapter extends BaseAdapter {
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
             hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
+            distance = ViewUtil.findViewById(view, R.id.place_distance);
         }
     }
 }

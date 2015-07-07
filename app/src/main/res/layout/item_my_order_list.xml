@@ -129,23 +129,29 @@
                             android:textSize="@dimen/sub_textSize"
                             android:textColor="@color/exchange_text_color"
                             android:text="预约人数４" />
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            >
                             <TextView
                                 android:id="@+id/my_order_discount"
                                 android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:layout_marginRight="60dp"
                                 android:textSize="@dimen/sub_textSize"
                                 android:textColor="@color/exchange_text_color"
-                                android:text="１８洞" />
+                                android:text="" />
                             <LinearLayout
-                                android:layout_gravity="right"
-                                android:gravity="right"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_gravity="right|bottom"
+                                android:gravity="right|bottom"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp">
 
                                 <TextView
                                     android:text="￥"
@@ -160,11 +166,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="17sp"
-                                    android:text="1660"
-                                    android:textStyle="bold"
+                                    android:text="16600"
                                     android:textColor="@color/order_price_color" />
                             </LinearLayout>
-                        </LinearLayout>
+                        </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -179,7 +184,7 @@
         <View
             android:background="@color/transparent_color"
             android:layout_width="match_parent"
-            android:layout_height="8dp" />
+            android:layout_height="10dp" />
 
     </LinearLayout>
 </FrameLayout>

@@ -36,14 +36,15 @@
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
                 android:visibility="visible">
+
                 <TextView
-                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/main_textSize"
+                    android:padding="10dp"
+                    android:text="订单信息"
                     android:textColor="@color/main_text_color"
-                    android:text="订单信息" />
+                    android:textSize="@dimen/city_title"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +62,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="订单号:"
+                            android:text="订单编号:"
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
 
@@ -69,9 +70,9 @@
                             android:id="@+id/order_detail_nomber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -93,9 +94,9 @@
                             android:id="@+id/order_detail_pay_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -117,9 +118,9 @@
                             android:id="@+id/order_detail_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -141,13 +142,11 @@
                             android:id="@+id/order_detail_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
                             android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -167,9 +166,9 @@
                             android:id="@+id/order_detail_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/order_price_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -194,10 +193,18 @@
                     android:layout_height="1dp"
                     android:background="@drawable/touying_bg" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="打球信息"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:padding="10dp">
@@ -207,7 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="清河湾巨鹿不"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/exchange_text_color"
                         android:textSize="@dimen/main_textSize" />
 
                     <LinearLayout
@@ -228,9 +235,9 @@
                             android:id="@+id/order_detail_comsumer_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -252,9 +259,9 @@
                             android:id="@+id/order_detail_comsumer_numb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="3人"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -268,7 +275,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="打球人姓名:"
+                            android:gravity="right"
+                            android:text="    打球人:"
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
 
@@ -276,10 +284,10 @@
                             android:id="@+id/personNames"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:maxLines="2"
                             android:text=""
-                            android:textColor="@color/main_text_color"
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -301,11 +309,12 @@
                             android:id="@+id/order_detail_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -316,7 +325,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="联系人姓名:"
+                            android:text="    联系人:"
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
 
@@ -324,11 +333,12 @@
                             android:id="@+id/userRealName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -347,9 +357,9 @@
                             android:id="@+id/order_detail_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="123456"
-                            android:textColor="@color/main_text_color"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
 
@@ -383,20 +393,21 @@
                     android:background="@drawable/touying_bg"
                     android:visibility="gone" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="订场须知"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="订场须知："
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/purchasingNotice"
@@ -405,7 +416,7 @@
                         android:padding="5dp"
                         android:text=""
                         android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <View
@@ -416,9 +427,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/contact_us"
@@ -434,14 +445,15 @@
                         android:textSize="@dimen/main_textSize"
                         android:textStyle="bold"
                         android:visibility="visible" />
+
                     <Button
                         android:id="@+id/order_cancle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
                         android:padding="15dp"

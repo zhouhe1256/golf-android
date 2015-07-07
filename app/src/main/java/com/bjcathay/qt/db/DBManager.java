@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bjcathay.qt.application.GApplication;
-import com.bjcathay.qt.model.BookModel;
+import com.bjcathay.qt.model.BModel;
 import com.bjcathay.qt.model.GetCitysModel;
 import com.bjcathay.qt.model.GolfCourseModel;
 import com.bjcathay.qt.model.ProvinceModel;
@@ -97,12 +97,12 @@ public class DBManager {
         }
     }
 
-    public void addPlayers(List<BookModel> stadiums) {
+    public void addPlayers(List<BModel> stadiums) {
         Log.d("db", "DBManager --> add");
 
         try {
             db.beginTransaction(); // 开始事务
-            for (BookModel stadium : stadiums) {
+            for (BModel stadium : stadiums) {
                 db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
                         + " VALUES(?, ?)",
                         new Object[] {
@@ -115,37 +115,50 @@ public class DBManager {
         }
     }
 
-    public void updatePlayer(BookModel oldBook, BookModel newBook) {
+    public void updatePlayer(BModel oldBook, BModel newBook) {
         Log.d("db", "DBManager --> add");
         try {
             db.beginTransaction(); // 开始事务
-            if (oldBook.getName().equals(newBook.getName())) {
-               // db.beginTransaction(); // 开始事务
+            /*if (oldBook.getName().equals(newBook.getName())) {
+                // db.beginTransaction(); // 开始事务
                 db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
                         + " VALUES(?, ?)",
                         new Object[] {
                                 String.valueOf(newBook.getName()), newBook.getPhone()
                         });
                 db.setTransactionSuccessful();
-            } else {
-               /* db.execSQL("DELETE FROM " + DatabaseHelper.PLAYER_TABLE_NAME
-                        + " WHERE " + DatabaseHelper.PLAYER_NAME + " = " + oldBook.getName());*/
-                db.delete(DatabaseHelper.PLAYER_TABLE_NAME,DatabaseHelper.PLAYER_NAME+" =?",new String[]{oldBook.getName()});
-               // db.setTransactionSuccessful();
-              //  db.beginTransaction(); // 开始事务
+            } else {*/
+                /*
+                 * db.execSQL("DELETE FROM " + DatabaseHelper.PLAYER_TABLE_NAME
+                 * + " WHERE " + DatabaseHelper.PLAYER_NAME + " = " +
+                 * oldBook.getName());
+                 */
+                db.delete(DatabaseHelper.PLAYER_TABLE_NAME, DatabaseHelper.PLAYER_NAME + " =?",
+                        new String[] {
+                            oldBook.getName()
+                        });
+                // db.setTransactionSuccessful();
+                // db.beginTransaction(); // 开始事务
                 db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
                         + " VALUES(?, ?)",
                         new Object[] {
                                 String.valueOf(newBook.getName()), newBook.getPhone()
                         });
                 db.setTransactionSuccessful();
-            }
+           // }
+          /*  db.execSQL("update " + DatabaseHelper.PLAYER_TABLE_NAME + " set "
+                    + DatabaseHelper.PLAYER_NAME + "=? and " + DatabaseHelper.PLAYER_NUMBER
+                    + "=? where " + DatabaseHelper.PLAYER_NAME + "=? and "
+                    + DatabaseHelper.PLAYER_NUMBER + "=?", new Object[] {
+                    newBook.getName(), newBook.getPhone(), oldBook.getName(), oldBook.getPhone()
+            });
+            db.setTransactionSuccessful();*/
         } finally {
             db.endTransaction();
         }
     }
 
-    public void addPlayer(BookModel stadium) {
+    public void addPlayer(BModel stadium) {
         Log.d("db", "DBManager --> add");
         try {
             db.beginTransaction(); // 开始事务
@@ -222,13 +235,13 @@ public class DBManager {
         return stadiums;
     }
 
-    public List<BookModel> queryPlayers() {
+    public List<BModel> queryPlayers() {
         Log.d("", "DBManager -->history query");
-        List<BookModel> stadiums = new ArrayList<BookModel>();
+        List<BModel> stadiums = new ArrayList<BModel>();
         Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.PLAYER_TABLE_NAME,
                 null);
         while (c.moveToNext()) {
-            BookModel stadium = new BookModel();
+            BModel stadium = new BModel();
             stadium.setPhone(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NUMBER)));
             stadium.setName(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NAME)));
             stadiums.add(stadium);

@@ -20,7 +20,8 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.fragment.DialogExchFragment;
-import com.bjcathay.qt.model.BookModel;
+import com.bjcathay.qt.model.BModel;
+
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
@@ -35,7 +36,7 @@ import java.util.Map;
  * Created by dengt on 15-7-3.
  */
 public class SelectContactAdapter extends BaseAdapter implements SectionIndexer {
-    private List<BookModel> list = null;
+    private List<BModel> list = null;
     private Context mContext;
     private Long id;
     private String name;
@@ -44,9 +45,9 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
      * CheckBox 是否选择的存储集合,key 是 position , value 是该position是否选中
      */
     public static Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
-    private List<BookModel> check = new ArrayList<BookModel>();
+    private List<BModel> check = new ArrayList<BModel>();
 
-    public SelectContactAdapter(Context mContext, List<BookModel> list, Long id, String name) {
+    public SelectContactAdapter(Context mContext, List<BModel> list, Long id, String name) {
         this.mContext = mContext;
         this.list = list;
         this.id = id;
@@ -65,18 +66,45 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
 
     }
 
-    public List<BookModel> getCheckedItems() {
+    public List<BModel> getCheckedItems() {
+        for (int i = 0; i < check.size(); i++) {
+            check.get(i).setSortLetters(null);
+        }
         return check;
     }
 
     /**
-     * 当ListView数据发生变化时,调用此方法来更新ListView
+     * 当ListView数据发生变化时,调用此方法来更新ListView,切换对应的position
      *
-     * @param list
+     * @param lists
      */
-    public void updateListView(List<BookModel> list) {
-        this.list = list;
+    public void updateListView(List<BModel> lists) {
+        /*
+         * for (int i = 0; i < list.size(); i++) { for (int j = 0; j <
+         * lists.size(); j++) { if
+         * (lists.get(j).getName().equals(list.get(i).getName()) &&
+         * lists.get(j).getPhone().equals(list.get(i).getPhone())) { isCheckMap.
+         * } } }
+         */
+        isCheckMap.clear();
+        for (int i = 0; i < lists.size(); i++) {
+            isCheckMap.put(i, false);
+        }
+        /*
+         * for (int i = 0; i < check.size(); i++) { if
+         * (list.contains(check.get(i))) isCheckMap.put(i, true); }
+         */
+        for (int i = 0; i < lists.size(); i++) {
+            for (int j = 0; j < check.size(); j++) {
+                if (lists.get(i).getName().equals(check.get(j).getName())
+                        && lists.get(i).getPhone().equals(check.get(j).getPhone())) {
+                    isCheckMap.put(i, true);
+                }
+            }
+        }
+        this.list = lists;
         notifyDataSetChanged();
+
     }
 
     public int getCount() {
@@ -93,7 +121,7 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
 
     public View getView(final int position, View view, ViewGroup arg2) {
         ViewHolder viewHolder = null;
-        final BookModel mContent = list.get(position);
+        final BModel mContent = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.item_select_contact_list, null);
@@ -121,9 +149,11 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
                         isCheckMap.put(position, isChecked);
-                        if (isChecked) {
-                            check.add(list.get(position));
+                        if (isCheckMap.get(position)) {
+                            if (!check.contains(list.get(position)))
+                                check.add(list.get(position));
                         } else {
                             check.remove(list.get(position));
                         }
@@ -132,10 +162,12 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
         if (isCheckMap.get(position) == null) {
             isCheckMap.put(position, false);
         }
+        // viewHolder.statusTrue.setChecked(list.get(position).isCheck());
         viewHolder.statusTrue.setChecked(isCheckMap.get(position));
         return view;
 
     }
+
     private void setitemChecked(int position) {
         // viewHolder.statusTrue.setChecked(isCheckMap.get(position));
     }
@@ -147,11 +179,11 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
         ViewUtil.startActivity(mContext, sendIntent);
     }
 
-    public final  class ViewHolder {
-        public  TextView tvLetter;
-        public  TextView tvTitle;
-        public  ImageView icon;
-        public  CheckBox statusTrue;
+    public final class ViewHolder {
+        public TextView tvLetter;
+        public TextView tvTitle;
+        public ImageView icon;
+        public CheckBox statusTrue;
 
     }
 

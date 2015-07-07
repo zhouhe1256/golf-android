@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/left_img"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/right_img"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:text="填写真实姓名，更能保证您的顺利订场哦．"
         android:textColor="@color/exchange_text_color"
         android:textSize="@dimen/small_textSize" />

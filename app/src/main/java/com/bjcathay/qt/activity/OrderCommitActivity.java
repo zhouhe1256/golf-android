@@ -19,6 +19,7 @@ import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.model.BModel;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.OrderModel;
@@ -34,6 +35,7 @@ import com.ta.utdid2.android.utils.StringUtils;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -165,8 +167,22 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         UserModel userModel1 = GApplication.getInstance().getUser();
         phone.setText(userModel1.getMobileNumber());
         cName.setText(userModel1.getRealName());
+        BModel bookModel = new BModel();
+        if (userModel1.getRealName() == null) {
+            bookModel.setName(userModel1.getMobileNumber() + "(本人)");
+        } else {
+            bookModel.setName(userModel1.getRealName() + "(本人)");
+        }
+        bookModel.setPhone(userModel1.getMobileNumber());
+
+        List<BModel> bookModels = new ArrayList<BModel>();
+        bookModels.add(bookModel);
+        bookListModel.setPersons(bookModels);
+        players = JSONUtil.dump(bookListModel);
+        palyerNames.setText(bookModel.getName());
         minas.setVisibility(View.VISIBLE);
         plus.setVisibility(View.VISIBLE);
+
         if ("LIMIT".equals(stadiumModel.getType())) {
             amount = stadiumModel.getAmount();
         }
@@ -252,7 +268,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     }
 
     String players;
-    BookListModel bookListModel;
+    BookListModel bookListModel = new BookListModel();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -261,15 +277,29 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             players = intent.getStringExtra("books");
             LogUtil.e("book", players);
             bookListModel = JSONUtil.load(BookListModel.class, players);
-            List<BookModel> bookModels = JSONUtil.load(BookListModel.class, players).getPersons();
+            List<BModel> b = JSONUtil.load(BookListModel.class, players).getPersons();
             StringBuffer sb = new StringBuffer();
-            for (BookModel bookModel : bookModels) {
+            for (BModel bookModel : b) {
                 sb.append(bookModel.getName() + ",");
             }
             if (!StringUtils.isEmpty(sb.toString()) && sb.length() > 1)
                 palyerNames.setText(sb.substring(0, sb.length() - 1));
-            else
-                palyerNames.setText("");
+            else {
+                UserModel userModel1 = GApplication.getInstance().getUser();
+                BModel bookModel = new BModel();
+                if (userModel1.getRealName() == null) {
+                    bookModel.setName(userModel1.getMobileNumber() + "(本人)");
+                } else {
+                    bookModel.setName(userModel1.getRealName() + "(本人)");
+                }
+                bookModel.setPhone(userModel1.getMobileNumber());
+
+                List<BModel> bookModels = new ArrayList<BModel>();
+                bookModels.add(bookModel);
+                bookListModel.setPersons(bookModels);
+                players = JSONUtil.dump(bookListModel);
+                palyerNames.setText(bookModel.getName());
+            }
         }
     }
 }

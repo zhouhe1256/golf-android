@@ -34,11 +34,20 @@ public class ProductModel implements Serializable {
     private String bhEndAt;
     private String purchasingNotice;
     private String label;
+    private double distance;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(ProductModel.class, "product");
     @JSONCollection(type = ActivityModel.class)
     private ActivityModel activity;// [ "/upload/image/xxx.png",
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public String getLabel() {
         return label;
