@@ -98,6 +98,23 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sub_textSize"
         android:visibility="gone" />
+    <TextView
+        android:id="@+id/title_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="10dp"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sub_textSize"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title_invite"

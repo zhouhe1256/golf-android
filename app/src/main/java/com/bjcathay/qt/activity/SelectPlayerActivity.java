@@ -71,19 +71,23 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     private void initEvent() {
         topView.setTitleText("选择打球人");
         topView.setTitleBackVisiable();
+        topView.setFinishVisiable();
         playList.setAdapter(playerAdapter);
         rightImg.setOnClickListener(this);
         leftImg.setOnClickListener(this);
     }
-
+    BookListModel bookListModel;
     private void initData() {
+        Intent intent=getIntent();
+        bookListModel= (BookListModel) intent.getSerializableExtra("select");
         callRecords = DBManager.getInstance().queryPlayers();
-        playerAdapter = new PlayerAdapter(callRecords, context);
+        playerAdapter = new PlayerAdapter(callRecords, context,bookListModel);
     }
 
     private void addPlayer() {
         String name = inputPlayer.getText().toString().trim();
         if (StringUtils.isEmpty(name)) {
+            DialogUtil.showMessage("请输入打球人姓名");
             return;
         }
         for (BookModel a : callRecords) {
@@ -106,6 +110,20 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.title_back_img:
                 if (playerAdapter != null) {
+                    LogUtil.e("size",playerAdapter.getCheckedItems().size()+"");
+                    BookListModel bookListModel = new BookListModel();
+                    List<BookModel> bookModels = playerAdapter.getCheckedItems();
+                    bookListModel.setPersons(bookModels);
+                    intent = new Intent();
+                    intent.putExtra("books", JSONUtil.dump(bookListModel));
+                    setResult(2, intent);
+                }
+
+                finish();
+                break;
+            case R.id.title_finish:
+                if (playerAdapter != null) {
+                    LogUtil.e("size",playerAdapter.getCheckedItems().size()+"");
                     BookListModel bookListModel = new BookListModel();
                     List<BookModel> bookModels = playerAdapter.getCheckedItems();
                     bookListModel.setPersons(bookModels);
@@ -133,9 +151,12 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     public void onBackPressed() {
         super.onBackPressed();
         if (playerAdapter != null) {
+            BookListModel bookListModel = new BookListModel();
             List<BookModel> bookModels = playerAdapter.getCheckedItems();
+            bookListModel.setPersons(bookModels);
+            LogUtil.e("size",playerAdapter.getCheckedItems().size()+"");
             Intent intent = new Intent();
-            intent.putExtra("books", JSONUtil.dump(bookModels));
+            intent.putExtra("books", JSONUtil.dump(bookListModel));
             setResult(2, intent);
         }
 

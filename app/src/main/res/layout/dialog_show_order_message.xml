@@ -62,18 +62,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text=""
+                android:singleLine="false"
+                android:maxLines="20"
+                android:scrollbars="none"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/sub_textSize" />
-
-            <TextView
-                android:id="@+id/order_need_know_note2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/main_text_color"
-                android:textSize="@dimen/sub_textSize"
-                android:visibility="gone" />
-
         </LinearLayout>
 
 
@@ -87,6 +80,7 @@
         android:orientation="vertical">
 
         <Button
+            android:layout_marginTop="10dp"
             android:id="@+id/sure_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

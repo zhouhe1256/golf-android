@@ -209,9 +209,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 @Override
                 public void onClick(View view) {
                     DeleteInfoDialog infoDialog = new DeleteInfoDialog(OrderDetailActivity.this,
-                            R.style.InfoDialog, "呼叫"
-                                    + getResources().getString(R.string.service_tel).toString()
-                                            .trim() + "？", 0l, OrderDetailActivity.this);
+                            R.style.InfoDialog, getResources().getString(R.string.service_tel_format).toString().trim(),"呼叫", 0l, OrderDetailActivity.this);
                     infoDialog.show();
                 }
             });

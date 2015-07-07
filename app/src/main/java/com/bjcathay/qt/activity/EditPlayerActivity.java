@@ -40,6 +40,7 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
     private void initEvent() {
         topView.setTitleText("编辑打球人信息");
         topView.setTitleBackVisiable();
+        topView.setFinishVisiable();
     }
 
     private void initData() {
@@ -52,10 +53,21 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        String nameEdit = name.getText().toString().trim();
+        String phoneEdit = phone.getText().toString().trim();
         switch (view.getId()) {
             case R.id.title_back_img:
-                String nameEdit = name.getText().toString().trim();
-                String phoneEdit = phone.getText().toString().trim();
+                if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
+                } else {
+                    BookModel newBook = new BookModel();
+                    newBook.setName(nameEdit);
+                    newBook.setPhone(phoneEdit);
+                    DBManager.getInstance().updatePlayer(bookModel, newBook);
+                }
+                setResult(2);
+                finish();
+                break;
+            case R.id.title_finish:
                 if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
 
                 } else {

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.app.Activity;
@@ -29,6 +30,7 @@ public class TopView extends LinearLayout {
     private ImageView exchange;
     private ImageView closeimg;
     private ImageView phoneimg;
+    private TextView finishbtn;
 
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);
@@ -45,6 +47,7 @@ public class TopView extends LinearLayout {
         exchange = ViewUtil.findViewById(this, R.id.title_exchange_img);
         closeimg = ViewUtil.findViewById(this, R.id.title_delete_img);
         phoneimg = ViewUtil.findViewById(this, R.id.title_phone_img);
+        finishbtn = ViewUtil.findViewById(this, R.id.title_finish);
 
         leftbtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -72,10 +75,10 @@ public class TopView extends LinearLayout {
     public void setSettingVisiable() {
         setting.setVisibility(VISIBLE);
     }
+
     public void setSearchVisiable() {
         searchimg.setVisibility(VISIBLE);
     }
-
 
     public void setExchangeVisiable() {
         exchange.setVisibility(VISIBLE);
@@ -85,19 +88,21 @@ public class TopView extends LinearLayout {
         daohangbtn.setVisibility(VISIBLE);
     }
 
+    public void setFinishVisiable() {
+        finishbtn.setVisibility(VISIBLE);
+    }
+
     public void setInvitebtnVisiable() {
         invitebtn.setVisibility(VISIBLE);
     }
+
     public void setPhonebtnVisiable() {
         phoneimg.setVisibility(VISIBLE);
     }
 
-
-
     public void setDeleteVisiable() {
         closeimg.setVisibility(VISIBLE);
     }
-
 
     public void setTitleUnVisiable() {
         title.setVisibility(INVISIBLE);

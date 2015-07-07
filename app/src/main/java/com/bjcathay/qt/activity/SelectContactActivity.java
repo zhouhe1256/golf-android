@@ -89,16 +89,29 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         sideBar = (SideBar) this.findViewById(R.id.sidrbar);
         dialog = (TextView) this.findViewById(R.id.dialog);
         sortListView = (ListView) this.findViewById(R.id.sortlist);
+        sortListView.setItemsCanFocus(false);
+        sortListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         netNote.setVisibility(View.VISIBLE);
 
     }
 
     private void initEvent() {
         // mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
+        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                SelectContactAdapter.ViewHolder vHollder = (SelectContactAdapter.ViewHolder) view.getTag();
+//在每次获取点击的item时将对于的checkbox状态改变，同时修改map的值。
+                vHollder.statusTrue.toggle();
+                SelectContactAdapter.isCheckMap.put(position, vHollder.statusTrue.isChecked());
+            }
+        });
     }
 
     private void initData() {
         topView.setTitleBackVisiable();
+        topView.setFinishVisiable();
         topView.setTitleText("通讯录朋友");
         id = getIntent().getLongExtra("id", 0);
         proName = getIntent().getStringExtra("name");
@@ -131,6 +144,16 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_back_img:
+                if (adapter != null) {
+                    List<BookModel> bookModels = adapter.getCheckedItems();
+                    if (!bookModels.isEmpty()) {
+                        DBManager.getInstance().addPlayers(bookModels);
+                    }
+                }
+                setResult(2);
+                finish();
+                break;
+            case R.id.title_finish:
                 if (adapter != null) {
                     List<BookModel> bookModels = adapter.getCheckedItems();
                     if (!bookModels.isEmpty()) {

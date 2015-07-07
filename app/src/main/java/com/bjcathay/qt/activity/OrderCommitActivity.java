@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
@@ -165,13 +166,13 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         phone.setText(userModel1.getMobileNumber());
         cName.setText(userModel1.getRealName());
         minas.setVisibility(View.VISIBLE);
-          plus.setVisibility(View.VISIBLE);
+        plus.setVisibility(View.VISIBLE);
         if ("LIMIT".equals(stadiumModel.getType())) {
             amount = stadiumModel.getAmount();
         }
         if (number == 0) {
-           // minas.setVisibility(View.VISIBLE);
-          //  plus.setVisibility(View.VISIBLE);
+            // minas.setVisibility(View.VISIBLE);
+            // plus.setVisibility(View.VISIBLE);
             number = 5;
             price.setText("￥" +
                     currentPrice * number);
@@ -227,67 +228,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             fourPlus.setText(number < 10 ? " " + number : number + "");
             price.setText("￥" + currentPrice * number + "");
         }
-        /*
-         * if ("LIMIT".equals(stadiumModel.getType())) {
-         * amount=stadiumModel.getAmount(); if
-         * (Integer.valueOf(fourPlus.getText().toString().trim()) <=
-         * stadiumModel.getAmount()) minas.setVisibility(View.GONE); else {
-         * minas.setVisibility(View.VISIBLE); } } if (number == 0) { number = 5;
-         * } else { } if (number == 1) { minas.setVisibility(View.GONE); } else
-         * { minas.setVisibility(View.VISIBLE); }
-         */
-        /*
-         * minas.setOnClickListener(new View.OnClickListener() {
-         * @Override public void onClick(View view) { if (number > 1) {
-         * number--; if (number == 1) { minas.setVisibility(View.GONE); } else {
-         * minas.setVisibility(View.VISIBLE); } if
-         * ("LIMIT".equals(stadiumModel.getType())) { if (number <stadiumModel
-         * .getAmount()) minas.setVisibility(View.GONE); else {
-         * minas.setVisibility(View.VISIBLE); } } fourPlus.setText(number < 10 ?
-         * " " + number : number + ""); price.setText("￥" + currentPrice *
-         * number); } } }); plus.setOnClickListener(new View.OnClickListener() {
-         * @Override public void onClick(View view) { // if(number>=5){
-         * number++; if (number == 1) { minas.setVisibility(View.GONE); } else {
-         * minas.setVisibility(View.VISIBLE); } if
-         * ("LIMIT".equals(stadiumModel.getType())) { if (number <= stadiumModel
-         * .getAmount()) minas.setVisibility(View.GONE); else {
-         * minas.setVisibility(View.VISIBLE); } } fourPlus.setText(number < 10 ?
-         * " " + number : number + ""); price.setText("￥" + currentPrice *
-         * number); // } } }); fourPlus.setText(number < 10 ? " " + number :
-         * number + ""); price.setText("￥" + currentPrice * number + "");
-         */
-        /*if (number == 0) {
-            minas.setVisibility(View.VISIBLE);
-            plus.setVisibility(View.VISIBLE);
-            number = 5;
-            price.setText("￥" +
-                    currentPrice * number);
-            minas.setOnClickListener(new
-                    View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (number > 5) {
-                                number--;
-                                fourPlus.setText(number < 10 ? " " + number : number + "");
-                                price.setText("￥" + currentPrice * number);
-                            }
-                        }
-                    });
-            plus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // if(number>=5){
-                    number++;
-                    fourPlus.setText(number < 10 ? " " + number : number + "");
-                    price.setText("￥" + currentPrice * number);
-                }
-            });
-        } else {
-            minas.setVisibility(View.GONE);
-            plus.setVisibility(View.GONE);
-            fourPlus.setText(number < 10 ? " " + number : number + "");
-            price.setText("￥" + currentPrice * number + "");
-        }*/
     }
 
     @Override
@@ -305,18 +245,22 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.select_player_layout:
                 intent = new Intent(this, SelectPlayerActivity.class);
+                intent.putExtra("select", bookListModel);
                 startActivityForResult(intent, reqname);
                 break;
         }
     }
 
     String players;
+    BookListModel bookListModel;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == reqname && resultCode == respname) {
             players = intent.getStringExtra("books");
+            LogUtil.e("book", players);
+            bookListModel = JSONUtil.load(BookListModel.class, players);
             List<BookModel> bookModels = JSONUtil.load(BookListModel.class, players).getPersons();
             StringBuffer sb = new StringBuffer();
             for (BookModel bookModel : bookModels) {

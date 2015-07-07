@@ -32,6 +32,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dp"
+                android:drawablePadding="5dp"
                 android:gravity="center"
                 android:background="@drawable/acm_inputbox"
                 android:singleLine="true"

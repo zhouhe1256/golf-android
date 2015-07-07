@@ -71,7 +71,7 @@
 
                     <LinearLayout
                         android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:orientation="vertical"
                         android:paddingBottom="10dp"
                         android:layout_height="wrap_content">
@@ -129,40 +129,42 @@
                             android:textSize="@dimen/sub_textSize"
                             android:textColor="@color/exchange_text_color"
                             android:text="预约人数４" />
-
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/my_order_discount"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_textSize"
-                            android:textColor="@color/exchange_text_color"
-                            android:text="１８洞" />
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/my_order_discount"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sub_textSize"
+                                android:textColor="@color/exchange_text_color"
+                                android:text="１８洞" />
+                            <LinearLayout
+                                android:layout_gravity="right"
+                                android:gravity="right"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                                <TextView
+                                    android:text="￥"
+                                    android:textSize="10sp"
+                                    android:paddingRight="3dp"
+                                    android:textColor="@color/order_price_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
 
-                    <LinearLayout
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:text="￥"
-                            android:textSize="10sp"
-                            android:paddingRight="3dp"
-                            android:textColor="@color/order_price_color"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/my_order_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:text="1660"
-                            android:textStyle="bold"
-                            android:textColor="@color/order_price_color" />
+                                <TextView
+                                    android:id="@+id/my_order_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="17sp"
+                                    android:text="1660"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/order_price_color" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

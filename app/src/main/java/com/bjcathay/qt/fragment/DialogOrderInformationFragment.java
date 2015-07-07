@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class DialogOrderInformationFragment extends DialogFragment {
         name = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_name);
         time = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_time);
         note=ViewUtil.findViewById(rootView,R.id.order_need_know_note1);
+        note.setMovementMethod(ScrollingMovementMethod.getInstance());
         name.setText(stadiumModel.getName());
         note.setText(stadiumModel.getPurchasingNotice());
         time.setText(DateUtil.stringToDateToOrderString(date));

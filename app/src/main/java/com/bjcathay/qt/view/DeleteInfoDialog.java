@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.app.Dialog;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
-
+import com.ta.utdid2.android.utils.StringUtils;
 
 public class DeleteInfoDialog extends Dialog {
 
@@ -21,17 +22,28 @@ public class DeleteInfoDialog extends Dialog {
     private TextView dialogCancel;
     private TextView dialogConfirm;
     private TextView dialogTitle;
+    private String comfire;
 
     public DeleteInfoDialog(Context context) {
         this(context, 0, "", null, null);
     }
 
-    public DeleteInfoDialog(Context context, int theme, String text, Long targetId, DeleteInfoDialogResult result) {
+    public DeleteInfoDialog(Context context, int theme, String text, Long targetId,
+            DeleteInfoDialogResult result) {
         super(context, theme);
         this.targetId = targetId;
         this.dialogResult = result;
         this.text = text;
 
+    }
+
+    public DeleteInfoDialog(Context context, int theme, String text, String comfire, Long targetId,
+            DeleteInfoDialogResult result) {
+        super(context, theme);
+        this.targetId = targetId;
+        this.dialogResult = result;
+        this.text = text;
+        this.comfire = comfire;
     }
 
     @Override
@@ -43,6 +55,9 @@ public class DeleteInfoDialog extends Dialog {
         dialogConfirm = (TextView) findViewById(R.id.dialog_confirm);
         dialogTitle = (TextView) findViewById(R.id.dialog_content);
         dialogTitle.setText(text);
+        if (StringUtils.isEmpty(comfire)) {
+            dialogConfirm.setText(comfire);
+        }
         dialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

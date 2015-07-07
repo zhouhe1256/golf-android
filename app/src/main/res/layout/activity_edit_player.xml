@@ -63,6 +63,8 @@
             android:layout_height="fill_parent"
             android:background="@null"
             android:hint=""
+            android:inputType="number"
+            android:singleLine="true"
             android:textColor="@color/main_text_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />

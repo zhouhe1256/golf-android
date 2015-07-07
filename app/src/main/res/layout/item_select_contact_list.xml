@@ -23,7 +23,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/white"
+        android:background="@drawable/item_click"
         android:gravity="center_vertical">
 
         <com.bjcathay.qt.view.CircleImageView
@@ -47,14 +47,18 @@
 
         <CheckBox
             android:id="@+id/contact_status_true"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            style="@style/CustomCheckboxTheme"
+            android:button="@drawable/contact_checkbox_selector"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:gravity="center"
             android:textColor="@color/white"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:visibility="visible" />
     </RelativeLayout>
 
