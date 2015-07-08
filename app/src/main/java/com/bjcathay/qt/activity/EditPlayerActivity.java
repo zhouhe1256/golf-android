@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.db.DBManager;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -19,7 +19,7 @@ import com.ta.utdid2.android.utils.StringUtils;
  */
 public class EditPlayerActivity extends Activity implements View.OnClickListener {
     private TopView topView;
-    private BModel bookModel;
+    private BookModel bookModel;
     private EditText name;
     private EditText phone;
 
@@ -46,7 +46,7 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
 
     private void initData() {
         Intent intent = getIntent();
-        bookModel = (BModel) intent.getSerializableExtra("book");
+        bookModel = (BookModel) intent.getSerializableExtra("book");
         name.setText(bookModel.getName());
         phone.setText(bookModel.getPhone());
 
@@ -75,7 +75,7 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
                 if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
 
                 } else if (!StringUtils.isEmpty(nameEdit)) {
-                    BModel newBook = new BModel();
+                    BookModel newBook = new BookModel();
                     newBook.setName(nameEdit);
                     newBook.setPhone(phoneEdit);
                     DBManager.getInstance().updatePlayer(bookModel, newBook);

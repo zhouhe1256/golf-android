@@ -18,9 +18,9 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PlayerAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.db.DBManager;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
-import com.bjcathay.qt.model.BModel;
+
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -34,7 +34,7 @@ import java.util.List;
  * Created by dengt on 15-7-3.
  */
 public class SelectPlayerActivity extends Activity implements View.OnClickListener {
-    private List<BModel> callRecords=new ArrayList<BModel>();
+    private List<BookModel> callRecords=new ArrayList<BookModel>();
     private Activity context;
     private TopView topView;
     private ListView playList;
@@ -86,7 +86,7 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     private void initData() {
         Intent intent = getIntent();
         bookListModel = (BookListModel) intent.getSerializableExtra("select");
-        BModel bookModel = new BModel();
+        BookModel bookModel = new BookModel();
         UserModel userModel1 = GApplication.getInstance().getUser();
         if (userModel1.getRealName() == null) {
             bookModel.setName(userModel1.getMobileNumber()+"(本人)");
@@ -105,13 +105,13 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
             DialogUtil.showMessage("请输入打球人姓名");
             return;
         }
-        for (BModel a : callRecords) {
+        for (BookModel a : callRecords) {
             if (a.getName().equals(name)) {
                 DialogUtil.showMessage("已有该联系人");
                 return;
             }
         }
-        BModel b = new BModel();
+        BookModel b = new BookModel();
         b.setName(name);
         b.setPhone("");
         DBManager.getInstance().addPlayer(b);
@@ -141,7 +141,7 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
                 if (playerAdapter != null) {
                     LogUtil.e("size", playerAdapter.getCheckedItems().size() + "");
                     BookListModel bookListModel = new BookListModel();
-                    List<BModel> bookModels = playerAdapter.getCheckedItems();
+                    List<BookModel> bookModels = playerAdapter.getCheckedItems();
                     bookListModel.setPersons(bookModels);
                     intent = new Intent();
                     intent.putExtra("books", JSONUtil.dump(bookListModel));
@@ -181,8 +181,8 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
             if (bookListModel != null && !bookListModel.getPersons().isEmpty())
                 playerAdapter.addItem(bookListModel.getPersons());
         } else if (reqedit == requestCode && respedit == resultCode) {
-            BModel newbookModel = (BModel) data.getSerializableExtra("editnew");
-            BModel oldbookModel = (BModel) data.getSerializableExtra("editold");
+            BookModel newbookModel = (BookModel) data.getSerializableExtra("editnew");
+            BookModel oldbookModel = (BookModel) data.getSerializableExtra("editold");
             if (newbookModel != null && oldbookModel != null)
                 playerAdapter.repalceItem(newbookModel, oldbookModel);
             /*

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bjcathay.qt.application.GApplication;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.GetCitysModel;
 import com.bjcathay.qt.model.GolfCourseModel;
 import com.bjcathay.qt.model.ProvinceModel;
@@ -97,12 +97,12 @@ public class DBManager {
         }
     }
 
-    public void addPlayers(List<BModel> stadiums) {
+    public void addPlayers(List<BookModel> stadiums) {
         Log.d("db", "DBManager --> add");
 
         try {
             db.beginTransaction(); // 开始事务
-            for (BModel stadium : stadiums) {
+            for (BookModel stadium : stadiums) {
                 db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
                         + " VALUES(?, ?)",
                         new Object[] {
@@ -115,7 +115,7 @@ public class DBManager {
         }
     }
 
-    public void updatePlayer(BModel oldBook, BModel newBook) {
+    public void updatePlayer(BookModel oldBook, BookModel newBook) {
         Log.d("db", "DBManager --> add");
         try {
             db.beginTransaction(); // 开始事务
@@ -158,7 +158,7 @@ public class DBManager {
         }
     }
 
-    public void addPlayer(BModel stadium) {
+    public void addPlayer(BookModel stadium) {
         Log.d("db", "DBManager --> add");
         try {
             db.beginTransaction(); // 开始事务
@@ -235,13 +235,13 @@ public class DBManager {
         return stadiums;
     }
 
-    public List<BModel> queryPlayers() {
+    public List<BookModel> queryPlayers() {
         Log.d("", "DBManager -->history query");
-        List<BModel> stadiums = new ArrayList<BModel>();
+        List<BookModel> stadiums = new ArrayList<BookModel>();
         Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.PLAYER_TABLE_NAME,
                 null);
         while (c.moveToNext()) {
-            BModel stadium = new BModel();
+            BookModel stadium = new BookModel();
             stadium.setPhone(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NUMBER)));
             stadium.setName(c.getString(c.getColumnIndex(DatabaseHelper.PLAYER_NAME)));
             stadiums.add(stadium);

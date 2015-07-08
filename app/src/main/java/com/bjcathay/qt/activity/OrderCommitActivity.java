@@ -19,7 +19,6 @@ import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
-import com.bjcathay.qt.model.BModel;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.OrderModel;
@@ -167,7 +166,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         UserModel userModel1 = GApplication.getInstance().getUser();
         phone.setText(userModel1.getMobileNumber());
         cName.setText(userModel1.getRealName());
-        BModel bookModel = new BModel();
+        BookModel bookModel = new BookModel();
         if (userModel1.getRealName() == null) {
             bookModel.setName(userModel1.getMobileNumber() + "(本人)");
         } else {
@@ -175,7 +174,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         }
         bookModel.setPhone(userModel1.getMobileNumber());
 
-        List<BModel> bookModels = new ArrayList<BModel>();
+        List<BookModel> bookModels = new ArrayList<BookModel>();
         bookModels.add(bookModel);
         bookListModel.setPersons(bookModels);
         players = JSONUtil.dump(bookListModel);
@@ -277,16 +276,16 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             players = intent.getStringExtra("books");
             LogUtil.e("book", players);
             bookListModel = JSONUtil.load(BookListModel.class, players);
-            List<BModel> b = JSONUtil.load(BookListModel.class, players).getPersons();
+            List<BookModel> b = JSONUtil.load(BookListModel.class, players).getPersons();
             StringBuffer sb = new StringBuffer();
-            for (BModel bookModel : b) {
+            for (BookModel bookModel : b) {
                 sb.append(bookModel.getName() + ",");
             }
             if (!StringUtils.isEmpty(sb.toString()) && sb.length() > 1)
                 palyerNames.setText(sb.substring(0, sb.length() - 1));
             else {
                 UserModel userModel1 = GApplication.getInstance().getUser();
-                BModel bookModel = new BModel();
+                BookModel bookModel = new BookModel();
                 if (userModel1.getRealName() == null) {
                     bookModel.setName(userModel1.getMobileNumber() + "(本人)");
                 } else {
@@ -294,7 +293,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                 }
                 bookModel.setPhone(userModel1.getMobileNumber());
 
-                List<BModel> bookModels = new ArrayList<BModel>();
+                List<BookModel> bookModels = new ArrayList<BookModel>();
                 bookModels.add(bookModel);
                 bookListModel.setPersons(bookModels);
                 players = JSONUtil.dump(bookListModel);

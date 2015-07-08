@@ -14,33 +14,20 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bjcathay.android.async.Arguments;
-import com.bjcathay.android.async.ICallback;
-import com.bjcathay.android.json.JSONUtil;
-import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SelectContactAdapter;
-import com.bjcathay.qt.adapter.SortAdapter;
-import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.fragment.DialogExchFragment;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 
-import com.bjcathay.qt.model.BooksModel;
-import com.bjcathay.qt.model.SortListModel;
-import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.BookPinyinComparator;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
-import com.bjcathay.qt.util.PinyinComparator;
-import com.bjcathay.qt.util.PinyinComparatorBmodel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.SideBar;
@@ -64,11 +51,11 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     private SelectContactAdapter adapter;
     private ClearEditText mClearEditText;
     // private Map<String, String> callRecords;
-    List<BModel> callRecords;
+    List<BookModel> callRecords;
     private CharacterParser characterParser;
     // private List<SortModel> SourceDateList;
-    private List<BModel> SourceDateList;
-    private PinyinComparatorBmodel pinyinComparator;
+    private List<BookModel> SourceDateList;
+    private BookPinyinComparator pinyinComparator;
     private TopView topView;
     private TextView netNote;
     private Long id;
@@ -123,7 +110,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
-        pinyinComparator = new PinyinComparatorBmodel();
+        pinyinComparator = new BookPinyinComparator();
 
         sideBar.setTextView(dialog);
 
@@ -167,7 +154,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
                 intent = new Intent();
                 if (adapter != null) {
                     BookListModel bookListModel = new BookListModel();
-                    List<BModel> bookModels = adapter.getCheckedItems();
+                    List<BookModel> bookModels = adapter.getCheckedItems();
                     bookListModel.setPersons(bookModels);
                     if (!bookModels.isEmpty()) {
                        // DBManager.getInstance().addPlayers(bookModels);
@@ -207,7 +194,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         @Override
         protected Integer doInBackground(Integer... arg0) {
             int result = -1;
-            callRecords = ConstactUtil.getQuickRecordsBook(context);
+            callRecords = ConstactUtil.getQuickRecords(context);
             result = 1;
             return result;
         }
@@ -286,7 +273,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
      * @param sortModels
      * @return
      */
-    private List<BModel> filledData(List<BModel> sortModels) {
+    private List<BookModel> filledData(List<BookModel> sortModels) {
         for (int i = 0; i < sortModels.size(); i++) {
             String pinyin = characterParser.getSelling(sortModels.get(i).getName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
@@ -308,14 +295,14 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
      */
     private void filterData(String filterStr) {
         if (SourceDateList != null) {
-            List<BModel> filterDateList = new ArrayList<BModel>();
+            List<BookModel> filterDateList = new ArrayList<BookModel>();
             if (filterStr.matches("[A-Z]"))
                 filterStr = filterStr.toLowerCase();
             if (TextUtils.isEmpty(filterStr)) {
                 filterDateList = SourceDateList;
             } else {
                 filterDateList.clear();
-                for (BModel sortModel : SourceDateList) {
+                for (BookModel sortModel : SourceDateList) {
                     String name = sortModel.getName();
 
                     if (name.indexOf(filterStr.toString()) != -1

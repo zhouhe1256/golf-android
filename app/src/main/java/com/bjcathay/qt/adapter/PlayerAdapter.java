@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.EditPlayerActivity;
 import com.bjcathay.qt.db.DBManager;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -36,7 +36,7 @@ import java.util.Set;
  * Created by dengt on 15-7-3.
  */
 public class PlayerAdapter extends BaseAdapter {
-    private List<BModel> items;
+    private List<BookModel> items;
     private Activity context;
     private int reqedit = 1;
     private int respedit = 2;
@@ -44,12 +44,12 @@ public class PlayerAdapter extends BaseAdapter {
      * CheckBox 是否选择的存储集合,key 是 position , value 是该position是否选中
      */
     private Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
-    private Map<BModel, Boolean> isCheck = new HashMap<BModel, Boolean>();
-    private List<BModel> check = new ArrayList<BModel>();
+    private Map<BookModel, Boolean> isCheck = new HashMap<BookModel, Boolean>();
+    private List<BookModel> check = new ArrayList<BookModel>();
 
-    public PlayerAdapter(List<BModel> bookModels, Activity context, BookListModel bookListModel) {
+    public PlayerAdapter(List<BookModel> bookModels, Activity context, BookListModel bookListModel) {
         if (items == null) {
-            items = new ArrayList<BModel>();
+            items = new ArrayList<BookModel>();
         }
         this.context = context;
         this.items = bookModels;
@@ -72,7 +72,7 @@ public class PlayerAdapter extends BaseAdapter {
     public void configCheckMap(boolean bool, BookListModel bookListMode) {
         if (bookListMode != null && !bookListMode.getPersons().isEmpty()) {
             for (int i = 0; i < items.size(); i++) {
-                for (BModel b : bookListMode.getPersons()) {
+                for (BookModel b : bookListMode.getPersons()) {
                     if (b.getPhone().equals(items.get(i).getPhone())
                             && b.getName().equals(items.get(i).getName())) {
                         isCheckMap.put(i, true);
@@ -89,7 +89,7 @@ public class PlayerAdapter extends BaseAdapter {
 
     }
 
-    public void addItem(List<BModel> lists) {
+    public void addItem(List<BookModel> lists) {
         // todo bug去重
         // this.items.addAll(lists);
         /*
@@ -126,13 +126,13 @@ public class PlayerAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void updateView(List<BModel> bookModels) {
+    public void updateView(List<BookModel> bookModels) {
         this.items = bookModels;
         // check.clear();
         // notifyDataSetChanged();
     }
 
-    public void repalceItem(BModel newbookModel, BModel oldbookModel) {
+    public void repalceItem(BookModel newbookModel, BookModel oldbookModel) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getName().equals(oldbookModel.getName())
                     && items.get(i).getPhone().equals(oldbookModel.getPhone())) {
@@ -152,12 +152,12 @@ public class PlayerAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void setCheckedList(List<BModel> check) {
+    public void setCheckedList(List<BookModel> check) {
         this.check = check;
 
     }
 
-    public List<BModel> getCheckedItems() {
+    public List<BookModel> getCheckedItems() {
 
         return check;
     }
@@ -198,7 +198,7 @@ public class PlayerAdapter extends BaseAdapter {
             holder.v.setVisibility(View.VISIBLE);
             holder.edit.setVisibility(View.VISIBLE);
         }
-        BModel bookModel = items.get(position);
+        BookModel bookModel = items.get(position);
         // holder.name.setText(bookModel.getName());
         holder.check.setText(bookModel.getName());
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

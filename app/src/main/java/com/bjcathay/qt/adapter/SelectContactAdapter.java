@@ -20,7 +20,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.fragment.DialogExchFragment;
-import com.bjcathay.qt.model.BModel;
+import com.bjcathay.qt.model.BookModel;
 
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.model.SortModel;
@@ -36,7 +36,7 @@ import java.util.Map;
  * Created by dengt on 15-7-3.
  */
 public class SelectContactAdapter extends BaseAdapter implements SectionIndexer {
-    private List<BModel> list = null;
+    private List<BookModel> list = null;
     private Context mContext;
     private Long id;
     private String name;
@@ -45,9 +45,9 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
      * CheckBox 是否选择的存储集合,key 是 position , value 是该position是否选中
      */
     public static Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
-    private List<BModel> check = new ArrayList<BModel>();
+    private List<BookModel> check = new ArrayList<BookModel>();
 
-    public SelectContactAdapter(Context mContext, List<BModel> list, Long id, String name) {
+    public SelectContactAdapter(Context mContext, List<BookModel> list, Long id, String name) {
         this.mContext = mContext;
         this.list = list;
         this.id = id;
@@ -66,7 +66,7 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
 
     }
 
-    public List<BModel> getCheckedItems() {
+    public List<BookModel> getCheckedItems() {
         for (int i = 0; i < check.size(); i++) {
             check.get(i).setSortLetters(null);
         }
@@ -78,7 +78,7 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
      *
      * @param lists
      */
-    public void updateListView(List<BModel> lists) {
+    public void updateListView(List<BookModel> lists) {
         /*
          * for (int i = 0; i < list.size(); i++) { for (int j = 0; j <
          * lists.size(); j++) { if
@@ -121,7 +121,7 @@ public class SelectContactAdapter extends BaseAdapter implements SectionIndexer 
 
     public View getView(final int position, View view, ViewGroup arg2) {
         ViewHolder viewHolder = null;
-        final BModel mContent = list.get(position);
+        final BookModel mContent = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.item_select_contact_list, null);

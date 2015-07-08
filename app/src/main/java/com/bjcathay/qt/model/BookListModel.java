@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class BookListModel implements Serializable {
 
-    @JSONCollection(type = BModel.class)
-    private List<BModel> persons;
+    @JSONCollection(type = BookModel.class)
+    private List<BookModel> persons;
 
-    public List<BModel> getPersons() {
+    public List<BookModel> getPersons() {
         return persons;
     }
 
-    public void setPersons(List<BModel> persons) {
+    public void setPersons(List<BookModel> persons) {
         this.persons = persons;
     }
 }
