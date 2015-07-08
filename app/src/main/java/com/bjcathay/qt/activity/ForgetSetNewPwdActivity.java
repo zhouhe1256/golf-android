@@ -137,9 +137,10 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
             case R.id.edit_sure_btn:
                 edit();
                 break;
-           /* case R.id.top_edit_pwd_layout:
+            case R.id.top_edit_pwd_layout:
                 finish();
-                break;*/
+                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                break;
 
         }
     }

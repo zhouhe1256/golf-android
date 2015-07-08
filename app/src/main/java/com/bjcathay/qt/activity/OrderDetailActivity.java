@@ -149,8 +149,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             else
                 orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
             orderPay.setText("￥0");
-            orderPhone.setText(""
-                    + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
+            orderPhone.setText(orderModel.getMobileNumber());
             orderNum.setText("" + orderModel.getOrderId());
             orderPayDate.setText("" + DateUtil.shortDateString(orderModel.getCreatedAt()));
             personNames.setText(orderModel.getPersonNames());

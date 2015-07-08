@@ -171,9 +171,10 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
                 //下一步
                 forget();
                 break;
-           /* case R.id.top_forget_layout:
+            case R.id.top_forget_layout:
                 finish();
-                break;*/
+                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                break;
         }
     }
 

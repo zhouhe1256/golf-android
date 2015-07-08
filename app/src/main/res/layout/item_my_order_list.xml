@@ -57,7 +57,9 @@
                 android:layout_height="wrap_content">
 
                 <com.bjcathay.qt.view.RoundCornerImageView
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:id="@+id/my_order_img"
@@ -140,7 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:layout_marginRight="60dp"
+                                android:paddingRight="60dp"
                                 android:textSize="@dimen/sub_textSize"
                                 android:textColor="@color/exchange_text_color"
                                 android:text="" />

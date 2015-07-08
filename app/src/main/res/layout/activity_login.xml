@@ -116,7 +116,6 @@
             android:padding="30dp"
             android:layout_gravity="bottom"
             android:src="@drawable/ic_back"
-            android:clickable="true"
-            android:longClickable="true"/>
+            android:onClick="onClick"/>
     </LinearLayout>
 </LinearLayout>

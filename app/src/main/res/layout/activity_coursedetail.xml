@@ -282,10 +282,10 @@
 
                     <TextView
                         android:id="@+id/sch_address"
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="35dp"
+                        android:paddingRight="35dp"
                         android:layout_toRightOf="@id/address_note"
                         android:ellipsize="end"
                         android:singleLine="true"

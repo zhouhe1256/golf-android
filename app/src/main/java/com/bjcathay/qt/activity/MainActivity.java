@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -41,10 +42,10 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 /**
- * 主页面
- * Created by dengt on 15-4-20.
+ * 主页面 Created by dengt on 15-4-20.
  */
-public class MainActivity extends Activity implements View.OnClickListener, ICallback,DeleteInfoDialog.DeleteInfoDialogResult {
+public class MainActivity extends Activity implements View.OnClickListener, ICallback,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private GApplication gApplication;
     private LinearLayout orderbtn;
     private LinearLayout compebtn;
@@ -57,7 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private TopView topView;
     private Activity context;
     Handler handler = new Handler();
-    /*首页头部的广告轮番效果 start*/
+    /* 首页头部的广告轮番效果 start */
     private LinearLayout dotoParendLinearLayout;
     ImageView[] dots;
 
@@ -66,7 +67,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     private void setupBanner(final List<BannerModel> bannerModels) {
         bannerViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
-        bannerViewPager.setAdapter(new BannerViewPagerAdapter(context, bannerViewPager, bannerModels));
+        bannerViewPager.setAdapter(new BannerViewPagerAdapter(context, bannerViewPager,
+                bannerModels));
         bannerViewPager.setPageMargin(0);
         if (bannerModels == null || bannerModels.isEmpty()) {
             return;
@@ -76,10 +78,15 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         dots = new ImageView[count];
         int margin = SizeUtil.dip2px(context, 10);
         dotoParendLinearLayout.removeAllViews();
+        if (bannerModels.size() == 1)
+            dotoParendLinearLayout.setVisibility(View.INVISIBLE);
+        else
+            dotoParendLinearLayout.setVisibility(View.VISIBLE);
         for (int i = 0; i < count; i++) {
             ImageView mImageView = new ImageView(context);
             dots[i] = mImageView;
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
             layoutParams.rightMargin = margin;
 
             mImageView.setBackgroundResource(R.drawable.pic_22);
@@ -113,17 +120,18 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
             @Override
             public void onPageScrollStateChanged(int i) {
-                //System.out.println("i" + i);
+                // System.out.println("i" + i);
             }
         });
     }
 
     private void setImageBackground(int currentPosition) {
-        /*if (currentPosition == 4) {
-            dotoParendLinearLayout.setVisibility(View.INVISIBLE);
-        } else {*/
-            dotoParendLinearLayout.setVisibility(View.VISIBLE);
-      //  }
+        /*
+         * if (currentPosition == 4) {
+         * dotoParendLinearLayout.setVisibility(View.INVISIBLE); } else {
+         */
+       // dotoParendLinearLayout.setVisibility(View.VISIBLE);
+        // }
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {
@@ -134,7 +142,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             }
         }
     }
-    /*首页头部的广告轮番效果 end*/
+
+    /* 首页头部的广告轮番效果 end */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,17 +175,18 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         }
     }
 
-    //把图片从drawable复制到sdcard中
+    // 把图片从drawable复制到sdcard中
     private void initImagePath() {
         try {
             String cachePath = com.mob.tools.utils.R.getCachePath(this, null);
             TEST_IMAGE = cachePath + FILE_NAME;
             File file = new File(TEST_IMAGE);
             // TEST_IMAGE="/sdcard/mallfm/"+FILE_NAME;
-            //File file = new File(TEST_IMAGE);
+            // File file = new File(TEST_IMAGE);
             if (!file.exists()) {
                 file.createNewFile();
-                Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.icon_share_logo);
+                Bitmap pic = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.icon_share_logo);
                 FileOutputStream fos = new FileOutputStream(file);
                 pic.compress(Bitmap.CompressFormat.PNG, 100, fos);
                 fos.flush();
@@ -196,7 +206,8 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false) {
             String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
             String longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
-            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), longitude, latitude).done(new ICallback() {
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this),
+                    longitude, latitude).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     UserModel userModel = arguments.get(0);
@@ -206,7 +217,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 }
             });
         }
-        //版本更新
+        // 版本更新
         DownloadManager downManger = new DownloadManager(this, true);
         downManger.checkDownload(true);
     }
@@ -267,18 +278,22 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 break;
             case R.id.title_phone_img:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
-                        R.style.InfoDialog, getResources().getString(R.string.service_tel_format).toString().trim(),"呼叫", 0l, this);
+                        R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
+                                .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
     }
+
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
+
     private long exitTime = 0;
 
     @Override

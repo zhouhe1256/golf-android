@@ -205,9 +205,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 //注册
                 register();
                 break;
-          /*  case R.id.top_register_layout:
+            case R.id.top_register_layout:
                 finish();
-                break;*/
+                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                break;
         }
     }
 

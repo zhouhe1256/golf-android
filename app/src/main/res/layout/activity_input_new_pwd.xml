@@ -107,6 +107,7 @@
             android:gravity="bottom"
             android:padding="30dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:onClick="onClick"/>
     </LinearLayout>
 </LinearLayout>

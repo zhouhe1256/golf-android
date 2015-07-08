@@ -22,6 +22,7 @@ import com.bjcathay.qt.model.BModel;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,8 +73,10 @@ public class PlayerAdapter extends BaseAdapter {
         if (bookListMode != null && !bookListMode.getPersons().isEmpty()) {
             for (int i = 0; i < items.size(); i++) {
                 for (BModel b : bookListMode.getPersons()) {
-                    if (b.getPhone().equals(items.get(i).getPhone())) {
+                    if (b.getPhone().equals(items.get(i).getPhone())
+                            && b.getName().equals(items.get(i).getName())) {
                         isCheckMap.put(i, true);
+                        check.add(b);
                     }
                 }
                 // isCheck.put(items.get(i), bool);
@@ -186,11 +189,11 @@ public class PlayerAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        if(position==0){
+        if (position == 0) {
             holder.linearLayout.setVisibility(View.VISIBLE);
             holder.v.setVisibility(View.GONE);
             holder.edit.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.linearLayout.setVisibility(View.GONE);
             holder.v.setVisibility(View.VISIBLE);
             holder.edit.setVisibility(View.VISIBLE);
@@ -205,16 +208,16 @@ public class PlayerAdapter extends BaseAdapter {
                  * 将选择项加载到map里面寄存
                  */
                 isCheckMap.put(position, isChecked);
-                if (isChecked) {
-                    if (!check.contains(items.get(position)))
+                if (isCheckMap.get(position)) {
+                    if (!theSame(position)) {
                         check.add(items.get(position));
+                    }
                 } else {
-                    check.remove(items.get(position));
+                    int i = theremoveSame(position);
+                    if (i != -1)
+                        check.remove(i);
+                    // check.remove(items.get(position));
                 }
-                /*
-                 * if (isChecked) { isCheck.put(items.get(position), true); }
-                 * else { isCheck.put(items.get(position), false); }
-                 */
             }
         });
         holder.edit.setOnClickListener(new View.OnClickListener() {
@@ -236,6 +239,26 @@ public class PlayerAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private boolean theSame(int position) {
+        for (int i = 0; i < check.size(); i++) {
+            if (check.get(i).getName().equals(items.get(position).getName())
+                    && check.get(i).getPhone().equals(items.get(position).getPhone())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int theremoveSame(int position) {
+        for (int i = 0; i < check.size(); i++) {
+            if (check.get(i).getName().equals(items.get(position).getName())
+                    && check.get(i).getPhone().equals(items.get(position).getPhone())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     class Holder {
         ImageView edit;
         // TextView name;
@@ -247,8 +270,8 @@ public class PlayerAdapter extends BaseAdapter {
             edit = ViewUtil.findViewById(view, R.id.player_edit);
             // name = ViewUtil.findViewById(view, R.id.player_name);
             check = ViewUtil.findViewById(view, R.id.checkbox);
-            linearLayout=ViewUtil.findViewById(view,R.id.head_name);
-            v=ViewUtil.findViewById(view,R.id.line);
+            linearLayout = ViewUtil.findViewById(view, R.id.head_name);
+            v = ViewUtil.findViewById(view, R.id.line);
         }
     }
 }

@@ -138,10 +138,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 intent = new Intent(this, ForgetPwdActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-          /*  case R.id.top_login_layout:
+            case R.id.top_login_layout:
                 finish();
                 overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
-                break;*/
+                break;
         }
     }
 

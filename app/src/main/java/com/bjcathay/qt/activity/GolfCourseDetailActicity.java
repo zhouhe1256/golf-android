@@ -78,7 +78,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
                     @Override
                     public void onClick(View view) {
                         DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                                R.style.InfoDialog, "呼叫" + stadiumModel.getPhone() + "？", 0l,
+                                R.style.InfoDialog,stadiumModel.getPhone(), "呼叫", 0l,
                                 GolfCourseDetailActicity.this);
                         infoDialog.show();
                     }
@@ -156,6 +156,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         dotoParendLinearLayout.removeAllViews();
         if (bannerModels.size() == 1)
             dotoParendLinearLayout.setVisibility(View.INVISIBLE);
+        else dotoParendLinearLayout.setVisibility(View.VISIBLE);
         for (int i = 0; i < count; i++) {
             ImageView mImageView = new ImageView(context);
             dots[i] = mImageView;

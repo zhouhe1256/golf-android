@@ -65,7 +65,8 @@ public class OrderSucTuanActivity extends Activity implements View.OnClickListen
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
-                        R.style.InfoDialog, "呼叫" + getResources().getString(R.string.service_tel).toString().trim() + "？", 0l, this);
+                        R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
+                        .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
