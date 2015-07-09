@@ -76,7 +76,7 @@ public class MyOrderAdapter extends BaseAdapter {
                         + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel
                                 .getPeopleNumber() + "人")));
         String currentTime = DateUtil.stringToDateToOrderString(orderModel.getDate());
-        holder.time.setText("预约时间：" + currentTime);
+        holder.time.setText("预约日期：" + currentTime);
         // PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
         // PENDING|UNPAID|PAID|FINISH|CANCEL
         if ("PENDING".equals(orderModel.getStatus()))

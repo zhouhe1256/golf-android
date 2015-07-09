@@ -207,10 +207,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/order_detail_name"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="清河湾巨鹿不"
@@ -222,6 +225,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView
@@ -246,6 +251,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView
@@ -270,6 +277,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView
@@ -296,6 +305,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView
@@ -314,12 +325,19 @@
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/line_divide_hor"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView
@@ -344,6 +362,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="5dp">
 
                         <TextView

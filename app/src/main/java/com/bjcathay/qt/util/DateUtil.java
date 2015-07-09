@@ -267,7 +267,7 @@ public class DateUtil {
         try {
             String pmStart = "12:00";
             // DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            DateFormat dff = new SimpleDateFormat("hh:mm");
+            DateFormat dff = new SimpleDateFormat("HH:mm");
             Date dt = dff.parse(pm);
             Date pmDate = dff.parse(pmStart);
             List<String> ams = new ArrayList<String>();

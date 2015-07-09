@@ -316,7 +316,9 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
 
             beforSelect = tuan_am_pm;
             if ("下午".equals(tuan_am_pm)) {
-                hoursPM = DateUtil.To12(stadiumModel.getDate());
+               // hoursPM = DateUtil.To12(stadiumModel.getDate());
+                //todo 24小时
+                hoursPM.add(stadiumModel.getDate());
                 hourSelect = hoursPM.get(0);
             } else {
                 hoursAM.add(stadiumModel.getDate());
@@ -381,7 +383,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
 
     private String getDate() {
         if ("下午".equals(beforSelect)) {
-            hourSelect = DateUtil.To24(hourSelect);
+            //todo 24
+           // hourSelect = DateUtil.To24(hourSelect);
         }
         Calendar c = Calendar.getInstance();
         Date d = null;
