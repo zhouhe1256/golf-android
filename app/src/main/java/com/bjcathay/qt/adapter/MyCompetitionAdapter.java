@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyCompetitionAdapter extends BaseAdapter {
     private List<EventModel> items;
@@ -35,12 +36,10 @@ public class MyCompetitionAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        //return 10;
     }
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -53,7 +52,8 @@ public class MyCompetitionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_competition_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_competition_list,
+                    parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -62,22 +62,15 @@ public class MyCompetitionAdapter extends BaseAdapter {
         EventModel eventModel = items.get(position);
         ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
         holder.status.setText(eventModel.getStatusLabel());
-        if(eventModel.getStatus()==4){
+        if (eventModel.getStatus() == 4) {
             holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-        }else
+        } else
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
         holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
         holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
-
-       /* convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtil.hintMessage("选档期");
-            }
-        });*/
         return convertView;
     }
 
@@ -101,4 +94,3 @@ public class MyCompetitionAdapter extends BaseAdapter {
         }
     }
 }
-

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -23,7 +24,7 @@ import com.bjcathay.qt.view.OutlineContainer;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-24.
+ * Created by dengt on 15-4-24.
  */
 public class BannerViewPagerAdapter extends PagerAdapter {
     private Activity context;
@@ -31,7 +32,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
     private List<BannerModel> items;
 
     public BannerViewPagerAdapter(Activity context, JazzyViewPager bannerViewPager,
-                                  List<BannerModel> recommendations) {
+            List<BannerModel> recommendations) {
         this.context = context;
         this.bannerViewPager = bannerViewPager;
         this.items = recommendations;
@@ -58,22 +59,14 @@ public class BannerViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner, container, false);
+        View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner,
+                container, false);
 
         final BannerModel bannerModel = items.get(position);
-
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
-        // final TextView bannerTitleView = ViewUtil.findViewById(convertView, R.id.banner_title);
-
         ImageViewAdapter.adapt(bgView, bannerModel.getImageUrl(), R.drawable.exchange_default);
-
-        // bannerTitleView.setTextColor(Color.WHITE);
-        // bannerTitleView.setText(carouselModel.getTitle());
-        //bannerTitleView.setBackgroundResource(R.drawable.ic_launcher);
-
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-
         bannerViewPager.setObjectForPosition(convertView, position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +87,6 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
                     ViewUtil.startActivity(context, intent);
                 }
-                // DialogUtil.hintMessage(carouselModel, context);
             }
         });
         return convertView;

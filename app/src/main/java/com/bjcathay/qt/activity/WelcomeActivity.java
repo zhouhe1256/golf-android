@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -46,7 +47,9 @@ public class WelcomeActivity extends Activity {
         viewPager = (JazzyViewPager) findViewById(R.id.viewPager_welcome);
         dotoParendLinearLayout = ViewUtil.findViewById(this, R.id.doto_ly);
         imageView = ViewUtil.findViewById(this, R.id.splash_bg);
-        imgIdArray = new int[]{R.drawable.shanping, R.drawable.shanping};
+        imgIdArray = new int[] {
+                R.drawable.shanping, R.drawable.shanping
+        };
         splash();
     }
 
@@ -64,16 +67,17 @@ public class WelcomeActivity extends Activity {
     }
 
     private void splash() {
-        final boolean firstOpen = PreferencesUtils.getBoolean(this, PreferencesConstant.FRIST_OPEN, true);
-      /*  if (firstOpen) {
-            imageView.setVisibility(View.GONE);
-            setupBanner(imgIdArray);
-            viewPager.setVisibility(View.VISIBLE);
-        } else {*/
+        final boolean firstOpen = PreferencesUtils.getBoolean(this, PreferencesConstant.FRIST_OPEN,
+                true);
+        /*
+         * if (firstOpen) { imageView.setVisibility(View.GONE);
+         * setupBanner(imgIdArray); viewPager.setVisibility(View.VISIBLE); }
+         * else {
+         */
         imageView.setVisibility(View.VISIBLE);
         viewPager.setVisibility(View.GONE);
         startMainActivity();
-        //  }
+        // }
     }
 
     private void startMainActivity() {
@@ -104,7 +108,8 @@ public class WelcomeActivity extends Activity {
         for (int i = 0; i < count; i++) {
             ImageView mImageView = new ImageView(this);
             dots[i] = mImageView;
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    new ViewGroup.LayoutParams(widthAndHeight, widthAndHeight));
             layoutParams.rightMargin = margin;
 
             mImageView.setBackgroundResource(R.drawable.pic_22);

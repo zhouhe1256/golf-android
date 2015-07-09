@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.alipay;
 
 import android.app.Activity;
@@ -14,31 +15,32 @@ import com.bjcathay.qt.model.OrderModel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
 /**
- * Created by bjcathay on 15-5-29.
+ * Created by dengt on 15-5-29.
  */
 public class Alipay {
-    /*合作者身份(PID):2088812280316304
-    安全校验码(Key):默认加密： xg9cpc2dkfi82kmxogh6blf5w8yr6lex
-    http://api.7tiegolf.com/api/alipay_notify_url
-    */
+    /*
+     * 合作者身份(PID):2088812280316304 安全校验码(Key):默认加密：
+     * xg9cpc2dkfi82kmxogh6blf5w8yr6lex
+     * http://api.7tiegolf.com/api/alipay_notify_url
+     */
     public interface PaySucessOrNot {
         void payStatus(String status, boolean isPay);
     }
 
-    //商户PID
+    // 商户PID
     public static final String PARTNER = "2088812280316304";
-    //商户收款账号
+    // 商户收款账号
     public static final String SELLER = "chenrg@bjcathay.com";
-    //商户私钥，pkcs8格式
+    // 商户私钥，pkcs8格式
     public static final String private_key = "qwe";
-    public static String RSA_PRIVATE = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAOMO0BFTNip2aWj2\n" +
+    public static String RSA_PRIVATE = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAOMO0BFTNip2aWj2\n"
+            +
             "+X0mZ8wPQQQPIyQIBtZX1tH3ZN25M2wPISUTyQ97FDKd62mshudPTVIEZqTOkXap\n" +
             "nVAxulutyd+GsdSGVGxgaJmZAI/OU3Tm7hoDeegRDxzvykCRzV/wDro0ZFgD+o8D\n" +
             "a0F0PpLyS5vNKZ5qaAfRqs9zTbFxAgMBAAECgYEApVN4ztSfAQYdNI94E9cuBtgo\n" +
@@ -53,15 +55,12 @@ public class Alipay {
             "KK5TGZ3A02ckQnn5KQnMtRBM+jyzj/W3kQ9QfVdjQ4gzFJReB18hCZrNZSYqaTqk\n" +
             "bnDkbgqciYGUnqEt\n";
 
-
-    //支付宝公钥
+    // 支付宝公钥
     public static final String RSA_PUBLIC = "";
-
 
     private static final int SDK_PAY_FLAG = 1;
 
     private static final int SDK_CHECK_FLAG = 2;
-
 
     private Activity activity;
     private String orderNo;
@@ -87,22 +86,28 @@ public class Alipay {
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                      /*  Toast.makeText(activity, "支付成功",
-                                Toast.LENGTH_SHORT).show();*/
+                        /*
+                         * Toast.makeText(activity, "支付成功",
+                         * Toast.LENGTH_SHORT).show();
+                         */
                         paySucessOrNot.payStatus("sucess", true);
 
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                          /*  Toast.makeText(activity, "支付结果确认中",
-                                    Toast.LENGTH_SHORT).show();*/
+                            /*
+                             * Toast.makeText(activity, "支付结果确认中",
+                             * Toast.LENGTH_SHORT).show();
+                             */
                             paySucessOrNot.payStatus("process", true);
 
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                           /* Toast.makeText(activity, "支付失败",
-                                    Toast.LENGTH_SHORT).show();*/
+                            /*
+                             * Toast.makeText(activity, "支付失败",
+                             * Toast.LENGTH_SHORT).show();
+                             */
                             paySucessOrNot.payStatus("fail", true);
 
                         }
@@ -219,8 +224,8 @@ public class Alipay {
 
         // 商品金额
         orderInfo += "&total_fee=" + "\"" + orderModel.getTotalPrice() + "\"";
-//http://api0.bjcathay.com:81/api/alipay_notify_url
-        //http://api.7tiegolf.com/api/alipay_notify_url
+        // http://api0.bjcathay.com:81/api/alipay_notify_url
+        // http://api.7tiegolf.com/api/alipay_notify_url
         // 服务器异步通知页面路径　http://api.qt.bjcathay.com/api/alipay_notify_url
         orderInfo += "&notify_url=" + "\"" + "http://api0.bjcathay.com:81/api/alipay_notify_url"
                 + "\"";

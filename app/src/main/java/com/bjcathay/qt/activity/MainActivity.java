@@ -57,10 +57,9 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private JazzyViewPager bannerViewPager;
     private TopView topView;
     private Activity context;
-    Handler handler = new Handler();
-    /* 首页头部的广告轮番效果 start */
+    private Handler handler = new Handler();
     private LinearLayout dotoParendLinearLayout;
-    ImageView[] dots;
+    private ImageView[] dots;
 
     private int page = 1;
     private Runnable runnable;
@@ -120,18 +119,11 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
             @Override
             public void onPageScrollStateChanged(int i) {
-                // System.out.println("i" + i);
             }
         });
     }
 
     private void setImageBackground(int currentPosition) {
-        /*
-         * if (currentPosition == 4) {
-         * dotoParendLinearLayout.setVisibility(View.INVISIBLE); } else {
-         */
-       // dotoParendLinearLayout.setVisibility(View.VISIBLE);
-        // }
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {
@@ -142,8 +134,6 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             }
         }
     }
-
-    /* 首页头部的广告轮番效果 end */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,8 +171,6 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             String cachePath = com.mob.tools.utils.R.getCachePath(this, null);
             TEST_IMAGE = cachePath + FILE_NAME;
             File file = new File(TEST_IMAGE);
-            // TEST_IMAGE="/sdcard/mallfm/"+FILE_NAME;
-            // File file = new File(TEST_IMAGE);
             if (!file.exists()) {
                 file.createNewFile();
                 Bitmap pic = BitmapFactory.decodeResource(getResources(),

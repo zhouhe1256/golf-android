@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.widget;
 
 import android.content.Context;
@@ -14,7 +15,7 @@ import com.bjcathay.qt.util.SizeUtil;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-1.
+ * Created by dengt on 15-6-1.
  */
 public class WheelTextAdapter extends BaseAdapter {
     List<String> mData = null;
@@ -71,9 +72,8 @@ public class WheelTextAdapter extends BaseAdapter {
 
         String info = mData.get(position);
         textView.setText(info);
-        //  textView.setTextColor(info.mColor);
+        // textView.setTextColor(info.mColor);
 
         return convertView;
     }
 }
-

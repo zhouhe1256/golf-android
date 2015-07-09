@@ -1,7 +1,7 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
-import android.hardware.GeomagneticField;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,13 +25,12 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-5-21.
  */
-public class ShareActivity extends Activity implements View.OnClickListener/*, View.OnTouchListener*/ {
+public class ShareActivity extends Activity implements View.OnClickListener {
     private ImageView imageView;
     private LinearLayout linearLayout;
     private TextView inviteCode;
     private TextView share;
     private ShareModel shareModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +39,11 @@ public class ShareActivity extends Activity implements View.OnClickListener/*, V
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
-                // // System.out.println("水平方向移动距离过大");
-                // return true;
-                // }
                 if (Math.abs(velocityY) < 100) {
-                    // System.out.println("手指移动的太慢了");
                     return true;
                 }
 
-                // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
-                    //finish();//在此处控制关闭
-                   // return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
@@ -85,7 +76,6 @@ public class ShareActivity extends Activity implements View.OnClickListener/*, V
     }
 
     private void initEvent() {
-      //  imageView.setOnTouchListener(this);
         share.setOnClickListener(this);
     }
 
@@ -104,27 +94,30 @@ public class ShareActivity extends Activity implements View.OnClickListener/*, V
                             ShareUtil.getInstance().shareDemo(ShareActivity.this, shareModel);
                         }
                     });
-                else ShareUtil.getInstance().shareDemo(ShareActivity.this, shareModel);
+                else
+                    ShareUtil.getInstance().shareDemo(ShareActivity.this, shareModel);
+                break;
+            case R.id.share_back:
+                finish();
+                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
 
     private GestureDetector mGestureDetector;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-   /* @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        // OnGestureListener will analyzes the given motion event
-        return mGestureDetector.onTouchEvent(motionEvent);
-    }*/
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

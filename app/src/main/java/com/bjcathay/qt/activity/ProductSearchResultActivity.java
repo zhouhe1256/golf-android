@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -29,9 +30,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
-public class ProductSearchResultActivity extends Activity implements AutoListView.OnRefreshListener,
+public class ProductSearchResultActivity extends Activity implements
+        AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private TopView topView;
     // private ListView listView;
@@ -44,8 +46,9 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     private long cityId;
     private long placeId;
     private Date now;
-    String latitude;
-    String longitude;
+    private String latitude;
+    private String longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +60,8 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     }
 
     private void initView() {
-        // listView = ViewUtil.findViewById(this, R.id.place_list);
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
         topView.setTitleBackVisiable();
-        //topView.setSearchVisiable();
         topView.setTitleText("相关球场");
         stadiumModelList = new ArrayList<ProductModel>();
         placeListAdapter = new PlaceSearchListAdapter(stadiumModelList, this);
@@ -72,7 +73,6 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
     }
 
     private void initEvent() {
-        //   listView.setAdapter(placeListAdapter);
 
         lstv.setListViewEmptyImage(R.drawable.yuechang);
         lstv.setListViewEmptyMessage("没有查到相关球场～");
@@ -80,9 +80,8 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= stadiumModelList.size()) {
-                    //todo
-                    Intent intent = new Intent(ProductSearchResultActivity.this, OrderStadiumDetailActivity.class);
-                    //  Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
+                    Intent intent = new Intent(ProductSearchResultActivity.this,
+                            OrderStadiumDetailActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
                     intent.putExtra("type", stadiumModelList.get(i - 1).getType());
@@ -155,15 +154,18 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
                 page++;
                 break;
         }
-        ProductListModel.searchProduct(cityId == 0l ? null : String.valueOf(cityId), placeId == 0l ? null : String.valueOf(placeId),latitude, longitude).done(this).fail(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                if (lstv != null) {
-                    lstv.onRefreshComplete();
-                    lstv.setResultSize(-1, false);
-                }
-            }
-        });
+        ProductListModel
+                .searchProduct(cityId == 0l ? null : String.valueOf(cityId),
+                        placeId == 0l ? null : String.valueOf(placeId), latitude, longitude)
+                .done(this).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        if (lstv != null) {
+                            lstv.onRefreshComplete();
+                            lstv.setResultSize(-1, false);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -179,7 +181,6 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
         handler.sendMessage(msg);
 
         now = DateUtil.stringToDate(stadiumListModel.getNow());
-//        now =new Date();
         if (timeCount == null) {
             timeCount = new TimeCount(Long.MAX_VALUE, 1000, new TimeCount.TimeUpdate() {
                 @Override
@@ -202,17 +203,11 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
 
     @Override
     public void onClick(View view) {
-        Intent intent;
         switch (view.getId()) {
             case R.id.title_back_img:
-               /* intent = new Intent(this, MainActivity.class);
-                ViewUtil.startTopActivity(this, intent);*/
                 finish();
                 break;
-           /* case R.id.title_search_img:
-                intent = new Intent(this, SearchActivity.class);
-                ViewUtil.startActivity(this, intent);
-                break;*/
+
         }
     }
 
@@ -236,11 +231,4 @@ public class ProductSearchResultActivity extends Activity implements AutoListVie
         MobclickAgent.onPause(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
-        ViewUtil.startTopActivity(this, intent);
-        finish();
-    }
 }

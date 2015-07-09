@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.uptutil;
 
 import android.os.AsyncTask;
@@ -16,7 +17,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
     private DownloadCallback downCallBack;
     private HttpURLConnection urlConn;
 
-    public DownloadAsyncTask(DownloadCallback downloadCallback){
+    public DownloadAsyncTask(DownloadCallback downloadCallback) {
         this.downCallBack = downloadCallback;
     }
 
@@ -28,27 +29,27 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... args) {
-        String apkDownloadUrl = args[0]; //apk下载地址
-        String apkPath = args[1];   //apk在sd卡中的安装位置
+        String apkDownloadUrl = args[0]; // apk下载地址
+        String apkPath = args[1]; // apk在sd卡中的安装位置
         String result = "";
-        if(!IntentUtil.checkURL(apkDownloadUrl)){
+        if (!IntentUtil.checkURL(apkDownloadUrl)) {
             result = "netfail";
-        }else{
+        } else {
             InputStream is = null;
             FileOutputStream fos = null;
             try {
                 URL url = new URL(apkDownloadUrl);
-                urlConn = (HttpURLConnection)url.openConnection();
+                urlConn = (HttpURLConnection) url.openConnection();
                 is = urlConn.getInputStream();
-                int length = urlConn.getContentLength();   //文件大小
+                int length = urlConn.getContentLength(); // 文件大小
                 fos = new FileOutputStream(apkPath);
 
-                int count = 0,numread = 0;
+                int count = 0, numread = 0;
                 byte buf[] = new byte[1024];
 
-                while(!downCallBack.onCancel()&& (numread = is.read(buf))!=-1){
-                    count+=numread;
-                    int progressCount =(int)(((float)count / length) * 100);
+                while (!downCallBack.onCancel() && (numread = is.read(buf)) != -1) {
+                    count += numread;
+                    int progressCount = (int) (((float) count / length) * 100);
                     publishProgress(progressCount);
                     fos.write(buf, 0, numread);
                 }
@@ -57,11 +58,11 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
             } catch (Exception e) {
                 e.printStackTrace();
                 result = "fail";
-            }finally{
+            } finally {
                 try {
-                    if(fos!=null)
+                    if (fos != null)
                         fos.close();
-                    if(is!=null)
+                    if (is != null)
                         is.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -80,13 +81,13 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if(downCallBack.onCancel()){
+        if (downCallBack.onCancel()) {
             downCallBack.onCompleted(false, "版本更新下载已取消。");
-        }else if("success".equals(result)){
+        } else if ("success".equals(result)) {
             downCallBack.onCompleted(true, null);
-        }else if("netfail".equals(result)){
+        } else if ("netfail".equals(result)) {
             downCallBack.onCompleted(false, "连接服务器失败，请稍后重试。");
-        }else{
+        } else {
             downCallBack.onCompleted(false, "版本更新失败，请稍后重试。");
         }
         super.onPostExecute(result);
@@ -94,7 +95,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onCancelled() {
-        if(urlConn!=null){
+        if (urlConn != null) {
             urlConn.disconnect();
         }
         super.onCancelled();

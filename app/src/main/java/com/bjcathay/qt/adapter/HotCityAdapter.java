@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.content.Context;
@@ -9,12 +10,11 @@ import android.widget.TextView;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.CModel;
-import com.bjcathay.qt.util.DialogUtil;
 
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class HotCityAdapter extends BaseAdapter {
     private List<CModel> cities;
@@ -24,10 +24,12 @@ public class HotCityAdapter extends BaseAdapter {
         this.cities = cities;
         this.context = context;
     }
+
     public void updateListView(List<CModel> list) {
         this.cities = list;
         notifyDataSetChanged();
     }
+
     @Override
     public int getCount() {
         return cities.size();
@@ -51,15 +53,9 @@ public class HotCityAdapter extends BaseAdapter {
             convertView = inflater.inflate(
                     R.layout.item_hot_list, null);
         }
-          CModel c=cities.get(i);
+        CModel c = cities.get(i);
         ((TextView) convertView
                 .findViewById(R.id.group_name)).setText(c.getName());
-      /*  convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtil.showMessage("北京");
-            }
-        });*/
         return convertView;
     }
 }

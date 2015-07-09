@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -14,8 +15,6 @@ import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
@@ -25,7 +24,8 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-5-27.
  */
-public class PaySuccessActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+public class PaySuccessActivity extends Activity implements View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;
     private Long id;
     private OrderModel orderModel;
@@ -78,10 +78,12 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
                             @Override
                             public void call(Arguments arguments) {
                                 shareModel = arguments.get(0);
-                                ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
+                                ShareUtil.getInstance().shareDemo(PaySuccessActivity.this,
+                                        shareModel);
                             }
                         });
-                    else ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
+                    else
+                        ShareUtil.getInstance().shareDemo(PaySuccessActivity.this, shareModel);
                 }
                 break;
             case R.id.title_back_img:
@@ -91,8 +93,8 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
-                        R.style.InfoDialog,getResources().getString(R.string.service_tel_format)
-                        .toString().trim(), "呼叫", 0l, this);
+                        R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
+                                .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
@@ -109,15 +111,18 @@ public class PaySuccessActivity extends Activity implements View.OnClickListener
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

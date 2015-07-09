@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -5,14 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -22,12 +17,11 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventListModel;
 import com.bjcathay.qt.model.EventModel;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
-import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog.DeleteInfoDialogResult;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -39,17 +33,13 @@ import java.util.List;
  * Created by dengt on 15-4-29.
  */
 public class MyCompetitionActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult, View.OnClickListener {
+        AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private Activity context;
     private MyCompetitionAdapter myCompetitionAdapter;
     private List<EventModel> eventModels;
     private TopView topView;
     private AutoListView lstv;
     private int page = 1;
-    private View empty;
-    private ImageView emptyImg;
-    private TextView emptyText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +52,8 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     }
 
     private void initView() {
-
         topView = ViewUtil.findViewById(this, R.id.top_my_competition_layout);
         topView.setTitleBackVisiable();
-       // topView.setShareVisiable();
         topView.setTitleText("我的赛事");
         eventModels = new ArrayList<EventModel>();
         myCompetitionAdapter = new MyCompetitionAdapter(eventModels, this);
@@ -83,10 +71,6 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         lstv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //弹窗设置是否取消
-             /*   DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                        R.style.InfoDialog, "确认删除该赛事", eventModels.get(i - 1).getId(), MyCompetitionActivity.this);
-                infoDialog.show();*/
                 return false;
             }
         });
@@ -94,7 +78,8 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= eventModels.size()) {
-                    Intent intent = new Intent(MyCompetitionActivity.this, CompetitionDetailActivity.class);
+                    Intent intent = new Intent(MyCompetitionActivity.this,
+                            CompetitionDetailActivity.class);
                     intent.putExtra("url", eventModels.get(i - 1).getUrl());
                     intent.putExtra("id", eventModels.get(i - 1).getId());
                     ViewUtil.startActivity(MyCompetitionActivity.this, intent);
@@ -106,7 +91,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             EventListModel result = (EventListModel) msg.obj;
-            boolean hasNext=result.isHasNext();
+            boolean hasNext = result.isHasNext();
             if (result != null && result.getEvents() != null && !result.getEvents().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -119,7 +104,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                         eventModels.addAll(result.getEvents());
                         break;
                 }
-                lstv.setResultSize(eventModels.size(),hasNext);
+                lstv.setResultSize(eventModels.size(), hasNext);
                 myCompetitionAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -130,7 +115,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
                         lstv.onLoadComplete();
                         break;
                 }
-                lstv.setResultSize(eventModels.size(),hasNext);
+                lstv.setResultSize(eventModels.size(), hasNext);
                 myCompetitionAdapter.notifyDataSetChanged();
             }
         }
@@ -186,46 +171,20 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     }
 
     @Override
-    public void deleteResult(Long targetId, boolean isDelete) {
-        if (isDelete) {
-            EventModel.deleteEvent(targetId).done(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    JSONObject jsonObject = arguments.get(0);
-                    if (jsonObject.optBoolean("success")) {
-                        DialogUtil.showMessage("已删除赛事");
-                        loadData(AutoListView.REFRESH);
-                        // }
-                    } else {
-                        int code = jsonObject.optInt("code");
-                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                    }
-                }
-            }).fail(new ICallback() {
-                @Override
-                public void call(Arguments arguments) {
-                    DialogUtil.showMessage("失败");
-                }
-            });
-        }
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_back_img:
                 finish();
                 break;
-          /*  case R.id.title_share_img:
-                ShareUtil.showShare(this);
-                break;*/
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

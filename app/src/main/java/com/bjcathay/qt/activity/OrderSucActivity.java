@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -9,14 +10,14 @@ import android.view.View;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
-import com.bjcathay.qt.view.PhoneTextView;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-4-21.
  */
-public class OrderSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+public class OrderSucActivity extends Activity implements View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private TopView topView;
     private Long id;
 
@@ -58,14 +59,14 @@ public class OrderSucActivity extends Activity implements View.OnClickListener, 
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.title_back_img:
-                intent=new Intent(this,MainActivity.class);
-                ViewUtil.startTopActivity(this,intent);
+                intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);
                 finish();
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                         R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
-                        .toString().trim(), "呼叫", 0l, this);
+                                .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
@@ -74,10 +75,12 @@ public class OrderSucActivity extends Activity implements View.OnClickListener, 
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -85,11 +88,13 @@ public class OrderSucActivity extends Activity implements View.OnClickListener, 
         ViewUtil.startTopActivity(this, intent);
         finish();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

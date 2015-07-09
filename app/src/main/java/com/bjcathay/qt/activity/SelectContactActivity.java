@@ -20,11 +20,9 @@ import android.widget.TextView;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SelectContactAdapter;
-import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 
-import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.BookPinyinComparator;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
@@ -41,27 +39,21 @@ import java.util.List;
 /**
  * Created by dengt on 15-7-3.
  */
-public class SelectContactActivity extends FragmentActivity implements View.OnClickListener,
-        DialogExchFragment.ExchangeResult {
+public class SelectContactActivity extends FragmentActivity implements View.OnClickListener {
     private Context context;
-    private View mBaseView;
     private ListView sortListView;
     private SideBar sideBar;
     private TextView dialog;
     private SelectContactAdapter adapter;
     private ClearEditText mClearEditText;
-    // private Map<String, String> callRecords;
-    List<BookModel> callRecords;
+    private List<BookModel> callRecords;
     private CharacterParser characterParser;
-    // private List<SortModel> SourceDateList;
     private List<BookModel> SourceDateList;
     private BookPinyinComparator pinyinComparator;
     private TopView topView;
     private TextView netNote;
-    private Long id;
     private Drawable imgLeft;
     private LinearLayout centerImg;
-    private String proName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +79,6 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     }
 
     private void initEvent() {
-        // mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
         sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -105,8 +96,6 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         topView.setTitleBackVisiable();
         topView.setFinishVisiable();
         topView.setTitleText("通讯录朋友");
-        id = getIntent().getLongExtra("id", 0);
-        proName = getIntent().getStringExtra("name");
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
@@ -137,17 +126,6 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         Intent intent;
         switch (view.getId()) {
             case R.id.title_back_img:
-               /* intent = new Intent();
-                if (adapter != null) {
-                    BookListModel bookListModel = new BookListModel();
-                    List<BookModel> bookModels = adapter.getCheckedItems();
-                    bookListModel.setPersons(bookModels);
-                    if (!bookModels.isEmpty()) {
-                        DBManager.getInstance().addPlayers(bookModels);
-                        intent.putExtra("contact", bookListModel);
-                    }
-                }
-                setResult(4, intent);*/
                 finish();
                 break;
             case R.id.title_finish:
@@ -157,7 +135,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
                     List<BookModel> bookModels = adapter.getCheckedItems();
                     bookListModel.setPersons(bookModels);
                     if (!bookModels.isEmpty()) {
-                       // DBManager.getInstance().addPlayers(bookModels);
+                        // DBManager.getInstance().addPlayers(bookModels);
                         intent.putExtra("contact", bookListModel);
                     }
                 }
@@ -165,28 +143,6 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
                 finish();
                 break;
         }
-    }
-
-   /* @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent();
-        if (adapter != null) {
-            BookListModel bookListModel = new BookListModel();
-            List<BookModel> bookModels = adapter.getCheckedItems();
-            bookListModel.setPersons(bookModels);
-            if (!bookModels.isEmpty()) {
-                DBManager.getInstance().addPlayers(bookModels);
-                intent.putExtra("contact", bookListModel);
-            }
-        }
-        setResult(4, intent);
-        finish();
-    }*/
-
-    @Override
-    public void exchangeResult(UserModel userModel, boolean isExchange) {
-
     }
 
     private class ConstactAsyncTask extends AsyncTask<Integer, Integer, Integer> {
@@ -207,7 +163,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
                 SourceDateList = filledData(callRecords);
                 // 根据a-z进行排序源数据
                 Collections.sort(SourceDateList, pinyinComparator);
-                adapter = new SelectContactAdapter(context, SourceDateList, id, proName);
+                adapter = new SelectContactAdapter(context, SourceDateList);
                 sortListView.setAdapter(adapter);
                 sortListView.setVisibility(View.VISIBLE);
                 netNote.setVisibility(View.GONE);

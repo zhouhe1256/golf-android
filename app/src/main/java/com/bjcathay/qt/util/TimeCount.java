@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.os.CountDownTimer;

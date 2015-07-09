@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import java.io.Serializable;
@@ -6,9 +7,9 @@ import java.io.Serializable;
  * Created by dengt on 15-6-25.
  */
 public class ProvinceModel implements Serializable {
-    private long id;//1,
-    private String name;//"北京",
-    private boolean hot;//true|false,
+    private long id;// 1,
+    private String name;// "北京",
+    private boolean hot;// true|false,
     private String firstLetter;// "b",
     private String shortLetter;// "bj",
     private String allLetter;// "beijing"

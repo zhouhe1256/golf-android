@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -30,7 +31,8 @@ import java.io.IOException;
 /**
  * Created by dengt on 15-4-29.
  */
-public class MyInformationActivity extends Activity implements SelectPicPopupWindow.SelectResult, View.OnClickListener {
+public class MyInformationActivity extends Activity implements SelectPicPopupWindow.SelectResult,
+        View.OnClickListener {
     private TopView topView;
     private CircleImageView userImg;
     private TextView userName;
@@ -38,10 +40,8 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     private TextView userPhone;
     private TextView userInvite;
     private UserModel userModel;
-    private RelativeLayout imgRelativeLayout;
-    private RelativeLayout nameRelativeLayout;
-    //自定义的弹出框类
-    SelectPicPopupWindow menuWindow;
+    // 自定义的弹出框类
+    private SelectPicPopupWindow menuWindow;
     private int selectCode = 1;
     private int requestCropIcon = 2;
     private int resultPictureCode = 3;
@@ -97,17 +97,9 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     @Override
     public void resultPicture() {
         Intent intent = new Intent();
-        //intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
-         /*  intent.setType("image*//*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 96);
-        intent.putExtra("outputY", 96);
-        intent.putExtra("return-data", true);*/
         startActivityForResult(intent, selectCode);
     }
 
@@ -139,16 +131,14 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
             intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
             intent.putExtra("noFaceDetection", true);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            intent.putExtra("return-data", true);//设置为不返回数据
+            intent.putExtra("return-data", true);// 设置为不返回数据
             startActivityForResult(intent, requestCropIcon);
         } else if (requestCropIcon == requestCode) {
             Bundle extras = data.getExtras();
             if (extras != null) {
-                //  uri=extras.getParcelable(MediaStore.EXTRA_OUTPUT);
                 if (uri == null) {
                     return;
                 }
-                //  Bitmap photo = extras.getParcelable("data");
                 Bitmap photo = null;
                 try {
                     photo = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -182,11 +172,9 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
             }
         }
         if (resultEditName == requestCode && selectEditName == resultCode) {
-
             userName.setText(data.getStringExtra("name"));
         }
         if (resultEditNickName == requestCode && selectEditNickName == resultCode) {
-
             userNickName.setText(data.getStringExtra("nickname"));
         }
     }
@@ -197,9 +185,8 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
         switch (view.getId()) {
             case R.id.info_img_relative:
                 menuWindow = new SelectPicPopupWindow(this, this);
-                //显示窗口
-                menuWindow.showAtLocation(this.findViewById(R.id.info_img_relative), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-
+                menuWindow.showAtLocation(this.findViewById(R.id.info_img_relative), Gravity.BOTTOM
+                        | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
                 break;
             case R.id.info_name_relative:
                 intent = new Intent(this, UserEditNnameActivity.class);

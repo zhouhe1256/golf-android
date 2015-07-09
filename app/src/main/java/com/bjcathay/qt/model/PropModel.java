@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -8,7 +9,7 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-7.
+ * Created by dengt on 15-5-7.
  */
 public class PropModel implements Serializable {
     private Long id;// 1,
@@ -19,10 +20,9 @@ public class PropModel implements Serializable {
     private int targetId;// 2,
     private int amount;
     private String imageUrl;// "/upload/image/xxx.png"
- /*   private String exchange;// true|false, 是否已兑换
-    private String status;// UNUSED|USED*/
     private String value;
-    private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(PropModel.class, "prop");
+    private static IContentDecoder<PropModel> decoder = new IContentDecoder.BeanDecoder<PropModel>(
+            PropModel.class, "prop");
 
     public int getAmount() {
         return amount;
@@ -40,16 +40,16 @@ public class PropModel implements Serializable {
         this.value = value;
     }
 
-    //兑换道具
+    // 兑换道具
     public static IPromise getProp(Long id) {
         return Http.instance().post(ApiUrl.propDetail(id)).
                 run();
     }
 
-    //赠送道具
-    public static IPromise sendProp(Long id,String phone) {
+    // 赠送道具
+    public static IPromise sendProp(Long id, String phone) {
         return Http.instance().post(ApiUrl.sendProp(id)).
-                param("phone",phone).run();
+                param("phone", phone).run();
     }
 
     public Long getId() {
@@ -107,6 +107,5 @@ public class PropModel implements Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
 }

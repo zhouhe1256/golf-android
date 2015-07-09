@@ -1,17 +1,11 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -28,6 +22,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -39,7 +34,8 @@ import java.util.List;
  * Created by dengt on 15-4-29.
  */
 public class MyMessageActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult, View.OnClickListener {
+        AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult,
+        View.OnClickListener {
     private Activity context;
     private MyMessageAdapter myMessageAdapter;
     private List<MessageModel> messageModels;
@@ -77,23 +73,13 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
         topView.getRightbtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //弹窗设置是否取消
+                // 弹窗设置是否取消
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
                         R.style.InfoDialog, "确认清空消息？", 0l, MyMessageActivity.this);
                 infoDialog.show();
 
             }
         });
-
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // DialogUtil.hintMessage("选档期", PlaceListActivity.this);
-               *//* Intent intent = new Intent(MyCompetitionActivity.this, OrderDetailActivity.class);
-                ViewUtil.startActivity(MyCompetitionActivity.this, intent);*//*
-            }
-        });*/
-
     }
 
     private Handler handler = new Handler() {
@@ -154,7 +140,8 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                 page++;
                 break;
         }
-        String lastUpdate = PreferencesUtils.getString(this, PreferencesConstant.LAST_UPDATE_MESSAGE, "1970-11-11 00:00:00");
+        String lastUpdate = PreferencesUtils.getString(this,
+                PreferencesConstant.LAST_UPDATE_MESSAGE, "1970-11-11 00:00:00");
         MessageListModel.getMyMessage(page, lastUpdate).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
@@ -169,7 +156,8 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
     @Override
     public void call(Arguments arguments) {
         MessageListModel messageListModel = arguments.get(0);
-        PreferencesUtils.putString(this, PreferencesConstant.LAST_UPDATE_MESSAGE, SystemUtil.getCurrentTime());
+        PreferencesUtils.putString(this, PreferencesConstant.LAST_UPDATE_MESSAGE,
+                SystemUtil.getCurrentTime());
         Message msg = handler.obtainMessage();
         if (page == 1)
             msg.what = AutoListView.REFRESH;
@@ -194,14 +182,19 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                             loadData(AutoListView.REFRESH);
                             // }
                         } else {
-                            int code = jsonObject.optInt("code");
-                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            String errorMessage = jsonObject.optString("message");
+                            if (!StringUtils.isEmpty(errorMessage))
+                                DialogUtil.showMessage(errorMessage);
+                            else {
+                                int code = jsonObject.optInt("code");
+                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            }
                         }
                     }
                 }).fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
-                        DialogUtil.showMessage("网络连接异常");
+                        DialogUtil.showMessage(getString(R.string.empty_net_text));
                     }
                 });
         }
@@ -215,11 +208,13 @@ public class MyMessageActivity extends Activity implements AutoListView.OnRefres
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

@@ -1,7 +1,8 @@
+
 package com.bjcathay.qt.util;
 
 /**
- * Created by bjcathay on 15-4-20.
+ * Created by dengt on 15-4-20.
  */
 public class PreferencesConstant {
     public static final String API_TOKEN = "api_token";
@@ -17,5 +18,5 @@ public class PreferencesConstant {
     public static final String SHARE_CLICK = "share_click";
     public static final String LONGITUDE = "longitude";
     public static final String FRIST_OPEN = "first_open";
-    public static final String USER_INFO="user_info";
+    public static final String USER_INFO = "user_info";
 }

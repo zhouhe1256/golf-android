@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -23,8 +24,8 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
-import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-4-23.
  */
-public class LoginActivity extends Activity implements View.OnClickListener, ICallback/*, View.OnTouchListener*/ {
+public class LoginActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private Button loginbtn;
     private ImageView topView;
@@ -50,21 +51,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
-                // // System.out.println("水平方向移动距离过大");
-                // return true;
-                // }
                 if (Math.abs(velocityY) < 100) {
-                    // System.out.println("手指移动的太慢了");
                     return true;
                 }
 
-                // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
-                    //finish();//在此处控制关闭
-                   // return true;
                 }
-                // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
                     finish();
                     overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
@@ -90,15 +82,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
-       // topView.setOnTouchListener(this);
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
         forgetbtn.setOnClickListener(this);
     }
 
     private void initData() {
-        String user_name = PreferencesUtils.getString(gApplication, PreferencesConstant.USER_NAME, "");
-        String pass_word = PreferencesUtils.getString(gApplication, PreferencesConstant.USER_PASSWORD, "");
+        String user_name = PreferencesUtils.getString(gApplication, PreferencesConstant.USER_NAME,
+                "");
+        String pass_word = PreferencesUtils.getString(gApplication,
+                PreferencesConstant.USER_PASSWORD, "");
         loginUser.setText(user_name);
         loginpwd.setText(pass_word);
     }
@@ -126,8 +119,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         Intent intent;
         switch (view.getId()) {
             case R.id.login_btn:
-               /* intent = new Intent(this, UserCenterActivity.class);
-                ViewUtil.startActivity(this, intent);*/
                 login();
                 break;
             case R.id.new_login:
@@ -140,7 +131,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 break;
             case R.id.top_login_layout:
                 finish();
-                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
@@ -150,21 +141,27 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         JSONObject jsonObject = arguments.get(0);
         if (jsonObject.optBoolean("success")) {
             UserModel userModel = JSONUtil.load(UserModel.class, jsonObject.optJSONObject("user"));
-            // userModel.setCurrentUser(userModel);
             String token = userModel.getApiToken();
-            //保存用户名和密码
-            PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME, userModel.getNickname());
-            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE, userModel.getMobileNumber());
-            PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
-            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, loginUser.getText().toString().trim());
-            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD, loginpwd.getText().toString().trim());
-            PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
+            // 保存用户名和密码
+            PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME,
+                    userModel.getNickname());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE,
+                    userModel.getMobileNumber());
+            PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER,
+                    userModel.getInviteAmount());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, loginUser
+                    .getText().toString().trim());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD, loginpwd
+                    .getText().toString().trim());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,
+                    userModel.getInviteCode());
 
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             gApplication.setUser(userModel);
             gApplication.updateApiToken();
             DialogUtil.showMessage("登录成功");
-            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null, null).done(new ICallback() {
+            UserModel.updateUserInfo(null, null, PushManager.getInstance().getClientid(this), null,
+                    null).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                 }
@@ -172,25 +169,28 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
             finish();
             overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
         } else {
-            int code = jsonObject.optInt("code");
-            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            String errorMessage = jsonObject.optString("message");
+            if (!StringUtils.isEmpty(errorMessage))
+                DialogUtil.showMessage(errorMessage);
+            else {
+                int code = jsonObject.optInt("code");
+                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            }
         }
     }
 
-   /* @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return mGestureDetector.onTouchEvent(motionEvent);
-    }*/
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

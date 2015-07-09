@@ -37,9 +37,11 @@ public class DeleteInfoDialog extends Dialog {
         this.text = text;
 
     }
-public void onCancleListen(){
 
-}
+    public void onCancleListen() {
+
+    }
+
     public DeleteInfoDialog(Context context, int theme, String text, String comfire, Long targetId,
             DeleteInfoDialogResult result) {
         super(context, theme);

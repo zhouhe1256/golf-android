@@ -1,5 +1,5 @@
-package com.bjcathay.qt.wxapi;
 
+package com.bjcathay.qt.wxapi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,7 +28,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.acvitity_pay_success);
+        // setContentView(R.layout.acvitity_pay_success);
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
     }
@@ -54,22 +54,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             intent.setAction("WXPAY");
             if (resp.errCode == 0) {
                 msg = "支付成功";
-                intent.putExtra("tag","sucess");
+                intent.putExtra("tag", "sucess");
             } else if (resp.errCode == -1) {
                 msg = "支付失败";
-                intent.putExtra("tag","fail");
+                intent.putExtra("tag", "fail");
             } else if (resp.errCode == -2) {
                 msg = "用户已取消";
-                intent.putExtra("tag","cancal");
+                intent.putExtra("tag", "cancal");
             }
-            /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(intent);
+            sendBroadcast(intent);
             finish();
             DialogUtil.showMessage(msg);
-
-          /*  AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("提示");
-            builder.setMessage("微信支付结果" + resp.errStr + ";code=" + String.valueOf(resp.errCode));
-            builder.show();*/
         }
     }
 }

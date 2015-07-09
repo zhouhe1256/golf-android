@@ -57,6 +57,9 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     private EditText phone;
     private EditText cName;
     private TextView palyerNames;
+    private int amount = -1;
+    private String players;
+    private BookListModel bookListModel = new BookListModel();
 
     private int reqname = 1;
     private int respname = 2;
@@ -132,8 +135,13 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                             ViewUtil.startActivity(context, intent);
                         } else {
                             dialog.dismiss();
-                            int code = jsonObject.optInt("code");
-                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            String errorMessage = jsonObject.optString("message");
+                            if (!StringUtils.isEmpty(errorMessage))
+                                DialogUtil.showMessage(errorMessage);
+                            else {
+                                int code = jsonObject.optInt("code");
+                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            }
                         }
                     }
                 }
@@ -153,8 +161,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         sure.setOnClickListener(this);
     }
 
-    int amount = -1;
-
     private void initData() {
         Intent intent = getIntent();
         stadiumModel = (ProductModel) intent.getSerializableExtra("product");
@@ -173,7 +179,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             bookModel.setName(userModel1.getRealName() + "(本人)");
         }
         bookModel.setPhone(userModel1.getMobileNumber());
-
         List<BookModel> bookModels = new ArrayList<BookModel>();
         bookModels.add(bookModel);
         bookListModel.setPersons(bookModels);
@@ -181,13 +186,10 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         palyerNames.setText(bookModel.getName());
         minas.setVisibility(View.VISIBLE);
         plus.setVisibility(View.VISIBLE);
-
         if ("LIMIT".equals(stadiumModel.getType())) {
             amount = stadiumModel.getAmount();
         }
         if (number == 0) {
-            // minas.setVisibility(View.VISIBLE);
-            // plus.setVisibility(View.VISIBLE);
             number = 5;
             price.setText("￥" +
                     currentPrice * number);
@@ -234,7 +236,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // if(number>=5){
                     number++;
                     fourPlus.setText(number < 10 ? " " + number : number + "");
                     price.setText("￥" + currentPrice * number);
@@ -265,9 +266,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                 break;
         }
     }
-
-    String players;
-    BookListModel bookListModel = new BookListModel();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

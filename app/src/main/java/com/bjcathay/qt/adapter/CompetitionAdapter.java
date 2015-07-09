@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-28.
+ * Created by dengt on 15-4-28.
  */
 public class CompetitionAdapter extends BaseAdapter {
     private List<EventModel> items;
@@ -35,12 +36,10 @@ public class CompetitionAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        //return 10;
     }
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -53,7 +52,8 @@ public class CompetitionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_competition_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_competition_list,
+                    parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -61,50 +61,16 @@ public class CompetitionAdapter extends BaseAdapter {
         }
         EventModel eventModel = items.get(position);
         ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
-      /*  if (eventModel.isAttend()) {
-            holder.status.setText("已报名");
-            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
-        } else {
-            if ("NOT_START".equals(eventModel.getStatus())) {
-                holder.status.setText("即将开始");
-                holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
-            } else if ("START".equals(eventModel.getStatus())) {
-
-                if (eventModel.isAttend()) {
-                    holder.status.setText("已报名");
-                    holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
-                } else {
-                    holder.status.setText("报名中");
-                    holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
-                }
-            } else if ("END".equals(eventModel.getStatus())) {
-                holder.status.setText("报名结束");
-                holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-            } else if ("DONE".equals(eventModel.getStatus())) {
-                holder.status.setText("已完成");
-                holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-            }
-        }*/
         holder.status.setText(eventModel.getStatusLabel());
-        if(eventModel.getStatus()==4){
+        if (eventModel.getStatus() == 4) {
             holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-        }else
+        } else
             holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
         holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
-      /*  if (eventModel.getSignedAmount() == 0)
-            holder.detail.setText("正在报名");
-        else*/
-            holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
-
-       /* convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtil.hintMessage("选档期");
-            }
-        });*/
+        holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
         return convertView;
     }
 

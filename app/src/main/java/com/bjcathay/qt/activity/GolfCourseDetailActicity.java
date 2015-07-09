@@ -3,7 +3,6 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +18,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.adapter.BannerViewPagerAdapter;
 import com.bjcathay.qt.adapter.GolfDetailViewPagerAdapter;
-import com.bjcathay.qt.model.BannerModel;
 import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -41,11 +38,13 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     private JazzyViewPager bannerViewPager;
     private Activity context;
     private Long id;
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
     private int page = 1;
     private Runnable runnable;
     private ImageView toMap;
     private StadiumModel stadiumModel;
+    private LinearLayout dotoParendLinearLayout;
+    private ImageView[] dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
                     @Override
                     public void onClick(View view) {
                         DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                                R.style.InfoDialog,stadiumModel.getPhone(), "呼叫", 0l,
+                                R.style.InfoDialog, stadiumModel.getPhone(), "呼叫", 0l,
                                 GolfCourseDetailActicity.this);
                         infoDialog.show();
                     }
@@ -93,7 +92,6 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
                 intent.putExtra("lon", stadiumModel.getLon());
                 intent.putExtra("title", stadiumModel.getName());
                 intent.putExtra("content", stadiumModel.getAddress());
-                // intent.putExtra("address",stationAddress.getText().toString().trim());
                 intent.putExtra("src", "A|GOLF");
                 ViewUtil.startActivity(context, intent);
             }
@@ -137,10 +135,6 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         }
     }
 
-    /* 头部 start */
-    private LinearLayout dotoParendLinearLayout;
-    ImageView[] dots;
-
     private void setupBanner(final List<String> bannerModels) {
         bannerViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
         bannerViewPager.setAdapter(new GolfDetailViewPagerAdapter(context, bannerViewPager,
@@ -156,7 +150,8 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         dotoParendLinearLayout.removeAllViews();
         if (bannerModels.size() == 1)
             dotoParendLinearLayout.setVisibility(View.INVISIBLE);
-        else dotoParendLinearLayout.setVisibility(View.VISIBLE);
+        else
+            dotoParendLinearLayout.setVisibility(View.VISIBLE);
         for (int i = 0; i < count; i++) {
             ImageView mImageView = new ImageView(context);
             dots[i] = mImageView;
@@ -195,17 +190,11 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
 
             @Override
             public void onPageScrollStateChanged(int i) {
-                // System.out.println("i" + i);
             }
         });
     }
 
     private void setImageBackground(int currentPosition) {
-        /*
-         * if (currentPosition == 4) {
-         * dotoParendLinearLayout.setVisibility(View.INVISIBLE); } else {
-         * dotoParendLinearLayout.setVisibility(View.VISIBLE); }
-         */
         if (dots != null) {
             for (int i = 0; i < dots.length; i++) {
                 if (i == currentPosition) {
@@ -226,7 +215,6 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
         }
     }
 
-    /* 头部 end */
     @Override
     public void onResume() {
         super.onResume();

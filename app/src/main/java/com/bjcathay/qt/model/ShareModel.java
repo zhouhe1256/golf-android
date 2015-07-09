@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -8,14 +9,15 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-25.
+ * Created by dengt on 15-5-25.
  */
 public class ShareModel implements Serializable {
     private String title;// "7铁高尔夫",
     private String description;// "打球人都知道",
     private String smsContent;// "http://www.bjcathay.com",
     private String url;// "http://www.bjcathay.com"
-    private static IContentDecoder<ShareModel> decoder = new IContentDecoder.BeanDecoder<ShareModel>(ShareModel.class, "share");
+    private static IContentDecoder<ShareModel> decoder = new IContentDecoder.BeanDecoder<ShareModel>(
+            ShareModel.class, "share");
 
     public static IPromise share() {
         return Http.instance().get(ApiUrl.SHARE_APP).

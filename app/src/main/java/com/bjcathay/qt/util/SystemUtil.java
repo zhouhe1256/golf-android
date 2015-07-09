@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -13,14 +14,16 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by bjcathay on 15-4-30.
+ * Created by dengt on 15-4-30.
  */
 public class SystemUtil {
     /**
      * 获取操作系统版本
      */
     public static String getVersion() {
-        String[] version = {"null", "null", "null", "null"};
+        String[] version = {
+                "null", "null", "null", "null"
+        };
         String str1 = "/proc/version";
         String str2;
         String[] arrayOfString;
@@ -30,15 +33,13 @@ public class SystemUtil {
                     localFileReader, 8192);
             str2 = localBufferedReader.readLine();
             arrayOfString = str2.split("\\s+");
-            version[0] = arrayOfString[2];//KernelVersion
+            version[0] = arrayOfString[2];// KernelVersion
             localBufferedReader.close();
         } catch (IOException e) {
         }
         version[1] = Build.VERSION.RELEASE;// firmware version
-        version[2] = Build.MODEL;//model
-        version[3] = Build.DISPLAY;//system version
-        //3.0.64-mokee-gf91c1d54.4.4GT-I9100mk_i9100-userdebug+4.4.4+KTU84Q+7ecadc7930+test-keys
-        // return version[0]+version[1]+version[2]+version[3];
+        version[2] = Build.MODEL;// model
+        version[3] = Build.DISPLAY;// system version
         return "Android" + version[1];
     }
 

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -9,19 +10,19 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-30.
+ * Created by dengt on 15-4-30.
  */
 public class EventModel implements Serializable {
     private Long id;
-    private String name;//赛事名称
+    private String name;// 赛事名称
     private String description;
     private String type;
     private String address;
     private String imageUrl;
-    private String startAt;//报名开始时间
-    private String endAt;//报名结束时间
-    private int signUpAmount;//可报名人数
-    private int signedAmount;//已报名人数
+    private String startAt;// 报名开始时间
+    private String endAt;// 报名结束时间
+    private int signUpAmount;// 可报名人数
+    private int signedAmount;// 已报名人数
     private String websiteUrl;
     private String resultStatus;
     private int status;
@@ -53,18 +54,6 @@ public class EventModel implements Serializable {
 
     public void setPass(boolean isPass) {
         this.isPass = isPass;
-    }
-
-    public enum Type {
-        PUBLIC, INVITATION
-    }
-
-    public enum ResultStatus {
-        SELECTION, NOT_PASS, PASS
-    }
-
-    public enum Status {
-        SIGNING, FINISH, CANCEL
     }
 
     public Long getId() {
@@ -187,8 +176,8 @@ public class EventModel implements Serializable {
         this.resultStatus = resultStatus;
     }
 
-    private static IContentDecoder<EventModel> decoder = new IContentDecoder.BeanDecoder<EventModel>(EventModel.class, "event");
-
+    private static IContentDecoder<EventModel> decoder = new IContentDecoder.BeanDecoder<EventModel>(
+            EventModel.class, "event");
 
     public static IPromise getEventDetail(long id) {
         return Http.instance().get(ApiUrl.eventDetail(id)).

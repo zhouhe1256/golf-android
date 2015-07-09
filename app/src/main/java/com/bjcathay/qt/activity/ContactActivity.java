@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.annotation.SuppressLint;
@@ -41,18 +42,16 @@ import java.util.List;
 /**
  * Created by dengt on 15-4-29.
  */
-public class ContactActivity extends FragmentActivity implements View.OnClickListener, DialogExchFragment.ExchangeResult {
+public class ContactActivity extends FragmentActivity implements View.OnClickListener,
+        DialogExchFragment.ExchangeResult {
     private DialogExchFragment dialogExchFragment;
-    private View mBaseView;
     private ListView sortListView;
     private SideBar sideBar;
     private TextView dialog;
     private SortAdapter adapter;
     private ClearEditText mClearEditText;
-    //private Map<String, String> callRecords;
-    List<BookModel> callRecords;
+    private List<BookModel> callRecords;
     private CharacterParser characterParser;
-    //private List<SortModel> SourceDateList;
     private List<SortModel> SourceDateList;
     private PinyinComparator pinyinComparator;
     private TopView topView;
@@ -61,7 +60,6 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     private Drawable imgLeft;
     private LinearLayout centerImg;
     private String proName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +79,10 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
         sortListView = (ListView) this.findViewById(R.id.sortlist);
         netNote.setVisibility(View.VISIBLE);
 
-
     }
 
     private void initEvent() {
-        //   mClearEditText.setOnFocusChangeListener(mOnFocusChangeListener);
     }
-
 
     private void initData() {
         topView.setTitleBackVisiable();
@@ -150,40 +145,45 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
             if (result == 1) {
                 final BooksModel booksModel = new BooksModel();
                 booksModel.setBooks(callRecords);
-                //ViewUtil.encode(JSONUtil.dump(booksModel).getBytes())
-                SortListModel.searchContactListUser(ViewUtil.encode(JSONUtil.dump(booksModel).getBytes())).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        SortListModel userListModle = arguments.get(0);
-                        List<SortModel> sortModels = userListModle.getUsers();
-                        SourceDateList = filledData(sortModels);
-                        // 根据a-z进行排序源数据
-                        Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, proName, dialogExchFragment);
-                        sortListView.setAdapter(adapter);
-                        sortListView.setVisibility(View.VISIBLE);
-                        netNote.setVisibility(View.GONE);
+                // ViewUtil.encode(JSONUtil.dump(booksModel).getBytes())
+                SortListModel
+                        .searchContactListUser(
+                                ViewUtil.encode(JSONUtil.dump(booksModel).getBytes()))
+                        .done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                SortListModel userListModle = arguments.get(0);
+                                List<SortModel> sortModels = userListModle.getUsers();
+                                SourceDateList = filledData(sortModels);
+                                // 根据a-z进行排序源数据
+                                Collections.sort(SourceDateList, pinyinComparator);
+                                adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,
+                                        proName, dialogExchFragment);
+                                sortListView.setAdapter(adapter);
+                                sortListView.setVisibility(View.VISIBLE);
+                                netNote.setVisibility(View.GONE);
 
-                    }
-                }).fail(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        List<SortModel> sortModels = new ArrayList<SortModel>();
-                        for (BookModel b : callRecords) {
-                            SortModel sortModel = new SortModel();
-                            sortModel.setPhone(b.getPhone());
-                            sortModel.setName(b.getName());
-                            sortModels.add(sortModel);
-                        }
-                        SourceDateList = filledData(sortModels);
-                        // 根据a-z进行排序源数据
-                        Collections.sort(SourceDateList, pinyinComparator);
-                        adapter = new SortAdapter(ContactActivity.this, SourceDateList, id, proName, dialogExchFragment);
-                        sortListView.setAdapter(adapter);
-                        sortListView.setVisibility(View.VISIBLE);
-                        netNote.setVisibility(View.GONE);
-                    }
-                });
+                            }
+                        }).fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                List<SortModel> sortModels = new ArrayList<SortModel>();
+                                for (BookModel b : callRecords) {
+                                    SortModel sortModel = new SortModel();
+                                    sortModel.setPhone(b.getPhone());
+                                    sortModel.setName(b.getName());
+                                    sortModels.add(sortModel);
+                                }
+                                SourceDateList = filledData(sortModels);
+                                // 根据a-z进行排序源数据
+                                Collections.sort(SourceDateList, pinyinComparator);
+                                adapter = new SortAdapter(ContactActivity.this, SourceDateList, id,
+                                        proName, dialogExchFragment);
+                                sortListView.setAdapter(adapter);
+                                sortListView.setVisibility(View.VISIBLE);
+                                netNote.setVisibility(View.GONE);
+                            }
+                        });
                 mClearEditText = (ClearEditText) ContactActivity.this
                         .findViewById(R.id.filter_edit);
                 centerImg = ViewUtil.findViewById(ContactActivity.this, R.id.layout_default);
@@ -205,7 +205,8 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                             mClearEditText.setHint(hint);
                             if (imgLeft == null) {
                                 imgLeft = getResources().getDrawable(R.drawable.ic_search);
-                                imgLeft.setBounds(0, 0, imgLeft.getMinimumWidth(), imgLeft.getMinimumHeight());
+                                imgLeft.setBounds(0, 0, imgLeft.getMinimumWidth(),
+                                        imgLeft.getMinimumHeight());
                             }
                             mClearEditText.setCompoundDrawables(imgLeft, null, null, null);
                         }
@@ -215,14 +216,14 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
                 mClearEditText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void onTextChanged(CharSequence s, int start,
-                                              int before, int count) {
+                            int before, int count) {
                         // 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
                         filterData(s.toString());
                     }
 
                     @Override
                     public void beforeTextChanged(CharSequence s, int start,
-                                                  int count, int after) {
+                            int count, int after) {
                     }
 
                     @Override
@@ -278,7 +279,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
 
                     if (name.indexOf(filterStr.toString()) != -1
                             || characterParser.getSelling(name).startsWith(
-                            filterStr.toString())) {
+                                    filterStr.toString())) {
                         filterDateList.add(sortModel);
                     }
                 }
@@ -289,11 +290,13 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
             adapter.updateListView(filterDateList);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

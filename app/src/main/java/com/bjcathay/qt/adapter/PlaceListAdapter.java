@@ -2,8 +2,6 @@
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,14 +41,6 @@ public class PlaceListAdapter extends BaseAdapter {
 
     }
 
-    public PlaceListAdapter(List<ProductModel> items, ProductSearchResultActivity activity) {
-        if (items == null) {
-            items = new ArrayList<ProductModel>();
-        }
-        this.items = items;
-        this.context = activity;
-    }
-
     public void setCount(int count) {
         this.count = count;
     }
@@ -58,14 +48,10 @@ public class PlaceListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        /*
-         * if (count == 0) { count = 10; } return count;
-         */
     }
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -133,18 +119,10 @@ public class PlaceListAdapter extends BaseAdapter {
                 holder.tuanCount.setTextColor(Color.GRAY);
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
             } else {
-                /*
-                 * long days = diff / (1000 * 60 * 60 * 24); long hours = (diff
-                 * - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60); long
-                 * minutes = (diff - days * (1000 * 60 * 60 * 24) - hours *
-                 * (1000 * 60 * 60)) / (1000 * 60);
-                 */
                 holder.tuanCount.setText(getcountTime(diff));
                 holder.tuanCount.setBackgroundResource(R.drawable.tuangou_bg);
-                // if (csl != null) {
                 holder.tuanCount.setTextColor(context.getResources().getColorStateList(
                         R.color.tuangou_color));
-                // }
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
             }
         } else if ("SPECIAL".equals(productModel.getType())) {
@@ -155,15 +133,8 @@ public class PlaceListAdapter extends BaseAdapter {
             if (productModel.getAmount() > 0) {
                 holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
                 holder.temaiCount.setBackgroundResource(R.drawable.temai_bg);
-                /*
-                 * Resources resource = context.getResources(); ColorStateList
-                 * csl = (ColorStateList)
-                 * resource.getColorStateList(R.color.order_price_color); if
-                 * (csl != null) {
-                 */
                 holder.temaiCount.setTextColor(context.getResources().getColorStateList(
                         R.color.order_price_color));
-                // }
                 holder.temaiImg.setImageResource(R.drawable.ic_te_icon);
             } else {
                 holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);

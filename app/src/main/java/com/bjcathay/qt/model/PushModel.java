@@ -1,7 +1,8 @@
+
 package com.bjcathay.qt.model;
 
 /**
- * Created by bjcathay on 15-5-22.
+ * Created by dengt on 15-5-22.
  */
 public class PushModel {
     private String t;

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.app.Dialog;
@@ -32,18 +33,20 @@ public class CancleInfoDialog extends Dialog {
     }
 
     public CancleInfoDialog(Context context, int theme, String text, Long targetId,
-                            CancleInfoDialogResult result) {
+            CancleInfoDialogResult result) {
         super(context, theme);
         this.targetId = targetId;
         this.dialogResult = result;
         this.text = text;
 
     }
-    public void onCancleListen(){
+
+    public void onCancleListen() {
 
     }
+
     public CancleInfoDialog(Context context, int theme, String text, String comfire, Long targetId,
-                            CancleInfoDialogResult result) {
+            CancleInfoDialogResult result) {
         super(context, theme);
         this.targetId = targetId;
         this.dialogResult = result;

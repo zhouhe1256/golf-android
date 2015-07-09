@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -30,10 +31,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private Button logoutBtn;
     private GApplication gApplication;
     private TopView topView;
-    private boolean shareFlag;
     private RelativeLayout shareLayout;
     private ShareModel shareModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +71,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         Intent intent;
         switch (view.getId()) {
             case R.id.logout_btn:
-               /* intent = new Intent(this, LoginActivity.class);
-                ViewUtil.startActivity(this, intent);*/
                 PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, "");
                 gApplication.updateApiToken();
                 DialogUtil.showMessage("退出成功");
@@ -89,19 +86,16 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                             ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
                         }
                     });
-                else ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
+                else
+                    ShareUtil.getInstance().shareDemo(SettingActivity.this, shareModel);
                 break;
             case R.id.setting_change_pwd:
                 intent = new Intent(this, EditPwdActivity.class);
                 IsLoginUtil.isLogin(this, intent);
-                //  DialogUtil.showMessage("share");
                 break;
             case R.id.setting_feedback:
                 intent = new Intent(this, FeedbackActivity.class);
                 ViewUtil.startActivity(this, intent);
-                //todo　暂时未登录不能提交反馈
-              //  IsLoginUtil.isLogin(this, intent);
-                // DialogUtil.showMessage("share");
                 break;
             case R.id.setting_about:
                 intent = new Intent(this, AboutActivity.class);
@@ -116,11 +110,13 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

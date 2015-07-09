@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -11,13 +12,12 @@ import android.widget.TextView;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.GolfCourseModel;
-import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.util.ViewUtil;
 
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class GolfCourseAdapter extends BaseAdapter {
     private List<GolfCourseModel> list;
@@ -64,7 +64,7 @@ public class GolfCourseAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo save
+                // todo save
                 DBManager.getInstance().add(g);
                 Intent intent = new Intent();
                 intent.putExtra("placeId", g.getId());

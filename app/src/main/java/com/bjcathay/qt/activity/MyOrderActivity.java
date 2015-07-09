@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -5,14 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -27,6 +22,7 @@ import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog.DeleteInfoDialogResult;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -45,6 +41,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     private TopView topView;
     private AutoListView lstv;
     private int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +71,6 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // DialogUtil.hintMessage("选档期", PlaceListActivity.this);
                 if (i <= orderModels.size()) {
                     Intent intent = new Intent(MyOrderActivity.this, OrderDetailActivity.class);
                     intent.putExtra("imageurl", orderModels.get(i - 1).getImageUrl());
@@ -86,9 +82,9 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         lstv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //弹窗设置是否取消
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(context,
-                        R.style.InfoDialog, "确认删除该订单", orderModels.get(i - 1).getId(), MyOrderActivity.this);
+                        R.style.InfoDialog, "确认删除该订单", orderModels.get(i - 1).getId(),
+                        MyOrderActivity.this);
                 infoDialog.show();
                 return true;
             }
@@ -189,14 +185,19 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                         loadData(AutoListView.REFRESH);
                         // }
                     } else {
-                        int code = jsonObject.optInt("code");
-                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        String errorMessage = jsonObject.optString("message");
+                        if (!StringUtils.isEmpty(errorMessage))
+                            DialogUtil.showMessage(errorMessage);
+                        else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
                     }
                 }
             }).fail(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
-                    DialogUtil.showMessage("失败");
+                    DialogUtil.showMessage(getString(R.string.empty_net_text));
                 }
             });
         }
@@ -217,6 +218,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         initData();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

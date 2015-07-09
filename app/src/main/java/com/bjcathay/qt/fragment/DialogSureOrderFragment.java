@@ -19,24 +19,19 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.OrderSucActivity;
 import com.bjcathay.qt.activity.OrderSucTEActivity;
-import com.bjcathay.qt.activity.OrderSucTuanActivity;
 import com.bjcathay.qt.activity.SelectPayWayActivity;
-import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
-import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
-import com.bjcathay.qt.view.TopView;
-
+import com.ta.utdid2.android.utils.StringUtils;
 import org.json.JSONObject;
 
 /**
@@ -45,20 +40,19 @@ import org.json.JSONObject;
 public class DialogSureOrderFragment extends DialogFragment {
     private Context context;
     private ProductModel stadiumModel;
-    // TopView topView1;
-    TextView name;
-    TextView time;
-    TextView phone;
-    TextView service;
-    TextView number_;
-    TextView price;
-    Button sure;
-    String date;
-    int number;
-    LinearLayout linearLayout;
-    ImageView minas;
-    ImageView plus;
-    TextView fourPlus;
+    private TextView name;
+    private TextView time;
+    private TextView phone;
+    private TextView service;
+    private TextView number_;
+    private TextView price;
+    private Button sure;
+    private String date;
+    private int number;
+    private LinearLayout linearLayout;
+    private ImageView minas;
+    private ImageView plus;
+    private TextView fourPlus;
     private ProgressDialog dialog = null;
     private int currentPrice;
 
@@ -95,9 +89,6 @@ public class DialogSureOrderFragment extends DialogFragment {
             rootView = inflater.inflate(R.layout.dialog_tuan_order_sure, container);
 
         }
-        // topView1 = ViewUtil.findViewById(rootView,
-        // R.id.dialog_order_sure_title);
-        // topView1.setDeleteVisiable();
         linearLayout = ViewUtil.findViewById(rootView, R.id.dialog_order_layout);
         minas = ViewUtil.findViewById(rootView, R.id.dialog_order_minas);
         plus = ViewUtil.findViewById(rootView, R.id.dialog_order_plus);
@@ -136,11 +127,9 @@ public class DialogSureOrderFragment extends DialogFragment {
             plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // if(number>=5){
                     number++;
                     fourPlus.setText(number < 10 ? " " + number : number + "");
                     price.setText("￥" + currentPrice * number);
-                    // }
                 }
             });
 
@@ -184,8 +173,13 @@ public class DialogSureOrderFragment extends DialogFragment {
                         } else {
                             dismiss();
                             dialog.dismiss();
-                            int code = jsonObject.optInt("code");
-                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            String errorMessage = jsonObject.optString("message");
+                            if (!StringUtils.isEmpty(errorMessage))
+                                DialogUtil.showMessage(errorMessage);
+                            else {
+                                int code = jsonObject.optInt("code");
+                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            }
                         }
                     }
                 }

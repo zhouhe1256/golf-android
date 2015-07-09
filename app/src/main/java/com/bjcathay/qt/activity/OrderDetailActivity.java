@@ -7,13 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
-import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
@@ -21,14 +19,12 @@ import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CancleInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog;
-import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -42,8 +38,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private Activity context;
     private TopView topView;
     private Long id = 0l;
-    private String imaUrl;
-    // private RoundCornerImageView orderImg;
     private TextView orderName;
     private TextView orderSale;
     private TextView orderConDate;
@@ -59,8 +53,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private Button orderToPay;
     private Button contactUs;
     private Button cancleOrder;
-    // private ImageView tuangou;
-    // private ImageView temai;
     private LinearLayout orderUndel;
     private TextView orderDel;
     private ShareModel shareModel;
@@ -80,7 +72,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_order_detail_layout);
-        // orderImg = ViewUtil.findViewById(this, R.id.order_detail_img);
         orderName = ViewUtil.findViewById(this, R.id.order_detail_name);
         orderSale = ViewUtil.findViewById(this, R.id.order_detail_sale);
         orderConDate = ViewUtil.findViewById(this, R.id.order_detail_comsumer_date);
@@ -93,8 +84,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderStatus = ViewUtil.findViewById(this, R.id.order_detail_status);
         orderAddress = ViewUtil.findViewById(this, R.id.order_detail_address);
         orderToPay = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
-        // tuangou = ViewUtil.findViewById(this, R.id.order_detail_tuangou);
-        // temai = ViewUtil.findViewById(this, R.id.order_detail_temai);
         orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
         orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
         contactUs = ViewUtil.findViewById(this, R.id.contact_us);
@@ -106,7 +95,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
     private void initEvent() {
         topView.setTitleBackVisiable();
-        // topView.setShareVisiable();
         topView.setTitleText("订单详情");
     }
 
@@ -136,8 +124,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private void initViewData() {
         if (orderModel != null) {
             topView.setShareVisiable();
-            // ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(),
-            // R.drawable.exchange_default);
             orderName.setText(orderModel.getTitle());
             orderSale.setText("" + orderModel.getPriceInclude());
             orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
@@ -185,17 +171,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 orderStatus.setText("已取消");
                 cancleOrder.setVisibility(View.GONE);
             }
-
-            /*
-             * if ("SPECIAL".equals(orderModel.getType())) { //
-             * temai.setVisibility(View.VISIBLE);
-             * tuangou.setVisibility(View.GONE); } else if
-             * ("GROUP".equals(orderModel.getType())) {
-             * tuangou.setVisibility(View.VISIBLE);
-             * temai.setVisibility(View.GONE); } else {
-             * tuangou.setVisibility(View.GONE); temai.setVisibility(View.GONE);
-             * }
-             */
             orderToPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -238,7 +213,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         CancleInfoDialog infoDialog = new CancleInfoDialog(OrderDetailActivity.this,
                 R.style.InfoDialog, "确认取消订单?", 0l, OrderDetailActivity.this);
         infoDialog.show();
-
     }
 
     @Override
@@ -312,8 +286,13 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                         orderToPay.setVisibility(View.GONE);
                         orderStatus.setText("已取消");
                     } else {
-                        int code = jsonObject.optInt("code");
-                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        String errorMessage = jsonObject.optString("message");
+                        if (!StringUtils.isEmpty(errorMessage))
+                            DialogUtil.showMessage(errorMessage);
+                        else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
                     }
                 }
             });

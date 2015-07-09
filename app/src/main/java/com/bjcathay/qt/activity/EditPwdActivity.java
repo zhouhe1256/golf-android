@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -16,6 +17,7 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -63,21 +65,28 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
             return;
         }
         if (pwd2.length() >= 6 && pwd2.length() <= 18) {
-        UserModel.changePassword(oldPwd.getText().toString().trim(), newPwd.getText().toString().trim()).done(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                JSONObject jsonObject = arguments.get(0);
-                if (jsonObject.optBoolean("success")) {
-                    DialogUtil.showMessage("修改成功");
-                    PreferencesUtils.putString(EditPwdActivity.this, PreferencesConstant.USER_PASSWORD, newPwd.getText().toString().trim());
-
-                    finish();
-                } else {
-                    int code = jsonObject.optInt("code");
-                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            UserModel.changePassword(oldPwd.getText().toString().trim(),
+                    newPwd.getText().toString().trim()).done(new ICallback() {
+                @Override
+                public void call(Arguments arguments) {
+                    JSONObject jsonObject = arguments.get(0);
+                    if (jsonObject.optBoolean("success")) {
+                        DialogUtil.showMessage("修改成功");
+                        PreferencesUtils.putString(EditPwdActivity.this,
+                                PreferencesConstant.USER_PASSWORD, newPwd.getText().toString()
+                                        .trim());
+                        finish();
+                    } else {
+                        String errorMessage = jsonObject.optString("message");
+                        if (!StringUtils.isEmpty(errorMessage))
+                            DialogUtil.showMessage(errorMessage);
+                        else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
+                    }
                 }
-            }
-        });
+            });
         } else {
             DialogUtil.showMessage("密码长度必须大于6位小于18位");
         }
@@ -98,11 +107,13 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
 
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

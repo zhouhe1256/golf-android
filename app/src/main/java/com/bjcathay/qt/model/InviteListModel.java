@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -9,7 +10,7 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-25.
+ * Created by dengt on 15-5-25.
  */
 public class InviteListModel {
     @JSONCollection(type = InviteModel.class)
@@ -23,9 +24,10 @@ public class InviteListModel {
         this.users = users;
     }
 
-    private static IContentDecoder<InviteListModel> decoder = new IContentDecoder.BeanDecoder<InviteListModel>(InviteListModel.class);
+    private static IContentDecoder<InviteListModel> decoder = new IContentDecoder.BeanDecoder<InviteListModel>(
+            InviteListModel.class);
 
-    //获取邀请用户列表(GET /api/user/invite)
+    // 获取邀请用户列表(GET /api/user/invite)
     public static IPromise getInvite(int page) {
         return Http.instance().get(ApiUrl.USER_CONTACT_LIST_INVITE).
                 contentDecoder(decoder).run();

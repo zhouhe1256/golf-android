@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-18.
+ * Created by dengt on 15-5-18.
  */
 public class ProductListModel implements Serializable {
     public List<ProductModel> getProducts() {

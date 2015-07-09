@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -14,17 +15,19 @@ import cn.sharesdk.onekeyshare.OnekeyShareTheme;
  */
 public class ShareUtil {
     private static ShareUtil shareUtil;
+
     public static synchronized ShareUtil getInstance() {
         if (shareUtil == null) {
             shareUtil = new ShareUtil();
         }
         return shareUtil;
     }
+
     public void shareDemo(Context context, ShareModel shareModel) {
 
         OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
-       // oks.disableSSOWhenAuthorize();
+        // 关闭sso授权
+        // oks.disableSSOWhenAuthorize();
         oks.setTitle(shareModel.getTitle());
         oks.setTitleUrl(shareModel.getUrl());
         oks.setText(shareModel.getDescription());
@@ -41,10 +44,12 @@ public class ShareUtil {
         oks.setSilent(true);
         oks.setTheme(OnekeyShareTheme.CLASSIC);
         oks.setDialogMode();
-        oks.setShareContentCustomizeCallback(new ShareContentCustomizeImplement(context, shareModel.getTitle(), shareModel.getSmsContent()));
-      //  if (PreferencesUtils.getBoolean(context, PreferencesConstant.SHARE_CLICK)==false) {
-            oks.show(context);
-       // }
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeImplement(context, shareModel
+                .getTitle(), shareModel.getSmsContent()));
+        // if (PreferencesUtils.getBoolean(context,
+        // PreferencesConstant.SHARE_CLICK)==false) {
+        oks.show(context);
+        // }
 
     }
 }

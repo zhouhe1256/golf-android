@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.content.Intent;
@@ -35,7 +36,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private String name;
     private ShareModel shareModel;
 
-    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id, String name, DialogExchFragment dialogExchFragment) {
+    public SortAdapter(FragmentActivity mContext, List<SortModel> list, Long id, String name,
+            DialogExchFragment dialogExchFragment) {
         this.mContext = mContext;
         this.list = list;
         this.id = id;
@@ -81,10 +83,10 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        //根据position获取分类的首字母的Char ascii值
+        // 根据position获取分类的首字母的Char ascii值
         int section = getSectionForPosition(position);
 
-        //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
+        // 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if (position == getPositionForSection(section)) {
             viewHolder.tvLetter.setVisibility(View.VISIBLE);
             viewHolder.tvLetter.setText(mContent.getSortLetters());
@@ -93,9 +95,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         viewHolder.tvTitle.setText(this.list.get(position).getName());
-       /* viewHolder.icon.setText(this.list.get(position).getName());
-        viewHolder.icon.setIconText(mContext, this.list.get(position).getName());*/
-        ImageViewAdapter.adapt(viewHolder.icon, this.list.get(position).getImageUrl(), R.drawable.ic_default_user);
+        ImageViewAdapter.adapt(viewHolder.icon, this.list.get(position).getImageUrl(),
+                R.drawable.ic_default_user);
         if (this.list.get(position).isUser()) {
             viewHolder.statusTrue.setVisibility(View.VISIBLE);
             viewHolder.statusTrue.setText("赠送");
@@ -117,8 +118,6 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.statusTrue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   /* dialogExchFragment.setItems(null, "user", mContent.getPhone(), id);
-                    dialogExchFragment.show(mContext.getSupportFragmentManager(), "send");*/
                     if (shareModel == null)
                         ShareModel.share().done(new ICallback() {
                             @Override
@@ -153,7 +152,6 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         TextView statusFalse;
 
     }
-
 
     /**
      * 根据ListView的当前位置获取分类的首字母的Char ascii值

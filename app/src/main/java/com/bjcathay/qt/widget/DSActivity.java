@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.widget;
 
 import android.content.Intent;
@@ -38,7 +39,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by bjcathay on 15-5-31.
+ * Created by dengt on 15-5-31.
  */
 public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener {
     WheelView mOption1 = null;
@@ -60,12 +61,11 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private Long id;
     private String imaUrl;
     private String daySelect;
-    private String beforSelect;//0上午　１下午
+    private String beforSelect;// 0上午　１下午
     private String hourSelect = "07:00";
     private int attendNumber = 1;
     private int selectDay = 0;
-    //状态标识
-
+    // 状态标识
 
     private TextView tuanCount;
     private TextView temaiCount;
@@ -92,7 +92,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
         stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
-        //根据ID找到RadioGroup实例
+        // 根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
         topView.setTitleText("加载中");
         tuanCount = ViewUtil.findViewById(this, R.id.tuan_short);
@@ -115,7 +115,6 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         mOption2.setAdapter(new WheelTextAdapter(this));
         mOption3.setAdapter(new WheelTextAdapter(this));
 
-
     }
 
     private void initEvent() {
@@ -127,7 +126,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 } else {
                     Intent intent = new Intent(DSActivity.this, LoginActivity.class);
                     ViewUtil.startActivity(DSActivity.this, intent);
-                    DSActivity.this.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+                    DSActivity.this.overridePendingTransition(R.anim.activity_open,
+                            R.anim.activity_close);
                 }
             }
         });
@@ -150,19 +150,19 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                     intent.putExtra("lon", stadiumModel.getLon());
                     intent.putExtra("title", stadiumModel.getName());
                     intent.putExtra("content", stadiumModel.getAddress());
-                    //intent.putExtra("address",stationAddress.getText().toString().trim());
+                    // intent.putExtra("address",stationAddress.getText().toString().trim());
                     intent.putExtra("src", "A|GOLF");
                     ViewUtil.startActivity(DSActivity.this, intent);
                 }
             }
         });
-        //绑定一个匿名监听器
+        // 绑定一个匿名监听器
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 // TODO Auto-generated method stub
-                //获取变更后的选中项的ID
+                // 获取变更后的选中项的ID
                 int radioButtonId = arg0.getCheckedRadioButtonId();
                 switch (radioButtonId) {
                     case R.id.btn_0:
@@ -178,8 +178,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         attendNumber = 4;
                         break;
                     case R.id.btn_4:
-                        //转人工
-                        //showSureDialog();
+                        // 转人工
+                        // showSureDialog();
                         attendNumber = 0;
                         break;
                 }
@@ -193,7 +193,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
 
     private void showDialog() {
         if (stadiumModel != null) {
-            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, currentPrice, getDate(), attendNumber);
+            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, currentPrice,
+                    getDate(), attendNumber);
             dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
         }
     }
@@ -219,10 +220,11 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         setHour(info);
                     }
                 }
-                //算天数据   mSelDateTxt.setText(formatDate());
+                // 算天数据 mSelDateTxt.setText(formatDate());
                 if (stadiumModel != null) {
                     getDate();
-                    if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType()))
+                    if ("LIMIT".equals(stadiumModel.getType())
+                            || "NONE".equals(stadiumModel.getType()))
                         getDayPrice(0);
                     else
                         getDayPrice(stadiumModel.getPrice());
@@ -262,7 +264,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         } else
             ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
 
-        //  prepareDayData(year, month, day);
+        // prepareDayData(year, month, day);
         mOption1.setSelection(a);
         mOption2.setSelection(0);
         mOption3.setSelection(0);
@@ -292,12 +294,11 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         ProductModel.product(id).done(this);
     }
 
-
     @Override
     public void call(Arguments arguments) {
         stadiumModel = arguments.get(0);
         topView.setTitleText(stadiumModel.getName());
-        //控制LIMIT最低人数
+        // 控制LIMIT最低人数
         if ("LIMIT".equals(stadiumModel.getType())) {
             topView.setShareVisiable();
             int num = stadiumModel.getAmount();
@@ -312,19 +313,19 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             select = stadiumModel.getDate();
             String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
             days.add(tuan_day);
-            //  dayView.setData(days);
+            // dayView.setData(days);
             String tuan_am_pm = DateUtil.getTuanFinalAMoPM(stadiumModel.getDate());
             minits.clear();
             minits.add(tuan_am_pm);
 
-            //   wheelView1.setData(minits);
+            // wheelView1.setData(minits);
             if ("下午".equals(tuan_am_pm))
                 hoursPM = DateUtil.getPM(stadiumModel.getDate());
             else
                 hoursAM = DateUtil.getAM(stadiumModel.getDate());
-            //  hourView.setData(hours);
+            // hourView.setData(hours);
             getDayPrice(stadiumModel.getPrice());
-            //    wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
+            // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
             prepareData(0);
             // tuanImg.setVisibility(View.VISIBLE);
             tuanCount.setVisibility(View.VISIBLE);
@@ -341,14 +342,14 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
             days.add(tuan_day);
 
-            //todo 目前写死
+            // todo 目前写死
             // hours = DateUtil.getAM(stadiumModel.getDate());
             hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
-            //  wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
+            // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
             prepareData(0);
             getDayPrice(stadiumModel.getPrice());
-            //   temaiImg.setVisibility(View.VISIBLE);
+            // temaiImg.setVisibility(View.VISIBLE);
             temaiCount.setVisibility(View.VISIBLE);
             if (stadiumModel.getAmount() > 0) {
                 temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
@@ -358,15 +359,15 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 okbtn.setOnClickListener(null);
                 temaiCount.setText("已售罄");
             }
-            //NONE
+            // NONE
         } else if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
             priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
             days.clear();
             hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
             hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
-           //todo
-            hourSelect=hoursAM.get(0);
-            beforSelect="上午";
+            // todo
+            hourSelect = hoursAM.get(0);
+            beforSelect = "上午";
             days = DateUtil.getLimitDate(priceModels);
             prepareData(1);
             if ("LIMIT".equals(stadiumModel.getType())) {
@@ -401,12 +402,13 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
         }
         c.setTime(d);
-        //取得系统日期:
+        // 取得系统日期:
         int year = c.get(Calendar.YEAR);
         if (daySelect == null) {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月" + (day > 10 ? day : "0" + day) + "日";
+            daySelect = ((month + 1) > 10 ? (month + 1) : "0" + (month + 1)) + "月"
+                    + (day > 10 ? day : "0" + day) + "日";
         }
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
@@ -427,12 +429,15 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 getDate();
             if (priceModels != null && priceModels.size() > 0)
                 for (PriceModel priceModel : priceModels) {
-                    if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+                    if (DateUtil
+                            .CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
                         if (attendNumber == 0) {
-                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4 + "+");
+                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4
+                                    + "+");
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         } else {
-                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice() * attendNumber));
+                            stadiumPrice.setText("￥"
+                                    + (int) Math.floor(priceModel.getPrice() * attendNumber));
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         }
                         return;
@@ -468,7 +473,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                             ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
                         }
                     });
-                else ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
+                else
+                    ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
                 break;
             case R.id.title_delete_img:
                 if (dialogSureOrderFragment != null)

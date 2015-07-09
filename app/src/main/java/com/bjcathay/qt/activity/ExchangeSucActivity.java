@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -22,16 +23,15 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-5-8.
  */
-public class ExchangeSucActivity extends Activity implements View.OnClickListener , DeleteInfoDialog.DeleteInfoDialogResult {
+public class ExchangeSucActivity extends Activity implements View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private Activity context;
     private TopView topView;
     private PropModel propModel;
     private TextView title;
     private TextView content;
     private TextView first;
-    private TextView firstNote;
     private TextView second;
-    private TextView secondNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +48,7 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
         title = ViewUtil.findViewById(this, R.id.remind_title);
         content = ViewUtil.findViewById(this, R.id.remind_context);
         first = ViewUtil.findViewById(this, R.id.remind_first);
-        firstNote = ViewUtil.findViewById(this, R.id.remind_first_note);
         second = ViewUtil.findViewById(this, R.id.remind_second);
-        secondNote = ViewUtil.findViewById(this, R.id.remind_second_note);
     }
 
     private void initEvent() {
@@ -65,7 +63,7 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
         String titleString = intent.getStringExtra("title");
         topView.setTitleText(titleString);
         title.setText("兑换成功！");
-       content.setText("您已成功兑换一枚" + propModel.getName());
+        content.setText("您已成功兑换一枚" + propModel.getName());
     }
 
     @Override
@@ -90,14 +88,14 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
                 });
                 break;
             case R.id.title_back_img:
-                intent=new Intent(this,MainActivity.class);
-                ViewUtil.startTopActivity(this,intent);
+                intent = new Intent(this, MainActivity.class);
+                ViewUtil.startTopActivity(this, intent);
                 finish();
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                         R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
-                        .toString().trim(), "呼叫", 0l, this);
+                                .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
@@ -106,10 +104,12 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -117,11 +117,13 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
         ViewUtil.startTopActivity(this, intent);
         finish();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

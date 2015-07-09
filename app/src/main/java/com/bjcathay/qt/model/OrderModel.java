@@ -2,7 +2,6 @@
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
-import com.bjcathay.android.json.annotation.JSONCollection;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.qt.constant.ApiUrl;
@@ -10,7 +9,7 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class OrderModel implements Serializable {
 
@@ -236,7 +235,8 @@ public class OrderModel implements Serializable {
     /*
      * name: 联系人姓名 mobileNumber: 联系人电话 playBallPerson: 打球人 JSON格式字符串 不许为空，参考以下格式
      */
-    public static IPromise commitNewOrder(Long id, int count, String date, String name, String mobileNumber,
+    public static IPromise commitNewOrder(Long id, int count, String date, String name,
+            String mobileNumber,
             String playBallPerson) {
         return Http.instance().post(ApiUrl.COMMIT_ORDER).
                 param("productId", id).

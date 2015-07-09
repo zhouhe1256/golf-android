@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.content.Intent;
@@ -25,13 +26,13 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-6-1.
  */
-public class SendToPhoneActivity extends FragmentActivity implements View.OnClickListener, TextWatcher, DialogExchFragment.ExchangeResult {
+public class SendToPhoneActivity extends FragmentActivity implements View.OnClickListener,
+        TextWatcher, DialogExchFragment.ExchangeResult {
     private FragmentActivity context;
     private EditText phoneEdit;
     private TextView phoneLengthText;
     private TopView topView;
     private Long id;
-    private String number;
     private String proName;
     private DialogExchFragment dialogExchFragment;
 
@@ -54,8 +55,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
-        proName=intent.getStringExtra("name");
-        // number = inputNumber.getText().toString().trim();
+        proName = intent.getStringExtra("name");
         dialogExchFragment = new DialogExchFragment(this, this);
     }
 
@@ -88,9 +88,12 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
                             public void call(Arguments arguments) {
                                 UserListModle userModel = arguments.get(0);
                                 if (userModel.getUsers() == null || userModel.getUsers().size() < 1) {
-                                    dialogExchFragment.setItems(null, "user", phoneEdit.getText().toString().trim(), id,proName);
+                                    dialogExchFragment.setItems(null, "user", phoneEdit.getText()
+                                            .toString().trim(), id, proName);
                                 } else {
-                                    dialogExchFragment.setItems(userModel.getUsers().get(0), "user", phoneEdit.getText().toString().trim(), id,proName);
+                                    dialogExchFragment.setItems(userModel.getUsers().get(0),
+                                            "user", phoneEdit.getText().toString().trim(), id,
+                                            proName);
                                 }
                                 dialogExchFragment.show(getSupportFragmentManager(), "send");
 
@@ -131,11 +134,13 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
         if (isExchange)
             finish();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

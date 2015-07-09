@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -6,15 +7,17 @@ import android.util.TypedValue;
 
 public class SizeUtil {
 
-	public static int dpToPx(Resources res, int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
-	}
+    public static int dpToPx(Resources res, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                res.getDisplayMetrics());
+    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dip2px(Context context, float dpValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context
+                .getResources().getDisplayMetrics());
     }
 
     /**
@@ -29,8 +32,10 @@ public class SizeUtil {
         float density = context.getResources().getDisplayMetrics().density;
         return val * density;
     }
+
     public static int sp2px(Context context, float spValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context
+                .getResources().getDisplayMetrics());
     }
 
 }

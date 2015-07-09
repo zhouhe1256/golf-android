@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -18,7 +19,7 @@ public class ConstactUtil {
      *
      * @return
      */
-    private final static String[] mContactsProjection = new String[]{
+    private final static String[] mContactsProjection = new String[] {
             ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
             ContactsContract.CommonDataKinds.Phone.TYPE,
             ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -58,11 +59,12 @@ public class ConstactUtil {
         phoneCursor.close();
         return bookModelList;
     }
+
     private static String TAG = "read";
 
     /*
      * 读取联系人的信息
-	 */
+     */
     public static List<BookModel> readAllContacts(Context context) {
         List<BookModel> bookModelList = new ArrayList<BookModel>();
         Cursor cursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
@@ -82,10 +84,11 @@ public class ConstactUtil {
             LogUtil.i(TAG, name);
             bookModel.setName(name);
 
-			/*
+            /*
              * 查找该联系人的phone信息
-			 */
-            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+             */
+            Cursor phones = context.getContentResolver().query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                     null,
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId,
                     null, null);
@@ -107,10 +110,11 @@ public class ConstactUtil {
                 bookModel.setPhone(number_);
             }
 
-			/*
+            /*
              * 查找该联系人的email信息
-			 */
-            Cursor emails = context.getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+             */
+            Cursor emails = context.getContentResolver().query(
+                    ContactsContract.CommonDataKinds.Email.CONTENT_URI,
                     null,
                     ContactsContract.CommonDataKinds.Email.CONTACT_ID + "=" + contactId,
                     null, null);

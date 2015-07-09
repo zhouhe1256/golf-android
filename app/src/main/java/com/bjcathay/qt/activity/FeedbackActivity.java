@@ -1,7 +1,7 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +16,7 @@ import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -47,7 +48,6 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
     }
 
     private void initEvent() {
-        //logoutBtn.setOnClickListener(this);
     }
 
     private void initDate() {
@@ -60,7 +60,6 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
         if (ClickUtil.isFastClick()) {
             return;
         }
-        Intent intent;
         switch (view.getId()) {
             case R.id.feedback_btn:
                 commit();
@@ -72,12 +71,8 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
     }
 
     private void commit() {
-       /* String content=editText.getText().toString().trim();
-        if(content.length()==0){
-            DialogUtil.showMessage("不能为空哦");
-            return;
-        }*/
-        UserModel.feedBack(editphoneText.getText().toString().trim(), editText.getText().toString().trim()).done(this);
+        UserModel.feedBack(editphoneText.getText().toString().trim(),
+                editText.getText().toString().trim()).done(this);
     }
 
     @Override
@@ -87,15 +82,22 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
             DialogUtil.showMessage("感谢参与！");
             finish();
         } else {
-            int code = jsonObject.optInt("code");
-            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            String errorMessage = jsonObject.optString("message");
+            if (!StringUtils.isEmpty(errorMessage))
+                DialogUtil.showMessage(errorMessage);
+            else {
+                int code = jsonObject.optInt("code");
+                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

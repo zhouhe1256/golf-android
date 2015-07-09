@@ -1,8 +1,7 @@
+
 package com.bjcathay.qt.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,9 +21,8 @@ import android.widget.TextView;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.SystemUtil;
 
-
 /**
- * @author SunnyCoffee
+ * @author SunnyCoffee update by dengt
  * @version 1.0
  * @create 2013-10-24
  * @desc 自定义Listview　下拉刷新,上拉加载更多
@@ -86,20 +84,20 @@ public class AutoListView extends ListView implements OnScrollListener {
 
     public AutoListView(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
         initView(context);
 
     }
 
     public AutoListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context=context;
+        this.context = context;
         initView(context);
     }
 
     public AutoListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.context=context;
+        this.context = context;
         initView(context);
     }
 
@@ -180,8 +178,8 @@ public class AutoListView extends ListView implements OnScrollListener {
         this.addHeaderView(header);
         this.addFooterView(footer);
         // ViewGroup parentView = (ViewGroup) this.getParent();
-        //   parentView.addView(empty);
-        //   this.setEmptyView(empty);
+        // parentView.addView(empty);
+        // this.setEmptyView(empty);
         this.setOnScrollListener(this);
     }
 
@@ -225,7 +223,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
+            int visibleItemCount, int totalItemCount) {
         this.firstVisibleItem = firstVisibleItem;
     }
 
@@ -244,7 +242,7 @@ public class AutoListView extends ListView implements OnScrollListener {
             if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
                     && !isLoading
                     && view.getLastVisiblePosition() == view
-                    .getPositionForView(footer) && !isLoadFull) {
+                            .getPositionForView(footer) && !isLoadFull) {
                 onLoad();
                 isLoading = true;
             }
@@ -342,11 +340,12 @@ public class AutoListView extends ListView implements OnScrollListener {
     public void setResultSize(int resultSize) {
         if (resultSize == 0) {
             isLoadFull = true;
-           /* loadFull.setVisibility(View.GONE);
-            loading.setVisibility(View.GONE);
-            more.setVisibility(View.GONE);
-            noData.setVisibility(View.VISIBLE);*/
-            //  empty.setVisibility(VISIBLE);
+            /*
+             * loadFull.setVisibility(View.GONE);
+             * loading.setVisibility(View.GONE); more.setVisibility(View.GONE);
+             * noData.setVisibility(View.VISIBLE);
+             */
+            // empty.setVisibility(VISIBLE);
             removeFooterView(empty);
             removeFooterView(footer);
             addFooterView(empty);
@@ -383,29 +382,30 @@ public class AutoListView extends ListView implements OnScrollListener {
      * @param hasNext true有下一页可加载,false加载完成
      */
     public void setResultSize(int resultSize, boolean hasNext) {
-        if (hasNext) {//没加载完
+        if (hasNext) {// 没加载完
             isLoadFull = false;
             loadFull.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
             more.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
         } else {
-            if (resultSize == 0) {//为空
+            if (resultSize == 0) {// 为空
                 isLoadFull = true;
-                /*removeFooterView(empty);
-                removeFooterView(footer);
-                addFooterView(empty);*/
+                /*
+                 * removeFooterView(empty); removeFooterView(footer);
+                 * addFooterView(empty);
+                 */
                 ((ViewGroup) this.getParent()).removeView(empty);
                 ((ViewGroup) this.getParent()).addView(empty);
                 setEmptyView(empty);
-            } else if(resultSize==-1){
+            } else if (resultSize == -1) {
                 emptyImg.setImageResource(R.drawable.ic_network_error);
                 emptyText.setText(context.getString(R.string.empty_net_text));
                 isLoadFull = true;
                 ((ViewGroup) this.getParent()).removeView(empty);
                 ((ViewGroup) this.getParent()).addView(empty);
                 setEmptyView(empty);
-            }else {//已加载完全部
+            } else {// 已加载完全部
                 isLoadFull = true;
                 loadFull.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);

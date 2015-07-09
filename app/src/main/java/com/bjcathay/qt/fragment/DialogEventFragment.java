@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.fragment;
 
 import android.annotation.SuppressLint;
@@ -13,7 +14,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
 
 /**
- * Created by bjcathay on 15-6-10.
+ * Created by dengt on 15-6-10.
  */
 public class DialogEventFragment extends DialogFragment {
     public interface EventResult {
@@ -47,7 +48,7 @@ public class DialogEventFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View rootView = null;
         rootView = inflater.inflate(R.layout.dialog_exchange_fragment, container);
         note = ViewUtil.findViewById(rootView, R.id.dialog_exchange_note);

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.content.Context;
@@ -29,7 +30,7 @@ public class ClearEditText extends EditText implements
     }
 
     public ClearEditText(Context context, AttributeSet attrs) {
-        //这里构造方法也很重要，不加这个很多属性不能再XML里面定义
+        // 这里构造方法也很重要，不加这个很多属性不能再XML里面定义
         this(context, attrs, android.R.attr.editTextStyle);
     }
 
@@ -38,25 +39,23 @@ public class ClearEditText extends EditText implements
         init();
     }
 
-
     private void init() {
-        //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
+        // 获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
             mClearDrawable = getResources()
                     .getDrawable(R.drawable.ic_delete);
         }
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(),
+                mClearDrawable.getIntrinsicHeight());
         setClearIconVisible(false);
         setOnFocusChangeListener(this);
         addTextChangedListener(this);
     }
 
-
     /**
-     * 因为我们不能直接给EditText设置点击事件，所以我们用记住我们按下的位置来模拟点击事件
-     * 当我们按下的位置 在  EditText的宽度 - 图标到控件右边的间距 - 图标的宽度  和
-     * EditText的宽度 - 图标到控件右边的间距之间我们就算点击了图标，竖直方向没有考虑
+     * 因为我们不能直接给EditText设置点击事件，所以我们用记住我们按下的位置来模拟点击事件 当我们按下的位置 在 EditText的宽度 -
+     * 图标到控件右边的间距 - 图标的宽度 和 EditText的宽度 - 图标到控件右边的间距之间我们就算点击了图标，竖直方向没有考虑
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -88,6 +87,7 @@ public class ClearEditText extends EditText implements
 
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
+     * 
      * @param visible
      */
     protected void setClearIconVisible(boolean visible) {
@@ -96,19 +96,18 @@ public class ClearEditText extends EditText implements
                 getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
     }
 
-
     /**
      * 当输入框里面内容发生变化的时候回调的方法
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int count,
-                              int after) {
+            int after) {
         setClearIconVisible(s.length() > 0);
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
-                                  int after) {
+            int after) {
 
     }
 
@@ -117,21 +116,20 @@ public class ClearEditText extends EditText implements
 
     }
 
-
     /**
      * 设置晃动动画
      */
-    public void setShakeAnimation(){
+    public void setShakeAnimation() {
         this.setAnimation(shakeAnimation(5));
     }
 
-
     /**
      * 晃动动画
+     * 
      * @param counts 1秒钟晃动多少下
      * @return
      */
-    public static Animation shakeAnimation(int counts){
+    public static Animation shakeAnimation(int counts) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(1000);

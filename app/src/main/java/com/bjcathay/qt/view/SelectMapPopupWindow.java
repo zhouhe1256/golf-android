@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.app.Activity;
@@ -19,7 +20,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import java.io.File;
 
 /**
- * Created by bjcathay on 15-5-29.
+ * Created by dengt on 15-5-29.
  */
 public class SelectMapPopupWindow extends PopupWindow {
 
@@ -27,55 +28,56 @@ public class SelectMapPopupWindow extends PopupWindow {
         void selectBDMapResult();
 
         void selectGDMapResult();
+
         void selectTXMapResult();
+
         void selectSGMapResult();
 
     }
 
-    private LinearLayout btn_bd, btn_gd,btn_tx,btn_sg;
+    private LinearLayout btn_bd, btn_gd, btn_tx, btn_sg;
     private Button btn_cancel;
     private View mMenuView;
     private Animation animShow;
-    // sliding down animation
     private Animation animHide;
     LinearLayout poplayout;
 
-    public SelectMapPopupWindow(Activity context,final SelectMapResult selectResult) {
+    public SelectMapPopupWindow(Activity context, final SelectMapResult selectResult) {
         super(context);
         initAnim();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.select_map_popuo_window, null);
         poplayout = ViewUtil.findViewById(mMenuView, R.id.pop_layout);
-        btn_bd = ViewUtil.findViewById(mMenuView,R.id.btn_take_photo);
-        btn_gd = ViewUtil.findViewById(mMenuView,R.id.btn_pick_photo);
-        btn_tx = ViewUtil.findViewById(mMenuView,R.id.tx_map);
-        btn_sg =  ViewUtil.findViewById(mMenuView,R.id.sg_map);
-        if(isInstallByread("com.baidu.BaiduMap")){
+        btn_bd = ViewUtil.findViewById(mMenuView, R.id.btn_take_photo);
+        btn_gd = ViewUtil.findViewById(mMenuView, R.id.btn_pick_photo);
+        btn_tx = ViewUtil.findViewById(mMenuView, R.id.tx_map);
+        btn_sg = ViewUtil.findViewById(mMenuView, R.id.sg_map);
+        if (isInstallByread("com.baidu.BaiduMap")) {
             btn_bd.setVisibility(View.VISIBLE);
         }
-        if(isInstallByread("com.autonavi.minimap")){
+        if (isInstallByread("com.autonavi.minimap")) {
             btn_gd.setVisibility(View.VISIBLE);
         }
-        if(isInstallByread("com.tencent.map")){
+        if (isInstallByread("com.tencent.map")) {
             btn_tx.setVisibility(View.VISIBLE);
         }
-        if(isInstallByread("com.sogou.map.android.maps")){
-           // btn_sg.setVisibility(View.VISIBLE);
+        if (isInstallByread("com.sogou.map.android.maps")) {
+            // btn_sg.setVisibility(View.VISIBLE);
         }
         btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
-        //取消按钮
+        // 取消按钮
         btn_cancel.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //销毁弹出框
-                //dismiss();
+                // 销毁弹出框
+                // dismiss();
                 poplayout.setVisibility(View.VISIBLE);
                 poplayout.clearAnimation();
                 poplayout.startAnimation(animHide);
             }
         });
-        //设置按钮监听
+        // 设置按钮监听
         btn_bd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +92,7 @@ public class SelectMapPopupWindow extends PopupWindow {
                 dismiss();
             }
         });
-        //todo
+        // todo
         btn_tx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,21 +107,21 @@ public class SelectMapPopupWindow extends PopupWindow {
                 dismiss();
             }
         });
-        //设置SelectPicPopupWindow的View
+        // 设置SelectPicPopupWindow的View
         this.setContentView(mMenuView);
-        //设置SelectPicPopupWindow弹出窗体的宽
+        // 设置SelectPicPopupWindow弹出窗体的宽
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置SelectPicPopupWindow弹出窗体的高
+        // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置SelectPicPopupWindow弹出窗体可点击
+        // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
-        //设置SelectPicPopupWindow弹出窗体动画效果
-        //this.setAnimationStyle(R.style.PopupAnimation);
-        //实例化一个ColorDrawable颜色为半透明
+        // 设置SelectPicPopupWindow弹出窗体动画效果
+        // this.setAnimationStyle(R.style.PopupAnimation);
+        // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
-        //设置SelectPicPopupWindow弹出窗体的背景
+        // 设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
-        //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
+        // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
         mMenuView.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -128,7 +130,7 @@ public class SelectMapPopupWindow extends PopupWindow {
                 int y = (int) event.getY();
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (y < height) {
-                        //dismiss();
+                        // dismiss();
                         poplayout.setVisibility(View.VISIBLE);
                         poplayout.clearAnimation();
                         poplayout.startAnimation(animHide);
@@ -171,6 +173,7 @@ public class SelectMapPopupWindow extends PopupWindow {
             }
         });
     }
+
     private boolean isInstallByread(String packageName) {
         return new File("/data/data/" + packageName).exists();
     }

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-5.
+ * Created by dengt on 15-5-5.
  */
 public class BannerListModel implements Serializable {
     @JSONCollection(type = BannerModel.class)
@@ -24,7 +25,8 @@ public class BannerListModel implements Serializable {
         this.banners = banners;
     }
 
-    private static IContentDecoder<BannerListModel> decoder = new IContentDecoder.BeanDecoder<BannerListModel>(BannerListModel.class);
+    private static IContentDecoder<BannerListModel> decoder = new IContentDecoder.BeanDecoder<BannerListModel>(
+            BannerListModel.class);
 
     public static IPromise getHomeBanners() {
         return Http.instance().get(ApiUrl.HOME_BANNER).

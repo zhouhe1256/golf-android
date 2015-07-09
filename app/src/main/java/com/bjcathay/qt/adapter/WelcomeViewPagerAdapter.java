@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -15,7 +16,7 @@ import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.OutlineContainer;
 
 /**
- * Created by bjcathay on 15-6-9.
+ * Created by dengt on 15-6-9.
  */
 public class WelcomeViewPagerAdapter extends PagerAdapter {
 
@@ -24,7 +25,7 @@ public class WelcomeViewPagerAdapter extends PagerAdapter {
     private int[] items;
 
     public WelcomeViewPagerAdapter(Activity context, JazzyViewPager bannerViewPager,
-                                   int[] items) {
+            int[] items) {
         this.context = context;
         this.bannerViewPager = bannerViewPager;
         this.items = items;
@@ -32,8 +33,8 @@ public class WelcomeViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.item_welcome_banner, container, false);
-        //R.drawable.sp_1, R.drawable.sp_2, R.drawable.sp_3, R.drawable.sp_4
+        View convertView = LayoutInflater.from(context).inflate(R.layout.item_welcome_banner,
+                container, false);
         container.addView(convertView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         ImageView imageView = ViewUtil.findViewById(convertView, R.id.bg_welcome);

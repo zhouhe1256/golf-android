@@ -1,40 +1,26 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.os.Handler;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyFriendAdapter;
-import com.bjcathay.qt.adapter.MyOrderAdapter;
-import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.InviteListModel;
 import com.bjcathay.qt.model.InviteModel;
-import com.bjcathay.qt.model.OrderListModel;
-import com.bjcathay.qt.model.OrderModel;
-import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
-import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by dengt on 15-5-20.
@@ -106,7 +92,7 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
                         lstv.onLoadComplete();
                         break;
                 }
-                //  inviteModelList.clear();
+                // inviteModelList.clear();
                 lstv.setResultSize(inviteModelList.size(), hasNext);
                 if (inviteModelList.size() == 0)
                     myFriendTitle.setVisibility(View.GONE);
@@ -173,11 +159,13 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

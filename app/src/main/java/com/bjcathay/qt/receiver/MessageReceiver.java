@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.receiver;
 
 import android.app.Notification;
@@ -20,7 +21,7 @@ import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 
 /**
- * Created by bjcathay on 15-5-22.
+ * Created by dengt on 15-5-22.
  */
 public class MessageReceiver extends BroadcastReceiver {
 
@@ -36,10 +37,11 @@ public class MessageReceiver extends BroadcastReceiver {
 
                 String taskid = bundle.getString("taskid");
                 String messageid = bundle.getString("messageid");
-                boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid, messageid, 90001);
+                boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid,
+                        messageid, 90001);
                 if (payload != null) {
                     String data = new String(payload);
-                    LogUtil.d("GetuiSdkDemo", "Got Payload:" + data);//{"type":"ORDER","target":33}
+                    LogUtil.d("GetuiSdkDemo", "Got Payload:" + data);// {"type":"ORDER","target":33}
                     PushModel pushModel = JSONUtil.load(PushModel.class, data);
                     if (pushModel != null) {
                         handlePush(context, pushModel);
@@ -57,7 +59,8 @@ public class MessageReceiver extends BroadcastReceiver {
 
     private void handlePush(Context context, PushModel pushModel) {
         PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(context);
         Intent intent = null;
         if ("ORDER".equals(pushModel.getT())) {
@@ -66,11 +69,12 @@ public class MessageReceiver extends BroadcastReceiver {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else if ("COMPETITION".equals(pushModel.getT())) {
             intent = new Intent(context, CompetitionDetailActivity.class);
-            intent.putExtra("id",Long.parseLong(pushModel.getG()));
+            intent.putExtra("id", Long.parseLong(pushModel.getG()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         Notification notification = builder.setTicker(pushModel.getM()).
                 setContentTitle("7铁高尔夫").

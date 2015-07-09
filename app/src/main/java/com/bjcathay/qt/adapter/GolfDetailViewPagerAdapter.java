@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -16,7 +17,7 @@ import com.bjcathay.qt.view.OutlineContainer;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-20.
+ * Created by dengt on 15-5-20.
  */
 public class GolfDetailViewPagerAdapter extends PagerAdapter {
     private Activity context;
@@ -24,7 +25,7 @@ public class GolfDetailViewPagerAdapter extends PagerAdapter {
     private List<String> items;
 
     public GolfDetailViewPagerAdapter(Activity context, JazzyViewPager bannerViewPager,
-                                      List<String> recommendations) {
+            List<String> recommendations) {
         this.context = context;
         this.bannerViewPager = bannerViewPager;
         this.items = recommendations;
@@ -51,7 +52,8 @@ public class GolfDetailViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner, container, false);
+        View convertView = LayoutInflater.from(context).inflate(R.layout.item_home_banner,
+                container, false);
         final String bannerModel = items.get(position);
         ImageView bgView = ViewUtil.findViewById(convertView, R.id.bg);
         ImageViewAdapter.adapt(bgView, bannerModel, R.drawable.exchange_default);

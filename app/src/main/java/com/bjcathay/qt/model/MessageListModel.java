@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class MessageListModel implements Serializable {
     @JSONCollection(type = MessageModel.class)
@@ -24,6 +25,7 @@ public class MessageListModel implements Serializable {
     public void setHasNext(boolean hasNext) {
         this.hasNext = hasNext;
     }
+
     public List<MessageModel> getMessages() {
         return messages;
     }
@@ -32,7 +34,8 @@ public class MessageListModel implements Serializable {
         this.messages = messages;
     }
 
-    private static IContentDecoder<MessageListModel> decoder = new IContentDecoder.BeanDecoder<MessageListModel>(MessageListModel.class);
+    private static IContentDecoder<MessageListModel> decoder = new IContentDecoder.BeanDecoder<MessageListModel>(
+            MessageListModel.class);
 
     public static IPromise getMyMessage(int page, String lastUpdatedAt) {
         return Http.instance().get(ApiUrl.MY_MESSAGE).
@@ -52,6 +55,7 @@ public class MessageListModel implements Serializable {
         return Http.instance().put(ApiUrl.ALREADY_READ_MESSAGE).
                 param("from", buffer).run();
     }
+
     public static IPromise changeAlreadyRead(Long ids) {
         return Http.instance().put(ApiUrl.ALREADY_READ_MESSAGE).
                 param("from", ids).run();
@@ -60,7 +64,7 @@ public class MessageListModel implements Serializable {
     public static IPromise deleteMessages() {
         return Http.instance().post(ApiUrl.DELETE_MESSAGE).
                 param("_method", "DELETE").
-               run();
+                run();
     }
 
     public static IPromise deleteMessages(List<String> ids) {

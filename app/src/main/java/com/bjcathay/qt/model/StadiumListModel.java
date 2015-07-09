@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-5.
+ * Created by dengt on 15-5-5.
  */
 public class StadiumListModel implements Serializable {
     @JSONCollection(type = StadiumModel.class)
@@ -24,7 +25,8 @@ public class StadiumListModel implements Serializable {
         this.goods = goods;
     }
 
-    private static IContentDecoder<StadiumListModel> decoder = new IContentDecoder.BeanDecoder<StadiumListModel>(StadiumListModel.class);
+    private static IContentDecoder<StadiumListModel> decoder = new IContentDecoder.BeanDecoder<StadiumListModel>(
+            StadiumListModel.class);
 
     public static IPromise stadiums(int page) {
         return Http.instance().get(ApiUrl.STSDIUM_LIST).

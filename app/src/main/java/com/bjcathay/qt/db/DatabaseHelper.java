@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 import android.util.Log;
 
 /**
@@ -73,11 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
             int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
-        // SQLiteOpenHelper的构造函数参数：
-        // context：上下文环境
-        // name：数据库名字
-        // factory：游标工厂（可选）
-        // version：数据库模型版本号
     }
 
     public DatabaseHelper(Context context) {
@@ -98,14 +92,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // 构建创建表的SQL语句（可以从SQLite Expert工具的DDL粘贴过来加进StringBuffer中）
         StringBuffer lBuffer = new StringBuffer();
-
-        /*
-         * lBuffer.append("CREATE TABLE " + HISTORY_TABLE_NAME + " (");
-         * lBuffer.append("pid TEXT, "); lBuffer.append("cid TEXT, ");
-         * lBuffer.append("stime TEXT,"); lBuffer.append("etime TEXT,");
-         * lBuffer.append("_type TEXT)"); // 执行创建表的SQL语句
-         * db.execSQL(lBuffer.toString());
-         */
         db.execSQL(CREATE_TABLE_HISTORY);
         db.execSQL(CREATE_TABLE_CITY);
         db.execSQL(CREATE_TABLE_PROVINCE);

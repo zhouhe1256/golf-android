@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.content.Context;
@@ -12,7 +13,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by bjcathay on 15-5-25.
+ * Created by dengt on 15-5-25.
  */
 public class RoundCornerImageView extends ImageView {
     public RoundCornerImageView(Context context, AttributeSet attrs) {
@@ -46,7 +47,7 @@ public class RoundCornerImageView extends ImageView {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right,
-                            int bottom) {
+            int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         int w = getWidth();
         int h = getHeight();

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -22,6 +23,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -63,11 +65,12 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     private void initData() {
         Intent intent = getIntent();
         userModel = (UserModel) intent.getSerializableExtra("user");
-        if(userModel==null){
-            userModel= GApplication.getInstance().getUser();
+        if (userModel == null) {
+            userModel = GApplication.getInstance().getUser();
         }
         yourInvite.setText(userModel.getInviteCode());
-        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text)+"<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
+        inviteNote.setText(Html.fromHtml(getString(R.string.share_with_friend_text)
+                + "<font color=#FFAC41>免费</font>参加诸如<font color=#FFAC41>美国圆石滩邀请赛</font>之类的赛事。"));
         if (userModel.getInviteUserId() != null) {
             linearLayout.setVisibility(View.GONE);
         } else {
@@ -100,15 +103,21 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
                     DialogUtil.showMessage("保存邀请码成功");
                     linearLayout.setVisibility(View.GONE);
                 } else {
-                    int code = jsonObject.optInt("code");
-                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                    String errorMessage = jsonObject.optString("message");
+                    if (!StringUtils.isEmpty(errorMessage))
+                        DialogUtil.showMessage(errorMessage);
+                    else {
+                        int code = jsonObject.optInt("code");
+                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                    }
                 }
 
             }
         }).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
-                DialogUtil.showMessage(ShareWithFriendsActivity.this.getString(R.string.empty_net_text));
+                DialogUtil.showMessage(ShareWithFriendsActivity.this
+                        .getString(R.string.empty_net_text));
             }
         });
     }
@@ -129,24 +138,29 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
                 break;
             case R.id.invite_sure:
                 if (shareModel == null)
-                ShareModel.share().done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        ShareModel shareModel = arguments.get(0);
-                        ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this, shareModel);
-                    }
-                });   else ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this, shareModel);
+                    ShareModel.share().done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            ShareModel shareModel = arguments.get(0);
+                            ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this,
+                                    shareModel);
+                        }
+                    });
+                else
+                    ShareUtil.getInstance().shareDemo(ShareWithFriendsActivity.this, shareModel);
                 break;
             case R.id.input_invite_sure:
                 update();
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

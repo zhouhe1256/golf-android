@@ -1,13 +1,14 @@
+
 package com.bjcathay.qt.model;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class GetCitysModel {
-    private long id;//1,
-    private String name;//"北京",
-    private long provinceId;//1, ///省份id
-    private boolean hot;//true|false,
+    private long id;// 1,
+    private String name;// "北京",
+    private long provinceId;// 1, ///省份id
+    private boolean hot;// true|false,
     private String firstLetter;// "b",
     private String shortLetter;// "bj",
     private String allLetter;// "beijing"

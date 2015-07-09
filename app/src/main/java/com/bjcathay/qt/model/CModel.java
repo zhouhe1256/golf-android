@@ -1,11 +1,12 @@
+
 package com.bjcathay.qt.model;
 
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
-public class CModel implements Serializable{
+public class CModel implements Serializable {
     private long id;
     private String name;
 

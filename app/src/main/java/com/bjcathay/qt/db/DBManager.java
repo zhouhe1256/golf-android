@@ -119,40 +119,19 @@ public class DBManager {
         Log.d("db", "DBManager --> add");
         try {
             db.beginTransaction(); // 开始事务
-            /*if (oldBook.getName().equals(newBook.getName())) {
-                // db.beginTransaction(); // 开始事务
-                db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
-                        + " VALUES(?, ?)",
-                        new Object[] {
-                                String.valueOf(newBook.getName()), newBook.getPhone()
-                        });
-                db.setTransactionSuccessful();
-            } else {*/
-                /*
-                 * db.execSQL("DELETE FROM " + DatabaseHelper.PLAYER_TABLE_NAME
-                 * + " WHERE " + DatabaseHelper.PLAYER_NAME + " = " +
-                 * oldBook.getName());
-                 */
-                db.delete(DatabaseHelper.PLAYER_TABLE_NAME, DatabaseHelper.PLAYER_NAME + " =?",
-                        new String[] {
-                            oldBook.getName()
-                        });
-                // db.setTransactionSuccessful();
-                // db.beginTransaction(); // 开始事务
-                db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
-                        + " VALUES(?, ?)",
-                        new Object[] {
-                                String.valueOf(newBook.getName()), newBook.getPhone()
-                        });
-                db.setTransactionSuccessful();
-           // }
-          /*  db.execSQL("update " + DatabaseHelper.PLAYER_TABLE_NAME + " set "
-                    + DatabaseHelper.PLAYER_NAME + "=? and " + DatabaseHelper.PLAYER_NUMBER
-                    + "=? where " + DatabaseHelper.PLAYER_NAME + "=? and "
-                    + DatabaseHelper.PLAYER_NUMBER + "=?", new Object[] {
-                    newBook.getName(), newBook.getPhone(), oldBook.getName(), oldBook.getPhone()
-            });
-            db.setTransactionSuccessful();*/
+
+            db.delete(DatabaseHelper.PLAYER_TABLE_NAME, DatabaseHelper.PLAYER_NAME + " =?",
+                    new String[] {
+                        oldBook.getName()
+                    });
+
+            db.execSQL("REPLACE INTO " + DatabaseHelper.PLAYER_TABLE_NAME
+                    + " VALUES(?, ?)",
+                    new Object[] {
+                            String.valueOf(newBook.getName()), newBook.getPhone()
+                    });
+            db.setTransactionSuccessful();
+
         } finally {
             db.endTransaction();
         }

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.remote.IContentDecoder;
@@ -5,7 +6,7 @@ import com.bjcathay.android.remote.IContentDecoder;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-5.
+ * Created by dengt on 15-5-5.
  */
 public class BannerModel implements Serializable {
     private Long id;
@@ -46,7 +47,6 @@ public class BannerModel implements Serializable {
         this.title = title;
     }
 
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -55,6 +55,7 @@ public class BannerModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    private static IContentDecoder<BannerModel> decoder = new IContentDecoder.BeanDecoder<BannerModel>(BannerModel.class, "banner");
+    private static IContentDecoder<BannerModel> decoder = new IContentDecoder.BeanDecoder<BannerModel>(
+            BannerModel.class, "banner");
 
 }

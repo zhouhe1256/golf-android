@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.uptutil;
 
 import android.content.ContentResolver;
@@ -30,7 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class IntentUtil {
 
-    public static interface Type{
+    public static interface Type {
         String _WIFI = "WIFI";
         String _GPRS = "GPRS";
         String _CMWAP = "CMWAP";
@@ -67,7 +68,7 @@ public class IntentUtil {
     public static boolean isConnecting(Context context) {
         try {
             InetAddress ad = InetAddress.getByName(context.getResources().getString(R.string.host));
-            boolean state = false;//测试是否可以达到该地址
+            boolean state = false;// 测试是否可以达到该地址
             try {
                 state = ad.isReachable(5000);
             } catch (IOException e) {
@@ -87,37 +88,42 @@ public class IntentUtil {
 
         // return false;
     }
+
     /**
      * 获取网络类型
+     * 
      * @param mContext
      * @return
      */
-    public static String getNetType(Context mContext){
-        ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static String getNetType(Context mContext) {
+        ConnectivityManager manager = (ConnectivityManager) mContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         State stategprs = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
         State statewifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
-        if(State.CONNECTED==statewifi && State.CONNECTED==stategprs){
+        if (State.CONNECTED == statewifi && State.CONNECTED == stategprs) {
             return Type._WIFI;
         }
-        if(State.CONNECTED!=stategprs  && State.CONNECTED==statewifi){
+        if (State.CONNECTED != stategprs && State.CONNECTED == statewifi) {
             return Type._WIFI;
         }
-        if(State.CONNECTED!=statewifi  && State.CONNECTED==stategprs){
+        if (State.CONNECTED != statewifi && State.CONNECTED == stategprs) {
             Uri PREFERRED_APN_URI = Uri.parse("content://telephony/carriers/preferapn");
             try {
                 ContentResolver cr = mContext.getContentResolver();
                 Cursor cursor = cr.query(PREFERRED_APN_URI,
-                        new String[] { "_id", "apn", "type" }, null, null, null);
+                        new String[] {
+                                "_id", "apn", "type"
+                        }, null, null, null);
                 cursor.moveToFirst();
                 if (cursor.isAfterLast()) {
                     return Type._GPRS;
                 }
                 String apn = cursor.getString(1);
-                if (apn.toUpperCase().equals("CMWAP")){
+                if (apn.toUpperCase().equals("CMWAP")) {
                     return Type._CMWAP;
-                }else if (apn.toUpperCase().equals("CMNET")){
+                } else if (apn.toUpperCase().equals("CMNET")) {
                     return Type._GPRS;
-                }else{
+                } else {
                     return Type._GPRS;
                 }
             } catch (Exception ep) {
@@ -129,10 +135,11 @@ public class IntentUtil {
 
     /**
      * 获取当前版本标示号
+     * 
      * @param mContext
      * @return
      */
-    public static int getCurrentVersionCode(Context mContext){
+    public static int getCurrentVersionCode(Context mContext) {
         try {
             return mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionCode;
         } catch (NameNotFoundException e) {
@@ -140,24 +147,26 @@ public class IntentUtil {
             return 0;
         }
     }
+
     /**
      * 获取当前版本号
+     * 
      * @param mContext
      * @return
      */
-    public static String getCurrentVersionName(Context mContext){
-       /* try {
-            return mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-            return "";
-        }*/
+    public static String getCurrentVersionName(Context mContext) {
+        /*
+         * try { return
+         * mContext.getPackageManager().getPackageInfo(mContext.getPackageName
+         * (), 0).versionName; } catch (NameNotFoundException e) {
+         * e.printStackTrace(); return ""; }
+         */
         // 获取packagemanager的实例
-        PackageManager packageManager =mContext.getPackageManager();
+        PackageManager packageManager = mContext.getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = null;
         try {
-            packInfo = packageManager.getPackageInfo(mContext.getPackageName(),0);
+            packInfo = packageManager.getPackageInfo(mContext.getPackageName(), 0);
             String version = packInfo.versionName;
             return version;
         } catch (NameNotFoundException e) {
@@ -169,28 +178,31 @@ public class IntentUtil {
 
     /**
      * 检查是否存在sd卡
+     * 
      * @param mContext
      * @return
      */
-    public static boolean checkSoftStage(Context mContext){
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){  //判断是否存在SD卡
+    public static boolean checkSoftStage(Context mContext) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) { // 判断是否存在SD卡
             return true;
-        }else{
+        } else {
             Toast.makeText(mContext, "检测到手机没有存储卡,请安装了内存卡后再升级。", Toast.LENGTH_LONG).show();
             return false;
         }
     }
+
     /**
      * 监测URL地址是否有效
+     * 
      * @param url
      * @return
      */
-    public static boolean checkURL(String url){
+    public static boolean checkURL(String url) {
         try {
             URL u = new URL(url);
-            HttpURLConnection urlConn = (HttpURLConnection)u.openConnection();
+            HttpURLConnection urlConn = (HttpURLConnection) u.openConnection();
             urlConn.connect();
-            if(urlConn.getResponseCode()==HttpsURLConnection.HTTP_OK){
+            if (urlConn.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 return true;
             }
         } catch (Exception e) {
@@ -200,13 +212,13 @@ public class IntentUtil {
         return false;
     }
 
-    /* 判断是否为数字*/
-    public static String isNaN(String msg){
+    /* 判断是否为数字 */
+    public static String isNaN(String msg) {
         Pattern pattern = Pattern.compile("^[+-]?\\d*[.]?\\d*$");
         Matcher isNum = pattern.matcher(msg);
-        if(isNum.matches()){
-            return Double.parseDouble(msg)+"";
-        }else{
+        if (isNum.matches()) {
+            return Double.parseDouble(msg) + "";
+        } else {
             return "no";
         }
     }

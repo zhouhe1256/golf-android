@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.remote.IContentDecoder;
@@ -5,14 +6,15 @@ import com.bjcathay.android.remote.IContentDecoder;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-25.
+ * Created by dengt on 15-5-25.
  */
 public class InviteModel implements Serializable {
     private Long userId;// 7,
     private String name;// "18810734340",
     private String date;// "2015-09-09 09:09:09",
     private boolean valid;// false|true
-    private static IContentDecoder<InviteModel> decoder = new IContentDecoder.BeanDecoder<InviteModel>(InviteModel.class);
+    private static IContentDecoder<InviteModel> decoder = new IContentDecoder.BeanDecoder<InviteModel>(
+            InviteModel.class);
 
     public Long getUserId() {
         return userId;

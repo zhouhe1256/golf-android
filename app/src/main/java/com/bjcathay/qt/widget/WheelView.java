@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.widget;
 
 import android.content.Context;
@@ -14,7 +15,6 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 
 import com.bjcathay.qt.R;
-
 
 public class WheelView extends TosGallery {
     /**
@@ -40,9 +40,12 @@ public class WheelView extends TosGallery {
     /**
      * Shadow colors
      */
-   // private static final int[] SHADOWS_COLORS = { 0xFF111111, 0x00AAAAAA, 0x00AAAAAA };
-    private static final int[] SHADOWS_COLORS = new int[]{0xFFffffff,
-            0x00ffffff, 0x00ffffff};
+    // private static final int[] SHADOWS_COLORS = { 0xFF111111, 0x00AAAAAA,
+    // 0x00AAAAAA };
+    private static final int[] SHADOWS_COLORS = new int[] {
+            0xFFffffff,
+            0x00ffffff, 0x00ffffff
+    };
 
     /**
      * The constructor method.
@@ -101,7 +104,7 @@ public class WheelView extends TosGallery {
         this.mBottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
 
         // The default background.
-       // this.setBackgroundResource(R.drawable.wheel_bg);
+        // this.setBackgroundResource(R.drawable.wheel_bg);
         this.setBackgroundColor(Color.WHITE);
 
         // Disable the sound effect default.
@@ -109,8 +112,9 @@ public class WheelView extends TosGallery {
     }
 
     /**
-     * Called by draw to draw the child views. This may be overridden by derived classes to gain
-     * control just before its children are drawn (but after its own view has been drawn).
+     * Called by draw to draw the child views. This may be overridden by derived
+     * classes to gain control just before its children are drawn (but after its
+     * own view has been drawn).
      */
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -193,7 +197,7 @@ public class WheelView extends TosGallery {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
-            // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
+        // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
             case MotionEvent.ACTION_DOWN:
                 setParentScrollAble(false);
             case MotionEvent.ACTION_MOVE:

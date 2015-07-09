@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class CityListModel implements Serializable {
     @JSONCollection(type = GetCitysModel.class)
@@ -24,7 +25,8 @@ public class CityListModel implements Serializable {
         return cities;
     }
 
-    private static IContentDecoder<CityListModel> decoder = new IContentDecoder.BeanDecoder<CityListModel>(CityListModel.class);
+    private static IContentDecoder<CityListModel> decoder = new IContentDecoder.BeanDecoder<CityListModel>(
+            CityListModel.class);
 
     public static IPromise getTotalCities() {
         return Http.instance().get(ApiUrl.CITIES).

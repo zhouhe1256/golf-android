@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class MyPropAdapter extends BaseAdapter {
     private List<PropModel> items;
@@ -37,12 +38,10 @@ public class MyPropAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        // return 10;
     }
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -55,7 +54,8 @@ public class MyPropAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_exchange_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_exchange_list,
+                    parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -63,10 +63,10 @@ public class MyPropAdapter extends BaseAdapter {
         }
         final PropModel propModel = items.get(position);
         holder.title.setText(propModel.getName());
-        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(),
+                R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
         holder.number.setText(Integer.toString(propModel.getAmount()));
-        //int num=Integer.valueOf(number.getText().toString().trim());
         holder.toExch.setText("赠送");
         holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
         holder.toExch.setOnClickListener(new View.OnClickListener() {

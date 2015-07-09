@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -5,15 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
@@ -30,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 赛事页面
- * Created by dengt on 15-4-20.
+ * 赛事页面 Created by dengt on 15-4-20.
  */
 public class CompetitionActivity extends Activity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, View.OnClickListener {
@@ -67,13 +60,13 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
 
     }
 
-
     private void initEvent() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= eventModels.size()) {
-                    Intent intent = new Intent(CompetitionActivity.this, CompetitionDetailActivity.class);
+                    Intent intent = new Intent(CompetitionActivity.this,
+                            CompetitionDetailActivity.class);
                     intent.putExtra("url", eventModels.get(i - 1).getUrl());
                     intent.putExtra("id", eventModels.get(i - 1).getId());
                     ViewUtil.startActivity(CompetitionActivity.this, intent);
@@ -85,7 +78,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             EventListModel result = (EventListModel) msg.obj;
-            boolean hasNext=result.isHasNext();
+            boolean hasNext = result.isHasNext();
             if (result != null && result.getEvents() != null && !result.getEvents().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
@@ -98,7 +91,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                         eventModels.addAll(result.getEvents());
                         break;
                 }
-                listView.setResultSize(eventModels.size(),hasNext);
+                listView.setResultSize(eventModels.size(), hasNext);
                 competitionAdapter.notifyDataSetChanged();
             } else {
                 switch (msg.what) {
@@ -109,7 +102,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                         listView.onLoadComplete();
                         break;
                 }
-                listView.setResultSize(eventModels.size(),hasNext);
+                listView.setResultSize(eventModels.size(), hasNext);
                 competitionAdapter.notifyDataSetChanged();
             }
         }
@@ -172,12 +165,13 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        //initData();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

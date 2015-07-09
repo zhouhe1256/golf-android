@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.app.Activity;
@@ -16,7 +17,6 @@ import android.widget.PopupWindow;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
 
-
 public class SelectPicPopupWindow extends PopupWindow {
 
     public interface SelectResult {
@@ -28,7 +28,6 @@ public class SelectPicPopupWindow extends PopupWindow {
     private Button btn_take_photo, btn_pick_photo, btn_cancel;
     private View mMenuView;
     private Animation animShow;
-    // sliding down animation
     private Animation animHide;
     LinearLayout poplayout;
 
@@ -38,22 +37,22 @@ public class SelectPicPopupWindow extends PopupWindow {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.select_pic_popup_window, null);
-        poplayout= ViewUtil.findViewById(mMenuView, R.id.pop_layout);
+        poplayout = ViewUtil.findViewById(mMenuView, R.id.pop_layout);
         btn_take_photo = (Button) mMenuView.findViewById(R.id.btn_take_photo);
         btn_pick_photo = (Button) mMenuView.findViewById(R.id.btn_pick_photo);
         btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
-        //取消按钮
+        // 取消按钮
         btn_cancel.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //销毁弹出框
-                //dismiss();
+                // 销毁弹出框
+                // dismiss();
                 poplayout.setVisibility(View.VISIBLE);
                 poplayout.clearAnimation();
                 poplayout.startAnimation(animHide);
             }
         });
-        //设置按钮监听
+        // 设置按钮监听
         btn_pick_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,21 +67,21 @@ public class SelectPicPopupWindow extends PopupWindow {
                 dismiss();
             }
         });
-        //设置SelectPicPopupWindow的View
+        // 设置SelectPicPopupWindow的View
         this.setContentView(mMenuView);
-        //设置SelectPicPopupWindow弹出窗体的宽
+        // 设置SelectPicPopupWindow弹出窗体的宽
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置SelectPicPopupWindow弹出窗体的高
+        // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置SelectPicPopupWindow弹出窗体可点击
+        // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
-        //设置SelectPicPopupWindow弹出窗体动画效果
-        //this.setAnimationStyle(R.style.PopupAnimation);
-        //实例化一个ColorDrawable颜色为半透明
+        // 设置SelectPicPopupWindow弹出窗体动画效果
+        // this.setAnimationStyle(R.style.PopupAnimation);
+        // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
-        //设置SelectPicPopupWindow弹出窗体的背景
+        // 设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
-        //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
+        // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
         mMenuView.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -91,7 +90,7 @@ public class SelectPicPopupWindow extends PopupWindow {
                 int y = (int) event.getY();
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (y < height) {
-                        //dismiss();
+                        // dismiss();
                         poplayout.setVisibility(View.VISIBLE);
                         poplayout.clearAnimation();
                         poplayout.startAnimation(animHide);
@@ -104,6 +103,7 @@ public class SelectPicPopupWindow extends PopupWindow {
         poplayout.clearAnimation();
         poplayout.startAnimation(animShow);
     }
+
     private void initAnim() {
         animShow = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0,

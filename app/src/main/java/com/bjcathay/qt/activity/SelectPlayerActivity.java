@@ -2,12 +2,10 @@
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,7 +18,6 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
-
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -34,7 +31,7 @@ import java.util.List;
  * Created by dengt on 15-7-3.
  */
 public class SelectPlayerActivity extends Activity implements View.OnClickListener {
-    private List<BookModel> callRecords=new ArrayList<BookModel>();
+    private List<BookModel> callRecords = new ArrayList<BookModel>();
     private Activity context;
     private TopView topView;
     private ListView playList;
@@ -62,7 +59,6 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_select_player_layout);
-        // callRecords = new ArrayList<BookModel>();
         playList = ViewUtil.findViewById(this, R.id.player_list);
         inflater = LayoutInflater.from(context);
         header = inflater.inflate(R.layout.select_player_list_head, null);
@@ -89,9 +85,9 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
         BookModel bookModel = new BookModel();
         UserModel userModel1 = GApplication.getInstance().getUser();
         if (userModel1.getRealName() == null) {
-            bookModel.setName(userModel1.getMobileNumber()+"(本人)");
+            bookModel.setName(userModel1.getMobileNumber() + "(本人)");
         } else {
-            bookModel.setName(userModel1.getRealName()+"(本人)");
+            bookModel.setName(userModel1.getRealName() + "(本人)");
         }
         bookModel.setPhone(userModel1.getMobileNumber());
         callRecords.add(bookModel);
@@ -125,16 +121,6 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
         Intent intent;
         switch (view.getId()) {
             case R.id.title_back_img:
-                /*
-                 * if (playerAdapter != null) { LogUtil.e("size",
-                 * playerAdapter.getCheckedItems().size() + ""); BookListModel
-                 * bookListModel = new BookListModel(); List<BookModel>
-                 * bookModels = playerAdapter.getCheckedItems();
-                 * bookListModel.setPersons(bookModels); intent = new Intent();
-                 * intent.putExtra("books", JSONUtil.dump(bookListModel));
-                 * setResult(2, intent); }
-                 */
-
                 finish();
                 break;
             case R.id.title_finish:
@@ -147,7 +133,6 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
                     intent.putExtra("books", JSONUtil.dump(bookListModel));
                     setResult(2, intent);
                 }
-
                 finish();
                 break;
             case R.id.right_img:
@@ -155,23 +140,11 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
                 break;
             case R.id.left_img:
                 intent = new Intent(this, SelectContactActivity.class);
-                // ViewUtil.startActivity(this, intent);
                 startActivityForResult(intent, reqcontact);
-                // DialogUtil.showMessage("打开通讯录");
                 break;
 
         }
     }
-
-    /*
-     * @Override public void onBackPressed() { super.onBackPressed(); if
-     * (playerAdapter != null) { BookListModel bookListModel = new
-     * BookListModel(); List<BookModel> bookModels =
-     * playerAdapter.getCheckedItems(); bookListModel.setPersons(bookModels);
-     * LogUtil.e("size", playerAdapter.getCheckedItems().size() + ""); Intent
-     * intent = new Intent(); intent.putExtra("books",
-     * JSONUtil.dump(bookListModel)); setResult(2, intent); } finish(); }
-     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -185,10 +158,6 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
             BookModel oldbookModel = (BookModel) data.getSerializableExtra("editold");
             if (newbookModel != null && oldbookModel != null)
                 playerAdapter.repalceItem(newbookModel, oldbookModel);
-            /*
-             * callRecords = DBManager.getInstance().queryPlayers();
-             * playerAdapter.updateView(callRecords);
-             */
         }
     }
 }

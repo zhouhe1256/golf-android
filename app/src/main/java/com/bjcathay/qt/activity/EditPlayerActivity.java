@@ -10,6 +10,8 @@ import android.widget.EditText;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.BookModel;
+import com.bjcathay.qt.util.DialogUtil;
+import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -52,38 +54,36 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
 
     }
 
-    @Override
-    public void onClick(View view) {
+    private void finishEdit() {
+        Intent intent = new Intent();
         String nameEdit = name.getText().toString().trim();
         String phoneEdit = phone.getText().toString().trim();
-        Intent intent = new Intent();
+        if (!StringUtils.isEmpty(phoneEdit) && !ValidformUtil.isMobileNo(phoneEdit)) {
+            DialogUtil.showMessage("请填写正确的手机号码");
+            return;
+        }
+        if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
+
+        } else if (!StringUtils.isEmpty(nameEdit)) {
+            BookModel newBook = new BookModel();
+            newBook.setName(nameEdit);
+            newBook.setPhone(phoneEdit);
+            DBManager.getInstance().updatePlayer(bookModel, newBook);
+            intent.putExtra("editnew", newBook);
+            intent.putExtra("editold", bookModel);
+        }
+        setResult(2, intent);
+        finish();
+    }
+
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_back_img:
-               /* if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
-                } else if (!StringUtils.isEmpty(nameEdit)) {
-                    BookModel newBook = new BookModel();
-                    newBook.setName(nameEdit);
-                    newBook.setPhone(phoneEdit);
-                    DBManager.getInstance().updatePlayer(bookModel, newBook);
-                    intent.putExtra("editnew", newBook);
-                    intent.putExtra("editold", bookModel);
-                }
-                setResult(2, intent);*/
                 finish();
                 break;
             case R.id.title_finish:
-                if (nameEdit.equals(bookModel.getName()) && phoneEdit.equals(bookModel.getPhone())) {
-
-                } else if (!StringUtils.isEmpty(nameEdit)) {
-                    BookModel newBook = new BookModel();
-                    newBook.setName(nameEdit);
-                    newBook.setPhone(phoneEdit);
-                    DBManager.getInstance().updatePlayer(bookModel, newBook);
-                    intent.putExtra("editnew", newBook);
-                    intent.putExtra("editold", bookModel);
-                }
-                setResult(2, intent);
-                finish();
+                finishEdit();
                 break;
         }
     }

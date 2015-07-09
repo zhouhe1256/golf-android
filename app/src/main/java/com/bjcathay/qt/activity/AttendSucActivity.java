@@ -59,8 +59,8 @@ public class AttendSucActivity extends Activity implements View.OnClickListener,
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                         R.style.InfoDialog,
-                                getResources().getString(R.string.service_tel_format).toString().trim()
-                               ,"呼叫", 0l, this);
+                        getResources().getString(R.string.service_tel_format).toString().trim()
+                        , "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }

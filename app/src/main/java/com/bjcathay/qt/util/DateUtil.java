@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by dengt on 15-4-24.
  */
 public class DateUtil {
-    //根据起始时间决定日期
+    // 根据起始时间决定日期
     public static List<String> getLimitDate(List<PriceModel> priceModels) {
         if (priceModels != null) {
             List<String> dayList = new ArrayList<String>();
@@ -47,11 +48,11 @@ public class DateUtil {
                 day1 = rights.get(Calendar.DAY_OF_WEEK);
                 if (day == now_daye) {
                     today = "今天";
-                }/* else if (day == now_daye + 1) {
-                    today = "明天";
-                }*//* else if (day == now_daye + 2) {
-                    today = "后天";
-                } */ else {
+                }/*
+                  * else if (day == now_daye + 1) { today = "明天"; }
+                  *//*
+                     * else if (day == now_daye + 2) { today = "后天"; }
+                     */else {
                     switch (day1) {
                         case 2:
                             today = "星期一";
@@ -87,7 +88,7 @@ public class DateUtil {
             return null;
     }
 
-    //根据起始时间决定小时上午
+    // 根据起始时间决定小时上午
     public static List<String> getTuanHourAM(ProductModel productModel) {
         List<String> dayList = new ArrayList<String>();
         String start = productModel.getStart();
@@ -126,7 +127,7 @@ public class DateUtil {
             rightNow.add(Calendar.MINUTE, 30);
             hour = rightNow.get(Calendar.HOUR_OF_DAY);
         }
-        //ams.remove(ams.size() - 1);
+        // ams.remove(ams.size() - 1);
         return ams;
     }
 
@@ -137,7 +138,7 @@ public class DateUtil {
         Calendar now = Calendar.getInstance();
         int now_daye = now.get(Calendar.DAY_OF_MONTH);
         for (int i = 0; i < 7; i++) {
-            //取得系统日期:
+            // 取得系统日期:
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
@@ -195,7 +196,7 @@ public class DateUtil {
                 rightNow.add(Calendar.MINUTE, 30);
                 hour = rightNow.get(Calendar.HOUR_OF_DAY);
             }
-            //ams.remove(ams.size() - 1);
+            // ams.remove(ams.size() - 1);
             return ams;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -217,7 +218,7 @@ public class DateUtil {
             Calendar start = Calendar.getInstance();
             start.setTime(pmDate);
             int endHour = end.get(Calendar.HOUR);
-            //endHour = endHour - 12;
+            // endHour = endHour - 12;
             int endmin = end.get(Calendar.MINUTE);
             int startHour = start.get(Calendar.HOUR);
             int startmin = start.get(Calendar.MINUTE);
@@ -234,7 +235,7 @@ public class DateUtil {
                 start.add(Calendar.MINUTE, 30);
                 Date a = start.getTime();
                 ams.add(df.format(a));
-                //startHour = start.get(Calendar.HOUR_OF_DAY);
+                // startHour = start.get(Calendar.HOUR_OF_DAY);
             }
             ams.add(dff.format(dt));
             return ams;
@@ -243,6 +244,7 @@ public class DateUtil {
         }
         return null;
     }
+
     public static List<String> To12(String pm) {
 
         try {
@@ -259,6 +261,7 @@ public class DateUtil {
         }
         return null;
     }
+
     public static List<String> getPMShort(String pm) {
 
         try {
@@ -273,7 +276,7 @@ public class DateUtil {
             Calendar start = Calendar.getInstance();
             start.setTime(pmDate);
             int endHour = end.get(Calendar.HOUR);
-            //endHour = endHour - 12;
+            // endHour = endHour - 12;
             int endmin = end.get(Calendar.MINUTE);
             int startHour = start.get(Calendar.HOUR);
             int startmin = start.get(Calendar.MINUTE);
@@ -290,7 +293,7 @@ public class DateUtil {
                 start.add(Calendar.MINUTE, 30);
                 Date a = start.getTime();
                 ams.add(dff.format(a));
-                //startHour = start.get(Calendar.HOUR_OF_DAY);
+                // startHour = start.get(Calendar.HOUR_OF_DAY);
             }
             ams.add(dff.format(dt));
             return ams;
@@ -308,7 +311,8 @@ public class DateUtil {
             c.setTime(date);
             int h = c.get(Calendar.HOUR_OF_DAY);
             String first = Integer.toString(h > 12 ? h : h + 12);
-            String hours = (first.length() == 1 ? "0" + first : first) + ":" + (c.get(Calendar.MINUTE) == 0 ? "00" : "30");
+            String hours = (first.length() == 1 ? "0" + first : first) + ":"
+                    + (c.get(Calendar.MINUTE) == 0 ? "00" : "30");
 
             return hours;
         } catch (ParseException e) {
@@ -324,7 +328,7 @@ public class DateUtil {
             Date date1 = sd.parse(start);
             Date date2 = sd.parse(end);
             Date date3 = sd.parse(time);
-            long t = date3.getTime();//时间的毫秒
+            long t = date3.getTime();// 时间的毫秒
             long s = date1.getTime();
             long e = date2.getTime();
             if (t > s && t < e) {
@@ -360,14 +364,14 @@ public class DateUtil {
         return dateValue;
     }
 
-    //排序
+    // 排序
     public static List<PriceModel> getCollectionsDate(List<PriceModel> priceModels) {
-        /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日");
-        DateFormat df = new SimpleDateFormat("hh:mm");
-        List<String> days = new ArrayList<String>();
-        List<String> hours = new ArrayList<String>();
-        boolean amOpm;
-        double price;*/
+        /*
+         * SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日");
+         * DateFormat df = new SimpleDateFormat("hh:mm"); List<String> days =
+         * new ArrayList<String>(); List<String> hours = new
+         * ArrayList<String>(); boolean amOpm; double price;
+         */
         Collections.sort(priceModels, new Comparator<PriceModel>() {
             @Override
             public int compare(PriceModel lhs, PriceModel rhs) {
@@ -381,9 +385,9 @@ public class DateUtil {
 
             }
         });
-       /* for (PriceModel p : priceModels) {
-            days.add(p.getStartAt());
-        }*/
+        /*
+         * for (PriceModel p : priceModels) { days.add(p.getStartAt()); }
+         */
         return priceModels;
     }
 

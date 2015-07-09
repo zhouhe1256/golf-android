@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.wxpay;
 
 import android.app.Activity;
@@ -32,7 +33,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by bjcathay on 15-6-4.
+ * Created by dengt on 15-6-4.
  */
 public class WXpay {
     private Activity activity;
@@ -53,13 +54,13 @@ public class WXpay {
     Map<String, String> resultunifiedorder = new HashMap<String, String>();
     StringBuffer sb = new StringBuffer();
 
-    //生成prepay_id
+    // 生成prepay_id
     public void prepareID() {
         GetPrepayIdTask getPrepayId = new GetPrepayIdTask();
         getPrepayId.execute();
     }
 
-    //生成微信支付参数
+    // 生成微信支付参数
     public void params() {
         genPayReq();
     }
@@ -78,7 +79,7 @@ public class WXpay {
                     req.appId = xml.get("appid");
                     req.partnerId = xml.get("partnerid");
                     req.prepayId = xml.get("prepayid");
-                    req.packageValue = xml.get("package");//packageValue
+                    req.packageValue = xml.get("package");// packageValue
                     req.nonceStr = xml.get("noncestr");
                     req.timeStamp = xml.get("timestamp");
                     req.sign = xml.get("sign");
@@ -93,16 +94,14 @@ public class WXpay {
         });
     }
 
-    //微信支付
+    // 微信支付
     public void pay() {
         sendPayReq();
     }
 
-
     private class GetPrepayIdTask extends AsyncTask<Void, Void, Map<String, String>> {
 
         private ProgressDialog dialog;
-
 
         @Override
         protected void onPreExecute() {
@@ -169,7 +168,6 @@ public class WXpay {
             return null;
         }
 
-
     }
 
     private void genPayReq() {
@@ -192,7 +190,7 @@ public class WXpay {
 
         sb.append("sign\n" + req.sign + "\n\n");
 
-        //  show.setText(sb.toString());
+        // show.setText(sb.toString());
         DialogUtil.showMessage(sb.toString());
 
         LogUtil.e("oriongenPayReq", signParams.toString());
@@ -213,7 +211,6 @@ public class WXpay {
     private long genTimeStamp() {
         return System.currentTimeMillis() / 1000;
     }
-
 
     private String genOutTradNo() {
         Random random = new Random();
@@ -237,7 +234,7 @@ public class WXpay {
                     case XmlPullParser.START_TAG:
 
                         if ("xml".equals(nodeName) == false) {
-                            //实例化student对象
+                            // 实例化student对象
                             xml.put(nodeName, parser.nextText());
                         }
                         break;
@@ -260,7 +257,6 @@ public class WXpay {
         sb.append("<xml>");
         for (int i = 0; i < params.size(); i++) {
             sb.append("<" + params.get(i).getName() + ">");
-
 
             sb.append(params.get(i).getValue());
             sb.append("</" + params.get(i).getName() + ">");
@@ -304,7 +300,6 @@ public class WXpay {
         }
         sb.append("key=");
         sb.append(Constants.API_KEY);
-
 
         String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
         LogUtil.e("orionpackageSign", packageSign);

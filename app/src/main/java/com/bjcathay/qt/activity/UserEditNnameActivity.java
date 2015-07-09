@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -17,7 +18,6 @@ import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
-import com.igexin.sdk.PushManager;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -74,22 +74,23 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
                     DialogUtil.showMessage("姓名长度超出范围");
                     return;
                 } else if (!nickname.isEmpty()) {
-                    UserModel.updateUserInfo(null, nickname, null, null, null).done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            UserModel userModel = arguments.get(0);
-                            Intent intent = new Intent();
-                            intent.putExtra("name", userModel.getRealName());
-                            setResult(5, intent);
-                            DialogUtil.showMessage("修改成功");
-                            ViewUtil.finish(UserEditNnameActivity.this);
-                        }
-                    }).fail(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            DialogUtil.showMessage(getString(R.string.empty_net_text));
-                        }
-                    });
+                    UserModel.updateUserInfo(null, nickname, null, null, null)
+                            .done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    UserModel userModel = arguments.get(0);
+                                    Intent intent = new Intent();
+                                    intent.putExtra("name", userModel.getRealName());
+                                    setResult(5, intent);
+                                    DialogUtil.showMessage("修改成功");
+                                    ViewUtil.finish(UserEditNnameActivity.this);
+                                }
+                            }).fail(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    DialogUtil.showMessage(getString(R.string.empty_net_text));
+                                }
+                            });
                 } else {
                     DialogUtil.showMessage("姓名不能为空");
                 }
@@ -119,11 +120,13 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
     public void afterTextChanged(Editable editable) {
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class OrderListModel implements Serializable {
     @JSONCollection(type = OrderModel.class)
@@ -24,6 +25,7 @@ public class OrderListModel implements Serializable {
     public void setHasNext(boolean hasNext) {
         this.hasNext = hasNext;
     }
+
     public List<OrderModel> getOrders() {
         return orders;
     }
@@ -32,7 +34,8 @@ public class OrderListModel implements Serializable {
         this.orders = orders;
     }
 
-    private static IContentDecoder<OrderListModel> decoder = new IContentDecoder.BeanDecoder<OrderListModel>(OrderListModel.class);
+    private static IContentDecoder<OrderListModel> decoder = new IContentDecoder.BeanDecoder<OrderListModel>(
+            OrderListModel.class);
 
     public static IPromise getMyOrder(int page) {
         return Http.instance().get(ApiUrl.MY_ORDERS).

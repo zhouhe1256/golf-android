@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -11,7 +12,7 @@ import com.bjcathay.android.util.LogUtil;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-23.
+ * Created by dengt on 15-6-23.
  */
 public class LocationUtil {
     public static Location getLocation(Context context) {
@@ -23,16 +24,18 @@ public class LocationUtil {
         }
         Criteria criteria = new Criteria();
         criteria.setCostAllowed(false);
-//设置位置服务免费
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE); //设置水平位置精度
-        //getBestProvider 只有允许访问调用活动的位置供应商将被返回
+        // 设置位置服务免费
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE); // 设置水平位置精度
+        // getBestProvider 只有允许访问调用活动的位置供应商将被返回
         String providerName = lm.getBestProvider(criteria, true);
         LogUtil.i("8023", "------位置服务：" + providerName);
         if (providerName != null) {
             Location location = lm.getLastKnownLocation(providerName);
             if (location != null) {
-                PreferencesUtils.putString(context, PreferencesConstant.LATITUDE, String.valueOf(location.getLatitude()));
-                PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE, String.valueOf(location.getLongitude()));
+                PreferencesUtils.putString(context, PreferencesConstant.LATITUDE,
+                        String.valueOf(location.getLatitude()));
+                PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE,
+                        String.valueOf(location.getLongitude()));
             }
             LogUtil.i("8023", "-------" + location);
             return location;

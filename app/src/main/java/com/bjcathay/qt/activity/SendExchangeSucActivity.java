@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ShareUtil;
@@ -22,7 +22,8 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-6-10.
  */
-public class SendExchangeSucActivity extends Activity implements View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+public class SendExchangeSucActivity extends Activity implements View.OnClickListener,
+        DeleteInfoDialog.DeleteInfoDialogResult {
     private Activity context;
     private TopView topView;
     private String name;
@@ -90,7 +91,8 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
                             ShareUtil.getInstance().shareDemo(context, shareModel);
                         }
                     });
-                else ShareUtil.getInstance().shareDemo(context, shareModel);
+                else
+                    ShareUtil.getInstance().shareDemo(context, shareModel);
                 break;
             case R.id.title_back_img:
                 intent = new Intent(this, MainActivity.class);
@@ -99,8 +101,8 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
                 break;
             case R.id.call_phone:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
-                        R.style.InfoDialog,  getResources().getString(R.string.service_tel_format)
-                        .toString().trim(), "呼叫", 0l, this);
+                        R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
+                                .toString().trim(), "呼叫", 0l, this);
                 infoDialog.show();
                 break;
         }
@@ -109,7 +111,8 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getResources().getString(R.string.service_tel).toString().trim()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
             this.startActivity(intent);
         }
     }
@@ -121,15 +124,16 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
         ViewUtil.startTopActivity(this, intent);
         finish();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
     }
 }
-

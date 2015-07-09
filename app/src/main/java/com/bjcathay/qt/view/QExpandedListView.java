@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.CityAdapter;
 
-
 /**
  * @author dengt
  */
@@ -36,8 +35,9 @@ public class QExpandedListView extends ExpandableListView implements
     private int indicatorGroupHeight = 0;
     private LinearLayout indicatorGroup;
     private Context mContext;
-   // private View header;
-  //  private LayoutInflater inflater;
+
+    // private View header;
+    // private LayoutInflater inflater;
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -47,7 +47,7 @@ public class QExpandedListView extends ExpandableListView implements
     public QExpandedListView(Context context) {
         super(context);
         mContext = context;
-       // initView(context);
+        // initView(context);
         this.isFixGroup = true;
         super.setOnScrollListener(this);
     }
@@ -55,7 +55,7 @@ public class QExpandedListView extends ExpandableListView implements
     public QExpandedListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-       // initView(context);
+        // initView(context);
 
         this.isFixGroup = true;
         super.setOnScrollListener(this);
@@ -64,17 +64,18 @@ public class QExpandedListView extends ExpandableListView implements
     public QExpandedListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
-        //initView(context);
+        // initView(context);
 
         this.isFixGroup = true;
         super.setOnScrollListener(this);
     }
 
-  /*  private void initView(Context context) {
-        inflater = LayoutInflater.from(context);
-        header = inflater.inflate(R.layout.expanded_head_view, null);
-        this.addHeaderView(header);
-    }*/
+    /*
+     * private void initView(Context context) { inflater =
+     * LayoutInflater.from(context); header =
+     * inflater.inflate(R.layout.expanded_head_view, null);
+     * this.addHeaderView(header); }
+     */
 
     @Override
     public void onClick(View v) {
@@ -83,7 +84,7 @@ public class QExpandedListView extends ExpandableListView implements
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
+            int visibleItemCount, int totalItemCount) {
         if (isFixGroup) {// 是否显示固定组头
             boolean isFrameLayoutParent = getParent() instanceof FrameLayout;
             mAdapter = this.getExpandableListAdapter();
@@ -116,7 +117,8 @@ public class QExpandedListView extends ExpandableListView implements
                             FixGroupView.setLayoutParams(new LayoutParams(
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.WRAP_CONTENT));
-                            final ImageView iv = (ImageView) FixGroupView.findViewById(R.id.expand_right_img);
+                            final ImageView iv = (ImageView) FixGroupView
+                                    .findViewById(R.id.expand_right_img);
                             if (isGroupExpanded(groupPos)) {
                                 iv.setImageResource(R.drawable.ic_city_select);
                             } else {
@@ -143,7 +145,7 @@ public class QExpandedListView extends ExpandableListView implements
                              */
                             indicatorGroupId = groupPos;
                             // ((CityAdapter)mAdapter).hideGroup(indicatorGroupId);
-                             //((CityAdapter)mAdapter).notifyDataSetChanged();
+                            // ((CityAdapter)mAdapter).notifyDataSetChanged();
                         }
                     }
                 }
@@ -198,6 +200,7 @@ public class QExpandedListView extends ExpandableListView implements
     public void setAdapter(ExpandableListAdapter paramExpandableListAdapter) {
         super.setAdapter(paramExpandableListAdapter);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // TODO Auto-generated method stub

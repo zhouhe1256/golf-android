@@ -25,14 +25,6 @@
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:background="@color/white">
-
-        <!--<com.bjcathay.qt.view.ImageTextView
-            android:id="@+id/icon"
-            android:layout_marginLeft="5dip"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_width="45dp"
-            android:text="find" />-->
         <com.bjcathay.qt.view.CircleImageView
             android:id="@+id/icon"
             android:layout_width="35dp"

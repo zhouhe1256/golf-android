@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,14 +11,14 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-18.
+ * Created by dengt on 15-5-18.
  */
 public class ProductModel implements Serializable {
 
-    private Long id;//2,
+    private Long id;// 2,
     private String name;// "北京十三陵国际高尔夫"
     private double lat;// 46.213213,
-    private double lon;//116.23213,
+    private double lon;// 116.23213,
     private double price;// 200, //默认为当日价格，团购和特卖价格也是此字段
     private String priceInclude;// "18洞/车/餐",
     private String address;// "北京市朝阳区清河湾高尔夫俱乐部",
@@ -37,9 +38,8 @@ public class ProductModel implements Serializable {
     private double distance;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
-    private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(ProductModel.class, "product");
-    @JSONCollection(type = ActivityModel.class)
-    private ActivityModel activity;// [ "/upload/image/xxx.png",
+    private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(
+            ProductModel.class, "product");
 
     public double getDistance() {
         return distance;
@@ -217,13 +217,6 @@ public class ProductModel implements Serializable {
         this.prices = prices;
     }
 
-    public ActivityModel getActivity() {
-        return activity;
-    }
-
-    public void setActivity(ActivityModel activity) {
-        this.activity = activity;
-    }
     public static IPromise product(long id) {
         return Http.instance().get(ApiUrl.productDetail(id)).
                 contentDecoder(decoder).run();

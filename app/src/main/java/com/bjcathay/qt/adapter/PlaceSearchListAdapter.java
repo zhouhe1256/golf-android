@@ -1,7 +1,6 @@
 
 package com.bjcathay.qt.adapter;
 
-import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.activity.PlaceListActivity;
 import com.bjcathay.qt.activity.ProductSearchResultActivity;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
@@ -27,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class PlaceSearchListAdapter extends BaseAdapter {
     private List<ProductModel> items;
@@ -53,7 +51,6 @@ public class PlaceSearchListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -121,8 +118,6 @@ public class PlaceSearchListAdapter extends BaseAdapter {
                 long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
                 long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60))
                         / (1000 * 60);
-                // long mm = (diff - days * (1000 * 60 * 60 * 24) - hours *
-                // (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
                 holder.tuanCount.setText("仅剩" + days + "天" + hours + "小时" + minutes + "分");
                 holder.tuanCount.setBackgroundResource(R.drawable.tuangou_bg);
                 Resources resource = context.getResources();
@@ -131,7 +126,6 @@ public class PlaceSearchListAdapter extends BaseAdapter {
                 if (csl != null) {
                     holder.tuanCount.setTextColor(csl);
                 }
-                // holder.tuanCount.setTextColor(Color.WHITE);
                 holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
             }
         } else if ("SPECIAL".equals(productModel.getType())) {
@@ -161,7 +155,6 @@ public class PlaceSearchListAdapter extends BaseAdapter {
             holder.tuanImg.setVisibility(View.GONE);
             holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
-            // holder.tuanCount.setText("还差" + productModel.getAmount() + "成团");
         } else {
             holder.tuanImg.setVisibility(View.GONE);
             holder.tuanCount.setVisibility(View.INVISIBLE);

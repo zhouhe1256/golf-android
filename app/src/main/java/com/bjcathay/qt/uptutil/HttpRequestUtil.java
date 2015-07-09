@@ -2,6 +2,7 @@
  * Copyright(c)2012 Beijing PeaceMap Co. Ltd.
  * All right reserved. 
  */
+
 package com.bjcathay.qt.uptutil;
 
 import android.content.Context;
@@ -58,13 +59,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-
 /**
  * 网络操作类
  */
 public class HttpRequestUtil {
     private Context context;
-
 
     /**
      * 获取远程数据
@@ -78,14 +77,15 @@ public class HttpRequestUtil {
             String url_ = "https://api.weibo.com/2/statuses/friends_timeline.json?source=4191347294";
             HttpGet httpGetRequest = new HttpGet(url_);
             List<NameValuePair> httpParams = new ArrayList<NameValuePair>();
-            /*if(paramMap!=null && !paramMap.isEmpty()){
-                for (Iterator<Map.Entry<String,String>> it = paramMap.entrySet().iterator(); it.hasNext();) {
-                    String key = it.next().getKey();
-                    String value = it.next().getValue();
-                    httpParams.add(new BasicNameValuePair(key,value));
-                }
-               // httpPostRequest.setEntity(new UrlEncodedFormEntity(httpParams,HTTP.UTF_8));
-            }*/
+            /*
+             * if(paramMap!=null && !paramMap.isEmpty()){ for
+             * (Iterator<Map.Entry<String,String>> it =
+             * paramMap.entrySet().iterator(); it.hasNext();) { String key =
+             * it.next().getKey(); String value = it.next().getValue();
+             * httpParams.add(new BasicNameValuePair(key,value)); } //
+             * httpPostRequest.setEntity(new
+             * UrlEncodedFormEntity(httpParams,HTTP.UTF_8)); }
+             */
             SchemeRegistry schReg = new SchemeRegistry();
             schReg.register(new Scheme("http", PlainSocketFactory
                     .getSocketFactory(), 80));
@@ -94,19 +94,25 @@ public class HttpRequestUtil {
             ClientConnectionManager conMgr = new ThreadSafeClientConnManager(
                     null, schReg);
             // SSLSocketFactory socketFactory = new SSLSocketFactory(keyStore);
-            /*Scheme sch = new Scheme("https", socketFactory, 443);
-            HttpClient mHttpClient = new DefaultHttpClient();
-            mHttpClient.getConnectionManager().getSchemeRegistry().register(sch);*/
+            /*
+             * Scheme sch = new Scheme("https", socketFactory, 443); HttpClient
+             * mHttpClient = new DefaultHttpClient();
+             * mHttpClient.getConnectionManager
+             * ().getSchemeRegistry().register(sch);
+             */
 
-
-            //sClient = new DefaultHttpClient(conMgr, params);
+            // sClient = new DefaultHttpClient(conMgr, params);
             DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
             // defaultHttpClient.getConnectionManager().getSchemeRegistry().getSchemeRegistry().register(schReg);
-            /*if(IntentUtil.getNetType(mContext).equals(IntentUtil.Type._CMWAP)){
-                HttpHost proxy = new HttpHost("10.0.0.172", 80);
-                defaultHttpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-            }*/
-            defaultHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 6000);
+            /*
+             * if(IntentUtil.getNetType(mContext).equals(IntentUtil.Type._CMWAP))
+             * { HttpHost proxy = new HttpHost("10.0.0.172", 80);
+             * defaultHttpClient
+             * .getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+             * }
+             */
+            defaultHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
+                    6000);
             defaultHttpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 6000);
             HttpResponse httpResponse = defaultHttpClient.execute(httpGetRequest);
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
@@ -131,7 +137,8 @@ public class HttpRequestUtil {
                 String proxyStr = mCursor.getString(mCursor.getColumnIndex("proxy"));
                 if (proxyStr != null && proxyStr.trim().length() > 0) {
                     HttpHost proxy = new HttpHost(proxyStr, 80);
-                    //client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
+                    // client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY,
+                    // proxy);
                 }
                 mCursor.close();
             }
@@ -142,12 +149,13 @@ public class HttpRequestUtil {
      * Post请求连接Https服务
      *
      * @param serverURL 请求地址
-     * @param jsonStr   请求报文
+     * @param jsonStr 请求报文
      * @return
      * @throws Exception
      */
 
-    public static synchronized String doHttpsPost(String serverURL, String jsonStr) throws Exception {
+    public static synchronized String doHttpsPost(String serverURL, String jsonStr)
+            throws Exception {
         String url_ = "https://api.weibo.com/2/statuses/friends_timeline.json?source=4191347294";
         // 参数
         HttpParams httpParameters = new BasicHttpParams();
@@ -185,7 +193,7 @@ public class HttpRequestUtil {
      * Get请求连接Https服务
      *
      * @param serverURL 请求地址
-     * @param jsonStr   请求报文
+     * @param jsonStr 请求报文
      * @return
      * @throws Exception
      */
@@ -201,14 +209,15 @@ public class HttpRequestUtil {
         HttpClient hc = initHttpClient(httpParameters);
         HttpGet get = new HttpGet(url_);
         // 发送数据类型
-       /* get.addHeader("Content-Type", "application/json;charset=utf-8");
-        // 接受数据类型
-        get.addHeader("Accept", "application/json");*/
+        /*
+         * get.addHeader("Content-Type", "application/json;charset=utf-8"); //
+         * 接受数据类型 get.addHeader("Accept", "application/json");
+         */
         // 请求报文
-        //StringEntity entity = new StringEntity(jsonStr, "UTF-8");
-        //get.setEntity(entity);
+        // StringEntity entity = new StringEntity(jsonStr, "UTF-8");
+        // get.setEntity(entity);
         get.setParams(httpParameters);
-        //client=initHttpClient(httpParameters);
+        // client=initHttpClient(httpParameters);
         HttpResponse response = null;
         try {
             response = hc.execute(get);
@@ -223,8 +232,6 @@ public class HttpRequestUtil {
         } else
             throw new Exception("StatusCode is " + sCode);
     }
-
-
 
     private static HttpClient client = null;
 
@@ -241,7 +248,7 @@ public class HttpRequestUtil {
                 trustStore.load(null, null);
 
                 SSLSocketFactory sf = new SSLSocketFactoryImp(trustStore);
-                //允许所有主机的验证
+                // 允许所有主机的验证
                 sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
                 HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
@@ -289,12 +296,14 @@ public class HttpRequestUtil {
                         throws CertificateException {
                 }
             };
-            sslContext.init(null, new TrustManager[]{tm}, null);
+            sslContext.init(null, new TrustManager[] {
+                tm
+            }, null);
         }
 
         @Override
         public Socket createSocket(Socket socket, String host, int port,
-                                   boolean autoClose) throws IOException, UnknownHostException {
+                boolean autoClose) throws IOException, UnknownHostException {
             return sslContext.getSocketFactory().createSocket(socket, host,
                     port, autoClose);
         }
@@ -306,9 +315,7 @@ public class HttpRequestUtil {
     }
 
     /**
-     * 1.浏览器访问https地址，保存提示的证书到本地，放到android项目中的assets目录。
-     * 2.导入证书，代码如下。
-     * 3.把证书添加为信任
+     * 1.浏览器访问https地址，保存提示的证书到本地，放到android项目中的assets目录。 2.导入证书，代码如下。 3.把证书添加为信任
      */
     public static String requestHTTPSPage(Context context, String mUrl) {
         InputStream ins = null;

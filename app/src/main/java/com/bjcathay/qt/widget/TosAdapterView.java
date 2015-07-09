@@ -33,23 +33,26 @@ import android.widget.Adapter;
 import android.widget.ListView;
 
 /**
- * An AdapterView is a view whose children are determined by an {@link android.widget.Adapter}.
- *
+ * An AdapterView is a view whose children are determined by an
+ * {@link android.widget.Adapter}.
  * <p>
- * See {@link android.widget.ListView}, {@link android.widget.GridView}, {@link android.widget.Spinner} and {@link TosGallery} for commonly used
+ * See {@link android.widget.ListView}, {@link android.widget.GridView},
+ * {@link android.widget.Spinner} and {@link TosGallery} for commonly used
  * subclasses of AdapterView.
  */
 public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
 
     /**
-     * The item view type returned by {@link android.widget.Adapter#getItemViewType(int)} when the adapter does not
-     * want the item's view recycled.
+     * The item view type returned by
+     * {@link android.widget.Adapter#getItemViewType(int)} when the adapter does
+     * not want the item's view recycled.
      */
     public static final int ITEM_VIEW_TYPE_IGNORE = -1;
 
     /**
-     * The item view type returned by {@link android.widget.Adapter#getItemViewType(int)} when the item is a header
-     * or footer.
+     * The item view type returned by
+     * {@link android.widget.Adapter#getItemViewType(int)} when the item is a
+     * header or footer.
      */
     public static final int ITEM_VIEW_TYPE_HEADER_OR_FOOTER = -2;
 
@@ -60,8 +63,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     int mFirstPosition = 0;
 
     /**
-     * The offset in pixels from the top of the AdapterView to the top of the view to select during
-     * the next layout.
+     * The offset in pixels from the top of the AdapterView to the top of the
+     * view to select during the next layout.
      */
     int mSpecificTop;
 
@@ -86,8 +89,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     boolean mNeedSync = false;
 
     /**
-     * Indicates whether to sync based on the selection or position. Possible values are
-     * {@link #SYNC_SELECTED_POSITION} or {@link #SYNC_FIRST_POSITION}.
+     * Indicates whether to sync based on the selection or position. Possible
+     * values are {@link #SYNC_SELECTED_POSITION} or
+     * {@link #SYNC_FIRST_POSITION}.
      */
     int mSyncMode;
 
@@ -142,7 +146,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     boolean mDataChanged;
 
     /**
-     * The position within the adapter's data set of the item to select during the next layout.
+     * The position within the adapter's data set of the item to select during
+     * the next layout.
      */
     @ViewDebug.ExportedProperty
     int mNextSelectedPosition = INVALID_POSITION;
@@ -153,7 +158,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     long mNextSelectedRowId = INVALID_ROW_ID;
 
     /**
-     * The position within the adapter's data set of the currently selected item.
+     * The position within the adapter's data set of the currently selected
+     * item.
      */
     @ViewDebug.ExportedProperty
     int mSelectedPosition = INVALID_POSITION;
@@ -180,8 +186,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     int mOldItemCount;
 
     /**
-     * Represents an invalid position. All valid positions are in the range 0 to 1 less than the
-     * number of items in the current adapter.
+     * Represents an invalid position. All valid positions are in the range 0 to
+     * 1 less than the number of items in the current adapter.
      */
     public static final int INVALID_POSITION = -1;
 
@@ -201,9 +207,10 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     long mOldSelectedRowId = INVALID_ROW_ID;
 
     /**
-     * Indicates what focusable state is requested when calling setFocusable(). In addition to this,
-     * this view has other criteria for actually determining the focusable state (such as whether
-     * its empty or the text filter is shown).
+     * Indicates what focusable state is requested when calling setFocusable().
+     * In addition to this, this view has other criteria for actually
+     * determining the focusable state (such as whether its empty or the text
+     * filter is shown).
      *
      * @see #setFocusable(boolean)
      * @see #checkFocus()
@@ -213,8 +220,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
 
     private SelectionNotifier mSelectionNotifier;
     /**
-     * When set to true, calls to requestLayout() will not propagate up the parent hierarchy. This
-     * is used to layout the children during a layout pass.
+     * When set to true, calls to requestLayout() will not propagate up the
+     * parent hierarchy. This is used to layout the children during a layout
+     * pass.
      */
     boolean mBlockLayoutRequests = false;
 
@@ -231,20 +239,21 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Interface definition for a callback to be invoked when an item in this AdapterView has been
-     * clicked.
+     * Interface definition for a callback to be invoked when an item in this
+     * AdapterView has been clicked.
      */
     public interface OnItemClickListener {
 
         /**
-         * Callback method to be invoked when an item in this AdapterView has been clicked.
+         * Callback method to be invoked when an item in this AdapterView has
+         * been clicked.
          * <p>
-         * Implementers can call getItemAtPosition(position) if they need to access the data
-         * associated with the selected item.
+         * Implementers can call getItemAtPosition(position) if they need to
+         * access the data associated with the selected item.
          *
          * @param parent The AdapterView where the click happened.
-         * @param view The view within the AdapterView that was clicked (this will be a view
-         *            provided by the adapter)
+         * @param view The view within the AdapterView that was clicked (this
+         *            will be a view provided by the adapter)
          * @param position The position of the view in the adapter.
          * @param id The row id of the item that was clicked.
          */
@@ -252,7 +261,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Register a callback to be invoked when an item in this AdapterView has been clicked.
+     * Register a callback to be invoked when an item in this AdapterView has
+     * been clicked.
      *
      * @param listener The callback that will be invoked.
      */
@@ -261,8 +271,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * @return The callback to be invoked with an item in this AdapterView has been clicked, or null
-     *         id no callback has been set.
+     * @return The callback to be invoked with an item in this AdapterView has
+     *         been clicked, or null id no callback has been set.
      */
     public final OnItemClickListener getOnItemClickListener() {
         return mOnItemClickListener;
@@ -274,8 +284,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
      * @param view The view within the AdapterView that was clicked.
      * @param position The position of the view in the adapter.
      * @param id The row id of the item that was clicked.
-     * @return True if there was an assigned OnItemClickListener that was called, false otherwise is
-     *         returned.
+     * @return True if there was an assigned OnItemClickListener that was
+     *         called, false otherwise is returned.
      */
     public boolean performItemClick(View view, int position, long id) {
         if (mOnItemClickListener != null) {
@@ -288,21 +298,19 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Interface definition for a callback to be invoked when an item in this view has been clicked
-     * and held.
+     * Interface definition for a callback to be invoked when an item in this
+     * view has been clicked and held.
      */
     public interface OnItemLongClickListener {
         /**
-         * Callback method to be invoked when an item in this view has been clicked and held.
-         *
-         * Implementers can call getItemAtPosition(position) if they need to access the data
-         * associated with the selected item.
+         * Callback method to be invoked when an item in this view has been
+         * clicked and held. Implementers can call getItemAtPosition(position)
+         * if they need to access the data associated with the selected item.
          *
          * @param parent The AbsListView where the click happened
          * @param view The view within the AbsListView that was clicked
          * @param position The position of the view in the list
          * @param id The row id of the item that was clicked
-         *
          * @return true if the callback consumed the long click, false otherwise
          */
         boolean onItemLongClick(TosAdapterView<?> parent, View view, int position, long id);
@@ -313,7 +321,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     // Note: Support for the item double click.
 
     /**
-     * Register a callback to be invoked when an item in this AdapterView has been clicked.
+     * Register a callback to be invoked when an item in this AdapterView has
+     * been clicked.
      *
      * @param listener The callback that will be invoked.
      */
@@ -327,8 +336,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
      * @param view The view within the AdapterView that was clicked.
      * @param position The position of the view in the adapter.
      * @param id The row id of the item that was clicked.
-     * @return True if there was an assigned OnItemClickListener that was called, false otherwise is
-     *         returned.
+     * @return True if there was an assigned OnItemClickListener that was
+     *         called, false otherwise is returned.
      */
     public boolean performItemDoubleClick(View view, int position, long id) {
         if (mOnItemDoubleClickListener != null) {
@@ -341,21 +350,20 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Interface definition for a callbace to be invoked when an item in this view has been double
-     * clicked and held.
+     * Interface definition for a callbace to be invoked when an item in this
+     * view has been double clicked and held.
      */
     public interface OnItemDoubleClickListener {
         /**
-         * Callback method to be invoked when an item in this view has been double clicked and held.
-         *
-         * Implementers can call getItemAtPosition(position) if they need to access the data
+         * Callback method to be invoked when an item in this view has been
+         * double clicked and held. Implementers can call
+         * getItemAtPosition(position) if they need to access the data
          * associated with the selected item.
          *
          * @param parent The AbsListView where the click happened
          * @param view The view within the AbsListView that was clicked
          * @param position The position of the view in the list
          * @param id The row id of the item that was clicked
-         *
          * @return true if the callback consumed the long click, false otherwise
          */
         boolean onItemDoubleClick(TosAdapterView<?> parent, View view, int position, long id);
@@ -364,7 +372,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     // Added by LiHong at 2012/02/03 end =======================
 
     /**
-     * Register a callback to be invoked when an item in this AdapterView has been clicked and held
+     * Register a callback to be invoked when an item in this AdapterView has
+     * been clicked and held
      *
      * @param listener The callback that will run
      */
@@ -376,23 +385,22 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * @return The callback to be invoked with an item in this AdapterView has been clicked and
-     *         held, or null id no callback as been set.
+     * @return The callback to be invoked with an item in this AdapterView has
+     *         been clicked and held, or null id no callback as been set.
      */
     public final OnItemLongClickListener getOnItemLongClickListener() {
         return mOnItemLongClickListener;
     }
 
     /**
-     * Interface definition for a callback to be invoked when an item in this view has been
-     * selected.
+     * Interface definition for a callback to be invoked when an item in this
+     * view has been selected.
      */
     public interface OnItemSelectedListener {
         /**
-         * Callback method to be invoked when an item in this view has been selected.
-         *
-         * Impelmenters can call getItemAtPosition(position) if they need to access the data
-         * associated with the selected item.
+         * Callback method to be invoked when an item in this view has been
+         * selected. Impelmenters can call getItemAtPosition(position) if they
+         * need to access the data associated with the selected item.
          *
          * @param parent The AdapterView where the selection happened
          * @param view The view within the AdapterView that was clicked
@@ -402,8 +410,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
         void onItemSelected(TosAdapterView<?> parent, View view, int position, long id);
 
         /**
-         * Callback method to be invoked when the selection disappears from this view. The selection
-         * can disappear for instance when touch is activated or when the adapter becomes empty.
+         * Callback method to be invoked when the selection disappears from this
+         * view. The selection can disappear for instance when touch is
+         * activated or when the adapter becomes empty.
          *
          * @param parent The AdapterView that now contains no selected item.
          */
@@ -411,7 +420,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Register a callback to be invoked when an item in this AdapterView has been selected.
+     * Register a callback to be invoked when an item in this AdapterView has
+     * been selected.
      *
      * @param listener The callback that will run
      */
@@ -427,7 +437,6 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
      * Extra menu information provided to the
      * {@link android.view.View.OnCreateContextMenuListener#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo) }
      * callback when a context menu is brought up for this AdapterView.
-     *
      */
     public static class AdapterContextMenuInfo implements ContextMenu.ContextMenuInfo {
 
@@ -438,13 +447,14 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
         }
 
         /**
-         * The child view for which the context menu is being displayed. This will be one of the
-         * children of this AdapterView.
+         * The child view for which the context menu is being displayed. This
+         * will be one of the children of this AdapterView.
          */
         public View targetView;
 
         /**
-         * The position in the adapter for which the context menu is being displayed.
+         * The position in the adapter for which the context menu is being
+         * displayed.
          */
         public int position;
 
@@ -462,17 +472,18 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     public abstract T getAdapter();
 
     /**
-     * Sets the adapter that provides the data and the views to represent the data in this widget.
+     * Sets the adapter that provides the data and the views to represent the
+     * data in this widget.
      * 
      * @param adapter The adapter to use to create this view's content.
      */
     public abstract void setAdapter(T adapter);
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param child Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
@@ -481,50 +492,53 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param child Ignored.
      * @param index Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
     public void addView(View child, int index) {
-        throw new UnsupportedOperationException("addView(View, int) is not supported in AdapterView");
+        throw new UnsupportedOperationException(
+                "addView(View, int) is not supported in AdapterView");
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param child Ignored.
      * @param params Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
     public void addView(View child, LayoutParams params) {
-        throw new UnsupportedOperationException("addView(View, LayoutParams) " + "is not supported in AdapterView");
+        throw new UnsupportedOperationException("addView(View, LayoutParams) "
+                + "is not supported in AdapterView");
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param child Ignored.
      * @param index Ignored.
      * @param params Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
     public void addView(View child, int index, LayoutParams params) {
-        throw new UnsupportedOperationException("addView(View, int, LayoutParams) " + "is not supported in AdapterView");
+        throw new UnsupportedOperationException("addView(View, int, LayoutParams) "
+                + "is not supported in AdapterView");
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param child Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
@@ -533,10 +547,10 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @param index Ignored.
-     * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
     @Override
@@ -545,7 +559,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * This method is not supported and throws an UnsupportedOperationException when called.
+     * This method is not supported and throws an UnsupportedOperationException
+     * when called.
      * 
      * @throws UnsupportedOperationException Every time this method is invoked.
      */
@@ -560,10 +575,11 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Return the position of the currently selected item within the adapter's data set
+     * Return the position of the currently selected item within the adapter's
+     * data set
      * 
-     * @return int Position (starting at 0), or {@link #INVALID_POSITION} if there is nothing
-     *         selected.
+     * @return int Position (starting at 0), or {@link #INVALID_POSITION} if
+     *         there is nothing selected.
      */
     @ViewDebug.CapturedViewProperty
     public int getSelectedItemPosition() {
@@ -571,8 +587,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * @return The id corresponding to the currently selected item, or {@link #INVALID_ROW_ID} if
-     *         nothing is selected.
+     * @return The id corresponding to the currently selected item, or
+     *         {@link #INVALID_ROW_ID} if nothing is selected.
      */
     @ViewDebug.CapturedViewProperty
     public long getSelectedItemId() {
@@ -580,13 +596,14 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * @return The view corresponding to the currently selected item, or null if nothing is selected
+     * @return The view corresponding to the currently selected item, or null if
+     *         nothing is selected
      */
     public abstract View getSelectedView();
 
     /**
-     * @return The data corresponding to the currently selected item, or null if there is nothing
-     *         selected.
+     * @return The data corresponding to the currently selected item, or null if
+     *         there is nothing selected.
      */
     public Object getSelectedItem() {
         T adapter = getAdapter();
@@ -599,8 +616,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * @return The number of items owned by the Adapter associated with this AdapterView. (This is
-     *         the number of data items, which may be larger than the number of visible view.)
+     * @return The number of items owned by the Adapter associated with this
+     *         AdapterView. (This is the number of data items, which may be
+     *         larger than the number of visible view.)
      */
     @ViewDebug.CapturedViewProperty
     public int getCount() {
@@ -608,13 +626,14 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Get the position within the adapter's data set for the view, where view is a an adapter item
-     * or a descendant of an adapter item.
+     * Get the position within the adapter's data set for the view, where view
+     * is a an adapter item or a descendant of an adapter item.
      * 
-     * @param view an adapter item, or a descendant of an adapter item. This must be visible in this
-     *            AdapterView at the time of the call.
-     * @return the position within the adapter's data set of the view, or {@link #INVALID_POSITION}
-     *         if the view does not correspond to a list item (or it is not currently visible).
+     * @param view an adapter item, or a descendant of an adapter item. This
+     *            must be visible in this AdapterView at the time of the call.
+     * @return the position within the adapter's data set of the view, or
+     *         {@link #INVALID_POSITION} if the view does not correspond to a
+     *         list item (or it is not currently visible).
      */
     public int getPositionForView(View view) {
         View listItem = view;
@@ -641,7 +660,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Returns the position within the adapter's data set for the first item displayed on screen.
+     * Returns the position within the adapter's data set for the first item
+     * displayed on screen.
      * 
      * @return The position within the adapter's data set
      */
@@ -650,7 +670,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Returns the position within the adapter's data set for the last item displayed on screen.
+     * Returns the position within the adapter's data set for the last item
+     * displayed on screen.
      * 
      * @return The position within the adapter's data set
      */
@@ -659,8 +680,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Sets the currently selected item. To support accessibility subclasses that override this
-     * method must invoke the overriden super method first.
+     * Sets the currently selected item. To support accessibility subclasses
+     * that override this method must invoke the overriden super method first.
      * 
      * @param position Index (starting at 0) of the data item to be selected.
      */
@@ -678,9 +699,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * When the current adapter is empty, the AdapterView can display a special view call the empty
-     * view. The empty view is used to provide feedback to the user that no data is available in
-     * this AdapterView.
+     * When the current adapter is empty, the AdapterView can display a special
+     * view call the empty view. The empty view is used to provide feedback to
+     * the user that no data is available in this AdapterView.
      * 
      * @return The view to show if the adapter is empty.
      */
@@ -689,8 +710,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Indicates whether this view is in filter mode. Filter mode can for instance be enabled by a
-     * user when typing on the keyboard.
+     * Indicates whether this view is in filter mode. Filter mode can for
+     * instance be enabled by a user when typing on the keyboard.
      * 
      * @return True if the view is in filter mode, false otherwise.
      */
@@ -728,7 +749,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
         final T adapter = getAdapter();
         final boolean empty = adapter == null || adapter.getCount() == 0;
         final boolean focusable = !empty || isInFilterMode();
-        // The order in which we set focusable in touch mode/focusable may matter
+        // The order in which we set focusable in touch mode/focusable may
+        // matter
         // for the client, see View.setFocusableInTouchMode() comments for more
         // details
         super.setFocusableInTouchMode(focusable && mDesiredFocusableInTouchModeState);
@@ -739,9 +761,10 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Update the status of the list based on the empty parameter. If empty is true and we have an
-     * empty view, display it. In all the other cases, make sure that the listview is VISIBLE and
-     * that the empty view is GONE (if it's not null).
+     * Update the status of the list based on the empty parameter. If empty is
+     * true and we have an empty view, display it. In all the other cases, make
+     * sure that the listview is VISIBLE and that the empty view is GONE (if
+     * it's not null).
      */
     private void updateEmptyStatus(boolean empty) {
         if (isInFilterMode()) {
@@ -753,7 +776,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
                 mEmptyView.setVisibility(View.VISIBLE);
                 setVisibility(View.GONE);
             } else {
-                // If the caller just removed our empty view, make sure the list view is visible
+                // If the caller just removed our empty view, make sure the list
+                // view is visible
                 setVisibility(View.VISIBLE);
             }
 
@@ -766,7 +790,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
 
                 // Added by Li Hong at 2011/08/05 begin
                 //
-                // Note: mLeft, mTop, mRight and mBottom are hide to subclasses, so we
+                // Note: mLeft, mTop, mRight and mBottom are hide to subclasses,
+                // so we
                 // should use methods instead of members.
 
                 this.layout(getLeft(), getTop(), getRight(), getBottom());
@@ -827,9 +852,11 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
             mOldItemCount = mItemCount;
             mItemCount = getAdapter().getCount();
 
-            // Detect the case where a cursor that was previously invalidated has
+            // Detect the case where a cursor that was previously invalidated
+            // has
             // been repopulated with new data.
-            if (TosAdapterView.this.getAdapter().hasStableIds() && mInstanceState != null && mOldItemCount == 0
+            if (TosAdapterView.this.getAdapter().hasStableIds() && mInstanceState != null
+                    && mOldItemCount == 0
                     && mItemCount > 0) {
                 TosAdapterView.this.onRestoreInstanceState(mInstanceState);
                 mInstanceState = null;
@@ -845,7 +872,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
             mDataChanged = true;
 
             if (TosAdapterView.this.getAdapter().hasStableIds()) {
-                // Remember the current state for the case where our hosting activity is being
+                // Remember the current state for the case where our hosting
+                // activity is being
                 // stopped and later restarted
                 mInstanceState = TosAdapterView.this.onSaveInstanceState();
             }
@@ -915,7 +943,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
         int selection = this.getSelectedItemPosition();
         if (selection >= 0) {
             View v = getSelectedView();
-            mOnItemSelectedListener.onItemSelected(this, v, selection, getAdapter().getItemId(selection));
+            mOnItemSelectedListener.onItemSelected(this, v, selection,
+                    getAdapter().getItemId(selection));
         } else {
             mOnItemSelectedListener.onNothingSelected(this);
         }
@@ -1027,12 +1056,13 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Searches the adapter for a position matching mSyncRowId. The search starts at mSyncPosition
-     * and then alternates between moving up and moving down until 1) we find the right position, or
-     * 2) we run out of time, or 3) we have looked at every position
+     * Searches the adapter for a position matching mSyncRowId. The search
+     * starts at mSyncPosition and then alternates between moving up and moving
+     * down until 1) we find the right position, or 2) we run out of time, or 3)
+     * we have looked at every position
      * 
-     * @return Position of the row that matches mSyncRowId, or {@link #INVALID_POSITION} if it can't
-     *         be found
+     * @return Position of the row that matches mSyncRowId, or
+     *         {@link #INVALID_POSITION} if it can't be found
      */
     int findSyncPosition() {
         int count = mItemCount;
@@ -1118,8 +1148,9 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
      * 
      * @param position The starting position to look at.
      * @param lookDown Whether to look down for other positions.
-     * @return The next selectable position starting at position and then searching either up or
-     *         down. Returns {@link #INVALID_POSITION} if nothing can be found.
+     * @return The next selectable position starting at position and then
+     *         searching either up or down. Returns {@link #INVALID_POSITION} if
+     *         nothing can be found.
      */
     int lookForSelectablePosition(int position, boolean lookDown) {
         return position;
@@ -1138,7 +1169,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     /**
      * Utility to keep mNextSelectedPosition and mNextSelectedRowId in sync
      * 
-     * @param position Intended value for mSelectedPosition the next time we go through layout
+     * @param position Intended value for mSelectedPosition the next time we go
+     *            through layout
      */
     void setNextSelectedPositionInt(int position) {
         mNextSelectedPosition = position;
@@ -1151,8 +1183,8 @@ public abstract class TosAdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
-     * Remember enough information to restore the screen state when the data has changed.
-     * 
+     * Remember enough information to restore the screen state when the data has
+     * changed.
      */
     void rememberSyncState() {
         if (getChildCount() > 0) {

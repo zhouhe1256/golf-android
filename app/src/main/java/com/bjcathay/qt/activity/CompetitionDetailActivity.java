@@ -1,6 +1,6 @@
+
 package com.bjcathay.qt.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.util.WebJSInterface;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -33,7 +34,8 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-4-28.
  */
-public class CompetitionDetailActivity extends FragmentActivity implements ICallback, View.OnClickListener {
+public class CompetitionDetailActivity extends FragmentActivity implements ICallback,
+        View.OnClickListener {
     private TopView topView;
     private Long id;
     private EventModel eventModel;
@@ -72,7 +74,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("tel:")) {//拨打电话
+                if (url.startsWith("tel:")) {// 拨打电话
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -90,7 +92,8 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
         // 先建立桥梁类，将要调用的Android代码写入桥梁类的public函数
         // 绑定桥梁类和WebView中运行的JavaScript代码
         // 将一个对象起一个别名传入，在JS代码中用这个别名代替这个对象
-        webview.addJavascriptInterface(new WebJSInterface(getApplicationContext(), this, webview), "golfJSInterface");
+        webview.addJavascriptInterface(new WebJSInterface(getApplicationContext(), this, webview),
+                "golfJSInterface");
         webview.setWebChromeClient(webChromeClient);
         webview.getSettings().setJavaScriptEnabled(true);
 
@@ -99,7 +102,8 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                 url += "?";
             if (GApplication.getInstance().isLogin()) {
                 if (!url.contains("token"))
-                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+                    url += "&token="
+                            + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
 
             }
             webview.loadUrl(url);
@@ -112,7 +116,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
             if (url.equals(webview.getUrl())) {
                 finish();
             } else {
-                webview.goBack(); //goBack()表示返回WebView的上一页面
+                webview.goBack(); // goBack()表示返回WebView的上一页面
             }
             return true;
         } else {
@@ -140,7 +144,8 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                 url += "?";
             if (GApplication.getInstance().isLogin()) {
                 if (!url.contains("token"))
-                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+                    url += "&token="
+                            + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
 
             }
             webview.loadUrl(url);
@@ -161,13 +166,18 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                             public void call(Arguments arguments) {
                                 JSONObject jsonObject = arguments.get(0);
                                 if (jsonObject.optBoolean("success")) {
-                                    // DialogUtil.showMessage("报名成功");
-                                    Intent intent = new Intent(CompetitionDetailActivity.this, AttendSucActivity.class);
+                                    Intent intent = new Intent(CompetitionDetailActivity.this,
+                                            AttendSucActivity.class);
                                     intent.putExtra("title", eventModel.getName());
                                     ViewUtil.startActivity(CompetitionDetailActivity.this, intent);
                                 } else {
-                                    int code = jsonObject.optInt("code");
-                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    String errorMessage = jsonObject.optString("message");
+                                    if (!StringUtils.isEmpty(errorMessage))
+                                        DialogUtil.showMessage(errorMessage);
+                                    else {
+                                        int code = jsonObject.optInt("code");
+                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    }
                                 }
                             }
                         }).fail(new ICallback() {
@@ -177,9 +187,11 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                             }
                         });
                     } else {
-                        Intent intent = new Intent(CompetitionDetailActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(CompetitionDetailActivity.this,
+                                LoginActivity.class);
                         ViewUtil.startActivity(CompetitionDetailActivity.this, intent);
-                        CompetitionDetailActivity.this.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+                        CompetitionDetailActivity.this.overridePendingTransition(
+                                R.anim.activity_open, R.anim.activity_close);
                     }
                 break;
             case R.id.title_back_img:
@@ -191,7 +203,8 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                         @Override
                         public void call(Arguments arguments) {
                             shareModel = arguments.get(0);
-                            ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this, shareModel);
+                            ShareUtil.getInstance().shareDemo(CompetitionDetailActivity.this,
+                                    shareModel);
                         }
                     });
                 else
@@ -208,13 +221,15 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                 url += "?";
             if (GApplication.getInstance().isLogin()) {
                 if (!url.contains("token"))
-                    url += "&token=" + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
+                    url += "&token="
+                            + PreferencesUtils.getString(this, PreferencesConstant.API_TOKEN);
 
             }
             webview.loadUrl(url);
         }
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);

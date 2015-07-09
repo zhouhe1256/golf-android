@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-6.
+ * Created by dengt on 15-5-6.
  */
 public class EventListModel implements Serializable {
 
@@ -34,13 +35,15 @@ public class EventListModel implements Serializable {
         this.events = events;
     }
 
-    private static IContentDecoder<EventListModel> decoder = new IContentDecoder.BeanDecoder<EventListModel>(EventListModel.class);
+    private static IContentDecoder<EventListModel> decoder = new IContentDecoder.BeanDecoder<EventListModel>(
+            EventListModel.class);
 
     public static IPromise get(int page) {
         return Http.instance().get(ApiUrl.EVENT_LIST).
                 contentDecoder(decoder).
                 param("page", page).run();
     }
+
     public static IPromise getMyEvent(int page) {
         return Http.instance().get(ApiUrl.MY_EVENT).
                 contentDecoder(decoder).

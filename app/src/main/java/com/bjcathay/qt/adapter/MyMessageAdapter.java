@@ -1,8 +1,8 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +15,15 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.activity.CompetitionDetailActivity;
-import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.MyCompetitionActivity;
-import com.bjcathay.qt.activity.MyMessageActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
-import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import org.json.JSONObject;
 
@@ -34,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-4-29.
+ * Created by dengt on 15-4-29.
  */
 public class MyMessageAdapter extends BaseAdapter {
     private List<MessageModel> items;
@@ -49,7 +46,7 @@ public class MyMessageAdapter extends BaseAdapter {
         this.items = items;
         this.context = activity;
         nowPosition = 0;
-        dialog=new Dialog(context,R.style.myMessageDialogTheme);
+        dialog = new Dialog(context, R.style.myMessageDialogTheme);
         dialog.setContentView(R.layout.dialog_message_delete);
         dialog.findViewById(R.id.dialog_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +59,11 @@ public class MyMessageAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        // return 10;
     }
 
     @Override
     public Object getItem(int i) {
         return items.get(i);
-        // return 0;
     }
 
     @Override
@@ -80,7 +75,8 @@ public class MyMessageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_message_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_message_list,
+                    parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -102,13 +98,17 @@ public class MyMessageAdapter extends BaseAdapter {
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {
-                            // ((MyMessageActivity) (context)).onRefresh();
                             items.get(items.indexOf(messageModel)).setStatus("READ");
                             holder.imageView.setVisibility(View.INVISIBLE);
                             notifyDataSetChanged();
                         } else {
-                            int code = jsonObject.optInt("code");
-                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            String errorMessage = jsonObject.optString("message");
+                            if (!StringUtils.isEmpty(errorMessage))
+                                DialogUtil.showMessage(errorMessage);
+                            else {
+                                int code = jsonObject.optInt("code");
+                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            }
                         }
                     }
                 });
@@ -126,21 +126,27 @@ public class MyMessageAdapter extends BaseAdapter {
                     nowPosition = position;
                     holder.detail.setVisibility(View.VISIBLE);
                     if ("UNREAD".equals(messageModel.getStatus())) {
-                        MessageListModel.changeAlreadyRead(messageModel.getId()).done(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                JSONObject jsonObject = arguments.get(0);
-                                if (jsonObject.optBoolean("success")) {
-                                    // ((MyMessageActivity) (context)).onRefresh();
-                                    items.get(items.indexOf(messageModel)).setStatus("READ");
-                                    holder.imageView.setVisibility(View.INVISIBLE);
-                                    notifyDataSetChanged();
-                                } else {
-                                    int code = jsonObject.optInt("code");
-                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                }
-                            }
-                        });
+                        MessageListModel.changeAlreadyRead(messageModel.getId()).done(
+                                new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        JSONObject jsonObject = arguments.get(0);
+                                        if (jsonObject.optBoolean("success")) {
+                                            items.get(items.indexOf(messageModel))
+                                                    .setStatus("READ");
+                                            holder.imageView.setVisibility(View.INVISIBLE);
+                                            notifyDataSetChanged();
+                                        } else {
+                                            String errorMessage = jsonObject.optString("message");
+                                            if (!StringUtils.isEmpty(errorMessage))
+                                                DialogUtil.showMessage(errorMessage);
+                                            else {
+                                                int code = jsonObject.optInt("code");
+                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            }
+                                        }
+                                    }
+                                });
                     }
                     notifyDataSetChanged();
                 } else {
@@ -154,28 +160,24 @@ public class MyMessageAdapter extends BaseAdapter {
                 if (holder.detail.getVisibility() == View.VISIBLE) {
 
                     if ("ORDER".equals(messageModel.getType())) {
-                        OrderModel.orderDetail(Long.valueOf(messageModel.getTarget())).done(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                OrderModel orderModel=arguments.get(0);
-                                Intent intent = new Intent(context, OrderDetailActivity.class);
-                                intent.setAction("message");
-                                intent.putExtra("orderModel", orderModel);
-                                ViewUtil.startActivity(context, intent);
-                            }
-                        }).fail(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                               dialog.show();
-                            }
-                        });
-                       /* Intent intent = new Intent(context, OrderDetailActivity.class);
-                        intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
-                        ViewUtil.startActivity(context, intent);*/
+                        OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
+                                .done(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        OrderModel orderModel = arguments.get(0);
+                                        Intent intent = new Intent(context,
+                                                OrderDetailActivity.class);
+                                        intent.setAction("message");
+                                        intent.putExtra("orderModel", orderModel);
+                                        ViewUtil.startActivity(context, intent);
+                                    }
+                                }).fail(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        dialog.show();
+                                    }
+                                });
                     } else if ("COMPETITION".equals(messageModel.getType())) {
-                       /* Intent intent = new Intent(context, CompetitionDetailActivity.class);
-                        intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
-                        ViewUtil.startActivity(context, intent);*/
                         Intent intent = new Intent(context, MyCompetitionActivity.class);
                         ViewUtil.startActivity(context, intent);
                     }
@@ -193,7 +195,6 @@ public class MyMessageAdapter extends BaseAdapter {
         TextView content;
         TextView day;
         ImageView imageView;
-
 
         public Holder(View view) {
             total = ViewUtil.findViewById(view, R.id.my_message_total);

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.util;
 
 import android.content.Context;
@@ -26,10 +27,10 @@ import java.io.IOException;
 /**
  * Created by dengt on 15-4-23.
  */
-public class BitmapUtil  {
+public class BitmapUtil {
     // 保存 bitmap 到SD卡F
     public static boolean saveBitmapToSDCard(Bitmap bitmap, String filePath,
-                                             String fileName) {
+            String fileName) {
         boolean flag = false;
         if (null != bitmap) {
             try {
@@ -59,7 +60,6 @@ public class BitmapUtil  {
     }
 
     /**
-     *
      * @param drawable
      * @return bitmap
      */
@@ -69,7 +69,6 @@ public class BitmapUtil  {
     }
 
     /**
-     *
      * @param bitmap
      * @return
      */
@@ -178,7 +177,7 @@ public class BitmapUtil  {
         return output;
     }
 
-    public static Drawable resizeImage(Context context,int id, int w, int h) {
+    public static Drawable resizeImage(Context context, int id, int w, int h) {
         Bitmap src = BitmapFactory.decodeResource(context.getResources(),
                 id);
         // load the origial Bitmap

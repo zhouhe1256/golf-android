@@ -1,10 +1,13 @@
+
 package com.bjcathay.qt.model;
 
-
+/**
+ * Created by dengt on 15-5-21.
+ */
 public class SortModel {
-private Long id;
-	private String name;   //显示的数据?
-	private String sortLetters;  //显示数据拼音的首字母
+    private Long id;
+    private String name; // 显示的数据?
+    private String sortLetters; // 显示数据拼音的首字母
     private boolean isUser;
     private String phone;
     private String nickname;
@@ -34,7 +37,6 @@ private Long id;
         this.imageUrl = imageUrl;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -51,19 +53,20 @@ private Long id;
         this.isUser = isUser;
     }
 
-
     public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getSortLetters() {
-		return sortLetters;
-	}
-	public void setSortLetters(String sortLetters) {
-		this.sortLetters = sortLetters;
-	}
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSortLetters() {
+        return sortLetters;
+    }
+
+    public void setSortLetters(String sortLetters) {
+        this.sortLetters = sortLetters;
+    }
 
 }

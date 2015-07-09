@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -40,7 +41,8 @@ public class UpdateModel implements Serializable {
         this.url = url;
     }
 
-    private static IContentDecoder<UpdateModel> decoder = new IContentDecoder.BeanDecoder<UpdateModel>(UpdateModel.class, "version");
+    private static IContentDecoder<UpdateModel> decoder = new IContentDecoder.BeanDecoder<UpdateModel>(
+            UpdateModel.class, "version");
 
     public static IPromise sendVersion() {
         return Http.instance().get(ApiUrl.SOFT_UPDATE).

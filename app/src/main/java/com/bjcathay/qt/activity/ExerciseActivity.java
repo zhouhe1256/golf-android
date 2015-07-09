@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -24,7 +25,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private WebChromeClient webChromeClient;
     private String url;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         topView = ViewUtil.findViewById(this, R.id.top_exercise_layout);
         webview = (WebView) findViewById(R.id.webview);
     }
-
 
     private void initData() {
         Intent intent = getIntent();
@@ -60,7 +59,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("tel:")) {//拨打电话
+                if (url.startsWith("tel:")) {// 拨打电话
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -76,14 +75,13 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         webview.loadUrl(url);
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
             if (url.equals(webview.getUrl())) {
                 finish();
             } else {
-                webview.goBack(); //goBack()表示返回WebView的上一页面
+                webview.goBack(); // goBack()表示返回WebView的上一页面
             }
             return true;
         } else {
@@ -100,11 +98,13 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

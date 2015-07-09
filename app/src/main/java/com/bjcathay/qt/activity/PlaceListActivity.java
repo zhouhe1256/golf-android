@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -5,14 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -21,7 +16,6 @@ import com.bjcathay.qt.adapter.PlaceListAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
-import com.bjcathay.qt.widget.DSActivity;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
@@ -39,13 +33,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 场地页面
- * Created by dengt on 15-4-20.
+ * 场地页面 Created by dengt on 15-4-20.
  */
 public class PlaceListActivity extends Activity implements OnRefreshListener,
         OnLoadListener, ICallback, View.OnClickListener {
     private TopView topView;
-    // private ListView listView;
     private GApplication gApplication;
     private PlaceListAdapter placeListAdapter;
     private List<ProductModel> stadiumModelList;
@@ -54,6 +46,8 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private TimeCount timeCount;
 
     private Date now;
+    private String latitude;
+    private String longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +60,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     }
 
     private void initView() {
-        // listView = ViewUtil.findViewById(this, R.id.place_list);
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
         topView.setHomeBackVisiable();
         topView.setSearchVisiable();
@@ -81,7 +74,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     }
 
     private void initEvent() {
-        //   listView.setAdapter(placeListAdapter);
 
         lstv.setListViewEmptyImage(R.drawable.ic_network_error);
         lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
@@ -89,9 +81,9 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i <= stadiumModelList.size()) {
-                    //todo
-                    Intent intent = new Intent(PlaceListActivity.this, OrderStadiumDetailActivity.class);
-                    //  Intent intent = new Intent(PlaceListActivity.this, DSActivity.class);
+                    // todo
+                    Intent intent = new Intent(PlaceListActivity.this,
+                            OrderStadiumDetailActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
                     intent.putExtra("type", stadiumModelList.get(i - 1).getType());
@@ -135,8 +127,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
         ;
     };
-    String latitude;
-    String longitude;
 
     private void initData() {
         latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
@@ -188,7 +178,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         handler.sendMessage(msg);
 
         now = DateUtil.stringToDate(stadiumListModel.getNow());
-//        now =new Date();
         if (timeCount == null) {
             timeCount = new TimeCount(Long.MAX_VALUE, 60000, new TimeCount.TimeUpdate() {
                 @Override

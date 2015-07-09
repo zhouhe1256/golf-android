@@ -1,8 +1,8 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +32,6 @@ import com.bjcathay.qt.model.ProvinceListModel;
 import com.bjcathay.qt.model.ProvinceModel;
 import com.bjcathay.qt.util.CitySelectUtil;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-24.
+ * Created by dengt on 15-6-24.
  */
 public class CitySelectActivity extends Activity implements View.OnClickListener {
 
@@ -59,7 +58,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private List<GetCitysModel> getCity;
     private List<CModel> cModels;
     private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
-
+    private int expandFlag = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,18 +97,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                     setResult(1, intent);
                     finish();
                 }
-                //   DialogUtil.showMessage(address);
             }
         });
         String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
         String longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
         if (latitude != null && longitude != null) {
             LatLng ptCenter = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-            //113.134437,41.014679
-            //LatLng ptCenter = new LatLng(41.014679,113.134437);
+            // 113.134437,41.014679
+            // LatLng ptCenter = new LatLng(41.014679,113.134437);
             mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                     .location(ptCenter));
-        }else{
+        } else {
             DialogUtil.showMessage("请打开位置定位以获取您的位置");
         }
     }
@@ -117,9 +115,9 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private void initData() {
         pModels = new ArrayList<PModel>();
         cModels = new ArrayList<CModel>();
-        //todo　从数据库读取省份
+        // todo　从数据库读取省份
         province = DBManager.getInstance().queryProvinces();
-        //todo 从数据库去读城市
+        // todo 从数据库去读城市
         getCity = DBManager.getInstance().queryCitys();
         hotCityAdapter = new HotCityAdapter(cModels, this);
         listView.setAdapter(hotCityAdapter);
@@ -141,8 +139,6 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             DBManager.getInstance().addCitys(getCity);
                             pModels = CitySelectUtil.getCities(province, getCity);
                             cModels = CitySelectUtil.getHot(getCity);
-
-                            //hotCityAdapter.notifyDataSetChanged();
                             hotCityAdapter.updateListView(cModels);
                             cityAdapter.updateListView(pModels);
                             setListViewHeight(listView);
@@ -163,14 +159,10 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         } else {
             pModels = CitySelectUtil.getCities(province, getCity);
             cModels = CitySelectUtil.getHot(getCity);
-            //setListViewHeight(listView);
-            //hotCityAdapter.notifyDataSetChanged();
             hotCityAdapter.updateListView(cModels);
             cityAdapter.updateListView(pModels);
         }
         setListViewHeight(listView);
-        //  setListViewHeight(elv);
-
     }
 
     private void initView() {
@@ -195,7 +187,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             for (int i = 0; i < adapter.getCount(); i++) {
                 View listItem = adapter.getView(i, null, listview);
                 if (null != listItem) {
-                    listItem.measure(0, 0);//注意listview子项必须为LinearLayout才能调用该方法
+                    listItem.measure(0, 0);// 注意listview子项必须为LinearLayout才能调用该方法
                     totalHeight += listItem.getMeasuredHeight();
                 }
             }
@@ -223,8 +215,6 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         listView.requestLayout();
     }
 
-    int expandFlag = -1;
-
     private void initEvent() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -242,11 +232,10 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
+                    int groupPosition, long id) {
                 // TODO Auto-generated method stub
                 if (expandFlag == -1) {
                     elv.expandGroup(groupPosition);
-                    //  elv.setSelectedGroup(groupPosition);
                     expandFlag = groupPosition;
                 } else if (expandFlag == groupPosition) {
                     elv.collapseGroup(expandFlag);
@@ -254,17 +243,8 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                 } else {
                     elv.collapseGroup(expandFlag);
                     elv.expandGroup(groupPosition);
-                    //   elv.setSelectedGroup(groupPosition);
                     expandFlag = groupPosition;
                 }
-               /* if (expandableListSelectionType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-                    int flatPosition = parent.getFlatListPosition(ExpandableListView
-                            .getPackedPositionForGroup(groupPosition));
-                    parent.setItemChecked(flatPosition,
-                            !parent.isItemChecked(flatPosition));
-                    return true;
-                }*/
-
                 return true;
 
             }
@@ -274,7 +254,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+                    int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
                 if (expandableListSelectionType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
                     int flatPosition = parent
@@ -285,18 +265,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             !parent.isItemChecked(flatPosition));
                 }
                 Intent intent = new Intent();
-                intent.putExtra("cityId", pModels.get(groupPosition).getCity().get(childPosition).getId());
-                intent.putExtra("city", pModels.get(groupPosition).getCity().get(childPosition).getName());
+                intent.putExtra("cityId", pModels.get(groupPosition).getCity().get(childPosition)
+                        .getId());
+                intent.putExtra("city", pModels.get(groupPosition).getCity().get(childPosition)
+                        .getName());
                 setResult(1, intent);
                 finish();
-                // DialogUtil.showMessage("您选择了"+ pModels.get(groupPosition).getCity().get(childPosition));
-
                 return true;
             }
         });
         myAddress.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -309,16 +288,6 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             case R.id.my_address:
                 GeoCoderAddreaa();
                 break;
-           /* case R.id.select_city:
-                // intent = new Intent(this, ContactActivity.class);
-                // ViewUtil.startActivity(this, intent);
-                break;
-            case R.id.input_place:
-                //  intent = new Intent(this, SendToPhoneActivity.class);
-                //  ViewUtil.startActivity(this, intent);
-                break;
-            case R.id.select_sure:
-                break;*/
         }
     }
 }

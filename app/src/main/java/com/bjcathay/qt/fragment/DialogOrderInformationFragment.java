@@ -58,7 +58,7 @@ public class DialogOrderInformationFragment extends DialogFragment {
         rootView = inflater.inflate(R.layout.dialog_show_order_message, container);
         name = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_name);
         time = ViewUtil.findViewById(rootView, R.id.dialog_order_sure_time);
-        note=ViewUtil.findViewById(rootView,R.id.order_need_know_note1);
+        note = ViewUtil.findViewById(rootView, R.id.order_need_know_note1);
         note.setMovementMethod(ScrollingMovementMethod.getInstance());
         name.setText(stadiumModel.getName());
         note.setText(stadiumModel.getPurchasingNotice());

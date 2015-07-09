@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.remote.IContentDecoder;
@@ -5,11 +6,11 @@ import com.bjcathay.android.remote.IContentDecoder;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-5-11.
+ * Created by dengt on 15-5-11.
  */
 public class MessageModel implements Serializable {
-    private Long id;//1,
-    private String name;//"赛事名称",
+    private Long id;// 1,
+    private String name;// "赛事名称",
     private String description;// "描述",
     private String content;// "消息内容",
     private String type;// "xxx",
@@ -18,7 +19,8 @@ public class MessageModel implements Serializable {
     private String target;
     private String status;
 
-    private static IContentDecoder<MessageModel> decoder = new IContentDecoder.BeanDecoder<MessageModel>(MessageModel.class, "message");
+    private static IContentDecoder<MessageModel> decoder = new IContentDecoder.BeanDecoder<MessageModel>(
+            MessageModel.class, "message");
 
     public Long getId() {
         return id;

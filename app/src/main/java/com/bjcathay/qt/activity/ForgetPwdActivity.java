@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -22,7 +23,7 @@ import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
-import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -30,7 +31,13 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-5-15.
  */
-public class ForgetPwdActivity extends Activity implements View.OnClickListener/* ,View.OnTouchListener*/,ICallback, TimeCount.TimeUpdate {
+public class ForgetPwdActivity extends Activity implements View.OnClickListener/*
+                                                                                * ,
+                                                                                * View
+                                                                                * .
+                                                                                * OnTouchListener
+                                                                                */, ICallback,
+        TimeCount.TimeUpdate {
     private GApplication gApplication;
     private ClearEditText userPhone;
     private ClearEditText userCode;
@@ -48,24 +55,14 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
-                // // System.out.println("水平方向移动距离过大");
-                // return true;
-                // }
                 if (Math.abs(velocityY) < 100) {
-                    // System.out.println("手指移动的太慢了");
                     return true;
                 }
-
-                // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) > 200) {
-                    //finish();//在此处控制关闭
-                  //  return true;
                 }
-                // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) < 0) {
                     finish();
-                    overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
@@ -83,7 +80,6 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
         registerBtn = ViewUtil.findViewById(this, R.id.register_btn);
         userCodeBtn = ViewUtil.findViewById(this, R.id.register_get_code_btn);
 
-
     }
 
     private void initDate() {
@@ -91,12 +87,10 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
     }
 
     private void initEvent() {
-        //topView.setOnTouchListener(this);
         userPhone.setOnClickListener(this);
         userCode.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         userCodeBtn.setOnClickListener(this);
-
 
     }
 
@@ -112,20 +106,23 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
         }
         if (phone.length() > 0) {
             userCodeBtn.setClickable(false);
-
             UserModel.sendCheckCode(phone, "FORGET_PWD").done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
                         time.start();
-                       // DialogUtil.showMessage("验证码已发送");
                     } else {
                         time.cancel();
                         userCodeBtn.setText("获取验证码");
                         userCodeBtn.setClickable(true);
-                        int code = jsonObject.optInt("code");
-                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        String errorMessage = jsonObject.optString("message");
+                        if (!StringUtils.isEmpty(errorMessage))
+                            DialogUtil.showMessage(errorMessage);
+                        else {
+                            int code = jsonObject.optInt("code");
+                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                        }
                     }
                 }
             }).fail(new ICallback() {
@@ -150,7 +147,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
             DialogUtil.showMessage("请填写正确的手机号码");
             return;
         }
-        if(code.length()==0){
+        if (code.length() == 0) {
             DialogUtil.showMessage("请输入验证码");
         }
         if (phone.length() > 0 && code.length() > 0)
@@ -164,16 +161,16 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
         }
         switch (view.getId()) {
             case R.id.register_get_code_btn:
-                //获取验证码
+                // 获取验证码
                 sendCheckCode();
                 break;
             case R.id.register_btn:
-                //下一步
+                // 下一步
                 forget();
                 break;
             case R.id.top_forget_layout:
                 finish();
-                overridePendingTransition(R.anim.activity_close,R.anim.activity_close);
+                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
@@ -182,17 +179,18 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
     public void call(Arguments arguments) {
         JSONObject jsonObject = arguments.get(0);
         if (jsonObject.optBoolean("success")) {
-          /*  UserModel userModel = arguments.get(0);
-            if (userModel.getMobileNumber() != null) {*/
             Intent intent = new Intent(this, ForgetSetNewPwdActivity.class);
             intent.putExtra("phone", userPhone.getText().toString().trim());
             intent.putExtra("code", userCode.getText().toString().trim());
             ViewUtil.startActivity(this, intent);
-            //  DialogUtil.showMessage("验证成功");
-            // }
         } else {
-            int code = jsonObject.optInt("code");
-            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            String errorMessage = jsonObject.optString("message");
+            if (!StringUtils.isEmpty(errorMessage))
+                DialogUtil.showMessage(errorMessage);
+            else {
+                int code = jsonObject.optInt("code");
+                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            }
         }
     }
 
@@ -207,20 +205,19 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener/
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
     }
-   /* @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return mGestureDetector.onTouchEvent(motionEvent);
-    }*/
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

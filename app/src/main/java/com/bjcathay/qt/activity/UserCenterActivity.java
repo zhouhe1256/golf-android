@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -18,14 +19,18 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
-import com.bjcathay.qt.view.SelectPicPopupWindow;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-4-21.
  */
-public class UserCenterActivity extends Activity implements View.OnClickListener/*, SelectPicPopupWindow.SelectResult*/, ICallback {
+public class UserCenterActivity extends Activity implements View.OnClickListener/*
+                                                                                 * ,
+                                                                                 * SelectPicPopupWindow
+                                                                                 * .
+                                                                                 * SelectResult
+                                                                                 */, ICallback {
     private GApplication gApplication;
     private TopView topView;
     private LinearLayout myOrder;
@@ -69,7 +74,8 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                     if (GApplication.getInstance().isLogin()) {
                         UserModel userModel1 = GApplication.getInstance().getUser();
                         if (userModel1 != null) {
-                            ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(), R.drawable.ic_default_user);
+                            ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(),
+                                    R.drawable.ic_default_user);
                             if (userModel1.getNickname() == null)
                                 userPhone.setText(userModel1.getMobileNumber());
                             else
@@ -141,11 +147,6 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
             case R.id.user_center_img:
-                //实例化SelectPicPopupWindow
-              /*  menuWindow = new SelectPicPopupWindow(UserCenterActivity.this, UserCenterActivity.this);
-                //显示窗口
-                menuWindow.showAtLocation(UserCenterActivity.this.findViewById(R.id.user_center_content), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-                */
                 intent = new Intent(this, MyInformationActivity.class);
                 intent.putExtra("user", userModel);
                 IsLoginUtil.isLogin(this, intent);
@@ -153,24 +154,20 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         }
     }
 
-
     @Override
     public void call(Arguments arguments) {
         userModel = arguments.get(0);
         gApplication.setUser(userModel);
-        PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
-        PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
+        PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER,
+                userModel.getInviteAmount());
+        PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,
+                userModel.getInviteCode());
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
         if (userModel.getNickname() == null)
             userPhone.setText(userModel.getMobileNumber());
         else
             userPhone.setText(userModel.getNickname());
     }
-  /*  @Override
-    protected void onStart() {
-        super.onStart();
-        initDate();
-    }*/
 
     @Override
     protected void onResume() {

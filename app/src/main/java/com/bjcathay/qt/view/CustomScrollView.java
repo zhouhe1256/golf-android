@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.content.Context;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.ScrollView;
 
 /**
- * Created by bjcathay on 15-5-29.
+ * Created by dengt on 15-5-29.
  */
 public class CustomScrollView extends ScrollView {
     private GestureDetector mGestureDetector;

@@ -39,17 +39,16 @@ import android.widget.Scroller;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 
-
 /**
  * A view that shows items in a center-locked, horizontally scrolling list.
  * <p>
  * The default values for the Gallery assume you will be using
- * {@link android.R.styleable#Theme_galleryItemBackground} as the background for each View given to
- * the Gallery from the Adapter. If you are not doing this, you may need to adjust some Gallery
- * properties, such as the spacing.
+ * {@link android.R.styleable#Theme_galleryItemBackground} as the background for
+ * each View given to the Gallery from the Adapter. If you are not doing this,
+ * you may need to adjust some Gallery properties, such as the spacing.
  * <p>
- * Views given to the Gallery should use {@link TosGallery.LayoutParams} as their layout parameters
- * type.
+ * Views given to the Gallery should use {@link TosGallery.LayoutParams} as
+ * their layout parameters type.
  *
  * @attr ref android.R.styleable#Gallery_animationDuration
  * @attr ref android.R.styleable#Gallery_spacing
@@ -63,8 +62,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private static final boolean localLOGV = false;
 
     /**
-     * Duration in milliseconds from the start of a scroll during which we're unsure whether the
-     * user is scrolling or flinging.
+     * Duration in milliseconds from the start of a scroll during which we're
+     * unsure whether the user is scrolling or flinging.
      */
     private static final int SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT = 250;
 
@@ -74,8 +73,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private int mSpacing = 0;
 
     /**
-     * How long the transition animation should run when a child view changes position, measured in
-     * milliseconds.
+     * How long the transition animation should run when a child view changes
+     * position, measured in milliseconds.
      */
     private int mAnimationDuration = 400;
 
@@ -117,8 +116,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private FlingRunnable mFlingRunnable = new FlingRunnable();
 
     /**
-     * Sets mSuppressSelectionChanged = false. This is used to set it to false in the future. It
-     * will also trigger a selection changed.
+     * Sets mSuppressSelectionChanged = false. This is used to set it to false
+     * in the future. It will also trigger a selection changed.
      */
     private Runnable mDisableSuppressSelectionChangedRunnable = new Runnable() {
         public void run() {
@@ -128,9 +127,10 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     };
 
     /**
-     * When fling runnable runs, it resets this to false. Any method along the path until the end of
-     * its run() can set this to true to abort any remaining fling. For example, if we've reached
-     * either the leftmost or rightmost item, we will set this to true.
+     * When fling runnable runs, it resets this to false. Any method along the
+     * path until the end of its run() can set this to true to abort any
+     * remaining fling. For example, if we've reached either the leftmost or
+     * rightmost item, we will set this to true.
      */
     private boolean mShouldStopFling;
 
@@ -140,7 +140,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private View mSelectedChild;
 
     /**
-     * Whether to continuously callback on the item selected listener during a fling.
+     * Whether to continuously callback on the item selected listener during a
+     * fling.
      */
     private boolean mShouldCallbackDuringFling = true;
 
@@ -155,16 +156,17 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private boolean mSuppressSelectionChanged;
 
     /**
-     * If true, we have received the "invoke" (center or enter buttons) key down. This is checked
-     * before we action on the "invoke" key up, and is subsequently cleared.
+     * If true, we have received the "invoke" (center or enter buttons) key
+     * down. This is checked before we action on the "invoke" key up, and is
+     * subsequently cleared.
      */
     private boolean mReceivedInvokeKeyDown;
 
     private AdapterContextMenuInfo mContextMenuInfo;
 
     /**
-     * If true, this onScroll is the first for this user's drag (remember, a drag sends many
-     * onScrolls).
+     * If true, this onScroll is the first for this user's drag (remember, a
+     * drag sends many onScrolls).
      */
     private boolean mIsFirstScroll;
 
@@ -204,21 +206,24 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Deleted by LiHong at 2011/08/12 begin.
         //
-        // Note: FLAG_USE_CHILD_DRAWING_ORDER and FLAG_SUPPORT_STATIC_TRANSFORMATIONS are
-        // defined in ViewGroup class, they are protected static final, in this class, we
-        // can not access the members, but we can use methods to replace these members.
+        // Note: FLAG_USE_CHILD_DRAWING_ORDER and
+        // FLAG_SUPPORT_STATIC_TRANSFORMATIONS are
+        // defined in ViewGroup class, they are protected static final, in this
+        // class, we
+        // can not access the members, but we can use methods to replace these
+        // members.
 
         /**
-         * // We draw the selected item last (because otherwise the item to the // right overlaps
-         * it) mGroupFlags |= FLAG_USE_CHILD_DRAWING_ORDER;
-         *
+         * // We draw the selected item last (because otherwise the item to the
+         * // right overlaps it) mGroupFlags |= FLAG_USE_CHILD_DRAWING_ORDER;
          * mGroupFlags |= FLAG_SUPPORT_STATIC_TRANSFORMATIONS;
          */
 
         //
         // Deleted by LiHong at 2011/08/12 end.
 
-        // Added by LiHong at 2011/08/12 begin===================================.
+        // Added by LiHong at 2011/08/12
+        // begin===================================.
         //
 
         // We draw the selected item last (because otherwise the item to the
@@ -236,28 +241,30 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             mGravity = Gravity.CENTER_VERTICAL;
         }
         //
-        // Added by LiHong at 2011/08/12 end=====================================.
+        // Added by LiHong at 2011/08/12
+        // end=====================================.
     }
 
     /**
-     * Whether or not to callback on any {@link #getOnItemSelectedListener()} while the items are
-     * being flinged. If false, only the final selected item will cause the callback. If true, all
-     * items between the first and the final will cause callbacks.
+     * Whether or not to callback on any {@link #getOnItemSelectedListener()}
+     * while the items are being flinged. If false, only the final selected item
+     * will cause the callback. If true, all items between the first and the
+     * final will cause callbacks.
      *
-     * @param shouldCallback Whether or not to callback on the listener while the items are being
-     *            flinged.
+     * @param shouldCallback Whether or not to callback on the listener while
+     *            the items are being flinged.
      */
     public void setCallbackDuringFling(boolean shouldCallback) {
         mShouldCallbackDuringFling = shouldCallback;
     }
 
     /**
-     * Whether or not to callback when an item that is not selected is clicked. If false, the item
-     * will become selected (and re-centered). If true, the {@link #getOnItemClickListener()} will
-     * get the callback.
+     * Whether or not to callback when an item that is not selected is clicked.
+     * If false, the item will become selected (and re-centered). If true, the
+     * {@link #getOnItemClickListener()} will get the callback.
      *
-     * @param shouldCallback Whether or not to callback on the listener when a item that is not
-     *            selected is clicked.
+     * @param shouldCallback Whether or not to callback on the listener when a
+     *            item that is not selected is clicked.
      * @hide
      */
     public void setCallbackOnUnselectedItemClick(boolean shouldCallback) {
@@ -265,11 +272,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Sets how long the transition animation should run when a child view changes position. Only
-     * relevant if animation is turned on.
+     * Sets how long the transition animation should run when a child view
+     * changes position. Only relevant if animation is turned on.
      *
-     * @param animationDurationMillis The duration of the transition, in milliseconds.
-     *
+     * @param animationDurationMillis The duration of the transition, in
+     *            milliseconds.
      * @attr ref android.R.styleable#Gallery_animationDuration
      */
     public void setAnimationDuration(int animationDurationMillis) {
@@ -280,7 +287,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Sets the spacing between items in a Gallery
      *
      * @param spacing The spacing in pixels between items in the Gallery
-     *
      * @attr ref android.R.styleable#Gallery_spacing
      */
     public void setSpacing(int spacing) {
@@ -291,7 +297,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Sets the alpha of items that are not selected in the Gallery.
      *
      * @param unselectedAlpha the alpha for the items that are not selected.
-     *
      * @attr ref android.R.styleable#Gallery_unselectedAlpha
      */
     public void setUnselectedAlpha(float unselectedAlpha) {
@@ -303,7 +308,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         t.clear();
         t.setAlpha(child == mSelectedChild ? 1.0f : mUnselectedAlpha);
 
-        Log(" getChildStaticTransformation   mSelectedPosition =  " + mSelectedPosition + "   mFirstPosition = "
+        Log(" getChildStaticTransformation   mSelectedPosition =  " + mSelectedPosition
+                + "   mFirstPosition = "
                 + mFirstPosition + "     mSelectedChild = " + mSelectedChild);
 
         return true;
@@ -312,11 +318,14 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     // Added by LiHong at 2011/09/29 begin ===========================
     //
 
-    protected void onDrawHorizontalScrollBar(Canvas canvas, Drawable scrollBar, int l, int t, int r, int b) {
-        // This method is hide for client, add the bottom margin of the scroll bar.
+    protected void onDrawHorizontalScrollBar(Canvas canvas, Drawable scrollBar, int l, int t,
+            int r, int b) {
+        // This method is hide for client, add the bottom margin of the scroll
+        // bar.
         //
         // Note: If the bottom margin is not zero, we should override the
-        // #invalidate(int, int, int, int) method so that the scroll bar can be fade when
+        // #invalidate(int, int, int, int) method so that the scroll bar can be
+        // fade when
         // completing scrolling.
         t -= mScrollBarBottomMargin;
         b -= mScrollBarBottomMargin;
@@ -327,10 +336,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Mark the the area defined by the rect (l,t,r,b) as needing to be drawn. The coordinates of
-     * the dirty rect are relative to the view. If the view is visible, {@link #onDraw} will be
-     * called at some point in the future. This must be called from a UI thread. To call from a
-     * non-UI thread, call {@link #postInvalidate()}.
+     * Mark the the area defined by the rect (l,t,r,b) as needing to be drawn.
+     * The coordinates of the dirty rect are relative to the view. If the view
+     * is visible, {@link #onDraw} will be called at some point in the future.
+     * This must be called from a UI thread. To call from a non-UI thread, call
+     * {@link #postInvalidate()}.
      *
      * @param l the left position of the dirty region
      * @param t the top position of the dirty region
@@ -363,7 +373,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             int width = view.getWidth();
             if (width > 0) {
                 boolean isFirst = (0 == mFirstPosition);
-                // If the first position is zero and the left is more than zero, we do not add the
+                // If the first position is zero and the left is more than zero,
+                // we do not add the
                 // left extent.
                 if (!(isFirst && left > 0)) {
                     extent += (left * 100) / width;
@@ -448,7 +459,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         /*
          * Gallery expects Gallery.LayoutParams.
          */
-        return new TosGallery.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        return new TosGallery.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -456,7 +468,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         super.onLayout(changed, l, t, r, b);
 
         /*
-         * Remember that we are in layout to prevent more layout request from being generated.
+         * Remember that we are in layout to prevent more layout request from
+         * being generated.
          */
         mInLayout = true;
         layout(0, false);
@@ -469,8 +482,9 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Tracks a motion scroll. In reality, this is used to do just about any movement to items
-     * (touch scroll, arrow-key scroll, set an item as selected).
+     * Tracks a motion scroll. In reality, this is used to do just about any
+     * movement to items (touch scroll, arrow-key scroll, set an item as
+     * selected).
      *
      * @param deltaX Change in X from the previous event.
      */
@@ -485,11 +499,13 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Deleted by LiHong at 2011/08/12 begin =========================
         //
         if (isSlotInCenter()) {
-            // If the gallery scroll cycle, or item count not fill the gallery fully.
+            // If the gallery scroll cycle, or item count not fill the gallery
+            // fully.
             if (!isScrollCycle() || getChildCount() >= mItemCount) {
                 int limitedDeltaX = getLimitedMotionScrollAmount(toLeft, deltaX);
                 if (limitedDeltaX != deltaX) {
-                    // The above call returned a limited amount, so stop any scrolls/flings
+                    // The above call returned a limited amount, so stop any
+                    // scrolls/flings
                     mFlingRunnable.endFling(false);
                     onFinishedMovement();
                 }
@@ -556,7 +572,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Clear unused views
         mRecycler.clear();
 
-        // Must call this method, if not, it may lead crash when user scroll left or right.
+        // Must call this method, if not, it may lead crash when user scroll
+        // left or right.
         setSelectionToCenterChild();
 
         // Added by LiHong at 2011/09/29 to awake the scroll bar.
@@ -575,11 +592,13 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Deleted by LiHong at 2011/08/12 begin =========================
         //
         if (isSlotInCenter()) {
-            // If the gallery scroll cycle, or item count not fill the gallery fully.
+            // If the gallery scroll cycle, or item count not fill the gallery
+            // fully.
             if (!isScrollCycle() || getChildCount() >= mItemCount) {
                 int limitedDeltaX = getLimitedMotionScrollAmount(toTop, deltaY);
                 if (limitedDeltaX != deltaY) {
-                    // The above call returned a limited amount, so stop any scrolls/flings
+                    // The above call returned a limited amount, so stop any
+                    // scrolls/flings
                     mFlingRunnable.endFling(false);
                     onFinishedMovement();
                 }
@@ -646,7 +665,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Clear unused views
         mRecycler.clear();
 
-        // Must call this method, if not, it may lead crash when user scroll left or right.
+        // Must call this method, if not, it may lead crash when user scroll
+        // left or right.
         setSelectionToCenterChild();
 
         // Added by LiHong at 2011/09/29 to awake the scroll bar.
@@ -681,12 +701,13 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         int centerDifference = galleryCenter - extremeChildCenter;
 
-        return motionToLeft ? Math.max(centerDifference, deltaX) : Math.min(centerDifference, deltaX);
+        return motionToLeft ? Math.max(centerDifference, deltaX) : Math.min(centerDifference,
+                deltaX);
     }
 
     /**
-     * Offset the horizontal location of all children of this view by the specified number of
-     * pixels.
+     * Offset the horizontal location of all children of this view by the
+     * specified number of pixels.
      *
      * @param offset the number of pixels to offset
      */
@@ -709,7 +730,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         if (isOrientationVertical()) {
             return (getHeight() - getPaddingTop() - getPaddingBottom()) / 2 + getPaddingTop();
         }
-        // return (getWidth() - mPaddingLeft - mPaddingRight) / 2 + mPaddingLeft;
+        // return (getWidth() - mPaddingLeft - mPaddingRight) / 2 +
+        // mPaddingLeft;
 
         // Modified by LiHong at 2011/08/12 begin ========================
         //
@@ -723,10 +745,12 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      */
     private float getStopFlingPosition() {
         if (isOrientationVertical()) {
-            return (getHeight() - getPaddingTop() - getPaddingBottom()) * onStopFlingPosRatio() + getPaddingTop();
+            return (getHeight() - getPaddingTop() - getPaddingBottom()) * onStopFlingPosRatio()
+                    + getPaddingTop();
         }
 
-        return (getWidth() - getPaddingLeft() - getPaddingRight()) * onStopFlingPosRatio() + getPaddingLeft();
+        return (getWidth() - getPaddingLeft() - getPaddingRight()) * onStopFlingPosRatio()
+                + getPaddingLeft();
     }
 
     /**
@@ -750,7 +774,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     /**
      * Detaches children that are off the screen (i.e.: Gallery bounds).
      *
-     * @param toLeft Whether to detach children to the left of the Gallery, or to the right.
+     * @param toLeft Whether to detach children to the left of the Gallery, or
+     *            to the right.
      */
     private void detachOffScreenChildren(boolean toLeft) {
         int numChildren = getChildCount();
@@ -770,7 +795,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 }
             }
 
-            // Do not detach the last child when the child is out of the left bound.
+            // Do not detach the last child when the child is out of the left
+            // bound.
             if (count == numChildren) {
                 count -= 1;
             }
@@ -788,7 +814,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 }
             }
 
-            // Do not detach the first child when the child is out of the left bound.
+            // Do not detach the first child when the child is out of the left
+            // bound.
             if (0 == start) {
                 start += 1;
             }
@@ -825,7 +852,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 }
             }
 
-            // Do not detach the last child when the child is out of the left bound.
+            // Do not detach the last child when the child is out of the left
+            // bound.
             if (count == numChildren) {
                 count -= 1;
             }
@@ -842,7 +870,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 }
             }
 
-            // Do not detach the first child when the child is out of the left bound.
+            // Do not detach the first child when the child is out of the left
+            // bound.
             if (0 == start) {
                 start += 1;
             }
@@ -862,8 +891,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Scrolls the items so that the selected item is in its 'slot' (its center is the gallery's
-     * center).
+     * Scrolls the items so that the selected item is in its 'slot' (its center
+     * is the gallery's center).
      */
     public void scrollIntoSlots() {
         if (isOrientationVertical()) {
@@ -871,7 +900,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             return;
         }
 
-        // Deleted by LiHong at 2011/08/12 begin ====================================
+        // Deleted by LiHong at 2011/08/12 begin
+        // ====================================
         //
         if (isSlotInCenter()) {
             if (getChildCount() == 0 || mSelectedChild == null)
@@ -890,9 +920,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             return;
         }
         //
-        // Deleted by LiHong at 2011/08/12 end ======================================
+        // Deleted by LiHong at 2011/08/12 end
+        // ======================================
 
-        // Added by LiHong at 2011/08/12 begin ====================================
+        // Added by LiHong at 2011/08/12 begin
+        // ====================================
         //
         // Note: Make the gallery item views always dock right or left sides.
         // If the gallery is playing animation, do nothing.
@@ -904,25 +936,29 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         int scrollAmount = 0;
 
         if (0 == mFirstPosition) {
-            // In these cases the gallery child count is equal or more than the item count
+            // In these cases the gallery child count is equal or more than the
+            // item count
             // (adapter.getCount()),
-            // and the gallery first child's left is bigger than zero, we should move the
+            // and the gallery first child's left is bigger than zero, we should
+            // move the
             // first child anchors at the most left side of gallery.
             View child = getChildAt(0);
 
-            // Make the first child anchors at the most left side of gallery when it is over
+            // Make the first child anchors at the most left side of gallery
+            // when it is over
             // the left side of gallery.
             if (child.getLeft() >= 0) {
                 scrollAmount = getPaddingLeft() - child.getLeft();
             } else {
                 /*
-                 * Delete by ZhouYuanqi on 2012/2/8. // Make the right child anchors at the right
-                 * side of gallery. child = getChildAt(getChildCount() - 1); // If the child's right
-                 * side is fully seeing, i.e, the child right side is // in the right of gallery. if
-                 * (child.getRight() < (getRight() - getPaddingRight())) { scrollAmount = getWidth()
-                 * - getPaddingRight() - child.getRight(); }
-                 *
-                 * // Add this line to solve the issue that shrink children. scrollAmount =
+                 * Delete by ZhouYuanqi on 2012/2/8. // Make the right child
+                 * anchors at the right side of gallery. child =
+                 * getChildAt(getChildCount() - 1); // If the child's right side
+                 * is fully seeing, i.e, the child right side is // in the right
+                 * of gallery. if (child.getRight() < (getRight() -
+                 * getPaddingRight())) { scrollAmount = getWidth() -
+                 * getPaddingRight() - child.getRight(); } // Add this line to
+                 * solve the issue that shrink children. scrollAmount =
                  * getPaddingLeft() - m_firstChildOffset;
                  */
 
@@ -940,7 +976,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // If the most right view is the last item.
         else if (mFirstPosition + getChildCount() == mItemCount) {
             View child = getChildAt(getChildCount() - 1);
-            // If the child's right side is fully seeing, i.e, the child right side is
+            // If the child's right side is fully seeing, i.e, the child right
+            // side is
             // in the right of gallery.
             if (child.getRight() < (getRight() - getPaddingRight())) {
                 scrollAmount = getWidth() - getPaddingRight() - child.getRight();
@@ -955,11 +992,13 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         //
-        // Added by LiHong at 2011/08/12 end ======================================
+        // Added by LiHong at 2011/08/12 end
+        // ======================================
     }
 
     private void scrollIntoSlotsVertical() {
-        // Deleted by LiHong at 2011/08/12 begin ====================================
+        // Deleted by LiHong at 2011/08/12 begin
+        // ====================================
         //
         if (isSlotInCenter()) {
             if (getChildCount() == 0 || mSelectedChild == null)
@@ -978,9 +1017,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             return;
         }
         //
-        // Deleted by LiHong at 2011/08/12 end ======================================
+        // Deleted by LiHong at 2011/08/12 end
+        // ======================================
 
-        // Added by LiHong at 2011/08/12 begin ====================================
+        // Added by LiHong at 2011/08/12 begin
+        // ====================================
         //
         // Note: Make the gallery item views always dock right or left sides.
         // If the gallery is playing animation, do nothing.
@@ -993,25 +1034,29 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         int scrollAmount = 0;
 
         if (0 == mFirstPosition) {
-            // In these cases the gallery child count is equal or more than the item count
+            // In these cases the gallery child count is equal or more than the
+            // item count
             // (adapter.getCount()),
-            // and the gallery first child's left is bigger than zero, we should move the
+            // and the gallery first child's left is bigger than zero, we should
+            // move the
             // first child anchors at the most left side of gallery.
             View child = getChildAt(0);
 
-            // Make the first child anchors at the most left side of gallery when it is over
+            // Make the first child anchors at the most left side of gallery
+            // when it is over
             // the left side of gallery.
             if (child.getTop() >= 0) {
                 scrollAmount = getPaddingTop() - child.getTop();
             } else {
                 /*
-                 * Delete by ZhouYuanqi on 2012/2/8. // Make the right child anchors at the right
-                 * side of gallery. child = getChildAt(getChildCount() - 1); // If the child's right
-                 * side is fully seeing, i.e, the child right side is // in the right of gallery. if
-                 * (child.getRight() < (getRight() - getPaddingRight())) { scrollAmount = getWidth()
-                 * - getPaddingRight() - child.getRight(); }
-                 *
-                 * // Add this line to solve the issue that shrink children. scrollAmount =
+                 * Delete by ZhouYuanqi on 2012/2/8. // Make the right child
+                 * anchors at the right side of gallery. child =
+                 * getChildAt(getChildCount() - 1); // If the child's right side
+                 * is fully seeing, i.e, the child right side is // in the right
+                 * of gallery. if (child.getRight() < (getRight() -
+                 * getPaddingRight())) { scrollAmount = getWidth() -
+                 * getPaddingRight() - child.getRight(); } // Add this line to
+                 * solve the issue that shrink children. scrollAmount =
                  * getPaddingLeft() - m_firstChildOffset;
                  */
 
@@ -1029,7 +1074,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // If the most right view is the last item.
         else if (mFirstPosition + getChildCount() == mItemCount) {
             View child = getChildAt(getChildCount() - 1);
-            // If the child's right side is fully seeing, i.e, the child right side is
+            // If the child's right side is fully seeing, i.e, the child right
+            // side is
             // in the right of gallery.
             if (child.getBottom() < (getBottom() - getPaddingBottom())) {
                 scrollAmount = getHeight() - getPaddingBottom() - child.getBottom();
@@ -1044,7 +1090,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         //
-        // Added by LiHong at 2011/08/12 end ======================================
+        // Added by LiHong at 2011/08/12 end
+        // ======================================
     }
 
     private void onFinishedMovement() {
@@ -1065,7 +1112,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Looks for the child that is closest to the center and sets it as the selected child.
+     * Looks for the child that is closest to the center and sets it as the
+     * selected child.
      */
     private void setSelectionToCenterChild() {
 
@@ -1117,7 +1165,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Looks for the child that is closest to the center and sets it as the selected child.
+     * Looks for the child that is closest to the center and sets it as the
+     * selected child.
      */
     private void setSelectionToCenterChildVertical() {
 
@@ -1173,11 +1222,12 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     /**
      * Creates and positions all views for this Gallery.
      * <p>
-     * We layout rarely, most of the time {@link #trackMotionScroll(int)} takes care of
-     * repositioning, adding, and removing children.
+     * We layout rarely, most of the time {@link #trackMotionScroll(int)} takes
+     * care of repositioning, adding, and removing children.
      *
-     * @param delta Change in the selected position. +1 means the selection is moving to the right,
-     *            so views are scrolling to the left. -1 means the selection is moving to the left.
+     * @param delta Change in the selected position. +1 means the selection is
+     *            moving to the right, so views are scrolling to the left. -1
+     *            means the selection is moving to the left.
      */
     @Override
     void layout(int delta, boolean animate) {
@@ -1193,7 +1243,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Modified by LiHong at 2011/08/12 begin===========================.
         //
-        // int childrenWidth = mRight - mLeft - mSpinnerPadding.left - mSpinnerPadding.right;
+        // int childrenWidth = mRight - mLeft - mSpinnerPadding.left -
+        // mSpinnerPadding.right;
         // int childrenWidth = getRight() - getLeft() - mSpinnerPadding.left -
         // mSpinnerPadding.right;
         //
@@ -1222,7 +1273,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         detachAllViewsFromParent();
 
         /*
-         * These will be used to give initial positions to views entering the gallery as we scroll
+         * These will be used to give initial positions to views entering the
+         * gallery as we scroll
          */
         mRightMost = 0;
         mLeftMost = 0;
@@ -1230,8 +1282,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Make selected view and center it
 
         /*
-         * mFirstPosition will be decreased as we add views to the left later on. The 0 for x will
-         * be offset in a couple lines down.
+         * mFirstPosition will be decreased as we add views to the left later
+         * on. The 0 for x will be offset in a couple lines down.
          */
         // mFirstPosition = mSelectedPosition;
         // View sel = makeAndAddView(mSelectedPosition, 0, 0, true);
@@ -1242,15 +1294,19 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Modify by LiHong at 2011/08/12 begin ============================
         //
-        // Note: Make the selected item offset is near left of the gallery, default
-        // the first item is selected, so the first item's offset is near left of gallery.
+        // Note: Make the selected item offset is near left of the gallery,
+        // default
+        // the first item is selected, so the first item's offset is near left
+        // of gallery.
         //
 
-        // int selectedOffset = childrenLeft + (childrenWidth / 2) - (sel.getWidth() / 2);
+        // int selectedOffset = childrenLeft + (childrenWidth / 2) -
+        // (sel.getWidth() / 2);
         int selectedOffset = childrenLeft + mSpacing;
 
         if (isSlotInCenter()) {
-            int childrenWidth = getRight() - getLeft() - mSpinnerPadding.left - mSpinnerPadding.right;
+            int childrenWidth = getRight() - getLeft() - mSpinnerPadding.left
+                    - mSpinnerPadding.right;
             selectedOffset = childrenLeft + (childrenWidth / 2) - (sel.getWidth() / 2);
         }
 
@@ -1276,9 +1332,12 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Added by LiHong at 2012/11/17 begin ==========
         //
-        // NOTE: If the child count is less than the item count, we should disable cycle scroll,
-        // but, we should NOT change the mIsScrollCycle which is set by callers, because
-        // after user enlarge the item count such as add data dynamically, if the item count
+        // NOTE: If the child count is less than the item count, we should
+        // disable cycle scroll,
+        // but, we should NOT change the mIsScrollCycle which is set by callers,
+        // because
+        // after user enlarge the item count such as add data dynamically, if
+        // the item count
         // is bigger than child count, the gallery should be scrolling cycle.
         mIsScrollCycleTemp = !(getChildCount() >= mItemCount);
         // Added by LiHong at 2012/11/17 end ============
@@ -1292,7 +1351,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Modified by LiHong at 2011/08/12 begin===========================.
         //
-        // int childrenWidth = mRight - mLeft - mSpinnerPadding.left - mSpinnerPadding.right;
+        // int childrenWidth = mRight - mLeft - mSpinnerPadding.left -
+        // mSpinnerPadding.right;
         // int childrenWidth = getRight() - getLeft() - mSpinnerPadding.left -
         // mSpinnerPadding.right;
         //
@@ -1321,7 +1381,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         detachAllViewsFromParent();
 
         /*
-         * These will be used to give initial positions to views entering the gallery as we scroll
+         * These will be used to give initial positions to views entering the
+         * gallery as we scroll
          */
         mRightMost = 0;
         mLeftMost = 0;
@@ -1329,8 +1390,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Make selected view and center it
 
         /*
-         * mFirstPosition will be decreased as we add views to the left later on. The 0 for x will
-         * be offset in a couple lines down.
+         * mFirstPosition will be decreased as we add views to the left later
+         * on. The 0 for x will be offset in a couple lines down.
          */
         // mFirstPosition = mSelectedPosition;
         // View sel = makeAndAddView(mSelectedPosition, 0, 0, true);
@@ -1341,15 +1402,19 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Modify by LiHong at 2011/08/12 begin ============================
         //
-        // Note: Make the selected item offset is near left of the gallery, default
-        // the first item is selected, so the first item's offset is near left of gallery.
+        // Note: Make the selected item offset is near left of the gallery,
+        // default
+        // the first item is selected, so the first item's offset is near left
+        // of gallery.
         //
 
-        // int selectedOffset = childrenLeft + (childrenWidth / 2) - (sel.getWidth() / 2);
+        // int selectedOffset = childrenLeft + (childrenWidth / 2) -
+        // (sel.getWidth() / 2);
         int selectedOffset = childrenTop + mSpacing;
 
         if (isSlotInCenter()) {
-            int childrenHeight = getBottom() - getTop() - mSpinnerPadding.top - mSpinnerPadding.bottom;
+            int childrenHeight = getBottom() - getTop() - mSpinnerPadding.top
+                    - mSpinnerPadding.bottom;
             selectedOffset = childrenTop + (childrenHeight / 2) - (sel.getHeight() / 2);
         }
 
@@ -1375,9 +1440,12 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Added by LiHong at 2012/11/17 begin ==========
         //
-        // NOTE: If the child count is less than the item count, we should disable cycle scroll,
-        // but, we should NOT change the mIsScrollCycle which is set by callers, because
-        // after user enlarge the item count such as add data dynamically, if the item count
+        // NOTE: If the child count is less than the item count, we should
+        // disable cycle scroll,
+        // but, we should NOT change the mIsScrollCycle which is set by callers,
+        // because
+        // after user enlarge the item count such as add data dynamically, if
+        // the item count
         // is bigger than child count, the gallery should be scrolling cycle.
         mIsScrollCycleTemp = !(getChildCount() >= mItemCount);
         // Added by LiHong at 2012/11/17 end ============
@@ -1412,7 +1480,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         while (curRightEdge > galleryLeft && curPosition >= 0) {
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curRightEdge, false);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curRightEdge, false);
 
             // Remember some state
             mFirstPosition = curPosition;
@@ -1452,7 +1521,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         while (curRightEdge > galleryTop && curPosition >= 0) {
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curRightEdge,
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curRightEdge,
                     false);
 
             // Remember some state
@@ -1497,7 +1567,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         while (curLeftEdge < galleryRight && curPosition < numItems) {
 
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getRight() + itemSpacing;
@@ -1538,7 +1609,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         while (curLeftEdge < galleryRight && curPosition < numItems) {
 
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getBottom() + itemSpacing;
@@ -1547,16 +1619,18 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Obtain a view, either by pulling an existing view from the recycler or by getting a new one
-     * from the adapter. If we are animating, make sure there is enough information in the view's
-     * layout parameters to animate from the old to new positions.
+     * Obtain a view, either by pulling an existing view from the recycler or by
+     * getting a new one from the adapter. If we are animating, make sure there
+     * is enough information in the view's layout parameters to animate from the
+     * old to new positions.
      *
      * @param position Position in the gallery for the view to obtain
      * @param offset Offset from the selected position
-     * @param x X-coordintate indicating where this view should be placed. This will either be the
-     *            left or right edge of the view, depending on the fromLeft paramter
-     * @param fromLeft Are we posiitoning views based on the left edge? (i.e., building from left to
-     *            right)?
+     * @param x X-coordintate indicating where this view should be placed. This
+     *            will either be the left or right edge of the view, depending
+     *            on the fromLeft paramter
+     * @param fromLeft Are we posiitoning views based on the left edge? (i.e.,
+     *            building from left to right)?
      * @return A view that has been added to the gallery
      */
     private View makeAndAddView(int position, int offset, int x, boolean fromLeft) {
@@ -1622,14 +1696,16 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Helper for makeAndAddView to set the position of a view and fill out its layout paramters.
+     * Helper for makeAndAddView to set the position of a view and fill out its
+     * layout paramters.
      *
      * @param child The view to position
      * @param offset Offset from the selected position
-     * @param x X-coordintate indicating where this view should be placed. This will either be the
-     *            left or right edge of the view, depending on the fromLeft paramter
-     * @param fromLeft Are we posiitoning views based on the left edge? (i.e., building from left to
-     *            right)?
+     * @param x X-coordintate indicating where this view should be placed. This
+     *            will either be the left or right edge of the view, depending
+     *            on the fromLeft paramter
+     * @param fromLeft Are we posiitoning views based on the left edge? (i.e.,
+     *            building from left to right)?
      */
     private void setUpChild(View child, int offset, int x, boolean fromLeft) {
 
@@ -1673,14 +1749,16 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Helper for makeAndAddView to set the position of a view and fill out its layout paramters.
+     * Helper for makeAndAddView to set the position of a view and fill out its
+     * layout paramters.
      *
      * @param child The view to position
      * @param offset Offset from the selected position
-     * @param y X-coordintate indicating where this view should be placed. This will either be the
-     *            left or right edge of the view, depending on the fromLeft paramter
-     * @param fromTop Are we posiitoning views based on the left edge? (i.e., building from left to
-     *            right)?
+     * @param y X-coordintate indicating where this view should be placed. This
+     *            will either be the left or right edge of the view, depending
+     *            on the fromLeft paramter
+     * @param fromTop Are we posiitoning views based on the left edge? (i.e.,
+     *            building from left to right)?
      */
     private void setUpChildVertical(View child, int offset, int y, boolean fromTop) {
 
@@ -1737,16 +1815,17 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         int childTop = 0;
 
         switch (mGravity) {
-        case Gravity.TOP:
-            childTop = mSpinnerPadding.top;
-            break;
-        case Gravity.CENTER_VERTICAL:
-            int availableSpace = myHeight - mSpinnerPadding.bottom - mSpinnerPadding.top - childHeight;
-            childTop = mSpinnerPadding.top + (availableSpace / 2);
-            break;
-        case Gravity.BOTTOM:
-            childTop = myHeight - mSpinnerPadding.bottom - childHeight;
-            break;
+            case Gravity.TOP:
+                childTop = mSpinnerPadding.top;
+                break;
+            case Gravity.CENTER_VERTICAL:
+                int availableSpace = myHeight - mSpinnerPadding.bottom - mSpinnerPadding.top
+                        - childHeight;
+                childTop = mSpinnerPadding.top + (availableSpace / 2);
+                break;
+            case Gravity.BOTTOM:
+                childTop = myHeight - mSpinnerPadding.bottom - childHeight;
+                break;
         }
         return childTop;
     }
@@ -1759,16 +1838,17 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         int childLeft = 0;
 
         switch (mGravity) {
-        case Gravity.LEFT:
-            childLeft = mSpinnerPadding.left;
-            break;
-        case Gravity.CENTER_HORIZONTAL:
-            int availableSpace = myWidth - mSpinnerPadding.right - mSpinnerPadding.left - childWidth;
-            childLeft = mSpinnerPadding.left + (availableSpace / 2);
-            break;
-        case Gravity.RIGHT:
-            childLeft = myWidth - mSpinnerPadding.right - childWidth;
-            break;
+            case Gravity.LEFT:
+                childLeft = mSpinnerPadding.left;
+                break;
+            case Gravity.CENTER_HORIZONTAL:
+                int availableSpace = myWidth - mSpinnerPadding.right - mSpinnerPadding.left
+                        - childWidth;
+                childLeft = mSpinnerPadding.left + (availableSpace / 2);
+                break;
+            case Gravity.RIGHT:
+                childLeft = myWidth - mSpinnerPadding.right - childWidth;
+                break;
         }
         return childLeft;
     }
@@ -1797,7 +1877,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         if (mDownTouchPosition >= 0) {
 
-            // If the gallery is scroll cycle, we must calculate the touch position.
+            // If the gallery is scroll cycle, we must calculate the touch
+            // position.
             if (isScrollCycle()) {
                 mDownTouchPosition = mDownTouchPosition % getCount();
             }
@@ -1811,7 +1892,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
             // Also pass the click so the client knows, if it wants to.
             if (mShouldCallbackOnUnselectedItemClick || mDownTouchPosition == mSelectedPosition) {
-                performItemClick(mDownTouchView, mDownTouchPosition, mAdapter.getItemId(mDownTouchPosition));
+                performItemClick(mDownTouchView, mDownTouchPosition,
+                        mAdapter.getItemId(mDownTouchPosition));
             }
 
             return true;
@@ -1827,7 +1909,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Added by LiHong at 2011/09/07 begin ===================
         //
-        // User can disable scroll action when the child count is less than the adapter item count.
+        // User can disable scroll action when the child count is less than the
+        // adapter item count.
         //
         boolean disableScroll = shouldDisableScroll();
 
@@ -1871,7 +1954,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         // Added by LiHong at 2011/09/07 begin ===================
         //
-        // User can disable scroll action when the child count is less than the adapter item count.
+        // User can disable scroll action when the child count is less than the
+        // adapter item count.
         //
         boolean disableScroll = shouldDisableScroll();
 
@@ -1887,28 +1971,31 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             LogUtil.v(TAG, String.valueOf(e2.getX() - e1.getX()));
 
         /*
-         * Now's a good time to tell our parent to stop intercepting our events! The user has moved
-         * more than the slop amount, since GestureDetector ensures this before calling this method.
-         * Also, if a parent is more interested in this touch's events than we are, it would have
-         * intercepted them by now (for example, we can assume when a Gallery is in the ListView, a
-         * vertical scroll would not end up in this method since a ListView would have intercepted
-         * it by now).
+         * Now's a good time to tell our parent to stop intercepting our events!
+         * The user has moved more than the slop amount, since GestureDetector
+         * ensures this before calling this method. Also, if a parent is more
+         * interested in this touch's events than we are, it would have
+         * intercepted them by now (for example, we can assume when a Gallery is
+         * in the ListView, a vertical scroll would not end up in this method
+         * since a ListView would have intercepted it by now).
          */
         // mParent.requestDisallowInterceptTouchEvent(true);
         getParent().requestDisallowInterceptTouchEvent(true);
 
-        // As the user scrolls, we want to callback selection changes so related-
+        // As the user scrolls, we want to callback selection changes so
+        // related-
         // info on the screen is up-to-date with the gallery's selection
         if (!mShouldCallbackDuringFling) {
             if (mIsFirstScroll) {
                 /*
-                 * We're not notifying the client of selection changes during the fling, and this
-                 * scroll could possibly be a fling. Don't do selection changes until we're sure it
-                 * is not a fling.
+                 * We're not notifying the client of selection changes during
+                 * the fling, and this scroll could possibly be a fling. Don't
+                 * do selection changes until we're sure it is not a fling.
                  */
                 if (!mSuppressSelectionChanged)
                     mSuppressSelectionChanged = true;
-                postDelayed(mDisableSuppressSelectionChangedRunnable, SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT);
+                postDelayed(mDisableSuppressSelectionChangedRunnable,
+                        SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT);
             }
         } else {
             if (mSuppressSelectionChanged)
@@ -2013,8 +2100,9 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     @Override
     public void dispatchSetSelected(boolean selected) {
         /*
-         * We don't want to pass the selected state given from its parent to its children since this
-         * widget itself has a selected state to give to its children.
+         * We don't want to pass the selected state given from its parent to its
+         * children since this widget itself has a selected state to give to its
+         * children.
          */
     }
 
@@ -2060,7 +2148,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         boolean handled = false;
 
         if (mOnItemLongClickListener != null) {
-            handled = mOnItemLongClickListener.onItemLongClick(this, mDownTouchView, mDownTouchPosition, id);
+            handled = mOnItemLongClickListener.onItemLongClick(this, mDownTouchView,
+                    mDownTouchPosition, id);
         }
 
         if (!handled) {
@@ -2090,22 +2179,22 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
 
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-            if (movePrevious()) {
-                playSoundEffect(SoundEffectConstants.NAVIGATION_LEFT);
-            }
-            return true;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                if (movePrevious()) {
+                    playSoundEffect(SoundEffectConstants.NAVIGATION_LEFT);
+                }
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-            if (moveNext()) {
-                playSoundEffect(SoundEffectConstants.NAVIGATION_RIGHT);
-            }
-            return true;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (moveNext()) {
+                    playSoundEffect(SoundEffectConstants.NAVIGATION_RIGHT);
+                }
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER:
-            mReceivedInvokeKeyDown = true;
-            // fallthrough to default handling
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                mReceivedInvokeKeyDown = true;
+                // fallthrough to default handling
         }
 
         return super.onKeyDown(keyCode, event);
@@ -2114,30 +2203,30 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER: {
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER: {
 
-            if (mReceivedInvokeKeyDown) {
-                if (mItemCount > 0) {
+                if (mReceivedInvokeKeyDown) {
+                    if (mItemCount > 0) {
 
-                    dispatchPress(mSelectedChild);
-                    postDelayed(new Runnable() {
-                        public void run() {
-                            dispatchUnpress();
-                        }
-                    }, ViewConfiguration.getPressedStateDuration());
+                        dispatchPress(mSelectedChild);
+                        postDelayed(new Runnable() {
+                            public void run() {
+                                dispatchUnpress();
+                            }
+                        }, ViewConfiguration.getPressedStateDuration());
 
-                    int selectedIndex = mSelectedPosition - mFirstPosition;
-                    performItemClick(getChildAt(selectedIndex), mSelectedPosition,
-                            mAdapter.getItemId(mSelectedPosition));
+                        int selectedIndex = mSelectedPosition - mFirstPosition;
+                        performItemClick(getChildAt(selectedIndex), mSelectedPosition,
+                                mAdapter.getItemId(mSelectedPosition));
+                    }
                 }
+
+                // Clear the flag
+                mReceivedInvokeKeyDown = false;
+
+                return true;
             }
-
-            // Clear the flag
-            mReceivedInvokeKeyDown = false;
-
-            return true;
-        }
         }
 
         return super.onKeyUp(keyCode, event);
@@ -2185,7 +2274,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         View oldSelectedChild = mSelectedChild;
 
-        Log(" updateSelectedItemMetadata   mSelectedPosition =  " + mSelectedPosition + "   mFirstPosition = "
+        Log(" updateSelectedItemMetadata   mSelectedPosition =  " + mSelectedPosition
+                + "   mFirstPosition = "
                 + mFirstPosition);
 
         int index = mSelectedPosition - mFirstPosition;
@@ -2225,7 +2315,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Describes how the child views are aligned.
      * 
      * @param gravity
-     * 
      * @attr ref android.R.styleable#Gallery_gravity
      */
     public void setGravity(int gravity) {
@@ -2269,8 +2358,9 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
 
         /*
-         * The gallery shows focus by focusing the selected item. So, give focus to our selected
-         * item instead. We steal keys from our selected item elsewhere.
+         * The gallery shows focus by focusing the selected item. So, give focus
+         * to our selected item instead. We steal keys from our selected item
+         * elsewhere.
          */
         if (gainFocus && mSelectedChild != null) {
             mSelectedChild.requestFocus(direction);
@@ -2279,10 +2369,9 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Responsible for fling behavior. Use {@link #startUsingVelocity(int)} to initiate a fling.
-     * Each frame of the fling is handled in {@link #run()}. A FlingRunnable will keep re-posting
-     * itself until the fling is done.
-     * 
+     * Responsible for fling behavior. Use {@link #startUsingVelocity(int)} to
+     * initiate a fling. Each frame of the fling is handled in {@link #run()}. A
+     * FlingRunnable will keep re-posting itself until the fling is done.
      */
     private class FlingRunnable implements Runnable {
         /**
@@ -2314,14 +2403,16 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             if (isOrientationVertical()) {
                 int initialY = initialVelocity < 0 ? Integer.MAX_VALUE : 0;
                 mLastFlingY = initialY;
-                mScroller.fling(0, initialY, 0, initialVelocity, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE);
+                mScroller.fling(0, initialY, 0, initialVelocity, 0, Integer.MAX_VALUE, 0,
+                        Integer.MAX_VALUE);
                 post(this);
                 return;
             }
 
             int initialX = initialVelocity < 0 ? Integer.MAX_VALUE : 0;
             mLastFlingX = initialX;
-            mScroller.fling(initialX, 0, initialVelocity, 0, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE);
+            mScroller.fling(initialX, 0, initialVelocity, 0, 0, Integer.MAX_VALUE, 0,
+                    Integer.MAX_VALUE);
             post(this);
         }
 
@@ -2355,7 +2446,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             mScrolling = false;
 
             /*
-             * Force the scroller's status to finished (without setting its position to the end)
+             * Force the scroller's status to finished (without setting its
+             * position to the end)
              */
             mScroller.forceFinished(true);
 
@@ -2397,7 +2489,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 mDownTouchPosition = mFirstPosition;
 
                 // Don't fling more than 1 screen
-                // delta = Math.min(getWidth() - mPaddingLeft - mPaddingRight - 1, delta);
+                // delta = Math.min(getWidth() - mPaddingLeft - mPaddingRight -
+                // 1, delta);
                 delta = Math.min(getWidth() - getPaddingLeft() - getPaddingRight() - 1, delta);
             } else {
                 // Moving towards the right. Use last view as mDownTouchPosition
@@ -2441,7 +2534,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
                 mDownTouchPosition = mFirstPosition;
 
                 // Don't fling more than 1 screen
-                // delta = Math.min(getWidth() - mPaddingLeft - mPaddingRight - 1, delta);
+                // delta = Math.min(getWidth() - mPaddingLeft - mPaddingRight -
+                // 1, delta);
                 delta = Math.min(getHeight() - getPaddingTop() - getPaddingBottom() - 1, delta);
             } else {
                 // Moving towards the right. Use last view as mDownTouchPosition
@@ -2464,9 +2558,9 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Gallery extends LayoutParams to provide a place to hold current Transformation information
-     * along with previous position/transformation info.
-     * 
+     * Gallery extends LayoutParams to provide a place to hold current
+     * Transformation information along with previous position/transformation
+     * info.
      */
     public static class LayoutParams extends ViewGroup.LayoutParams {
         public LayoutParams(Context c, AttributeSet attrs) {
@@ -2482,15 +2576,17 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
     }
 
-    // Added by LiHong at 2011/08/12 begin ============================================.
+    // Added by LiHong at 2011/08/12 begin
+    // ============================================.
     //
     // Author: Lee Hong
     //
     // Date 2012/10/12
     //
     /**
-     * Indicate disable scroll action when the child item is less than mItemCount. in other word,
-     * the children can be fully seeing in the gallery.
+     * Indicate disable scroll action when the child item is less than
+     * mItemCount. in other word, the children can be fully seeing in the
+     * gallery.
      */
     private boolean mIsDisableScroll = false;
 
@@ -2530,8 +2626,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     private boolean mIsScrollCycleTemp = true;
 
     /**
-     * Slot into center. The default behavior of gallery is that the selected child will be slot in
-     * center.
+     * Slot into center. The default behavior of gallery is that the selected
+     * child will be slot in center.
      */
     private boolean mIsSlotCenter = false;
 
@@ -2574,7 +2670,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Set the first child offset.
      * 
      * @param firstChildOffset The value of first child offset.
-     * 
      * @author LeeHong
      */
     public void setFirstChildOffset(int firstChildOffset) {
@@ -2585,7 +2680,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Set the first position of the gallery.
      * 
      * @param firstPosition The first position.
-     * 
      * @author LeeHong
      */
     public void setFirstPosition(int firstPosition) {
@@ -2637,7 +2731,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Set the gallery fling listener.
      * 
      * @param listener The OnEndFlingListener instance.
-     * 
      * @author LeeHong
      */
     public void setOnEndFlingListener(OnEndFlingListener listener) {
@@ -2645,11 +2738,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Call this method to disable the scroll action, this method makes affect only when the all
-     * items are displaying in the gallery.
+     * Call this method to disable the scroll action, this method makes affect
+     * only when the all items are displaying in the gallery.
      * 
-     * @param disableScroll true if disable the scroll action, otherwise false, default false.
-     * 
+     * @param disableScroll true if disable the scroll action, otherwise false,
+     *            default false.
      * @author LeeHong
      */
     public void setDisableScroll(boolean disableScroll) {
@@ -2660,7 +2753,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Set the scroll bar bottom margin
      * 
      * @param scrollBarBottmMargin
-     * 
      * @author LeeHong
      */
     public void setScrollBarBottomMargin(int scrollBarBottomMargin) {
@@ -2671,7 +2763,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Set the scroll bar size.
      * 
      * @param scrollBarSize The scroll bar.
-     * 
      * @author LeeHong
      */
     public void setScrollBarSize(int scrollBarSize) {
@@ -2682,7 +2773,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Get the The position of the first child displayed.
      * 
      * @return
-     * 
      * @author LeeHong
      */
     public int getFirstPosition() {
@@ -2693,7 +2783,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Get the spacing between children.
      * 
      * @return The spacing of the children.
-     * 
      * @author LeeHong
      */
     public int getSpacing() {
@@ -2704,7 +2793,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Return the scrolling flag.
      * 
      * @return true if the gallery is scrolling, otherwise false.
-     * 
      * @author LeeHong
      */
     public boolean isScrolling() {
@@ -2712,12 +2800,11 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Scroll gallery items towards left or right direction with the one item's width.
+     * Scroll gallery items towards left or right direction with the one item's
+     * width.
      * 
      * @param toLeft Indicate offset towards left or right.
-     * 
      * @return The offset of the items.
-     * 
      * @author LeeHong
      */
     public int scrollGalleryItems(boolean toLeft) {
@@ -2759,10 +2846,10 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Scroll gallery items towards left or right direction with the one item's width.
+     * Scroll gallery items towards left or right direction with the one item's
+     * width.
      * 
      * @param offset The scroll offset
-     * 
      * @author LeeHong
      */
     public int scrollGalleryItems(int offset) {
@@ -2777,9 +2864,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Get the index from specified point.
      * 
      * @param pt The specified point.
-     * 
-     * @return The based zero index, -1 if not found child which bound not contains the point.
-     * 
+     * @return The based zero index, -1 if not found child which bound not
+     *         contains the point.
      * @author LeeHong
      */
     public int getItemIndexFromPoint(android.graphics.Point pt) {
@@ -2815,11 +2901,10 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Called when fling occurs, this method can return ratio value to accelerate or decelerate the
-     * velocity of gallery.
+     * Called when fling occurs, this method can return ratio value to
+     * accelerate or decelerate the velocity of gallery.
      * 
      * @return default return 1.0f.
-     * 
      * @author LeeHong
      */
     public float getVelocityRatio() {
@@ -2827,11 +2912,10 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     }
 
     /**
-     * Set the scroll or fling velocity ratio, value is in the range [0.5, 1.5], default value is
-     * 1.0f.
+     * Set the scroll or fling velocity ratio, value is in the range [0.5, 1.5],
+     * default value is 1.0f.
      * 
      * @param velocityRatio
-     * 
      * @author LeeHong
      */
     public void setVelocityRatio(float velocityRatio) {
@@ -2848,7 +2932,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * Indicate the should disable scroll action.
      * 
      * @return true if disable scroll, otherwise false.
-     * 
      * @author LeeHong
      */
     protected boolean shouldDisableScroll() {
@@ -2886,7 +2969,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
             if (mDownTouchPosition >= 0) {
                 // Also pass the click so the client knows, if it wants to.
                 if (mShouldCallbackOnUnselectedItemClick || mDownTouchPosition == mSelectedPosition) {
-                    performItemDoubleClick(mDownTouchView, mDownTouchPosition, mAdapter.getItemId(mDownTouchPosition));
+                    performItemDoubleClick(mDownTouchView, mDownTouchPosition,
+                            mAdapter.getItemId(mDownTouchPosition));
                 }
 
                 return true;
@@ -2906,16 +2990,15 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
      * 
      * @param x The x coordinate to the gallery.
      * @param y The y coordinate to the gallery.
-     * 
      * @return true if the point contained in a child.
-     * 
      * @author LeeHong
      */
     public boolean isPointInChild(float x, float y) {
         int childCount = getChildCount();
         for (int i = 0; i < childCount; ++i) {
             View child = getChildAt(i);
-            if (x >= child.getLeft() && x <= child.getRight() && y >= child.getTop() && y <= child.getBottom()) {
+            if (x >= child.getLeft() && x <= child.getRight() && y >= child.getTop()
+                    && y <= child.getBottom()) {
                 return true;
             }
         }
@@ -2971,7 +3054,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         while (curRightEdge > galleryLeft && curPosition >= 0) {
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curRightEdge, false);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curRightEdge, false);
 
             // Remember some state
             mFirstPosition = curPosition;
@@ -2984,7 +3068,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Added by LiHong at 2012/10/11 begin ===========
         curPosition = mItemCount - 1;
         while (curRightEdge > galleryLeft && getChildCount() < mItemCount) {
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curRightEdge, false);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curRightEdge, false);
 
             // Remember some state
             mFirstPosition = curPosition;
@@ -3017,7 +3102,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         }
 
         while (curRightEdge > galleryTop && curPosition >= 0) {
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curRightEdge,
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curRightEdge,
                     false);
 
             // Remember some state
@@ -3031,7 +3117,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Added by LiHong at 2012/10/11 begin ===========
         curPosition = mItemCount - 1;
         while (curRightEdge > galleryTop && getChildCount() < mItemCount) {
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curRightEdge,
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curRightEdge,
                     false);
 
             // Remember some state
@@ -3071,7 +3158,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         while (curLeftEdge < galleryRight && curPosition < numItems) {
 
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getRight() + itemSpacing;
@@ -3081,7 +3169,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Added by LiHong at 2012/10/11 begin ===========
         curPosition = curPosition % numItems;
         while (curLeftEdge <= galleryRight && getChildCount() < mItemCount) {
-            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddView(curPosition, curPosition - mSelectedPosition,
+                    curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getRight() + itemSpacing;
@@ -3117,7 +3206,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
 
         while (curLeftEdge < galleryBottom && curPosition < numItems) {
 
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getBottom() + itemSpacing;
@@ -3127,7 +3217,8 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         // Added by LiHong at 2012/10/11 begin ===========
         curPosition = curPosition % numItems;
         while (curLeftEdge <= galleryBottom && getChildCount() < mItemCount) {
-            prevIterationView = makeAndAddViewVertical(curPosition, curPosition - mSelectedPosition, curLeftEdge, true);
+            prevIterationView = makeAndAddViewVertical(curPosition,
+                    curPosition - mSelectedPosition, curLeftEdge, true);
 
             // Set state for next iteration
             curLeftEdge = prevIterationView.getBottom() + itemSpacing;
@@ -3150,5 +3241,6 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
         public void onEndFling(TosGallery v);
     }
     //
-    // Added by LiHong at 2011/08/12 end ============================================.
+    // Added by LiHong at 2011/08/12 end
+    // ============================================.
 }

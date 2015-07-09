@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import java.io.Serializable;

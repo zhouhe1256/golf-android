@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -10,10 +11,11 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 
 /**
- * Created by bjcathay on 15-6-24.
+ * Created by dengt on 15-6-24.
  */
-public class StadiumSearchActivity extends Activity implements View.OnClickListener{
+public class StadiumSearchActivity extends Activity implements View.OnClickListener {
     private TopView topView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +47,8 @@ public class StadiumSearchActivity extends Activity implements View.OnClickListe
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.input_place:
-                  intent = new Intent(this, KeyWordSearchActivity.class);
-                  ViewUtil.startActivity(this, intent);
+                intent = new Intent(this, KeyWordSearchActivity.class);
+                ViewUtil.startActivity(this, intent);
                 break;
             case R.id.select_sure:
                 break;

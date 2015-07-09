@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -9,7 +10,7 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-6-25.
+ * Created by dengt on 15-6-25.
  */
 public class ProvinceListModel {
     @JSONCollection(type = ProvinceModel.class)
@@ -23,7 +24,9 @@ public class ProvinceListModel {
         this.provinces = provinces;
     }
 
-    private static IContentDecoder<ProvinceListModel> decoder = new IContentDecoder.BeanDecoder<ProvinceListModel>(ProvinceListModel.class);
+    private static IContentDecoder<ProvinceListModel> decoder = new IContentDecoder.BeanDecoder<ProvinceListModel>(
+            ProvinceListModel.class);
+
     public static IPromise getProvince() {
         return Http.instance().get(ApiUrl.PROVINCES).
                 contentDecoder(decoder).run();

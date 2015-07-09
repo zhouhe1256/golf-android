@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -8,7 +9,7 @@ import com.bjcathay.qt.constant.ApiUrl;
 import java.io.Serializable;
 
 /**
- * Created by bjcathay on 15-4-30.
+ * Created by dengt on 15-4-30.
  */
 public class UserModel implements Serializable {
     private Long id;
@@ -129,7 +130,8 @@ public class UserModel implements Serializable {
         this.latitude = latitude;
     }
 
-    private static IContentDecoder<UserModel> decoder = new IContentDecoder.BeanDecoder<UserModel>(UserModel.class, "user");
+    private static IContentDecoder<UserModel> decoder = new IContentDecoder.BeanDecoder<UserModel>(
+            UserModel.class, "user");
 
     public static IPromise register(String mobileNo, String password, String code, String inviteCode) {
         return Http.instance().post(ApiUrl.REGISTER).
@@ -158,40 +160,42 @@ public class UserModel implements Serializable {
                 contentDecoder(decoder).run();
     }
 
-    //修改密码
+    // 修改密码
     public static IPromise changePassword(String oldPassword, String newPassword) {
         return Http.instance().put(ApiUrl.CHANGE_PASSWORD).
                 param("oldPassword", oldPassword).param("password", newPassword).run();
     }
 
-    //重置密码
+    // 重置密码
     public static IPromise resetPassword(String mobileNumber, String password, String code) {
         return Http.instance().put(ApiUrl.RESET_PASSWORD).
-                param("password", password).param("mobileNumber", mobileNumber).param("code", code).run();
+                param("password", password).param("mobileNumber", mobileNumber).param("code", code)
+                .run();
     }
 
-    //更新用户信息
+    // 更新用户信息
     public static IPromise updateUserInfo(String nickname, String realName
             , String pushClientId, String longitude, String latitude) {
         return Http.instance().put(ApiUrl.CHANGE_USER_INFO).
                 param("nickname", nickname).param("realName", realName).
                 param("pushClientId", pushClientId)
                 .param("longitude", longitude).
-                        param("latitude", latitude).contentDecoder(decoder).run();
+                param("latitude", latitude).contentDecoder(decoder).run();
     }
-    //更新用户邀请信息
+
+    // 更新用户邀请信息
     public static IPromise updateUserInfo(String inviteCode) {
         return Http.instance().put(ApiUrl.CHANGE_USER_INFO).
                 param("inviteCode", inviteCode).run();
     }
 
-    //设置用户头像
+    // 设置用户头像
     public static IPromise setAvatar(byte[] data) {
         return Http.instance().post(ApiUrl.SET_AVATAR).
                 data(data).contentDecoder(decoder).run();
     }
 
-    //用户反馈(POST /api/user/feedback)
+    // 用户反馈(POST /api/user/feedback)
     public static IPromise feedBack(String contactWay, String content) {
         return Http.instance().post(ApiUrl.FEED_BACK).
                 param("contactWay", contactWay).param("content", content).run();

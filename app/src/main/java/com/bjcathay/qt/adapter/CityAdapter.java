@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class CityAdapter extends BaseExpandableListAdapter {
     private List<PModel> pModelList;
-    private int nowposition=0;
     private Context context;
 
     public CityAdapter(Context context, List<PModel> pModels) {

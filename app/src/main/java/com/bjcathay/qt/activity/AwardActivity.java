@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.content.Intent;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 兑换页面
- * Created by dengt on 15-4-20.
+ * 兑换页面 Created by dengt on 15-4-20.
  */
-public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener, DialogExchFragment.ExchangeResult {
+public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener,
+        DialogExchFragment.ExchangeResult {
     private GApplication gApplication;
     private TopView topView;
     private ListView awardingFirst;
@@ -61,7 +62,6 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         empty = ViewUtil.findViewById(this, R.id.empty_lin);
         emptyNetimg = ViewUtil.findViewById(this, R.id.list_image_empty);
         emptyNettext = ViewUtil.findViewById(this, R.id.list_view_empty);
-
         propModels = new ArrayList<PropModel>();
         dialogExchFragment = new DialogExchFragment(this, this);
         exchangeAdapter = new ExchangeAdapter(propModels, this, inviteNum, dialogExchFragment);
@@ -73,19 +73,17 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         topView.setExchangeVisiable();
         awardingFirst.setEmptyView(empty);
         awardingFirst.setAdapter(exchangeAdapter);
-       /* awardingFirst.setOnClickListener(this);
-        awardingFirst.setOnLongClickListener(this);*/
     }
 
     private void initData() {
         if (gApplication.isLogin() == true)
-            inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0) + "");
+            inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0)
+                    + "");
         PropListModel.get().done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 emptyNettext.setText(getString(R.string.empty_net_text));
                 emptyNetimg.setImageResource(R.drawable.ic_network_error);
-                // awardingFirst.setEmptyView(emptyNet);
             }
         });
     }
@@ -119,13 +117,15 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     protected void onStart() {
         super.onStart();
         if (gApplication.isLogin() == true)
-            inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0) + "");
+            inviteNum.setText(PreferencesUtils.getInt(this, PreferencesConstant.VALIDATED_USER, 0)
+                    + "");
     }
 
     @Override
     public void exchangeResult(UserModel userModel, boolean isExchange) {
         inviteNum.setText("" + userModel.getInviteAmount());
-        PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
+        PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER,
+                userModel.getInviteAmount());
 
     }
 
@@ -139,8 +139,10 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
                     UserModel userModel = arguments.get(0);
                     gApplication.setUser(userModel);
                     inviteNum.setText(Integer.toString(userModel.getInviteAmount()));
-                    PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER, userModel.getInviteAmount());
-                    PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE, userModel.getInviteCode());
+                    PreferencesUtils.putInt(gApplication, PreferencesConstant.VALIDATED_USER,
+                            userModel.getInviteAmount());
+                    PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,
+                            userModel.getInviteCode());
                 }
             });
         }

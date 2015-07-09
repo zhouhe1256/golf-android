@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.view;
 
 import android.content.Context;
@@ -12,7 +13,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.widget.WheelView;
 
 /**
- * Created by bjcathay on 15-6-3.
+ * Created by dengt on 15-6-3.
  */
 public class VerScrollView extends ScrollView {
     private GestureDetector mGestureDetector;
@@ -24,15 +25,9 @@ public class VerScrollView extends ScrollView {
         mGestureListener = new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-               /* if(view.getId()== R.id.weelviewlinear){
-                    requestDisallowInterceptTouchEvent(false);
-                }else{
-                    requestDisallowInterceptTouchEvent(true);
-                }*/
                 if (view instanceof WheelView) {
                     requestDisallowInterceptTouchEvent(false);
                 } else {
-                    //requestDisallowInterceptTouchEvent(true);
                 }
                 return false;
             }
@@ -45,7 +40,6 @@ public class VerScrollView extends ScrollView {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return super.onInterceptTouchEvent(ev) && mGestureDetector.onTouchEvent(ev);
     }
-
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {

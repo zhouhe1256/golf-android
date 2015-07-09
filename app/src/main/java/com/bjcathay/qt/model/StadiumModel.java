@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
@@ -10,15 +11,14 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by bjcathay on 15-5-5.
+ * Created by dengt on 15-5-5.
  */
 public class StadiumModel implements Serializable {
 
-
-    private String mode;//"球场模式",
+    private String mode;// "球场模式",
     private String designer;// "设计师",
     private String data;// "球场数据",
-    private String area;//"球场面积",
+    private String area;// "球场面积",
     private String greenGrass;// "果岭草种",
     private String fairwayGrass;// "球道草种",
     private String length;// "球场长度",
@@ -27,12 +27,12 @@ public class StadiumModel implements Serializable {
     private Long id;// 1,
     private String name;// "名称",
     private String description;// "描述",
-    private String address;//"北京市朝阳区",
+    private String address;// "北京市朝阳区",
     private double lon;// 40.544566,
     private double lat;// 116.565456,
     private String startAt;// "09:00", "开始营业时间",
     private String endAt;// "18:00","结束营业时间",
-    private String date;//  "建设日期",
+    private String date;// "建设日期",
 
     @JSONCollection(type = String.class)
     private List<String> imageUrls;// [ "/upload/image/xxx.png",
@@ -142,7 +142,6 @@ public class StadiumModel implements Serializable {
         this.description = description;
     }
 
-
     public String getAddress() {
         return address;
     }
@@ -167,7 +166,6 @@ public class StadiumModel implements Serializable {
         this.lat = lat;
     }
 
-
     public String getDate() {
         return date;
     }
@@ -175,7 +173,6 @@ public class StadiumModel implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public String getStartAt() {
         return startAt;
@@ -193,7 +190,6 @@ public class StadiumModel implements Serializable {
         this.endAt = endAt;
     }
 
-
     public List<String> getImageUrls() {
         return imageUrls;
     }
@@ -202,9 +198,10 @@ public class StadiumModel implements Serializable {
         this.imageUrls = imageUrls;
     }
 
-    private static IContentDecoder<StadiumModel> decoder = new IContentDecoder.BeanDecoder<StadiumModel>(StadiumModel.class, "golfCourse");
+    private static IContentDecoder<StadiumModel> decoder = new IContentDecoder.BeanDecoder<StadiumModel>(
+            StadiumModel.class, "golfCourse");
 
-    //场馆详情
+    // 场馆详情
     public static IPromise stadiumDetail(Long id) {
         return Http.instance().get(ApiUrl.stadiumDetail(id)).contentDecoder(decoder).
                 run();

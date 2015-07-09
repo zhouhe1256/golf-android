@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -56,15 +57,11 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
         lstv.setListViewEmptyMessage(getString(R.string.empty_exchange_text));
     }
 
-
     private void initEvent() {
 
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // DialogUtil.hintMessage("选档期", PlaceListActivity.this);
-               /* Intent intent = new Intent(MyCompetitionActivity.this, OrderDetailActivity.class);
-                ViewUtil.startActivity(MyCompetitionActivity.this, intent);*/
             }
         });
     }
@@ -166,6 +163,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
         initData();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();

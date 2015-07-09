@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.support.v4.app.FragmentActivity;
@@ -31,7 +32,8 @@ public class ExchangeAdapter extends BaseAdapter {
     private DialogExchFragment dialogExchFragment;
     int num;
 
-    public ExchangeAdapter(List<PropModel> items, AwardActivity activity, TextView number,DialogExchFragment dialogExchFragment) {
+    public ExchangeAdapter(List<PropModel> items, AwardActivity activity, TextView number,
+            DialogExchFragment dialogExchFragment) {
         if (items == null) {
             items = new ArrayList<PropModel>();
         }
@@ -45,12 +47,10 @@ public class ExchangeAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        // return 0;
     }
 
     @Override
     public Object getItem(int i) {
-        // return items.get(i);
         return 0;
     }
 
@@ -63,7 +63,8 @@ public class ExchangeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_exchange_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_exchange_list, parent,
+                    false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
         } else {
@@ -71,15 +72,10 @@ public class ExchangeAdapter extends BaseAdapter {
         }
         final PropModel propModel = items.get(position);
         holder.title.setText(propModel.getName());
-        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(), R.drawable.exchange_default);
+        ImageViewAdapter.adapt(holder.imageView, propModel.getImageUrl(),
+                R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
         holder.price.setText(propModel.getValue());
-       /* convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtil.hintMessage("选档期");
-            }
-        });*/
         holder.toExch.setText(propModel.getNeedAmount() + "币兑换");
         if (gApplication.isLogin() == true) {
 
@@ -91,14 +87,15 @@ public class ExchangeAdapter extends BaseAdapter {
         if (propModel.getNeedAmount() > num) {
             holder.toExch.setBackgroundResource(R.drawable.solid_bg);
         } else {
-            holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);}
-            holder.toExch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialogExchFragment.setItems(propModel,num);
-                    dialogExchFragment.show(context.getSupportFragmentManager(),"exchange");
-                }
-            });
+            holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
+        }
+        holder.toExch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogExchFragment.setItems(propModel, num);
+                dialogExchFragment.show(context.getSupportFragmentManager(), "exchange");
+            }
+        });
 
         return convertView;
     }
