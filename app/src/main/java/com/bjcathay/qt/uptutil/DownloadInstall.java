@@ -26,6 +26,7 @@ public class DownloadInstall implements DownloadCallback {
     private String apkPath;
     private double apkVersion;
     private int apkCode;
+    private boolean forceFlag;
     private LayoutInflater inflater;
 
     private TextView textView;
@@ -33,11 +34,12 @@ public class DownloadInstall implements DownloadCallback {
     private AlertDialog downloadDialog; // 下载弹出框
     private boolean interceptFlag = false; // 是否取消下载
 
-    public DownloadInstall(Context mContext, String apkPath, double apkVersion, int apkCode) {
+    public DownloadInstall(Context mContext, String apkPath, double apkVersion, int apkCode,boolean forceFlag) {
         this.mContext = mContext;
         this.apkCode = apkCode;
         this.apkPath = apkPath;
         this.apkVersion = apkVersion;
+        this.forceFlag=forceFlag;
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -80,7 +82,7 @@ public class DownloadInstall implements DownloadCallback {
             textView.setText("进度：0");
             progressView = (ProgressBar) view.findViewById(R.id.progressbar);
             builder.setView(view);
-
+            if(!forceFlag)
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -89,6 +91,7 @@ public class DownloadInstall implements DownloadCallback {
                 }
             });
             downloadDialog = builder.create();
+            downloadDialog.setCancelable(false);
             downloadDialog.show();
         }
     }

@@ -31,12 +31,7 @@ import org.json.JSONObject;
 /**
  * Created by dengt on 15-5-15.
  */
-public class ForgetPwdActivity extends Activity implements View.OnClickListener/*
-                                                                                * ,
-                                                                                * View
-                                                                                * .
-                                                                                * OnTouchListener
-                                                                                */, ICallback,
+public class ForgetPwdActivity extends Activity implements View.OnClickListener, ICallback,
         TimeCount.TimeUpdate {
     private GApplication gApplication;
     private ClearEditText userPhone;

@@ -16,6 +16,15 @@ public class UpdateModel implements Serializable {
     private double version;
     private String url;
     private String description;
+    private String minLevel;
+
+    public String getMinLevel() {
+        return minLevel;
+    }
+
+    public void setMinLevel(String minLevel) {
+        this.minLevel = minLevel;
+    }
 
     public String getDescription() {
         return description;

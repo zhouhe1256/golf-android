@@ -96,7 +96,8 @@ public class DownloadManager {
                                     String downurl = updateModel.getUrl();
                                     String description = updateModel.getDescription();
                                     apkinfo = new ApkInfo(downurl, version, null, 0, null,
-                                            description);
+                                            description, updateModel.getMinLevel(),
+                                            checkForceApkVercode());
                                     if (apkinfo != null && checkApkVercode()) {// 检查版本号
                                         // alreayCheckTodayUpdate();
                                         // //设置今天已经检查过更新
@@ -144,7 +145,8 @@ public class DownloadManager {
                                     String downurl = updateModel.getUrl();
                                     String description = updateModel.getDescription();
                                     apkinfo = new ApkInfo(downurl, version, null, 0, null,
-                                            description);
+                                            description, updateModel.getMinLevel(),
+                                            checkForceApkVercode());
                                     if (apkinfo != null && checkApkVercode()) {// 检查版本号
                                         // alreayCheckTodayUpdate();
                                         // //设置今天已经检查过更新
@@ -182,21 +184,24 @@ public class DownloadManager {
             public void onClick(DialogInterface dialog, int which) {
                 String apkPath = Const.apkSavepath + "qtgolf.apk";
                 DownloadCallback downCallback = new DownloadInstall(mContext, apkPath, apkinfo
-                        .getApkVersion(), apkinfo.getApkCode());
+                        .getApkVersion(), apkinfo.getApkCode(), apkinfo.isFourceUpdate());
                 DownloadAsyncTask request = new DownloadAsyncTask(downCallback);
                 request.execute(apkinfo.getDownloadUrl(), apkPath);
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        if (!apkinfo.isFourceUpdate()) {
+            builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
         noticeDialog = builder.create();
         // noticeDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         // //设置最顶层Alertdialog
+        noticeDialog.setCancelable(false);
         noticeDialog.show();
     }
 
@@ -206,14 +211,17 @@ public class DownloadManager {
      * @return
      */
     private boolean checkApkVercode() {
-        /*
-         * SharedPreferences sharedPreference =
-         * mContext.getSharedPreferences(UpdateShared.SETTING_UPDATE_APK_INFO,
-         * 0); int verCode = sharedPreference.getInt(UpdateShared.APK_VERCODE,
-         * 0);
-         */
         double versionname = Double.valueOf(verName);
         if (apkinfo.getApkVersion() > versionname) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean checkForceApkVercode() {
+        double versionname = Double.valueOf(verName);
+        if (Double.valueOf(apkinfo.getMinVersion()) > versionname) {
             return true;
         } else {
             return false;

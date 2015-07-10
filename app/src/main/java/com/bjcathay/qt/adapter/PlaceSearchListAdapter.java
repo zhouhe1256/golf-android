@@ -77,6 +77,23 @@ public class PlaceSearchListAdapter extends BaseAdapter {
         holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
+        // NORMAL|REST|REAL_TIME 正常|休息|实时
+        if ("NORMAL".equals(productModel.getPriceType())) {
+            holder.price.setVisibility(View.VISIBLE);
+            holder.priceNote.setVisibility(View.VISIBLE);
+            holder.priceRest.setVisibility(View.GONE);
+            holder.priceReal.setVisibility(View.GONE);
+        } else if ("REST".equals(productModel.getPriceType())) {
+            holder.price.setVisibility(View.GONE);
+            holder.priceNote.setVisibility(View.GONE);
+            holder.priceRest.setVisibility(View.VISIBLE);
+            holder.priceReal.setVisibility(View.GONE);
+        } else if ("REAL_TIME".equals(productModel.getPriceType())) {
+            holder.price.setVisibility(View.GONE);
+            holder.priceNote.setVisibility(View.GONE);
+            holder.priceRest.setVisibility(View.GONE);
+            holder.priceReal.setVisibility(View.VISIBLE);
+        }
         if ("NORMAL".equals(productModel.getLabel())) {
             holder.hotImg.setVisibility(View.GONE);
         } else if ("HOT".equals(productModel.getLabel())) {
@@ -176,6 +193,9 @@ public class PlaceSearchListAdapter extends BaseAdapter {
         TextView tuanCount;
         TextView temaiCount;
         TextView distance;
+        TextView priceNote;
+        TextView priceRest;
+        TextView priceReal;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -189,6 +209,9 @@ public class PlaceSearchListAdapter extends BaseAdapter {
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
             hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
             distance = ViewUtil.findViewById(view, R.id.place_distance);
+            priceNote = ViewUtil.findViewById(view, R.id.price_note);
+            priceRest = ViewUtil.findViewById(view, R.id.place_rest);
+            priceReal = ViewUtil.findViewById(view, R.id.place_real);
         }
     }
 }

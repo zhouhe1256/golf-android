@@ -15,6 +15,7 @@ import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-7-3.
@@ -86,5 +87,16 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
                 finishEdit();
                 break;
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

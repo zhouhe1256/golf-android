@@ -13,8 +13,17 @@ public class PriceModel implements Serializable {
     private String startAt;// '2015-10-22 00:00:00',
     private String endAt;// '2015-10-23 00:00:00',
     private double price;// 199
+    private String priceType;
     private static IContentDecoder<PriceModel> decoder = new IContentDecoder.BeanDecoder<PriceModel>(
             PriceModel.class, "price");
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
+    }
 
     public Long getId() {
         return id;

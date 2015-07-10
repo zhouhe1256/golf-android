@@ -36,10 +36,19 @@ public class ProductModel implements Serializable {
     private String purchasingNotice;
     private String label;
     private double distance;
+    private String priceType;//NORMAL|REST|REAL_TIME 正常|休息|实时
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(
             ProductModel.class, "product");
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
+    }
 
     public double getDistance() {
         return distance;

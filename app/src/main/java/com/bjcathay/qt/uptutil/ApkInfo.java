@@ -18,9 +18,11 @@ public class ApkInfo implements Serializable {
     private int apkCode; // apk版本号(更新必备)
     private String apkName; // apk名字
     private String apkLog; // apk更新日志
+    private boolean fourceUpdate;
+    private String minVersion;
 
     public ApkInfo(String downloadUrl, double apkVersion, String apkSize,
-            int apkCode, String apkName, String apkLog) {
+            int apkCode, String apkName, String apkLog,String minVersion,boolean fourceUpdate) {
         super();
         this.downloadUrl = downloadUrl;
         this.apkVersion = apkVersion;
@@ -28,6 +30,28 @@ public class ApkInfo implements Serializable {
         this.apkCode = apkCode;
         this.apkName = apkName;
         this.apkLog = apkLog;
+        this.fourceUpdate=fourceUpdate;
+        this.minVersion=minVersion;
+    }
+
+    public String getMinVersion() {
+        return minVersion;
+    }
+
+    public void setMinVersion(String minVersion) {
+        this.minVersion = minVersion;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public boolean isFourceUpdate() {
+        return fourceUpdate;
+    }
+
+    public void setFourceUpdate(boolean fourceUpdate) {
+        this.fourceUpdate = fourceUpdate;
     }
 
     /**

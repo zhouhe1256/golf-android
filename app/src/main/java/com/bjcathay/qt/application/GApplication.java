@@ -95,6 +95,9 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                 param("o", ApiUrl.OS).
                 option(HttpOption.CONNECT_TIMEOUT, 10000).
                 option(HttpOption.READ_TIMEOUT, 10000).
+                option(HttpOption.X_Token,token).
+                option(HttpOption.X_Version, ApiUrl.VERSION).
+                option(HttpOption.X_OS,ApiUrl.OS).
                 setContentDecoder(new IContentDecoder.JSONDecoder()).
                 always(new ICallback() {
                     @Override
@@ -140,7 +143,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
 
     public void updateApiToken() {
         String token = PreferencesUtils.getString(gApplication, PreferencesConstant.API_TOKEN);
-        Http.instance().param("t", token);
+        Http.instance().param("t", token).option(HttpOption.X_Token, token);
     }
 
     public boolean isLogin() {

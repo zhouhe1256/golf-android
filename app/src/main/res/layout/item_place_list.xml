@@ -153,7 +153,8 @@
                             android:gravity="bottom"
                             android:text="￥"
                             android:textColor="@color/order_price_color"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="visible"/>
 
                         <TextView
                             android:id="@+id/place_price"
@@ -164,7 +165,28 @@
                             android:text="1660"
                             android:textColor="@color/order_price_color"
                             android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="visible"/>
+                        <TextView
+                            android:id="@+id/place_rest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/price_note"
+                            android:text="球场休息"
+                            android:textColor="@color/gray"
+                            android:textSize="17sp"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/place_real"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/price_note"
+                            android:text="实时价格"
+                            android:textColor="@color/order_price_color"
+                            android:textSize="17sp"
+                            android:visibility="gone"/>
                     </RelativeLayout>
                 </LinearLayout>
 

@@ -7,6 +7,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.bjcathay.android.util.LogUtil;
 
 import java.util.List;
@@ -43,5 +47,30 @@ public class LocationUtil {
             Toast.makeText(context, "1.请检查网络连接 \n2.请打开我的位置", Toast.LENGTH_SHORT).show();
             return null;
         }
+    }
+
+    public static void getLocationBybd(final Context context) {
+        BDLocationListener my = new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation location) {
+                if (location != null) {
+                    PreferencesUtils.putString(context, PreferencesConstant.LATITUDE,
+                            String.valueOf(location.getLatitude()));
+                    PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE,
+                            String.valueOf(location.getLongitude()));
+                }
+            }
+        };
+        LocationClient mLocationClient = new LocationClient(context); // 声明LocationClient类
+        mLocationClient.registerLocationListener(my);
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
+        option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
+        option.setScanSpan(5000);// 设置发起定位请求的间隔时间为5000ms
+        option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+        option.setNeedDeviceDirect(true);// 返回的定位结果包含手机机头的方向
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+        // 注册监听函数
     }
 }

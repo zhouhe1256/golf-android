@@ -4,6 +4,7 @@ package com.bjcathay.qt.activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -28,10 +29,12 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.widget.TosGallery;
 import com.bjcathay.qt.widget.WheelTextAdapter;
 import com.bjcathay.qt.widget.WheelView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +47,7 @@ import java.util.regex.Pattern;
  * Created by dengt on 15-6-17.
  */
 public class OrderStadiumDetailActivity extends FragmentActivity implements ICallback,
-        View.OnClickListener {
+        View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
     private WheelView mOption1 = null;
     private WheelView mOption2 = null;
     private WheelView mOption3 = null;
@@ -286,7 +289,12 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         imaUrl = intent.getStringExtra("imageurl");
         if (imaUrl != null)
             ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
-        ProductModel.product(id).done(this);
+        ProductModel.product(id).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                DialogUtil.showMessage(getString(R.string.empty_net_text));
+            }
+        });
     }
 
     @Override
@@ -316,8 +324,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
 
             beforSelect = tuan_am_pm;
             if ("下午".equals(tuan_am_pm)) {
-               // hoursPM = DateUtil.To12(stadiumModel.getDate());
-                //todo 24小时
+                // hoursPM = DateUtil.To12(stadiumModel.getDate());
+                // todo 24小时
                 hoursPM.add(stadiumModel.getDate());
                 hourSelect = hoursPM.get(0);
             } else {
@@ -383,8 +391,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
 
     private String getDate() {
         if ("下午".equals(beforSelect)) {
-            //todo 24
-           // hourSelect = DateUtil.To24(hourSelect);
+            // todo 24
+            // hourSelect = DateUtil.To24(hourSelect);
         }
         Calendar c = Calendar.getInstance();
         Date d = null;
@@ -422,6 +430,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     }
 
     ColorStateList csl;
+    boolean noPrice;
 
     private void getDayPrice(double price) {
         if (select == null)
@@ -429,12 +438,20 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if (priceModels != null && priceModels.size() > 0)
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-                    if (priceModel.getPrice() <= 0) {
+                    if ("REST".equals(priceModel.getPriceType())) {
                         okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                         okbtn.setOnClickListener(null);
                         stadiumPrice.setText("球场休息");
                         stadiumPrice.setTextColor(Color.GRAY);
+                    } else if ("REAL_TIME".equals(priceModel.getPriceType())) {
+                        okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                        okbtn.setText("联系客服");
+                        stadiumPrice.setText("实时价格");
+                        noPrice = true;
+                        okbtn.setOnClickListener(this);
                     } else {
+                        noPrice = false;
+                        okbtn.setText("提交订单");
                         okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
                         okbtn.setOnClickListener(this);
                         if (csl != null) {
@@ -482,7 +499,14 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 break;
             case R.id.ok:
                 if (gApplication.isLogin() == true) {
-                    showDialog();
+                    if (noPrice) {
+                        DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
+                                R.style.InfoDialog, getResources()
+                                        .getString(R.string.service_tel_format)
+                                        .toString().trim(), "呼叫", 0l, this);
+                        infoDialog.show();
+                    } else
+                        showDialog();
                 } else {
                     Intent intent = new Intent(context, LoginActivity.class);
                     ViewUtil.startActivity(context, intent);
@@ -490,5 +514,26 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 }
                 break;
         }
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
+            this.startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
