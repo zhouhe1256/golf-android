@@ -2,6 +2,7 @@
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.QExpandedListView;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -60,11 +62,13 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private List<CModel> cModels;
     private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
     private int expandFlag = -1;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_select);
+        context = this;
         initView();
         initData();
         initEvent();
@@ -92,6 +96,10 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             break;
                         }
                     }
+                    PreferencesUtils.putString(context, PreferencesConstant.CITY_ID,
+                            String.valueOf(getCity.get(j).getId()));
+                    PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
+                            String.valueOf(getCity.get(j).getName()));
                     Intent intent = new Intent();
                     intent.putExtra("cityId", getCity.get(j).getId());
                     intent.putExtra("city", getCity.get(j).getName());
@@ -125,31 +133,39 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
         cityAdapter = new CityAdapter(this, pModels);
         elv.setAdapter(cityAdapter);
-        if (province.isEmpty() || getCity.isEmpty()) {
+        if (province.isEmpty()) {
             ProvinceListModel.getProvince().done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     ProvinceListModel provinceListModel = arguments.get(0);
                     province = provinceListModel.getProvinces();
                     DBManager.getInstance().addProvinces(province);
-                    CityListModel.getTotalCities().done(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            CityListModel cityListModel = arguments.get(0);
-                            getCity = cityListModel.getCities();
-                            DBManager.getInstance().addCitys(getCity);
-                            pModels = CitySelectUtil.getCities(province, getCity);
-                            cModels = CitySelectUtil.getHot(getCity);
-                            hotCityAdapter.updateListView(cModels);
-                            cityAdapter.updateListView(pModels);
-                            setListViewHeight(listView);
-                        }
-                    }).fail(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            DialogUtil.showMessage(getString(R.string.empty_net_text));
-                        }
-                    });
+                    if (getCity.isEmpty()) {
+                        CityListModel.getTotalCities().done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                CityListModel cityListModel = arguments.get(0);
+                                getCity = cityListModel.getCities();
+                                DBManager.getInstance().addCitys(getCity);
+                                pModels = CitySelectUtil.getCities(province, getCity);
+                                cModels = CitySelectUtil.getHot(getCity);
+                                hotCityAdapter.updateListView(cModels);
+                                cityAdapter.updateListView(pModels);
+                                setListViewHeight(listView);
+                            }
+                        }).fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                DialogUtil.showMessage(getString(R.string.empty_net_text));
+                            }
+                        });
+                    } else {
+                        pModels = CitySelectUtil.getCities(province, getCity);
+                        cModels = CitySelectUtil.getHot(getCity);
+                        hotCityAdapter.updateListView(cModels);
+                        cityAdapter.updateListView(pModels);
+                        setListViewHeight(listView);
+                    }
                 }
             }).fail(new ICallback() {
                 @Override
@@ -280,17 +296,28 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        Intent intent;
+        Intent intent = null;
 
         switch (view.getId()) {
             case R.id.title_back_img:
                 finish();
                 break;
             case R.id.my_address:
-                GeoCoderAddreaa();
+               /* intent=new Intent();
+                String cityID = PreferencesUtils.getString(this, PreferencesConstant.CITY_ID);
+                String cityName = PreferencesUtils.getString(this, PreferencesConstant.CITY_NAME);
+                if (!StringUtils.isEmpty(cityID) && !StringUtils.isEmpty(cityID)) {
+                    intent.putExtra("cityId", Long.valueOf(cityID));
+                    intent.putExtra("city", cityName);
+                    setResult(1, intent);
+                    finish();
+                } else {*/
+                    GeoCoderAddreaa();
+               // }
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

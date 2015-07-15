@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.model.UpdateModel;
+import com.bjcathay.qt.util.SystemUtil;
 
 import java.text.SimpleDateFormat;
 
@@ -38,7 +39,7 @@ public class DownloadManager {
     public DownloadManager(Context mContext, boolean isAccord) {
         this.mContext = mContext;
         this.isAccord = isAccord;
-        verName = IntentUtil.getCurrentVersionName(mContext);
+        verName = SystemUtil.getCurrentVersionName(mContext);
     }
 
     Handler handler = new Handler() {
@@ -95,9 +96,16 @@ public class DownloadManager {
                                     double version = updateModel.getVersion();
                                     String downurl = updateModel.getUrl();
                                     String description = updateModel.getDescription();
-                                    apkinfo = new ApkInfo(downurl, version, null, 0, null,
-                                            description, updateModel.getMinLevel(),
-                                            checkForceApkVercode());
+                                    apkinfo = new ApkInfo(
+                                            downurl,
+                                            version,
+                                            null,
+                                            0,
+                                            null,
+                                            description,
+                                            updateModel.getMinVersion(),
+                                            updateModel.getMinVersion() > Double.valueOf(verName) ? true
+                                                    : false);
                                     if (apkinfo != null && checkApkVercode()) {// 检查版本号
                                         // alreayCheckTodayUpdate();
                                         // //设置今天已经检查过更新
@@ -144,9 +152,17 @@ public class DownloadManager {
                                     double version = updateModel.getVersion();
                                     String downurl = updateModel.getUrl();
                                     String description = updateModel.getDescription();
-                                    apkinfo = new ApkInfo(downurl, version, null, 0, null,
-                                            description, updateModel.getMinLevel(),
-                                            checkForceApkVercode());
+
+                                    apkinfo = new ApkInfo(
+                                            downurl,
+                                            version,
+                                            null,
+                                            0,
+                                            null,
+                                            description,
+                                            updateModel.getMinVersion(),
+                                            updateModel.getMinVersion() > Double.valueOf(verName) ? true
+                                                    : false);
                                     if (apkinfo != null && checkApkVercode()) {// 检查版本号
                                         // alreayCheckTodayUpdate();
                                         // //设置今天已经检查过更新
@@ -221,7 +237,7 @@ public class DownloadManager {
 
     private boolean checkForceApkVercode() {
         double versionname = Double.valueOf(verName);
-        if (Double.valueOf(apkinfo.getMinVersion()) > versionname) {
+        if (apkinfo.getMinVersion() > versionname) {
             return true;
         } else {
             return false;

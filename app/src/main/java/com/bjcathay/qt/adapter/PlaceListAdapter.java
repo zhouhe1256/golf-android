@@ -81,8 +81,9 @@ public class PlaceListAdapter extends BaseAdapter {
         if (productModel.getDistance() == 0) {
             holder.distance.setVisibility(View.GONE);
         } else {
+            holder.distance.setVisibility(View.VISIBLE);
             if (productModel.getDistance() < 10000 && productModel.getDistance() > 1000) {
-                double c = ((double) productModel.getDistance() / (double) 10000);
+                double c = ((double) productModel.getDistance() / (double) 1000);
                 BigDecimal b = new BigDecimal(c);
                 double f1 = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
                 holder.distance.setText(Double.toString(f1) + "km");

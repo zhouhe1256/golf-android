@@ -141,6 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         setContentView(R.layout.activity_main);
 
         gApplication = GApplication.getInstance();
+
         initView();
         initEvent();
         initData();
@@ -189,7 +190,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     private void initData() {
         PreferencesUtils.putBoolean(this, PreferencesConstant.FRIST_OPEN, false);
-        LocationUtil.getLocation(this);
+        LocationUtil.getLocationBybd(this);
         BannerListModel.getHomeBanners().done(this);
         if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false) {
             String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);

@@ -441,12 +441,13 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                     if ("REST".equals(priceModel.getPriceType())) {
                         okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                         okbtn.setOnClickListener(null);
+                        okbtn.setText("提交订单");
                         stadiumPrice.setText("球场休息");
                         stadiumPrice.setTextColor(Color.GRAY);
                     } else if ("REAL_TIME".equals(priceModel.getPriceType())) {
                         okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
                         okbtn.setText("联系客服");
-                        stadiumPrice.setText("实时价格");
+                        stadiumPrice.setText("实时计价");
                         noPrice = true;
                         okbtn.setOnClickListener(this);
                     } else {

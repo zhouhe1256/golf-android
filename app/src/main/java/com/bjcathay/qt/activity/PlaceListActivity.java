@@ -14,6 +14,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PlaceListAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.model.ProductListModel;
@@ -48,6 +49,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private Date now;
     private String latitude;
     private String longitude;
+    private String cityID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private void initData() {
         latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
         longitude = PreferencesUtils.getString(this, PreferencesConstant.LONGITUDE);
+        cityID = PreferencesUtils.getString(this, PreferencesConstant.CITY_ID);
         loadData(AutoListView.REFRESH);
     }
 
@@ -154,15 +157,16 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 break;
         }
 
-        ProductListModel.productList(page, latitude, longitude).done(this).fail(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                if (lstv != null) {
-                    lstv.onRefreshComplete();
-                    lstv.setResultSize(-1, false);
-                }
-            }
-        });
+        ProductListModel.productList(page, latitude, longitude, cityID).done(this)
+                .fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        if (lstv != null) {
+                            lstv.onRefreshComplete();
+                            lstv.setResultSize(-1, false);
+                        }
+                    }
+                });
     }
 
     @Override

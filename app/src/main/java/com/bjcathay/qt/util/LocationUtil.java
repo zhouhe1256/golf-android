@@ -11,7 +11,14 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.util.LogUtil;
+import com.bjcathay.qt.R;
+import com.bjcathay.qt.db.DBManager;
+import com.bjcathay.qt.model.CityListModel;
+import com.bjcathay.qt.model.GetCitysModel;
+import com.bjcathay.qt.model.ProvinceListModel;
 
 import java.util.List;
 
@@ -52,12 +59,46 @@ public class LocationUtil {
     public static void getLocationBybd(final Context context) {
         BDLocationListener my = new BDLocationListener() {
             @Override
-            public void onReceiveLocation(BDLocation location) {
+            public void onReceiveLocation(final BDLocation location) {
                 if (location != null) {
                     PreferencesUtils.putString(context, PreferencesConstant.LATITUDE,
                             String.valueOf(location.getLatitude()));
                     PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE,
                             String.valueOf(location.getLongitude()));
+                    String name = location.getCity();
+                    if (!name.equals(PreferencesUtils.getString(context,
+                            PreferencesConstant.CITY_NAME))) {
+                        GetCitysModel city = DBManager.getInstance().getCity(
+                                location.getCity());
+                        if (city.getName() == null) {
+                            CityListModel.getTotalCities().done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    CityListModel cityListModel = arguments.get(0);
+                                    DBManager.getInstance().addCitys(cityListModel.getCities());
+                                    for (GetCitysModel getCitysModel : cityListModel.getCities()) {
+                                        if (getCitysModel.getName().startsWith(location.getCity())) {
+                                            PreferencesUtils.putString(context,
+                                                    PreferencesConstant.CITY_ID,
+                                                    String.valueOf(getCitysModel.getId()));
+                                            PreferencesUtils.putString(context,
+                                                    PreferencesConstant.CITY_NAME,
+                                                    String.valueOf(getCitysModel.getName()));
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            });
+                        } else {
+                            PreferencesUtils.putString(context, PreferencesConstant.CITY_ID,
+                                    String.valueOf(city.getId()));
+                            PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
+                                    String.valueOf(city.getName()));
+                        }
+                    }
+                } else {
+                    LogUtil.d("LocSDK5", "locClient failed");
                 }
             }
         };
@@ -66,11 +107,15 @@ public class LocationUtil {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
         option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
-        option.setScanSpan(5000);// 设置发起定位请求的间隔时间为5000ms
+        option.setScanSpan(3600000);// 设置发起定位请求的间隔时间为5000ms
         option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
-        option.setNeedDeviceDirect(true);// 返回的定位结果包含手机机头的方向
+        option.setNeedDeviceDirect(false);// 返回的定位结果包含手机机头的方向
         mLocationClient.setLocOption(option);
         mLocationClient.start();
         // 注册监听函数
+        if (mLocationClient != null && mLocationClient.isStarted())
+            mLocationClient.requestLocation();
+        else
+            LogUtil.d("LocSDK5", "locClient is null or not started");
     }
 }

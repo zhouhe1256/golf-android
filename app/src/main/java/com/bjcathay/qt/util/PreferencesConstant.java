@@ -19,4 +19,6 @@ public class PreferencesConstant {
     public static final String LONGITUDE = "longitude";
     public static final String FRIST_OPEN = "first_open";
     public static final String USER_INFO = "user_info";
+    public static final String CITY_ID="city_id";
+    public static final String CITY_NAME="city_name";
 }

@@ -19,10 +19,10 @@ public class ApkInfo implements Serializable {
     private String apkName; // apk名字
     private String apkLog; // apk更新日志
     private boolean fourceUpdate;
-    private String minVersion;
+    private double minVersion;
 
     public ApkInfo(String downloadUrl, double apkVersion, String apkSize,
-            int apkCode, String apkName, String apkLog,String minVersion,boolean fourceUpdate) {
+            int apkCode, String apkName, String apkLog,double minVersion,boolean fourceUpdate) {
         super();
         this.downloadUrl = downloadUrl;
         this.apkVersion = apkVersion;
@@ -34,11 +34,11 @@ public class ApkInfo implements Serializable {
         this.minVersion=minVersion;
     }
 
-    public String getMinVersion() {
+    public double getMinVersion() {
         return minVersion;
     }
 
-    public void setMinVersion(String minVersion) {
+    public void setMinVersion(double minVersion) {
         this.minVersion = minVersion;
     }
 

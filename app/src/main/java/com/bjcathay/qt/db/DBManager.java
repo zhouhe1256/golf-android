@@ -214,6 +214,22 @@ public class DBManager {
         return stadiums;
     }
 
+    public GetCitysModel getCity(String name) {
+        GetCitysModel stadium=new GetCitysModel();
+        Cursor c = db.rawQuery("SELECT * FROM " + DatabaseHelper.CITY_TABLE_NAME + " WHERE "
+                + DatabaseHelper.CITY_NAME + " = '" + name + "'",
+                null);
+        while (c.moveToNext()) {
+            stadium.setId(Long.parseLong(c.getString(c.getColumnIndex(DatabaseHelper.CITY_ID))));
+            stadium.setName(c.getString(c.getColumnIndex(DatabaseHelper.CITY_NAME)));
+            stadium.setHot("1".equals(c.getString(c.getColumnIndex(DatabaseHelper.CITY_HOT))));
+            stadium.setProvinceId(Long.parseLong(c.getString(c
+                    .getColumnIndex(DatabaseHelper.CITY_PROVINCE_ID))));
+            return stadium;
+        }
+        return stadium;
+    }
+
     public List<BookModel> queryPlayers() {
         Log.d("", "DBManager -->history query");
         List<BookModel> stadiums = new ArrayList<BookModel>();
