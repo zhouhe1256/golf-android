@@ -167,6 +167,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        initDate();
         MobclickAgent.onPageStart("个人中心页面");
         MobclickAgent.onResume(this);
     }
