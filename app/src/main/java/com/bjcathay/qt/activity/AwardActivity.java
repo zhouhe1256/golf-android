@@ -146,12 +146,14 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
                 }
             });
         }
+        MobclickAgent.onPageStart("兑换商城页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("兑换商城页面");
         MobclickAgent.onPause(this);
     }
 }

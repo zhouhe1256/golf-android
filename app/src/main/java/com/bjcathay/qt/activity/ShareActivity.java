@@ -115,12 +115,14 @@ public class ShareActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("分享页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("分享页面");
         MobclickAgent.onPause(this);
     }
 }

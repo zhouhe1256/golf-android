@@ -121,12 +121,14 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("兑换成功页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("兑换成功页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -317,16 +317,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                 break;
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("城市选择页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("城市选择页面");
         MobclickAgent.onPause(this);
     }
 }

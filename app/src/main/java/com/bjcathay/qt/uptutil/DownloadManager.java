@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.UpdateModel;
 import com.bjcathay.qt.util.SystemUtil;
 
@@ -193,6 +194,9 @@ public class DownloadManager {
            * .append("文件大小："+apkinfo.getApkSize()+"\n")
            */
                 .append("更新日志：\n" + apkinfo.getApkLog());
+        if (apkinfo.isFourceUpdate()) {
+            sb.append(mContext.getString(R.string.update_note_message));
+        }
         Builder builder = new Builder(mContext);
         builder.setTitle("版本更新").setMessage(sb.toString());
         builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
@@ -206,14 +210,18 @@ public class DownloadManager {
                 dialog.dismiss();
             }
         });
-        if (!apkinfo.isFourceUpdate()) {
-            builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        }
+
+        builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+               /* if (apkinfo.isFourceUpdate()) {
+                    android.os.Process.killProcess(android.os.Process.myPid()); // 获取PID
+                    System.exit(0);
+                }*/
+            }
+        });
+
         noticeDialog = builder.create();
         // noticeDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         // //设置最顶层Alertdialog

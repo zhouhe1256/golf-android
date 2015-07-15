@@ -169,12 +169,14 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("免费赛事页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("免费赛事页面");
         MobclickAgent.onPause(this);
     }
 }

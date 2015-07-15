@@ -184,16 +184,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("登录页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("登录页面");
         MobclickAgent.onPause(this);
     }
 }

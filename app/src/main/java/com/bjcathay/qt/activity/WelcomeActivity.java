@@ -160,12 +160,14 @@ public class WelcomeActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("闪屏页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("闪屏页面");
         MobclickAgent.onPause(this);
     }
 }

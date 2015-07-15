@@ -157,16 +157,19 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
         }
     }
 
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         initData();
+        MobclickAgent.onPageStart("我的兑换页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("我的兑换页面");
         MobclickAgent.onPause(this);
     }
 }

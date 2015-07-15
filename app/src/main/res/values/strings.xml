@@ -106,6 +106,7 @@
     <string name="share_with_friend_text">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以</string>
     <string name="share_with_friend_text_color"><font color='#FFAC41'>免费</font>参加诸如<font color='#FFAC41'>美国圆石滩邀请赛</font>之类的赛事。</string>
     <string name="history_clear"><u>清除历史记录</u></string>
+    <string name="update_note_message">\n您所使用的“7铁高尔夫”版本过低，继续使用可能会存在无法正确下单等问题，建议您升级到最新版本！</string>
 
     <string name="image_view_tag">ImageViewAdapter</string>
 </resources>

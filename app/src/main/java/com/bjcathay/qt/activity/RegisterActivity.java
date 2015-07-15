@@ -266,15 +266,18 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         return super.onTouchEvent(event);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("注册页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("注册页面");
         MobclickAgent.onPause(this);
     }
 }

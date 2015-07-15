@@ -75,16 +75,17 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
                 break;
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("赠送好友页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("赠送好友页面");
         MobclickAgent.onPause(this);
     }
 }

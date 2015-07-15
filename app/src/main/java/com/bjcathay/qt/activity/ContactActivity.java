@@ -294,12 +294,14 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("赠送好友通讯录页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("赠送好友通讯录页面");
         MobclickAgent.onPause(this);
     }
 }

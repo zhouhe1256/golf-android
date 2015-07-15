@@ -227,11 +227,13 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
             }
             webview.loadUrl(url);
         }
+        MobclickAgent.onPageStart("赛事详情页面");
         MobclickAgent.onResume(this);
     }
 
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("赛事详情页面");
         MobclickAgent.onPause(this);
     }
 }

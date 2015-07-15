@@ -182,12 +182,14 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("我的赛事页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("我的赛事页面");
         MobclickAgent.onPause(this);
     }
 }

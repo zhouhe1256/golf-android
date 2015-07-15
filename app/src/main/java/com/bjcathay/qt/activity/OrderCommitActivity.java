@@ -303,12 +303,14 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("完善订单页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("完善订单页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -158,12 +158,14 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("与好友分享７铁页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("与好友分享７铁页面");
         MobclickAgent.onPause(this);
     }
 }

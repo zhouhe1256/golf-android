@@ -104,15 +104,18 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             placeSelect.setText(name);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("搜索页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("搜索页面");
         MobclickAgent.onPause(this);
     }
 }

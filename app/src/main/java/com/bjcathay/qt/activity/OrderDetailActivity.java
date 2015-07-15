@@ -255,12 +255,14 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
                 }
             });
+        MobclickAgent.onPageStart("订单详情页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("订单详情页面");
         MobclickAgent.onPause(this);
     }
 

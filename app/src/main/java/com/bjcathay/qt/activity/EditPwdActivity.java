@@ -111,12 +111,14 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("修改密码页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("修改密码页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -207,12 +207,14 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("个人资料页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("个人资料页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -226,15 +226,18 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         this.now = now;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("产品列表页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("产品列表页面");
         MobclickAgent.onPause(this);
     }
 }

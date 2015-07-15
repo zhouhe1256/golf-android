@@ -82,12 +82,16 @@ public class DownloadInstall implements DownloadCallback {
             textView.setText("进度：0");
             progressView = (ProgressBar) view.findViewById(R.id.progressbar);
             builder.setView(view);
-            if(!forceFlag)
+           // if(!forceFlag)
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     interceptFlag = true;
+                    /*if(forceFlag){
+                        android.os.Process.killProcess(android.os.Process.myPid());   //获取PID
+                        System.exit(0);
+                    }*/
                 }
             });
             downloadDialog = builder.create();

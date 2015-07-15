@@ -138,12 +138,14 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("赠送好友输入手机号页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("赠送好友输入手机号页面");
         MobclickAgent.onPause(this);
     }
 }

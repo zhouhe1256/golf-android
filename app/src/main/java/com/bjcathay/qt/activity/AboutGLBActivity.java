@@ -37,12 +37,14 @@ public class AboutGLBActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("关于果岭币");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("关于果岭币");
         MobclickAgent.onPause(this);
     }
 }

@@ -165,15 +165,16 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        initDate();
+        MobclickAgent.onPageStart("个人中心页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("个人中心页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -303,12 +303,14 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("首页");
         MobclickAgent.onPause(this);
     }
 

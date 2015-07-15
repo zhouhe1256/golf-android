@@ -132,6 +132,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         mMapView.onResume();
+        MobclickAgent.onPageStart("球场地址页面");
         MobclickAgent.onResume(this);
     }
 
@@ -139,6 +140,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
     protected void onPause() {
         super.onPause();
         mMapView.onPause();
+        MobclickAgent.onPageEnd("球场地址页面");
         MobclickAgent.onPause(this);
     }
 

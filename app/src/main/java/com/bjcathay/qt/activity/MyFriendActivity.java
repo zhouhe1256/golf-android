@@ -163,12 +163,14 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("我的亲友团页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("我的亲友团页面");
         MobclickAgent.onPause(this);
     }
 }

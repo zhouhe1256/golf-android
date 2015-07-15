@@ -124,12 +124,14 @@ public class UserEditNnameActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("修改真实姓名页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("修改真实姓名页面");
         MobclickAgent.onPause(this);
     }
 }

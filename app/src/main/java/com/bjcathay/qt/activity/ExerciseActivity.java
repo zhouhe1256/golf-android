@@ -102,12 +102,14 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("活动页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("活动页面");
         MobclickAgent.onPause(this);
     }
 }

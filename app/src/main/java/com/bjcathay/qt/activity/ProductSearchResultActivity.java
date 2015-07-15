@@ -219,15 +219,18 @@ public class ProductSearchResultActivity extends Activity implements
         this.now = now;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("相关球场页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("相关球场页面");
         MobclickAgent.onPause(this);
     }
 

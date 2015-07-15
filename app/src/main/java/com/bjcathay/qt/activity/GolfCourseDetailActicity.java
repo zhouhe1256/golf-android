@@ -218,12 +218,14 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("球场详情页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("球场详情页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -128,12 +128,14 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("兑换赠送成功页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("兑换赠送成功页面");
         MobclickAgent.onPause(this);
     }
 }

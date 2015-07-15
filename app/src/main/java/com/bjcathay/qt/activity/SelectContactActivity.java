@@ -275,15 +275,18 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("选择打球人通讯录页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("选择打球人通讯录页面");
         MobclickAgent.onPause(this);
     }
 }

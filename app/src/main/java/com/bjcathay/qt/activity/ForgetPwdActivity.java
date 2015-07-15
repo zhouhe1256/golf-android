@@ -210,12 +210,14 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("忘记密码页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("忘记密码页面");
         MobclickAgent.onPause(this);
     }
 }

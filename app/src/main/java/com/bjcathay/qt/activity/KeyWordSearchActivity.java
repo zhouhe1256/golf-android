@@ -195,12 +195,14 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("关键字搜索页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("关键字搜索页面");
         MobclickAgent.onPause(this);
     }
 }

@@ -58,12 +58,14 @@ public class StadiumSearchActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("输入关键字页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("输入关键字页面");
         MobclickAgent.onPause(this);
     }
 }
