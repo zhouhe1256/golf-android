@@ -6,11 +6,11 @@
   <!--  <string name="host">http://api0.bjcathay.com:81</string>
     <string name="img_host">http://api0.bjcathay.com:81</string>-->
     <!--运营-->
-   <!-- <string name="host">http://api.7tiegolf.com</string>
-    <string name="img_host">http://image.7tiegolf.com</string>-->
+    <string name="host">http://api.7tiegolf.com</string>
+    <string name="img_host">http://image.7tiegolf.com</string>
     <!--预发布-->
-    <string name="host">http://api.qt.bjcathay.com</string>
-    <string name="img_host">http://image.qt.bjcathay.com</string>
+  <!--  <string name="host">http://api.qt.bjcathay.com</string>
+    <string name="img_host">http://image.qt.bjcathay.com</string>-->
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
