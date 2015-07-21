@@ -89,6 +89,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         topView.getTitle().setTextColor(Color.WHITE);
         topView.setSettingVisiable();
         topView.setHomeBackVisiable();
+       // topView.getHomeBack().setBackgroundResource(R.drawable.ic_white_home_back);
         myOrder.setOnClickListener(this);
         myCompe.setOnClickListener(this);
         myMessage.setOnClickListener(this);

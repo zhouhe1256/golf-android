@@ -3,11 +3,14 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -50,6 +53,13 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private String latitude;
     private String longitude;
     private String cityID;
+    private TextView cityName;
+    private TextView totalFrist;
+    private TextView priceFrist;
+    private TextView disatnceFrist;
+    private int cityreqCode = 1;
+    private int fristFlag = 1;
+    ColorStateList csl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +76,11 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         topView.setHomeBackVisiable();
         topView.setSearchVisiable();
         topView.setTitleText("推荐");
+        cityName = ViewUtil.findViewById(this, R.id.city_name);
+        totalFrist = ViewUtil.findViewById(this, R.id.total_frist);
+        priceFrist = ViewUtil.findViewById(this, R.id.price_frist);
+        disatnceFrist = ViewUtil.findViewById(this, R.id.distance_frist);
+        csl = getResources().getColorStateList(R.color.order_price_color);
         stadiumModelList = new ArrayList<ProductModel>();
         placeListAdapter = new PlaceListAdapter(stadiumModelList, this);
 
@@ -215,6 +230,62 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 intent = new Intent(this, SearchActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
+            case R.id.place_search_key:
+                intent = new Intent(this, KeyWordSearchActivity.class);
+                ViewUtil.startActivity(this, intent);
+                break;
+            case R.id.city_search_key:
+                intent = new Intent(this, CitySelectActivity.class);
+                startActivityForResult(intent, cityreqCode);
+                break;
+            case R.id.total_frist:
+                fristFlag = 1;
+                changeFlag();
+                break;
+            case R.id.price_frist:
+                fristFlag = 2;
+                changeFlag();
+                break;
+            case R.id.distance_frist:
+                fristFlag = 3;
+                changeFlag();
+                break;
+        }
+    }
+
+    private void changeFlag() {
+        if (fristFlag == 1) {
+            totalFrist.setTextColor(csl);
+            disatnceFrist.setTextColor(Color.BLACK);
+            priceFrist.setTextColor(Color.BLACK);
+
+        } else if (fristFlag == 2) {
+            priceFrist.setTextColor(csl);
+            totalFrist.setTextColor(Color.BLACK);
+            disatnceFrist.setTextColor(Color.BLACK);
+        } else if (fristFlag == 3) {
+            disatnceFrist.setTextColor(csl);
+            priceFrist.setTextColor(Color.BLACK);
+            totalFrist.setTextColor(Color.BLACK);
+        }
+        loadData(AutoListView.REFRESH);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (requestCode == cityreqCode && resultCode == 1) {
+            String name = data.getStringExtra("city");
+            long cityId = data.getLongExtra("cityId", 0l);
+            if (cityId != 0l) {
+                cityID = String.valueOf(cityId);
+                cityName.setText(name);
+                loadData(AutoListView.REFRESH);
+            }
+
         }
     }
 
@@ -225,7 +296,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     public void setNow(Date now) {
         this.now = now;
     }
-
 
     @Override
     public void onResume() {

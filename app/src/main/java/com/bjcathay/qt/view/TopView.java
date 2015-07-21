@@ -67,6 +67,9 @@ public class TopView extends LinearLayout {
     public void setHomeBackVisiable() {
         homeBack.setVisibility(VISIBLE);
     }
+    public ImageView getHomeBack(){
+        return homeBack;
+    }
 
     public void setShareVisiable() {
         share.setVisibility(VISIBLE);
