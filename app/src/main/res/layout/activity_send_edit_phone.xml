@@ -9,7 +9,7 @@
         android:id="@+id/top_edit_name_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <EditText
         android:id="@+id/edit_nickname_edit_view"
@@ -47,9 +47,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:id="@+id/edit_sure"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold"
         android:textColor="@color/white"

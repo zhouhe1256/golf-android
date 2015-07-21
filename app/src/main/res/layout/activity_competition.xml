@@ -10,7 +10,7 @@
         android:id="@+id/top_competition_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
+        android:background="@color/white"/>
 
     <com.bjcathay.qt.view.AutoListView
         android:id="@+id/competition_list"

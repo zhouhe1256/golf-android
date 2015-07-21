@@ -7,7 +7,7 @@
         android:id="@+id/top_bd_address_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/home_title_color"/>
+        android:background="@color/white"/>
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="fill_parent"

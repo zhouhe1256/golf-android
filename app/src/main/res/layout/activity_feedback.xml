@@ -10,7 +10,7 @@
         android:id="@+id/top_feedback_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <EditText
         android:id="@+id/feedback_content"
@@ -62,11 +62,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="17sp"
-        android:padding="15dp"
         android:textColor="@color/white"
         android:background="@drawable/yellow_big_selector"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textStyle="bold"
         android:text="提交反馈"
         android:onClick="onClick" />

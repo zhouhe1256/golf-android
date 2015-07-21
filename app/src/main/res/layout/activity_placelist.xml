@@ -10,7 +10,7 @@
         android:id="@+id/top_placelist_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/order_title_color" />
+        android:background="@color/white" />
 
     <com.bjcathay.qt.view.AutoListView
         android:id="@+id/place_lstv"

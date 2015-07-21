@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -188,7 +189,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             if (DateUtil.CompareNowTime(orderDate)) {
                 dialogSureOrderFragment = new DialogOrderInformationFragment(this, stadiumModel,
                         currentPrice, orderDate, attendNumber);
-                dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
+
+                dialogSureOrderFragment.showAtLocation(this.findViewById(R.id.ok), Gravity.BOTTOM
+                        | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+               // dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
             } else {
                 DialogUtil.showMessage("您选的时间已过呦～");
             }
@@ -439,13 +443,15 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
                     if ("REST".equals(priceModel.getPriceType())) {
-                        okbtn.setBackgroundResource(R.drawable.bg_sold_out);
+                       // okbtn.setBackgroundResource(R.drawable.bg_sold_out);
+                        okbtn.setBackgroundResource(R.color.gray);
                         okbtn.setOnClickListener(null);
                         okbtn.setText("提交订单");
                         stadiumPrice.setText("球场休息");
                         stadiumPrice.setTextColor(Color.GRAY);
                     } else if ("REAL_TIME".equals(priceModel.getPriceType())) {
-                        okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                       // okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                        okbtn.setBackgroundResource(R.color.yellow_bg_color);
                         okbtn.setText("联系客服");
                         stadiumPrice.setText("实时计价");
                         noPrice = true;
@@ -453,7 +459,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                     } else {
                         noPrice = false;
                         okbtn.setText("提交订单");
-                        okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                      //  okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                        okbtn.setBackgroundResource(R.color.yellow_bg_color);
                         okbtn.setOnClickListener(this);
                         if (csl != null) {
                             stadiumPrice.setTextColor(csl);

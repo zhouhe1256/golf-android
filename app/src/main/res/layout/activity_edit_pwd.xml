@@ -10,7 +10,7 @@
         android:id="@+id/top_edit_pwd_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -84,7 +84,7 @@
     <Button
         android:id="@+id/edit_sure_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/yellow_big_selector"
         android:textColor="@color/white"
@@ -92,7 +92,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textStyle="bold"
-        android:padding="15dp"
         android:textSize="@dimen/main_textSize"
         android:onClick="onClick"
         android:clickable="true"

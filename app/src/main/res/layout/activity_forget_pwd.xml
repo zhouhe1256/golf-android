@@ -1,149 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="80dp"
-    android:background="@drawable/login_dark_bg">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_marginBottom="20dp"
-        android:layout_width="fill_parent"
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_forget_layout"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/main_textSize"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="密码找回" />
+        android:layout_width="match_parent"
+        android:background="@color/white" />
 
     <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@drawable/line_divide_hor" />
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/register_user_phone"
-            android:layout_weight="2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入手机号"
-            android:inputType="number"
-            android:drawableLeft="@drawable/ic_login_phone"
-            android:textCursorDrawable="@null"
-            android:drawablePadding="14dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:textColorHint="@color/white"
-            android:padding="10dp"
-            android:textSize="15dp"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_login_phone"
+            android:drawablePadding="13dp"
+            android:hint="请输入手机号码"
+            android:inputType="number"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/exchange_text_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/main_textSize" />
 
         <View
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_height="match_parent"
-            android:layout_width="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="@drawable/line_divide_hor" />
 
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/register_get_code_btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:padding="10dp"
-            android:text="获取验证码"
-            android:textSize="15dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center_vertical" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.bjcathay.qt.view.ClearEditText
+                android:id="@+id/register_user_code"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_register_code"
+                android:drawablePadding="20dp"
+                android:hint="验证码"
+                android:inputType="number"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:layout_toLeftOf="@+id/register_get_code_btn"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/exchange_text_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/register_get_code_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
+                android:background="@drawable/code_bg"
+                android:text="获取验证码"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+        </RelativeLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@drawable/line_divide_hor" />
-
-
-    <com.bjcathay.qt.view.ClearEditText
-        android:id="@+id/register_user_code"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="验证码"
-        android:inputType="number"
-        android:textSize="15dp"
-        android:drawableLeft="@drawable/ic_register_code"
-        android:textCursorDrawable="@null"
-        android:drawablePadding="20dp"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textColorHint="@color/white"
-        android:padding="10dp"
-        android:background="@android:color/transparent" />
-
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/line_divide_hor" />
-
+        android:background="@drawable/touying_bg" />
 
     <LinearLayout
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <Button
             android:id="@+id/register_btn"
-            android:layout_margin="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/login_btn_selector"
-            android:padding="10dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/yellow_big_selector"
+            android:text="下一步"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="@dimen/main_textSize"
-            android:text="下一步" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/top_forget_layout"
-            android:layout_height="85dp"
-            android:layout_width="85dp"
-            android:gravity="bottom"
-            android:padding="30dp"
-            android:layout_gravity="bottom"
-            android:src="@drawable/ic_back"
-            android:onClick="onClick"/>
-
-
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

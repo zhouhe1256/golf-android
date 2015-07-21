@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <com.bjcathay.qt.view.TopView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/top_about_layout"
-        android:background="@color/home_title_color" />
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/white" />
+
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/ic_about_logo"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:src="@drawable/ic_about_logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/main_textSize"
             android:paddingTop="20dp"
+            android:text="7铁高尔夫"
             android:textColor="@color/main_text_color"
-            android:text="7铁高尔夫" />
+            android:textSize="@dimen/main_textSize" />
 
         <LinearLayout
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_textSize"
+                android:text="版本"
                 android:textColor="@color/exchange_text_color"
-                android:text="版本" />
+                android:textSize="@dimen/sub_textSize" />
 
             <TextView
                 android:id="@+id/app_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_textSize"
+                android:text=""
                 android:textColor="@color/exchange_text_color"
-                android:text="" />
+                android:textSize="@dimen/sub_textSize" />
 
         </LinearLayout>
 
@@ -73,10 +73,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:textSize="@dimen/small_textSize"
-            android:textColor="@color/exchange_text_color"
             android:layout_marginBottom="10dp"
-            android:text="@string/copyright_text" />
+            android:text="@string/copyright_text"
+            android:textColor="@color/exchange_text_color"
+            android:textSize="@dimen/small_textSize" />
 
     </LinearLayout>
 

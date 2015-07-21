@@ -9,7 +9,7 @@
         android:id="@+id/top_order_detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -175,12 +175,11 @@
                     <Button
                         android:id="@+id/order_detail_now_pay"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_margin="10dp"
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
-                        android:padding="15dp"
                         android:text="去支付"
                         android:textColor="@color/white"
                         android:textSize="@dimen/main_textSize"
@@ -454,12 +453,11 @@
                     <Button
                         android:id="@+id/contact_us"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
-                        android:padding="15dp"
                         android:text="联系客服"
                         android:textColor="@color/white"
                         android:textSize="@dimen/main_textSize"
@@ -469,14 +467,13 @@
                     <Button
                         android:id="@+id/order_cancle"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
-                        android:padding="15dp"
                         android:text="取消订单"
                         android:textColor="@color/white"
                         android:textSize="@dimen/main_textSize"

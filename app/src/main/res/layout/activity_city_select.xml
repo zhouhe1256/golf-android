@@ -10,7 +10,7 @@
         android:id="@+id/top_city_select_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <ScrollView
         android:fadingEdge="none"

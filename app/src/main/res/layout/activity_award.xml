@@ -10,7 +10,7 @@
         android:id="@+id/top_award_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:id="@+id/about_glb"

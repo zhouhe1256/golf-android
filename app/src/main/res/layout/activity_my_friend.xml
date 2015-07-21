@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/top_my_friend_layout"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <RelativeLayout
         android:id="@+id/my_friend_title"

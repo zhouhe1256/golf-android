@@ -67,7 +67,7 @@ public class LocationUtil {
                             String.valueOf(location.getLongitude()));
                     String name = location.getCity();
                     if (!name.equals(PreferencesUtils.getString(context,
-                            PreferencesConstant.CITY_NAME))) {
+                            PreferencesConstant.CITY_NAME,""))) {
                         GetCitysModel city = DBManager.getInstance().getCity(
                                 location.getCity());
                         if (city.getName() == null) {

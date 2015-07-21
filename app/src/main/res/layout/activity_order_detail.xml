@@ -11,7 +11,7 @@
         android:id="@+id/top_order_detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -280,12 +280,11 @@
                     <Button
                         android:id="@+id/order_detail_now_pay"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
                         android:background="@drawable/yellow_big_selector"
                         android:gravity="center"
-                        android:padding="15dp"
                         android:text="立即支付"
                         android:textColor="@color/white"
                         android:textSize="@dimen/main_textSize"

@@ -20,6 +20,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
+import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -34,35 +35,20 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
     private ClearEditText surePwd;
     private String phone;
     private String code;
-    private GestureDetector mGestureDetector;
+    private TopView topView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_new_pwd);
-        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (Math.abs(velocityY) < 100) {
-                    return true;
-                }
-                // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) > 200) {
-                }
-                if ((e1.getRawY() - e2.getRawY()) < 0) {
-                    finish();
-                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
-                    return true;
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
+
         initView();
         initData();
         initEvent();
     }
 
     private void initView() {
+        topView = ViewUtil.findViewById(this, R.id.top_edit_pwd_layout);
         newPwd = ViewUtil.findViewById(this, R.id.edit_new_pwd);
         surePwd = ViewUtil.findViewById(this, R.id.edit_sure_new_pwd);
     }
@@ -74,6 +60,8 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
     }
 
     private void initEvent() {
+        topView.setTitleBackVisiable();
+        topView.setTitleText("重置密码");
     }
 
     private void edit() {
@@ -137,18 +125,11 @@ public class ForgetSetNewPwdActivity extends Activity implements View.OnClickLis
             case R.id.edit_sure_btn:
                 edit();
                 break;
-            case R.id.top_edit_pwd_layout:
+            case R.id.title_back_img:
                 finish();
-                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
 
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
     }
 
     @Override

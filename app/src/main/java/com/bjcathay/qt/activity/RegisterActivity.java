@@ -28,6 +28,7 @@ import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
+import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -47,8 +48,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private Button registerBtn;
     private TextView userCodeBtn;
     private TimeCount time;
-    private GestureDetector mGestureDetector;
-    private ImageView topView;
+    private TopView topView;
 
     private TextView inviteNoteView;
 
@@ -57,26 +57,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         gApplication = GApplication.getInstance();
-        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-                if (Math.abs(velocityY) < 100) {
-                    return true;
-                }
-
-                // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) > 200) {
-                }
-                // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) < 0) {
-                    finish();
-                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
-                    return true;
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
         initView();
         initDate();
         initEvent();
@@ -94,6 +74,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     }
 
     private void initEvent() {
+        topView.setTitleBackVisiable();
+        topView.setTitleText("注册");
         userPhone.setOnClickListener(this);
         userPwd.setOnClickListener(this);
         userCode.setOnClickListener(this);
@@ -135,6 +117,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         }
         if (phone.length() > 0) {
             userCodeBtn.setClickable(false);
+            userCodeBtn.setBackgroundResource(R.drawable.code_click_bg);
             UserModel.sendCheckCode(phone, "REGISTER").done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
@@ -145,6 +128,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                         time.cancel();
                         userCodeBtn.setText("获取验证码");
                         userCodeBtn.setClickable(true);
+                        userCodeBtn.setBackgroundResource(R.drawable.code_bg);
                         String errorMessage = jsonObject.optString("message");
                         if (!StringUtils.isEmpty(errorMessage))
                             DialogUtil.showMessage(errorMessage);
@@ -158,6 +142,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 @Override
                 public void call(Arguments arguments) {
                     userCodeBtn.setClickable(true);
+                    userCodeBtn.setBackgroundResource(R.drawable.code_bg);
                     DialogUtil.showMessage("网络出现故障");
                 }
             });
@@ -204,9 +189,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                 // 注册
                 register();
                 break;
-            case R.id.top_register_layout:
+            case R.id.title_back_img:
                 finish();
-                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
@@ -252,20 +236,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     public void onTick(long millisUntilFinished) {
         userCodeBtn.setText((millisUntilFinished / 1000) + "秒后重发");
         userCodeBtn.setClickable(false);
+        userCodeBtn.setBackgroundResource(R.drawable.code_click_bg);
     }
 
     @Override
     public void onFinish() {
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
+        userCodeBtn.setBackgroundResource(R.drawable.code_bg);
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
-
 
     @Override
     public void onResume() {

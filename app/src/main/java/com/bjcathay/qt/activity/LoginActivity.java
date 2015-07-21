@@ -24,6 +24,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
+import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -36,35 +37,17 @@ import org.json.JSONObject;
 public class LoginActivity extends Activity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private Button loginbtn;
-    private ImageView topView;
+    private TopView topView;
     private TextView newlogin;
     private TextView forgetbtn;
     private ClearEditText loginUser;
     private ClearEditText loginpwd;
-    private GestureDetector mGestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         gApplication = GApplication.getInstance();
-        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (Math.abs(velocityY) < 100) {
-                    return true;
-                }
-
-                if ((e2.getRawY() - e1.getRawY()) > 200) {
-                }
-                if ((e1.getRawY() - e2.getRawY()) < 0) {
-                    finish();
-                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
-                    return true;
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
         initView();
         initEvent();
         initData();
@@ -82,6 +65,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     }
 
     private void initEvent() {
+        topView.setTitleBackVisiable();
+        topView.setTitleText("登录");
         loginbtn.setOnClickListener(this);
         newlogin.setOnClickListener(this);
         forgetbtn.setOnClickListener(this);
@@ -129,9 +114,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 intent = new Intent(this, ForgetPwdActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
-            case R.id.top_login_layout:
+            case R.id.title_back_img:
                 finish();
-                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
@@ -177,12 +161,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 DialogUtil.showMessage(ErrorCode.getCodeName(code));
             }
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
     }
     @Override
     public void onResume() {

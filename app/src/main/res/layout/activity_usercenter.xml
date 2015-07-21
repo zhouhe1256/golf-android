@@ -25,7 +25,8 @@
         <com.bjcathay.qt.view.TopView
             android:id="@+id/top_usercenter_layout"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:layout_width="match_parent"
+            />
 
         <com.bjcathay.qt.view.CircleImageView
             android:id="@+id/user_center_img"

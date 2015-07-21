@@ -10,7 +10,7 @@
         android:id="@+id/top_golf_detail_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
 
     <com.bjcathay.qt.view.CustomScrollView
         android:layout_width="match_parent"
@@ -61,16 +61,19 @@
                     android:text="球场简介" />
 
                 <TextView
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
                     android:id="@+id/golfcourse_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/exchange_text_color"
                     android:textSize="@dimen/middle_textSize"
+                    android:lineSpacingExtra="10dp"
                     android:background="@color/white" />
 
                 <View
-                    android:layout_alignParentBottom="true"
                     android:layout_height="1dp"
                     android:layout_width="match_parent"
                     android:background="@drawable/touying_bg" />

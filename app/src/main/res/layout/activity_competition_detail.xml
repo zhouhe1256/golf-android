@@ -9,7 +9,7 @@
         android:id="@+id/top_competition_detail_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/home_title_color"/>
+        android:background="@color/white"/>
     <Button
         android:id="@+id/attend_now"
         android:visibility="gone"

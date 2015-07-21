@@ -10,7 +10,7 @@
         android:id="@+id/top_send_friend_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/home_title_color" />
+        android:background="@color/white" />
     <RelativeLayout
         android:id="@+id/send_input_number"
         android:layout_width="fill_parent"

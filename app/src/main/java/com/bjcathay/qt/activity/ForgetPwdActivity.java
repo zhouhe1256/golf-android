@@ -23,6 +23,7 @@ import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.ClearEditText;
+import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -39,30 +40,12 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     private Button registerBtn;
     private TextView userCodeBtn;
     private TimeCount time;
-    private ImageView topView;
-    private GestureDetector mGestureDetector;
-
+    private TopView topView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd);
         gApplication = GApplication.getInstance();
-        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (Math.abs(velocityY) < 100) {
-                    return true;
-                }
-                if ((e2.getRawY() - e1.getRawY()) > 200) {
-                }
-                if ((e1.getRawY() - e2.getRawY()) < 0) {
-                    finish();
-                    overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
-                    return true;
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
         initView();
         initDate();
         initEvent();
@@ -82,6 +65,8 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     }
 
     private void initEvent() {
+        topView.setTitleBackVisiable();
+        topView.setTitleText("密码找回");
         userPhone.setOnClickListener(this);
         userCode.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
@@ -101,6 +86,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
         }
         if (phone.length() > 0) {
             userCodeBtn.setClickable(false);
+            userCodeBtn.setBackgroundResource(R.drawable.code_click_bg);
             UserModel.sendCheckCode(phone, "FORGET_PWD").done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
@@ -111,6 +97,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
                         time.cancel();
                         userCodeBtn.setText("获取验证码");
                         userCodeBtn.setClickable(true);
+                        userCodeBtn.setBackgroundResource(R.drawable.code_bg);
                         String errorMessage = jsonObject.optString("message");
                         if (!StringUtils.isEmpty(errorMessage))
                             DialogUtil.showMessage(errorMessage);
@@ -124,6 +111,7 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
                 @Override
                 public void call(Arguments arguments) {
                     userCodeBtn.setClickable(true);
+                    userCodeBtn.setBackgroundResource(R.drawable.code_bg);
                     DialogUtil.showMessage("网络出现故障");
                 }
             });
@@ -163,9 +151,8 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
                 // 下一步
                 forget();
                 break;
-            case R.id.top_forget_layout:
+            case R.id.title_back_img:
                 finish();
-                overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
                 break;
         }
     }
@@ -193,20 +180,15 @@ public class ForgetPwdActivity extends Activity implements View.OnClickListener,
     public void onTick(long millisUntilFinished) {
         userCodeBtn.setText((millisUntilFinished / 1000) + "秒后重发");
         userCodeBtn.setClickable(false);
+        userCodeBtn.setBackgroundResource(R.drawable.code_click_bg);
     }
 
     @Override
     public void onFinish() {
         userCodeBtn.setText("获取验证码");
         userCodeBtn.setClickable(true);
+        userCodeBtn.setBackgroundResource(R.drawable.code_bg);
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
-
     @Override
     public void onResume() {
         super.onResume();

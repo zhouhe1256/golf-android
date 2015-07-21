@@ -3,6 +3,7 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -85,6 +86,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private void initEvent() {
         topView.setTitleText("个人中心");
+        topView.getTitle().setTextColor(Color.WHITE);
         topView.setSettingVisiable();
         topView.setHomeBackVisiable();
         myOrder.setOnClickListener(this);
