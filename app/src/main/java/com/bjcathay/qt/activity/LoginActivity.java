@@ -151,7 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
                 }
             });
             finish();
-            overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
+            //overridePendingTransition(R.anim.activity_close, R.anim.activity_close);
         } else {
             String errorMessage = jsonObject.optString("message");
             if (!StringUtils.isEmpty(errorMessage))

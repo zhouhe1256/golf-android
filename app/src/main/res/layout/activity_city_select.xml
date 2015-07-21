@@ -1,101 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_city_select_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white" />
 
     <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:fadingEdge="none"
         android:scrollbars="none"
-        android:scrollingCache="false"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:scrollingCache="false">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparent_color"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/my_address"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="当前位置"
-                android:paddingLeft="10dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:background="@drawable/item_click"
-                android:textSize="@dimen/main_textSize"
-                android:textColor="@color/exchange_text_color" />
+                android:paddingLeft="10dp"
+                android:text="当前位置"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/main_textSize" />
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/touying_bg" />
+            <TextView
+                android:id="@+id/my_address_note"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/city_item_bg"
+                android:gravity="center"
+                android:text="未知位置"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/main_textSize" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:text="热门城市"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="10dp"
-                android:textSize="@dimen/main_textSize"
-                android:textColor="@color/main_text_color" />
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
 
-            <ListView
-                android:id="@+id/hot_city_list"
+            <GridView
+                android:id="@+id/hot_city_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cacheColorHint="@android:color/transparent"
-                android:dividerHeight="0.1dp"
-                android:divider="@drawable/line_divide_hor"
-                android:drawSelectorOnTop="false"
+                android:columnWidth="110dp"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@color/transparent_color"
+                android:numColumns="auto_fit"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:scrollbars="none"
-                android:fastScrollEnabled="true"
-                android:groupIndicator="@null" />
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp">
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/touying_bg" />
+
+            </GridView>
+
+            <!-- <ListView
+                 android:id="@+id/hot_city_list"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:cacheColorHint="@android:color/transparent"
+                 android:divider="@drawable/line_divide_hor"
+                 android:dividerHeight="0.1dp"
+                 android:drawSelectorOnTop="false"
+                 android:fastScrollEnabled="true"
+                 android:groupIndicator="@null"
+                 android:scrollbars="none"
+                 android:visibility="gone"/>-->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="所有城市"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:textSize="@dimen/main_textSize"
-                android:textColor="@color/main_text_color" />
+                android:text="所有城市"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
 
             <com.bjcathay.qt.view.QExpandedListView
                 android:id="@+id/qelistview"
-                android:cacheColorHint="@android:color/transparent"
-                android:dividerHeight="0.1dp"
-                android:divider="@drawable/line_divide_hor"
-                android:childDivider="@drawable/line_divide_hor"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:cacheColorHint="@android:color/transparent"
+                android:childDivider="@drawable/line_divide_hor"
+                android:divider="@drawable/line_divide_hor"
+                android:dividerHeight="0.1dp"
                 android:drawSelectorOnTop="false"
-                android:scrollbars="none"
                 android:fastScrollEnabled="true"
-                android:groupIndicator="@null" />
+                android:groupIndicator="@null"
+                android:scrollbars="none" />
 
             <View
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="@drawable/touying_bg" />
         </LinearLayout>
     </ScrollView>

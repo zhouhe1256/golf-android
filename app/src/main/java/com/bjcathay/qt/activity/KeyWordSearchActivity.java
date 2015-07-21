@@ -102,6 +102,9 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
                 adapter.notifyDataSetChanged();
                 DBManager.getInstance().clearHistory();
                 break;
+            case R.id.cancle_search_key:
+                finish();
+                break;
         /*
          * case R.id.select_city: intent = new Intent(this,
          * CitySelectActivity.class); ViewUtil.startActivity(this, intent);

@@ -107,7 +107,7 @@ public class WebJSInterface implements /*
         } else {
             Intent intent = new Intent(mActivity, LoginActivity.class);
             ViewUtil.startActivity(mActivity, intent);
-            mActivity.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+           // mActivity.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
         }
     }
 

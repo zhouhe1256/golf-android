@@ -126,8 +126,8 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 } else {
                     Intent intent = new Intent(DSActivity.this, LoginActivity.class);
                     ViewUtil.startActivity(DSActivity.this, intent);
-                    DSActivity.this.overridePendingTransition(R.anim.activity_open,
-                            R.anim.activity_close);
+//                    DSActivity.this.overridePendingTransition(R.anim.activity_open,
+//                            R.anim.activity_close);
                 }
             }
         });

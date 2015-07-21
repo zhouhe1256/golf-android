@@ -518,7 +518,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 } else {
                     Intent intent = new Intent(context, LoginActivity.class);
                     ViewUtil.startActivity(context, intent);
-                    context.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
+                   // context.overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
                 }
                 break;
         }

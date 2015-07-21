@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private CityAdapter cityAdapter;
     private List<PModel> pModels;
     private HotCityAdapter hotCityAdapter;
-    private ListView listView;
+    private GridView listView;
     private TextView myAddress;
     private List<ProvinceModel> province;
     private List<GetCitysModel> getCity;
@@ -63,6 +64,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
     private int expandFlag = -1;
     private Context context;
+    private TextView myAddressNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,15 +98,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             break;
                         }
                     }
+
                     PreferencesUtils.putString(context, PreferencesConstant.CITY_ID,
                             String.valueOf(getCity.get(j).getId()));
                     PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
                             String.valueOf(getCity.get(j).getName()));
-                    Intent intent = new Intent();
+                    myAddressNote.setText(getCity.get(j).getName());
+                  /*  Intent intent = new Intent();
                     intent.putExtra("cityId", getCity.get(j).getId());
                     intent.putExtra("city", getCity.get(j).getName());
                     setResult(1, intent);
-                    finish();
+                    finish();*/
                 }
             }
         });
@@ -186,9 +190,12 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         topView = ViewUtil.findViewById(this, R.id.top_city_select_layout);
         topView.setTitleText("选择城市");
         topView.setTitleBackVisiable();
+
         elv = ViewUtil.findViewById(this, R.id.qelistview);
-        listView = ViewUtil.findViewById(this, R.id.hot_city_list);
+        // listView = ViewUtil.findViewById(this, R.id.hot_city_list);
+        listView = ViewUtil.findViewById(this, R.id.hot_city_gridview);
         myAddress = ViewUtil.findViewById(this, R.id.my_address);
+        myAddressNote = ViewUtil.findViewById(this, R.id.my_address_note);
 
     }
 
@@ -211,6 +218,24 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
             ViewGroup.LayoutParams params = listview.getLayoutParams();
             params.height = totalHeight + (listview.getDividerHeight() * (listview.getCount() - 1));
+            listview.setLayoutParams(params);
+        }
+    }
+
+    public static void setListViewHeight(GridView listview) {
+        int totalHeight = 0;
+        ListAdapter adapter = listview.getAdapter();
+        if (null != adapter) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                View listItem = adapter.getView(i, null, listview);
+                if (null != listItem) {
+                    listItem.measure(0, 0);// 注意listview子项必须为LinearLayout才能调用该方法
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+
+            ViewGroup.LayoutParams params = listview.getLayoutParams();
+            params.height = totalHeight - listview.getVerticalSpacing();
             listview.setLayoutParams(params);
         }
     }
@@ -291,7 +316,8 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                 return true;
             }
         });
-        myAddress.setOnClickListener(this);
+        GeoCoderAddreaa();
+        myAddressNote.setOnClickListener(this);
     }
 
     @Override
@@ -302,21 +328,23 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             case R.id.title_back_img:
                 finish();
                 break;
-            case R.id.my_address:
-               /* intent=new Intent();
-                String cityID = PreferencesUtils.getString(this, PreferencesConstant.CITY_ID);
-                String cityName = PreferencesUtils.getString(this, PreferencesConstant.CITY_NAME);
+            case R.id.my_address_note:
+                intent = new Intent();
+                String cityID = PreferencesUtils.getString(this, PreferencesConstant.CITY_ID, "");
+                String cityName =
+                        PreferencesUtils.getString(this, PreferencesConstant.CITY_NAME, "");
                 if (!StringUtils.isEmpty(cityID) && !StringUtils.isEmpty(cityID)) {
-                    intent.putExtra("cityId", Long.valueOf(cityID));
+                    intent.putExtra("cityId",
+                            Long.valueOf(cityID));
                     intent.putExtra("city", cityName);
                     setResult(1, intent);
                     finish();
-                } else {*/
-                    GeoCoderAddreaa();
-               // }
+                } else {
+                }
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

@@ -28,7 +28,7 @@
             android:text="北京清河湾高尔夫俱乐部"
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize"
-            android:textStyle="bold" />
+            />
 
         <TextView
             android:id="@+id/commit_place_date"
@@ -37,7 +37,7 @@
             android:text="2015.4.26  2:30"
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize"
-            android:textStyle="bold" />
+            />
 
     </LinearLayout>
 

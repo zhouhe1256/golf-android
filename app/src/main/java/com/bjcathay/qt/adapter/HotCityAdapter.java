@@ -50,12 +50,17 @@ public class HotCityAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+          /*  convertView = inflater.inflate(
+                    R.layout.item_hot_list, null);*/
             convertView = inflater.inflate(
-                    R.layout.item_hot_list, null);
+                    R.layout.item_hot_city_gridview, null);
         }
         CModel c = cities.get(i);
+       /* ((TextView) convertView
+                .findViewById(R.id.group_name)).setText(c.getName());*/
         ((TextView) convertView
-                .findViewById(R.id.group_name)).setText(c.getName());
+                .findViewById(R.id.my_address_note)).setText(c.getName());
+
         return convertView;
     }
 }

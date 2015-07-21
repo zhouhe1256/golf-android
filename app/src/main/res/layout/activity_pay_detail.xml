@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,43 +26,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/white"
-                android:paddingLeft="20dp"
+                android:orientation="vertical"
                 android:paddingBottom="20dp"
-                android:paddingRight="20dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/dialog_order_sure_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="北京清河湾高尔夫俱乐部"
                         android:textColor="@color/main_text_color"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/main_textSize"
-                        android:text="北京清河湾高尔夫俱乐部" />
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:id="@+id/dialog_order_sure_time"
-                        android:textColor="@color/main_text_color"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/main_textSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2015.4.26  2:30" />
+                        android:layout_marginTop="5dp"
+                        android:text="2015.4.26  2:30"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -73,106 +71,105 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/small_textSize"
+                            android:text="手机号码:"
                             android:textColor="@color/exchange_text_color"
-                            android:text="手机号码:" />
+                            android:textSize="@dimen/sub_textSize" />
 
                         <TextView
                             android:id="@+id/dialog_order_sure_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_textSize"
                             android:paddingLeft="5dp"
+                            android:text="1234567890"
                             android:textColor="@color/main_text_color"
-                            android:text="1234567890" />
+                            android:textSize="@dimen/sub_textSize" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/small_textSize"
+                            android:text="包含服务:"
                             android:textColor="@color/exchange_text_color"
-                            android:text="包含服务:" />
+                            android:textSize="@dimen/sub_textSize" />
 
                         <TextView
                             android:id="@+id/dialog_order_sure_service"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_textSize"
                             android:paddingLeft="5dp"
+                            android:text="18洞果岭/僮/车/柜"
                             android:textColor="@color/main_text_color"
-                            android:text="18洞果岭/僮/车/柜" />
+                            android:textSize="@dimen/sub_textSize" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:textSize="@dimen/sub_textSize"
-                            android:textColor="@color/exchange_text_color"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="消费人数:" />
+                            android:text="消费人数:"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize" />
 
                         <TextView
                             android:id="@+id/dialog_order_sure_number"
-                            android:textSize="@dimen/sub_textSize"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/main_text_color"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="４人" />
+                            android:paddingLeft="5dp"
+                            android:text="４人"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/sub_textSize" />
 
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:textSize="@dimen/sub_textSize"
-                            android:textColor="@color/exchange_text_color"
                             android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="bottom"
-                            android:paddingBottom="7dp"
-                            android:text="交易金额:" />
+                            android:text="总金额:"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize" />
 
                         <LinearLayout
-                            android:paddingLeft="20dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="20dp">
 
                             <TextView
-                                android:text="￥"
-                                android:textSize="@dimen/sub_textSize"
-                                android:textColor="@color/order_price_color"
-                                android:padding="5dp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+
+                                android:textColor="@color/order_price_color"
+                                android:textSize="@dimen/sub_textSize" />
 
                             <TextView
                                 android:id="@+id/dialog_order_sure_price"
-                                android:textSize="@dimen/sub_textSize"
-                                android:textColor="@color/guolinbi_color"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:text="1480" />
+                                android:text="1480"
+                                android:textColor="@color/guolinbi_color"
+                                android:textSize="@dimen/sub_textSize"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -182,41 +179,149 @@
             </LinearLayout>
 
             <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/touying_bg" />
 
-            <TextView
-                android:layout_marginTop="10dp"
+            <LinearLayout
+                android:id="@+id/use_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="20dp"
-                android:textSize="@dimen/main_textSize"
-                android:text="支付方式选择"
-                android:background="@color/white" />
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:text="使用钱包余额:"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/sub_textSize" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥"
+                        android:textColor="@color/order_price_color"
+                        android:textSize="@dimen/sub_textSize" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1480"
+                        android:textColor="@color/guolinbi_color"
+                        android:textSize="@dimen/sub_textSize"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/tick" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="支付方式选择"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize"
+                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@color/white"
+                    android:gravity="right">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="实际支付:"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="@color/order_price_color"
+                            android:textSize="@dimen/sub_textSize" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="10dp"
+                            android:text="1480"
+                            android:textColor="@color/guolinbi_color"
+                            android:textSize="@dimen/sub_textSize"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/line_divide_hor" />
+
             <LinearLayout
                 android:id="@+id/pay_wx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:background="@drawable/item_click"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:src="@drawable/ic_wx_pay"
                     android:layout_width="35dp"
-
                     android:layout_height="35dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_wx_pay" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -227,62 +332,63 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="微信支付"
                             android:layout_width="wrap_content"
-                            android:paddingTop="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:paddingBottom="20dp"
                             android:paddingLeft="25dp"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/main_text_color" />
+                            android:paddingTop="20dp"
+                            android:text="微信支付"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
 
 
                         <ImageView
                             android:id="@+id/weixin_icon"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/ic_user_center_inter"
                             android:layout_width="9dp"
-                            android:layout_height="13dp" />
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_user_center_inter" />
 
                         <TextView
-                            android:layout_toLeftOf="@id/weixin_icon"
-                            android:visibility="invisible"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="25dp"
-                            android:textStyle="bold"
-                            android:textSize="5sp"
+                            android:layout_toLeftOf="@id/weixin_icon"
+                            android:background="@drawable/ic_new_message"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:background="@drawable/ic_new_message"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp" />
+                            android:textSize="5sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
 
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
 
             <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:background="@drawable/line_divide_hor" />
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/line_divide_hor"
+                android:visibility="gone" />
+
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/pay_yinlian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/item_click"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
-                    android:src="@drawable/ic_yinlian"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="34dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="34dp"
+                    android:src="@drawable/ic_yinlian" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -293,67 +399,62 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
                             android:padding="20dp"
                             android:text="银联快捷支付"
-                            android:layout_width="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/main_text_color" />
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
 
 
                         <ImageView
                             android:id="@+id/yinlian_icon"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/ic_user_center_inter"
                             android:layout_width="9dp"
-                            android:layout_height="13dp" />
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_user_center_inter" />
 
                         <TextView
-                            android:layout_toLeftOf="@id/yinlian_icon"
-                            android:visibility="invisible"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="25dp"
-                            android:textStyle="bold"
-                            android:textSize="5sp"
+                            android:layout_toLeftOf="@id/yinlian_icon"
+                            android:background="@drawable/ic_new_message"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:background="@drawable/ic_new_message"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp" />
+                            android:textSize="5sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible" />
 
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
 
             <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/line_divide_hor" />
-<LinearLayout
-    android:layout_marginTop="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-</LinearLayout>
             <LinearLayout
                 android:id="@+id/pay_ipay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/item_click"
+                android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:orientation="horizontal">
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:src="@drawable/ic_zhifubao"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_zhifubao" />
 
                 <RelativeLayout
 
@@ -365,45 +466,32 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="支付宝支付"
                             android:layout_width="wrap_content"
-                            android:paddingTop="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:paddingBottom="20dp"
                             android:paddingLeft="25dp"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/main_textSize"
-                            android:textColor="@color/main_text_color" />
+                            android:paddingTop="20dp"
+                            android:text="支付宝支付"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
 
 
                         <ImageView
                             android:id="@+id/order_go"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/ic_user_center_inter"
                             android:layout_width="9dp"
-                            android:layout_height="13dp" />
-
-                        <TextView
-                            android:layout_toLeftOf="@id/order_go"
-                            android:visibility="invisible"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="25dp"
-                            android:textStyle="bold"
-                            android:textSize="5sp"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:background="@drawable/ic_new_message"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp" />
+                            android:src="@drawable/ic_user_center_inter" />
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
 
             <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/touying_bg" />
         </LinearLayout>
     </ScrollView>

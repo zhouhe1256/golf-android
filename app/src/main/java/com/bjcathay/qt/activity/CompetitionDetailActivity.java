@@ -190,9 +190,9 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
                         Intent intent = new Intent(CompetitionDetailActivity.this,
                                 LoginActivity.class);
                         ViewUtil.startActivity(CompetitionDetailActivity.this, intent);
-                        CompetitionDetailActivity.this.overridePendingTransition(
-                                R.anim.activity_open, R.anim.activity_close);
-                    }
+//                        CompetitionDetailActivity.this.overridePendingTransition(
+//                                R.anim.activity_open, R.anim.activity_close);
+                   }
                 break;
             case R.id.title_back_img:
                 finish();

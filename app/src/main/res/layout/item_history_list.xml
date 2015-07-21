@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/select_click">
+    android:background="@drawable/item_click">
 
     <TextView
         android:id="@+id/golf_search_name"
