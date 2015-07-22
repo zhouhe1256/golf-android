@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
@@ -23,6 +24,7 @@ import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CancleInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog;
+import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -49,7 +51,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView orderPayDate;
     private TextView orderStatus;
     private OrderModel orderModel;
-    private TextView orderAddress;
     private Button orderToPay;
     private Button contactUs;
     private Button cancleOrder;
@@ -59,6 +60,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView userRealName;
     private TextView personNames;
     private TextView purchasingNotice;
+    private RoundCornerImageView orderImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         orderNum = ViewUtil.findViewById(this, R.id.order_detail_nomber);
         orderPayDate = ViewUtil.findViewById(this, R.id.order_detail_pay_date);
         orderStatus = ViewUtil.findViewById(this, R.id.order_detail_status);
-        orderAddress = ViewUtil.findViewById(this, R.id.order_detail_address);
         orderToPay = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
         orderUndel = ViewUtil.findViewById(this, R.id.order_undelete_note);
         orderDel = ViewUtil.findViewById(this, R.id.order_delete_note);
@@ -91,6 +92,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         userRealName = ViewUtil.findViewById(this, R.id.userRealName);
         personNames = ViewUtil.findViewById(this, R.id.personNames);
         purchasingNotice = ViewUtil.findViewById(this, R.id.purchasingNotice);
+        orderImg = ViewUtil.findViewById(this, R.id.my_order_img);
     }
 
     private void initEvent() {
@@ -126,6 +128,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             topView.setShareVisiable();
             orderName.setText(orderModel.getTitle());
             orderSale.setText("" + orderModel.getPriceInclude());
+            ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
+
             orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
             orderConNum.setText(""
                     + (orderModel.getPeopleNumber() == 0 ? "4人+"
@@ -141,7 +145,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
             purchasingNotice.setText(orderModel.getPurchasingNotice());
-            orderAddress.setText("球场地址：" + orderModel.getAddress());
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("确认中");
@@ -188,21 +191,6 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                     .getString(R.string.service_tel_format).toString().trim(),
                             "呼叫", 0l, OrderDetailActivity.this);
                     infoDialog.show();
-                }
-            });
-            orderAddress.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, BaiduAddressActivity.class);
-                    intent.putExtra("url", getString(R.string.course_address));
-                    intent.putExtra("location", orderModel.getLat() + "," + orderModel.getLon());
-                    intent.putExtra("lat", orderModel.getLat());
-                    intent.putExtra("lon", orderModel.getLon());
-                    intent.putExtra("title", orderModel.getTitle());
-                    intent.putExtra("content", orderModel.getAddress());
-                    // intent.putExtra("address",stationAddress.getText().toString().trim());
-                    intent.putExtra("src", "A|GOLF");
-                    ViewUtil.startActivity(context, intent);
                 }
             });
         }

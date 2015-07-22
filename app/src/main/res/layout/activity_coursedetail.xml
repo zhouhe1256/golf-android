@@ -13,15 +13,17 @@
         android:layout_height="wrap_content"
         android:background="@color/white" />
     <View
+        android:id="@+id/title_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/top_schedule_layout"
         android:background="@drawable/touying_bg" />
     <com.bjcathay.qt.view.VerScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
         android:layout_above="@+id/ok"
-        android:layout_below="@id/top_schedule_layout"
+        android:layout_below="@id/title_line"
         android:orientation="vertical"
         android:scrollbars="none">
 
