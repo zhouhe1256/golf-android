@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_width="match_parent" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
     <WebView
         android:id="@+id/webview"
         android:layout_width="fill_parent"

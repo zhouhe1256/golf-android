@@ -18,7 +18,10 @@
             android:background="@color/white">
 
         </com.bjcathay.qt.view.TopView>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/touying_bg" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

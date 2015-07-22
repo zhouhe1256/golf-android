@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
     <RelativeLayout
         android:id="@+id/info_img_relative"
         android:layout_width="match_parent"
