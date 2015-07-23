@@ -1,386 +1,476 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:scrollbars="none">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/user_center_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/user_center_title_bg">
 
-        <com.bjcathay.qt.view.TopView
-            android:id="@+id/top_usercenter_layout"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            />
+            <com.bjcathay.qt.view.TopView
+                android:id="@+id/top_usercenter_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
 
-        <com.bjcathay.qt.view.CircleImageView
-            android:id="@+id/user_center_img"
-            android:layout_marginTop="25dp"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_default_user" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
 
-        <TextView
-            android:id="@+id/user_center_phone"
-            android:paddingBottom="50dp"
-            android:paddingTop="22dp"
-            android:textSize="@dimen/main_textSize"
-            android:text="未登录"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/user_center_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_selector"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp">
 
-    <LinearLayout
-        android:id="@+id/my_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_background_selector"
-        android:orientation="horizontal">
+                <com.bjcathay.qt.view.CircleImageView
+                    android:id="@+id/user_center_img"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_default_user" />
 
-        <ImageView
-            android:src="@drawable/ic_my_order"
-            android:layout_width="25dp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
-            android:layout_height="25dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
+                    <TextView
+                        android:id="@+id/user_center_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="未登录"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="9dp"
+                        android:layout_height="13dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_info_enter" />
+                </RelativeLayout>
 
-                <TextView
-                    android:paddingLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:text="我的订单"
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_centerVertical="true"
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:id="@+id/my_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/item_click"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_my_order" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="我的钱包"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+
+                    <ImageView
+                        android:id="@+id/wallet_go"
+                        android:layout_width="9dp"
+                        android:layout_height="13dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_info_enter" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/wallet_go"
+                        android:gravity="center"
+                        android:text="钱包余额"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize"
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/my_order"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/main_text_color" />
+
+                    android:background="@drawable/btn_background_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_my_order" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
 
 
-                <ImageView
-                    android:id="@+id/order_go"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_user_center_inter"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
-
-                <TextView
-                    android:layout_toLeftOf="@id/order_go"
-                    android:visibility="invisible"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:textStyle="bold"
-                    android:textSize="5sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@drawable/ic_new_message"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp" />
-            </RelativeLayout>
-
-            <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/line_divide_hor" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/my_competition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_background_selector"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:src="@drawable/ic_my_compet"
-            android:layout_width="25dp"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="center"
-            android:layout_height="25dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <TextView
-                    android:paddingLeft="10dp"
-                    android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/main_text_color"
-                    android:text="我的赛事"
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:id="@+id/go"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_user_center_inter"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
-
-                <TextView
-                    android:layout_toLeftOf="@id/go"
-                    android:visibility="invisible"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:textStyle="bold"
-                    android:textSize="5sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@drawable/ic_new_message"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/line_divide_hor" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/my_exchange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_background_selector"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:src="@drawable/ic_my_prop"
-            android:layout_width="25dp"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="center"
-            android:layout_height="25dp" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <TextView
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/main_text_color"
-                    android:text="我的兑换"
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:id="@+id/exchange_go"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_user_center_inter"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
-
-                <TextView
-                    android:layout_toLeftOf="@id/exchange_go"
-                    android:visibility="invisible"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:textStyle="bold"
-                    android:textSize="5sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@drawable/ic_new_message"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/line_divide_hor"
-                android:id="@+id/view" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/my_message"
-        android:layout_width="match_parent"
-        android:background="@drawable/btn_background_selector"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:src="@drawable/ic_my_message"
-            android:layout_width="25dp"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="center"
-            android:layout_height="25dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <TextView
-
-                    android:paddingLeft="10dp"
-                    android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/main_text_color"
-                    android:text="我的消息"
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="我的订单"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
 
 
-                <ImageView
-                    android:id="@+id/message_go"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_user_center_inter"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
+                        <ImageView
+                            android:id="@+id/order_go"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_info_enter" />
 
-                <TextView
-                    android:id="@+id/new_message_flag"
-                    android:layout_toLeftOf="@id/message_go"
-                    android:visibility="visible"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:textStyle="bold"
-                    android:textSize="5sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@drawable/ic_new_message"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp" />
+                        <TextView
 
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/order_go"
+                            android:gravity="center"
+                            android:text="查看全部订单状态"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize"
+                            android:visibility="visible" />
 
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/touying_bg" />
 
-    <LinearLayout
-        android:id="@+id/my_personal"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/btn_background_selector"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                    </RelativeLayout>
 
-        <ImageView
-            android:src="@drawable/ic_my_invite"
-            android:layout_width="25dp"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="center"
-            android:layout_height="25dp" />
+                </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="60dp">
-
-                <TextView
-                    android:textSize="@dimen/main_textSize"
-                    android:textColor="@color/main_text_color"
-                    android:text="邀请有礼"
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/line_divide_hor" />
+
+                <LinearLayout
+                    android:id="@+id/my_competition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_background_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/ic_my_compet" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:paddingLeft="10dp"
+                            android:text="我的赛事"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
+
+                        <ImageView
+                            android:id="@+id/go"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_info_enter" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/go"
+                            android:gravity="center"
+                            android:text="参与过的赛事"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize"
+                            android:visibility="visible" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/line_divide_hor" />
+
+                <LinearLayout
+                    android:id="@+id/my_exchange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_background_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/ic_my_prop" />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="我的兑换"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
+
+                        <ImageView
+                            android:id="@+id/exchange_go"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_info_enter" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/exchange_go"
+                            android:gravity="center"
+                            android:text="已兑换的赛事卡"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize"
+                            android:visibility="visible" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/line_divide_hor" />
+
+                <LinearLayout
+                    android:id="@+id/my_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_background_selector"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/ic_my_message" />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:paddingLeft="10dp"
+                            android:text="我的消息"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
+
+
+                        <ImageView
+                            android:id="@+id/message_go"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_info_enter" />
+
+                        <TextView
+                            android:id="@+id/new_message_flag"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/message_go"
+                            android:background="@drawable/ic_new_message"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="5sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:id="@+id/my_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_background_selector"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/single_go"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_user_center_inter"
-                    android:layout_width="9dp"
-                    android:layout_height="13dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:src="@drawable/ic_my_invite" />
 
-                <TextView
-                    android:layout_toLeftOf="@id/single_go"
-                    android:visibility="invisible"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:background="@drawable/ic_new_message"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:gravity="center"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-            <!--<View
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:text="邀请有礼"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/main_textSize" />
+
+                        <ImageView
+                            android:id="@+id/single_go"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_info_enter" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/single_go"
+                            android:gravity="center"
+                            android:text="填写邀请码,我的邀请码"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:background="@color/gray" />-->
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/touying_bg" />
-</LinearLayout></ScrollView>
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/touying_bg" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -33,13 +33,13 @@ import java.util.List;
 /**
  * Created by dengt on 15-4-29.
  */
-public class MyMessageAdapter extends BaseAdapter {
+public class MyOrderMessageAdapter extends BaseAdapter {
     private List<MessageModel> items;
     private Activity context;
     private int nowPosition;
     private Dialog dialog;
 
-    public MyMessageAdapter(List<MessageModel> items, Activity activity) {
+    public MyOrderMessageAdapter(List<MessageModel> items, Activity activity) {
         if (items == null) {
             items = new ArrayList<MessageModel>();
         }
@@ -75,7 +75,7 @@ public class MyMessageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_message_list,
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_my_order_message_list,
                     parent, false);
             holder = new Holder(convertView);
             convertView.setTag(holder);
@@ -86,74 +86,6 @@ public class MyMessageAdapter extends BaseAdapter {
         holder.name.setText(messageModel.getName());
         holder.day.setText(messageModel.getRelativeDate());
         holder.content.setText(messageModel.getContent());
-        if ("UNREAD".equals(messageModel.getStatus()))
-            holder.imageView.setVisibility(View.VISIBLE);
-        else
-            holder.imageView.setVisibility(View.INVISIBLE);
-        if (position == 0) {
-            holder.detail.setVisibility(View.VISIBLE);
-            if ("UNREAD".equals(messageModel.getStatus())) {
-                MessageListModel.changeAlreadyRead(messageModel.getId()).done(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
-                        JSONObject jsonObject = arguments.get(0);
-                        if (jsonObject.optBoolean("success")) {
-                            items.get(items.indexOf(messageModel)).setStatus("READ");
-                            holder.imageView.setVisibility(View.INVISIBLE);
-                            notifyDataSetChanged();
-                        } else {
-                            String errorMessage = jsonObject.optString("message");
-                            if (!StringUtils.isEmpty(errorMessage))
-                                DialogUtil.showMessage(errorMessage);
-                            else {
-                                int code = jsonObject.optInt("code");
-                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                            }
-                        }
-                    }
-                });
-            }
-        }
-        if (nowPosition == position) {
-            holder.detail.setVisibility(View.VISIBLE);
-        } else {
-            holder.detail.setVisibility(View.GONE);
-        }
-        holder.total.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.detail.getVisibility() == View.GONE) {
-                    nowPosition = position;
-                    holder.detail.setVisibility(View.VISIBLE);
-                    if ("UNREAD".equals(messageModel.getStatus())) {
-                        MessageListModel.changeAlreadyRead(messageModel.getId()).done(
-                                new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        JSONObject jsonObject = arguments.get(0);
-                                        if (jsonObject.optBoolean("success")) {
-                                            items.get(items.indexOf(messageModel))
-                                                    .setStatus("READ");
-                                            holder.imageView.setVisibility(View.INVISIBLE);
-                                            notifyDataSetChanged();
-                                        } else {
-                                            String errorMessage = jsonObject.optString("message");
-                                            if (!StringUtils.isEmpty(errorMessage))
-                                                DialogUtil.showMessage(errorMessage);
-                                            else {
-                                                int code = jsonObject.optInt("code");
-                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                            }
-                                        }
-                                    }
-                                });
-                    }
-                    notifyDataSetChanged();
-                } else {
-                    holder.detail.setVisibility(View.GONE);
-                }
-            }
-        });
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,21 +122,16 @@ public class MyMessageAdapter extends BaseAdapter {
     class Holder {
         LinearLayout detail;
         TextView toPay;
-        LinearLayout total;
         TextView name;
         TextView content;
         TextView day;
-        ImageView imageView;
 
         public Holder(View view) {
-            total = ViewUtil.findViewById(view, R.id.my_message_total);
             detail = ViewUtil.findViewById(view, R.id.my_message_detail);
             toPay = ViewUtil.findViewById(view, R.id.my_message_to_pay);
             name = ViewUtil.findViewById(view, R.id.message_name);
             content = ViewUtil.findViewById(view, R.id.message_content);
             day = ViewUtil.findViewById(view, R.id.message_relativeDate);
-            imageView = ViewUtil.findViewById(view, R.id.message_status);
-
         }
     }
 }

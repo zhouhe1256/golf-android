@@ -66,7 +66,7 @@ public class MyFriendAdapter extends BaseAdapter {
         } else {
             holder.status.setText("未捧场");
             holder.status
-                    .setTextColor(context.getResources().getColor(R.color.exchange_text_color));
+                    .setTextColor(context.getResources().getColor(R.color.main_text_color));
         }
 
         return convertView;

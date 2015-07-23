@@ -7,15 +7,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_click"
-            android:descendantFocusability="afterDescendants">
+            android:descendantFocusability="afterDescendants"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -25,112 +25,142 @@
                     android:id="@+id/compete_logo_img"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_default_user" />
 
                 <TextView
                     android:id="@+id/competition_status"
                     android:layout_width="29dp"
                     android:layout_height="75dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/ic_attend_bg"
-                    android:textSize="12sp"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/white"
-                    android:layout_marginRight="10dp"
-                    android:paddingBottom="10dp"
-                    android:gravity="center"
-                    android:ems="1"
                     android:text="已结束"
-                    android:layout_alignParentRight="true" />
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <LinearLayout
-                    android:layout_toRightOf="@id/compete_logo_img"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingBottom="20dp"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@id/compete_logo_img"
                     android:orientation="vertical"
-                    android:layout_height="wrap_content">
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/competition_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/main_text_color"
-                        android:singleLine="true"
-                        android:ellipsize="end"
                         android:layout_marginRight="40dp"
-                        android:textSize="@dimen/main_textSize"
-                        android:text="北京清河湾＊＊公开赛" />
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="北京清河湾＊＊公开赛"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
 
                     <TextView
                         android:id="@+id/competition_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/exchange_text_color"
-                        android:singleLine="true"
                         android:ellipsize="end"
                         android:paddingRight="5dp"
-                        android:textSize="@dimen/sub_textSize"
                         android:paddingTop="5dp"
-                        android:text="时间:2015.3.4" />
+                        android:singleLine="true"
+                        android:text="时间:2015.3.4"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/competition_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize"
-                        android:paddingTop="5dp"
-                        android:singleLine="true"
                         android:ellipsize="end"
                         android:paddingRight="10dp"
-                        android:text="地址:北京市清河湾" />
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:text="地址:北京市清河湾"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
 
                     <TextView
                         android:id="@+id/competition_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize"
+                        android:ellipsize="end"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:paddingTop="5dp"
                         android:singleLine="true"
-                        android:ellipsize="end"
-                        android:visibility="gone"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:text="参加人数:200人" />
+                        android:text="参加人数:200人"
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </RelativeLayout>
+
             <View
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="95dp"
-                android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
-            <TextView
-                android:id="@+id/competition_detail"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:gravity="center_vertical"
-                android:text="已有150人报名"
-                android:textColor="@color/main_text_color"
-                android:layout_gravity="right|center_vertical" />
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="已有"
+                    android:textColor="@color/main_text_color" />
+
+                <TextView
+                    android:id="@+id/competition_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="150"
+                    android:textColor="@color/main_text_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="人报名"
+                    android:textColor="@color/main_text_color" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <View
-            android:background="@color/line_color"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="0.5dp"
+            android:background="@color/line_color" />
+
         <View
-            android:background="@color/transparent_color"
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="10dp"
+            android:background="@color/transparent_color" />
     </LinearLayout>
 </FrameLayout>

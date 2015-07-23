@@ -62,21 +62,19 @@ public class MyOrderAdapter extends BaseAdapter {
         }
 
         OrderModel orderModel = items.get(position);
-        holder.detail.setText("订单号：" + orderModel.getOrderId());
         ImageViewAdapter.adapt(holder.img, orderModel.getImageUrl(), R.drawable.exchange_default);
         holder.title.setText(orderModel.getTitle());
-        holder.discount.setText("包含服务：" + orderModel.getPriceInclude());
+        holder.discount.setText(orderModel.getPriceInclude());
         if (orderModel.getPeopleNumber() == 0)
             holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
         else
             holder.price.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
 
         holder.number
-                .setText("预约人数："
-                        + (orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel
+                .setText((orderModel.getPeopleNumber() == 0 ? "4人+" : (orderModel
                                 .getPeopleNumber() + "人")));
         String currentTime = DateUtil.stringToDateToOrderString(orderModel.getDate());
-        holder.time.setText("预约日期：" + currentTime);
+        holder.time.setText(currentTime);
         // PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
         // PENDING|UNPAID|PAID|FINISH|CANCEL
         if ("PENDING".equals(orderModel.getStatus()))
@@ -89,7 +87,7 @@ public class MyOrderAdapter extends BaseAdapter {
             holder.status.setText("已完成");
         else if ("CANCEL".equals(orderModel.getStatus()))
             holder.status.setText("已取消");
-        if ("SPECIAL".equals(orderModel.getType())) {
+      /*  if ("SPECIAL".equals(orderModel.getType())) {
             holder.temai.setVisibility(View.VISIBLE);
             holder.tuan.setVisibility(View.GONE);
         } else if ("GROUP".equals(orderModel.getType())) {
@@ -98,12 +96,11 @@ public class MyOrderAdapter extends BaseAdapter {
         } else {
             holder.tuan.setVisibility(View.GONE);
             holder.temai.setVisibility(View.GONE);
-        }
+        }*/
         return convertView;
     }
 
     class Holder {
-        TextView detail;
         TextView title;
         TextView discount;
         TextView price;
@@ -111,20 +108,16 @@ public class MyOrderAdapter extends BaseAdapter {
         RoundCornerImageView img;
         TextView time;
         TextView number;
-        ImageView tuan;
-        ImageView temai;
-
         public Holder(View view) {
             img = ViewUtil.findViewById(view, R.id.my_order_img);
-            detail = ViewUtil.findViewById(view, R.id.my_order_detail);
             title = ViewUtil.findViewById(view, R.id.my_order_title);
             price = ViewUtil.findViewById(view, R.id.my_order_price);
             discount = ViewUtil.findViewById(view, R.id.my_order_discount);
             status = ViewUtil.findViewById(view, R.id.my_order_status);
             time = ViewUtil.findViewById(view, R.id.my_order_time);
             number = ViewUtil.findViewById(view, R.id.my_order_number);
-            tuan = ViewUtil.findViewById(view, R.id.my_order_tuangou);
-            temai = ViewUtil.findViewById(view, R.id.my_order_temai);
+          /*  tuan = ViewUtil.findViewById(view, R.id.my_order_tuangou);
+            temai = ViewUtil.findViewById(view, R.id.my_order_temai);*/
         }
     }
 }

@@ -66,9 +66,9 @@ public class LocationUtil {
                     PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE,
                             String.valueOf(location.getLongitude()));
                     String name = location.getCity();
-                    String cityName=PreferencesUtils.getString(context,
+                   /* String cityName=PreferencesUtils.getString(context,
                             PreferencesConstant.CITY_NAME," ");
-                    if (!name.equals(cityName)) {
+                    if (!name.equals(cityName)) {*/
                         GetCitysModel city = DBManager.getInstance().getCity(
                                 location.getCity());
                         if (city.getName() == null) {
@@ -97,7 +97,7 @@ public class LocationUtil {
                             PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
                                     String.valueOf(city.getName()));
                         }
-                    }
+                   // }
                 } else {
                     LogUtil.d("LocSDK5", "locClient failed");
                 }

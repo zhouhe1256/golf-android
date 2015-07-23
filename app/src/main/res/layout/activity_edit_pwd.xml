@@ -1,102 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_edit_pwd_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
+
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/edit_old_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="旧的密码"
-            android:paddingLeft="10dp"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             android:inputType="textPassword"
-            android:textCursorDrawable="@null"
-            android:textColorHint="@color/exchange_text_color"
+            android:paddingBottom="15dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
             android:textColor="@color/main_text_color"
-            android:textSize="15dp"
-            android:background="@android:color/transparent" />
+            android:textColorHint="@color/exchange_text_color"
+            android:textCursorDrawable="@null"
+            android:textSize="15dp" />
 
         <View
-            android:layout_height="1dp"
             android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="@drawable/line_divide_hor" />
 
         <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/edit_new_pwd"
-            android:paddingLeft="10dp"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColorHint="@color/exchange_text_color"
-            android:textColor="@color/main_text_color"
+            android:background="@android:color/transparent"
             android:hint="新的密码"
-            android:textSize="15dp"
-            android:background="@android:color/transparent" />
+            android:inputType="textPassword"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:singleLine="true"
+            android:textColor="@color/main_text_color"
+            android:textColorHint="@color/exchange_text_color"
+            android:textSize="15dp" />
 
         <View
-            android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:background="@drawable/touying_bg" />
+            android:layout_height="1dp"
+            android:background="@drawable/line_divide_hor" />
 
         <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/edit_sure_new_pwd"
-            android:paddingLeft="10dp"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColorHint="@color/exchange_text_color"
-            android:textColor="@color/main_text_color"
+            android:background="@android:color/transparent"
             android:hint="重复新的密码"
-            android:textSize="15dp"
-            android:background="@android:color/transparent" />
-
-        <View
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/touying_bg" />
+            android:inputType="textPassword"
+            android:paddingBottom="5dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/main_text_color"
+            android:textColorHint="@color/exchange_text_color"
+            android:textSize="15dp" />
 
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
 
     <Button
         android:id="@+id/edit_sure_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/yellow_big_selector"
-        android:textColor="@color/white"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textStyle="bold"
-        android:textSize="@dimen/main_textSize"
-        android:onClick="onClick"
         android:clickable="true"
-        android:text="确认修改" />
+        android:onClick="onClick"
+        android:text="确认修改"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_textSize"
+        android:textStyle="bold" />
 </LinearLayout>

@@ -86,16 +86,13 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private void initEvent() {
         topView.setTitleText("个人中心");
-        topView.getTitle().setTextColor(Color.WHITE);
         topView.setSettingVisiable();
         topView.setHomeBackVisiable();
-       // topView.getHomeBack().setBackgroundResource(R.drawable.ic_white_home_back);
         myOrder.setOnClickListener(this);
         myCompe.setOnClickListener(this);
         myMessage.setOnClickListener(this);
         myPerson.setOnClickListener(this);
         myExchange.setOnClickListener(this);
-        userImg.setOnClickListener(this);
     }
 
     private void initUserData(UserModel userModel, boolean isWriteSD) {
@@ -115,6 +112,10 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.my_wallet:
+                intent = new Intent(this, MyWalletActivity.class);
+                IsLoginUtil.isLogin(this, intent);
+                break;
             case R.id.my_order:
                 intent = new Intent(this, MyOrderActivity.class);
                 IsLoginUtil.isLogin(this, intent);
@@ -144,7 +145,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
             case R.id.home_back_img:
                 finish();
                 break;
-            case R.id.user_center_img:
+            case R.id.user_center_content:
                 intent = new Intent(this, MyInformationActivity.class);
                 intent.putExtra("user", userModel);
                 IsLoginUtil.isLogin(this, intent);

@@ -100,6 +100,9 @@
     <string name="this_is_glb">果岭币是7铁赠送的虚拟货币，可兑换平台内不同级别的赛事资格。\n每个果岭币含金量约100~150元人民币。\n果岭币可以在7铁会员间相互馈赠。</string>
     <string name="how_to_get_glb">如何获得果岭币</string>
     <string name="this_way_to_get_glb">邀请一名球友注册7铁会员，并成功完成一次订场、打球，可获得一枚果岭币。</string>
+    <string name="what_is_wallet">什么是钱包余额?</string>
+    <string name="this_is_wallet">钱包余额是您在7铁的</string>
+    <string name="wallet_note">提示:</string>
     <string name="pay_success_note">请您在%1$s到%2$s球场尽情挥杆~</string>
     <string name="attend_success_note">您已成功报名%1$s.</string>
     <string name="copyright_text">copyright©2015  北京国泰银科科技有限公司  版权所有</string>

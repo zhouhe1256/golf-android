@@ -31,8 +31,8 @@
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/sub_textSize"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_gray_bg"
-                android:text="兑换" />
+                android:background="@drawable/ic_exchange_yellow"
+                android:text="赠送" />
 
             <LinearLayout
                 android:id="@+id/center_layout"
@@ -78,7 +78,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:paddingTop="5dp"
+                    android:paddingTop="10dp"
                     android:id="@+id/exchange_note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,19 +86,19 @@
                     android:maxLines="3"
                     android:layout_marginRight="40dp"
                     android:textSize="@dimen/sub_textSize"
+                    android:textColor="@color/exchange_text_color"
                     android:text="领取此卡即可免费参加PGA赛事hsakljdl;sakjd;lsak'das" />
 
             </LinearLayout>
         </RelativeLayout>
 
         <View
-            android:layout_alignParentBottom="true"
             android:background="@color/line_color"
             android:layout_width="match_parent"
             android:layout_height="0.5dp" />
 
         <View
-            android:background="@color/transparent"
+            android:background="@color/transparent_color"
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 

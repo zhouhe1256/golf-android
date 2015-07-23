@@ -2,6 +2,8 @@
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +72,12 @@ public class CompetitionAdapter extends BaseAdapter {
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
         holder.count.setText("参加人数：" + eventModel.getSignUpAmount());
-        holder.detail.setText("已有" + eventModel.getSignedAmount() + "人报名");
+        if (eventModel.getSignedAmount() == 0) {
+            holder.detail.setTextColor(Color.BLACK);
+        } else {
+            holder.detail.setTextColor(context.getResources().getColor(R.color.order_price_color));
+        }
+        holder.detail.setText(eventModel.getSignedAmount() + "");
         return convertView;
     }
 

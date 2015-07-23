@@ -67,8 +67,8 @@ public class MyPropAdapter extends BaseAdapter {
                 R.drawable.exchange_default);
         holder.sale.setText(propModel.getDescription());
         holder.number.setText(Integer.toString(propModel.getAmount()));
-        holder.toExch.setText("赠送");
-        holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
+      //  holder.toExch.setText("赠送");
+      //  holder.toExch.setBackgroundResource(R.drawable.ic_exchange_yellow);
         holder.toExch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
