@@ -256,6 +256,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 intent = new Intent(this, AwardActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
+            case R.id.selection_packages:
+                intent = new Intent(this, SelectPackageActivity.class);
+                ViewUtil.startActivity(this, intent);
+                break;
             case R.id.user_center:
                 intent = new Intent(this, UserCenterActivity.class);
                 ViewUtil.startActivity(this, intent);

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
+
+    <com.bjcathay.qt.view.TopView
+        android:id="@+id/top_package_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/title_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/top_package_detail_layout"
+        android:background="@drawable/touying_bg" />
+
+    <com.bjcathay.qt.view.CustomScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:layout_above="@+id/ok"
+        android:layout_below="@id/title_line"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:text="套餐名字" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="概要"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="行程"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="评论"
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/main_textSize" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/cursor"
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:scaleType="matrix"
+                android:src="@drawable/tab_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <com.bjcathay.qt.view.WrapContentHeightViewPager
+                android:id="@+id/vPager"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation" />
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="15dp"
+                android:scaleType="matrix"
+                android:src="@drawable/tab_line" />
+        </LinearLayout>
+    </com.bjcathay.qt.view.CustomScrollView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/dialog_order_sure_price"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/home_exchange_press_color"
+            android:gravity="center"
+            android:text="￥123"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_textSize"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/sure_order"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/yellow_bg_color"
+            android:gravity="center"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_textSize"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

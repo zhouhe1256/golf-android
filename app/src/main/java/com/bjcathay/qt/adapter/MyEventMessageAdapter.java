@@ -83,7 +83,7 @@ public class MyEventMessageAdapter extends BaseAdapter {
                 .adapt(holder.name, messageModel.getImageUrl(), R.drawable.exchange_default);
 
         holder.day.setText(messageModel.getRelativeDate());
-        holder.content.setText(messageModel.getContent());
+        holder.content.setText(messageModel.getName());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

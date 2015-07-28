@@ -43,6 +43,9 @@ public class MyMessageActivity extends Activity implements View.OnClickListener 
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.title_back_img:
+                finish();
+                break;
             case R.id.my_order_message:
                 intent = new Intent(this, MyOrderMessageActivity.class);
                 ViewUtil.startActivity(this, intent);

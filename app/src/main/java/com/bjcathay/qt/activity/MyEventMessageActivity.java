@@ -56,7 +56,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_my_event_msg_layout);
         topView.setTitleBackVisiable();
-        topView.setTitleText("订单消息");
+        topView.setTitleText("通知消息");
         messageModels = new ArrayList<MessageModel>();
         myOrderMessageAdapter = new MyEventMessageAdapter(messageModels, this);
         lstv = (AutoListView) findViewById(R.id.my_event_msg_list);

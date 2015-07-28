@@ -1,4 +1,3 @@
-
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -16,20 +15,18 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PlaceListAdapter;
+import com.bjcathay.qt.adapter.SelectContactAdapter;
+import com.bjcathay.qt.adapter.SelectPackageAdapter;
 import com.bjcathay.qt.application.GApplication;
-import com.bjcathay.qt.util.LocationUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
+import com.bjcathay.qt.util.PreferencesConstant;
+import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
-
-import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.view.AutoListView;
-import com.bjcathay.qt.view.AutoListView.OnLoadListener;
-import com.bjcathay.qt.view.AutoListView.OnRefreshListener;
+import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -37,13 +34,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 场地页面 Created by dengt on 15-4-20.
+ * Created by dengt on 15-7-28.
  */
-public class PlaceListActivity extends Activity implements OnRefreshListener,
-        OnLoadListener, ICallback, View.OnClickListener {
+public class SelectPackageActivity extends Activity implements AutoListView.OnRefreshListener,
+        AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private TopView topView;
     private GApplication gApplication;
-    private PlaceListAdapter placeListAdapter;
+    private SelectPackageAdapter placeListAdapter;
     private List<ProductModel> stadiumModelList;
     private AutoListView lstv;
     private int page = 1;
@@ -64,7 +61,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_placelist);
+        setContentView(R.layout.activity_package);
         gApplication = GApplication.getInstance();
         initView();
         initEvent();
@@ -82,7 +79,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         disatnceFrist = ViewUtil.findViewById(this, R.id.distance_frist);
         csl = getResources().getColorStateList(R.color.order_price_color);
         stadiumModelList = new ArrayList<ProductModel>();
-        placeListAdapter = new PlaceListAdapter(stadiumModelList, this);
+        placeListAdapter = new SelectPackageAdapter(stadiumModelList, this);
 
         lstv = (AutoListView) findViewById(R.id.place_lstv);
         lstv.setAdapter(placeListAdapter);
@@ -99,16 +96,16 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                if (i <= stadiumModelList.size()) {
 //                    // todo
-//                    Intent intent = new Intent(PlaceListActivity.this,
+//                    Intent intent = new Intent(SelectPackageActivity.this,
 //                            OrderStadiumDetailActivity.class);
 //                    intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
 //                    intent.putExtra("id", stadiumModelList.get(i - 1).getId());
 //                    intent.putExtra("type", stadiumModelList.get(i - 1).getType());
-//                    ViewUtil.startActivity(PlaceListActivity.this, intent);
+//                    ViewUtil.startActivity(SelectPackageActivity.this, intent);
 //                }
-                Intent intent = new Intent(PlaceListActivity.this,
-                         ProductActivity.class);
-                ViewUtil.startActivity(PlaceListActivity.this, intent);
+                Intent intent = new Intent(SelectPackageActivity.this,
+                        PackageDetailActivity.class);
+                ViewUtil.startActivity(SelectPackageActivity.this, intent);
             }
         });
     }
@@ -303,14 +300,14 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("产品列表页面");
+        MobclickAgent.onPageStart("套餐列表页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("产品列表页面");
+        MobclickAgent.onPageEnd("套餐列表页面");
         MobclickAgent.onPause(this);
     }
 }

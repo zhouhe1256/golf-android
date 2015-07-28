@@ -3,6 +3,7 @@ package com.bjcathay.qt.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -145,18 +146,26 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
             purchasingNotice.setText(orderModel.getPurchasingNotice());
+            cancleOrder.setOnClickListener(this);
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("确认中");
+                cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
+                cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
                 cancleOrder.setVisibility(View.VISIBLE);
             } else if ("UNPAID".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.VISIBLE);
                 orderStatus.setText("待支付");
+                cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
+                cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
                 cancleOrder.setVisibility(View.VISIBLE);
             } else if ("PAID".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已支付");
-                cancleOrder.setVisibility(View.GONE);
+                cancleOrder.setVisibility(View.VISIBLE);
+                cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
+                cancleOrder.setTextColor(Color.GRAY);
+                cancleOrder.setOnClickListener(null);
                 if (orderModel.getPeopleNumber() == 0)
                     orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
                 else
@@ -164,7 +173,10 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else if ("FINISH".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已完成");
-                cancleOrder.setVisibility(View.GONE);
+                cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
+                cancleOrder.setTextColor(Color.GRAY);
+                cancleOrder.setOnClickListener(null);
+                cancleOrder.setVisibility(View.VISIBLE);
                 if (orderModel.getPeopleNumber() == 0)
                     orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
                 else
@@ -172,7 +184,10 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else if ("CANCEL".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已取消");
-                cancleOrder.setVisibility(View.GONE);
+                cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
+                cancleOrder.setTextColor(Color.GRAY);
+                cancleOrder.setOnClickListener(null);
+                cancleOrder.setVisibility(View.VISIBLE);
             }
             orderToPay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,7 +197,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     ViewUtil.startActivity(context, intent);
                 }
             });
-            cancleOrder.setOnClickListener(this);
+
             contactUs.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -272,7 +287,11 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
                         DialogUtil.showMessage("订单已取消");
-                        cancleOrder.setVisibility(View.GONE);
+                        cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
+                        cancleOrder.setTextColor(Color.GRAY);
+
+                      //  cancleOrder.setVisibility(View.GONE);
+                        cancleOrder.setOnClickListener(null);
                         orderToPay.setVisibility(View.GONE);
                         orderStatus.setText("已取消");
                     } else {

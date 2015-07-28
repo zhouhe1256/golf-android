@@ -5,10 +5,16 @@
     android:background="@color/transparent_color"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/transparent_color" />
+
     <ImageView
         android:id="@+id/message_name"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
     <TextView
@@ -29,9 +35,10 @@
         android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
+        android:id="@+id/my_message_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/item_click"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -39,7 +46,6 @@
             android:id="@+id/message_relativeDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:text="7-12 2334"
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
@@ -56,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:background="@color/white"
                 android:text="查看详情"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize" />
@@ -64,6 +69,7 @@
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="17dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_info_enter" />
         </LinearLayout>
 
@@ -74,9 +80,5 @@
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/transparent_color" />
 
 </LinearLayout>

@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -58,11 +60,13 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="热门城市"
-                android:textColor="@color/main_text_color"
+                android:textColor="@color/exchange_text_color"
                 android:textSize="@dimen/main_textSize" />
 
-            <GridView
+            <com.bjcathay.qt.view.GridViewexs
                 android:id="@+id/hot_city_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,24 +77,11 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:scrollbars="none"
-                android:stretchMode="columnWidth"
+                android:stretchMode="spacingWidth"
                 android:verticalSpacing="10dp">
 
 
-            </GridView>
-
-            <!-- <ListView
-                 android:id="@+id/hot_city_list"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:cacheColorHint="@android:color/transparent"
-                 android:divider="@drawable/line_divide_hor"
-                 android:dividerHeight="0.1dp"
-                 android:drawSelectorOnTop="false"
-                 android:fastScrollEnabled="true"
-                 android:groupIndicator="@null"
-                 android:scrollbars="none"
-                 android:visibility="gone"/>-->
+            </com.bjcathay.qt.view.GridViewexs>
 
             <TextView
                 android:layout_width="match_parent"
@@ -98,8 +89,9 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
                 android:text="所有城市"
-                android:textColor="@color/main_text_color"
+                android:textColor="@color/exchange_text_color"
                 android:textSize="@dimen/main_textSize" />
 
             <com.bjcathay.qt.view.QExpandedListView

@@ -47,7 +47,8 @@ public class PlaceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return items == null ? 0 : items.size();
+       // return items == null ? 0 : items.size();
+        return 10;
     }
 
     @Override
@@ -71,7 +72,8 @@ public class PlaceListAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        ProductModel productModel = items.get(position);
+
+      /*  ProductModel productModel = items.get(position);
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
@@ -170,7 +172,7 @@ public class PlaceListAdapter extends BaseAdapter {
             holder.tuanCount.setVisibility(View.INVISIBLE);
             holder.temaiCount.setVisibility(View.INVISIBLE);
             holder.temaiImg.setVisibility(View.GONE);
-        }
+        }*/
         return convertView;
     }
 
@@ -183,9 +185,9 @@ public class PlaceListAdapter extends BaseAdapter {
     }
 
     class Holder {
-        ImageView tuanImg;
+        TextView tuanImg;
         ImageView hotImg;
-        ImageView temaiImg;
+        TextView temaiImg;
         RoundCornerImageView imageView;
         TextView title;
         TextView price;
@@ -204,7 +206,7 @@ public class PlaceListAdapter extends BaseAdapter {
             price = ViewUtil.findViewById(view, R.id.place_price);
             sale = ViewUtil.findViewById(view, R.id.place_sale);
             address = ViewUtil.findViewById(view, R.id.place_address);
-            tuanImg = ViewUtil.findViewById(view, R.id.tuan_img);
+            tuanImg = ViewUtil.findViewById(view, R.id.fanxian);
             temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);

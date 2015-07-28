@@ -11,223 +11,236 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
-    <RelativeLayout
-        android:id="@+id/info_img_relative"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="101dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btn_background_selector"
-        android:onClick="onClick"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="头像:"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-
-        <ImageView
-            android:id="@+id/img_go"
-            android:layout_width="10dp"
-            android:layout_height="17dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_info_enter" />
-
-        <com.bjcathay.qt.view.CircleImageView
-            android:id="@+id/info_img"
-            android:layout_width="61dp"
-            android:layout_height="61dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@id/img_go"
-            android:src="@drawable/ic_default_user" />
-
-    </RelativeLayout>
-
-
-    <!--<TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_launcher" />-->
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/line_divide_hor" />
-
-    <RelativeLayout
-        android:id="@+id/info_nick_name_relative"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:background="@drawable/btn_background_selector"
-        android:onClick="onClick"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/info_nick_name_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="昵称:"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <ImageView
-
-            android:id="@+id/nick_name_go"
-            android:layout_width="10dp"
-            android:layout_height="17dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_info_enter" />
-
-        <TextView
-            android:id="@+id/info_nick_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@id/nick_name_go"
-            android:layout_toRightOf="@id/info_nick_name_note"
-            android:gravity="right"
-            android:text=""
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
-
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/line_divide_hor" />
-
-    <RelativeLayout
-        android:id="@+id/info_name_relative"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:background="@drawable/btn_background_selector"
-        android:onClick="onClick"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/info_name_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="真实姓名:"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <TextView
-            android:id="@+id/info_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/name_go"
-            android:layout_toRightOf="@id/info_name_note"
-            android:gravity="right"
-            android:text="ewqweq"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
-
-        <ImageView
-
-            android:id="@+id/name_go"
-            android:layout_width="10dp"
-            android:layout_height="17dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_info_enter" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/line_divide_hor" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="vertical">
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/info_img_relative"
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+
+            android:background="@drawable/btn_background_selector"
+            android:onClick="onClick"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="头像:"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+
+            <ImageView
+                android:id="@+id/img_go"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_info_enter" />
+
+            <com.bjcathay.qt.view.CircleImageView
+                android:id="@+id/info_img"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/img_go"
+                android:src="@drawable/ic_default_user" />
+
+        </RelativeLayout>
+
+
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="手机号码:"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_launcher" />-->
 
-        <TextView
-            android:id="@+id/info_phone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="30dp"
-            android:gravity="right"
-            android:text="ewqewq"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/line_divide_hor" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:background="@color/white"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="邀请码:"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <TextView
-            android:id="@+id/info_invite"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="30dp"
-            android:gravity="right"
-            android:hint="(邀请朋友时使用)"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+
+        <RelativeLayout
+            android:id="@+id/info_nick_name_relative"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/btn_background_selector"
+            android:onClick="onClick"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/info_nick_name_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="昵称:"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <ImageView
+
+                android:id="@+id/nick_name_go"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_info_enter" />
+
+            <TextView
+                android:id="@+id/info_nick_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/nick_name_go"
+                android:layout_toRightOf="@id/info_nick_name_note"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize" />
 
 
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+
+        <RelativeLayout
+            android:id="@+id/info_name_relative"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/btn_background_selector"
+            android:onClick="onClick"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/info_name_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="真实姓名:"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/info_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/name_go"
+                android:layout_toRightOf="@id/info_name_note"
+                android:gravity="right"
+                android:text="ewqweq"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize" />
+
+            <ImageView
+
+                android:id="@+id/name_go"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_info_enter" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="手机号码:"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/info_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:gravity="right"
+                android:text="ewqewq"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="邀请码:"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/info_invite"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:gravity="right"
+                android:hint="(邀请朋友时使用)"
+                android:textColor="@color/exchange_text_color"
+                android:textSize="@dimen/sub_textSize" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/touying_bg" />
 
     <TextView

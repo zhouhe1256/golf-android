@@ -259,8 +259,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:paddingRight="10dp"
-                            android:text="清河湾巨鹿不"
+                            android:paddingRight="20dp"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/main_textSize"
                             android:visibility="visible" />
@@ -537,7 +537,7 @@
                     <Button
                         android:id="@+id/order_cancle"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/yellow_stroke_bg"
@@ -550,7 +550,7 @@
                     <Button
                         android:id="@+id/contact_us"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/yellow_stroke_bg"
                         android:gravity="center"

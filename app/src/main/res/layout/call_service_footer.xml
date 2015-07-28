@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/transparent_color" />
+
+        <TextView
+            android:id="@+id/call_service"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/item_click"
+            android:gravity="center"
+            android:text="电话预订"
+            android:textColor="@color/order_price_color"
+            android:textSize="@dimen/main_textSize" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/touying_bg" />
+    </LinearLayout>
+</LinearLayout>

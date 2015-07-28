@@ -2,21 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context=".MainActivity">
+
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_main_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/home_title_color"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:weightSum="29"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="29">
 
         <RelativeLayout
 
@@ -34,8 +35,8 @@
                 android:id="@+id/doto_main_ly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dip"
                 android:layout_alignBottom="@id/jazzy_viewpager"
+                android:layout_marginBottom="3dip"
                 android:gravity="center"
                 android:orientation="horizontal"></LinearLayout>
 
@@ -52,75 +53,75 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:weightSum="17"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="17">
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:weightSum="5"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical">
+                    android:layout_weight="7"
+                    android:orientation="vertical"
+                    android:weightSum="5">
 
                     <LinearLayout
+                        android:id="@+id/compitetion_event"
                         android:layout_width="fill_parent"
                         android:layout_height="0dp"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="3"
                         android:background="@drawable/home_event_bg_selector"
-                        android:id="@+id/compitetion_event">
+                        android:orientation="vertical">
 
                         <TextView
-                            android:padding="10dp"
-                            android:text="免费赛事"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:text="免费赛事"
                             android:textColor="@color/white"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                            android:textSize="20sp" />
 
                         <ImageView
-                            android:layout_marginTop="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/home_compete"
-                            android:layout_gravity="center" />
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/home_compete" />
 
                     </LinearLayout>
 
 
                     <LinearLayout
+                        android:id="@+id/exchange_award"
                         android:layout_width="fill_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
-                        android:id="@+id/exchange_award"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
                         android:background="@drawable/home_exchange_bg_selector"
                         android:orientation="vertical">
 
                         <TextView
-                            android:padding="10dp"
-                            android:text="兑换商城"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:text="兑换商城"
                             android:textColor="@color/white"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/home_shop"
-                            android:layout_gravity="center" />
+                            android:layout_gravity="center"
+                            android:src="@drawable/home_shop" />
                     </LinearLayout>
 
 
@@ -128,105 +129,125 @@
 
                 <LinearLayout
                     android:id="@+id/order_place"
-
-                    android:layout_weight="10"
                     android:layout_width="0dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/home_order_bg_selector">
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="10"
+                    android:background="@drawable/home_order_bg_selector"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:padding="10dp"
                         android:text="约场"
                         android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                         />
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/home_order"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/home_order" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:weightSum="3"
-                android:layout_height="0dp">
+                android:background="@color/blue">
+
+                <TextView
+                    android:id="@+id/selection_packages"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="套餐"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/user_center"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="9dp"
-                    android:id="@+id/user_center"
                     android:layout_gravity="center"
-                    android:background="@drawable/home_my_bg_selector">
+                    android:layout_marginBottom="9dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/home_my_bg_selector"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        android:text="个人中心"
-                        android:textColor="@color/white"
                         android:layout_width="130dp"
                         android:layout_height="fill_parent"
-                         />
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="个人中心"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
 
                     <ImageView
-                        android:gravity="center"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:src="@drawable/home_me" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/home_share_title"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:weightSum="2"
-                    android:orientation="vertical"
-                    android:onClick="onClick"
+                    android:background="@drawable/home_code_bg_selector"
                     android:clickable="true"
-                    android:background="@drawable/home_code_bg_selector">
+                    android:onClick="onClick"
+                    android:orientation="vertical"
+                    android:weightSum="2">
 
                     <TextView
-                        android:padding="5dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:textSize="20sp"
-                        android:text="邀请" />
+                        android:padding="5dp"
+                        android:text="邀请"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/home_code"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/home_code" />
                 </LinearLayout>
 
             </LinearLayout>

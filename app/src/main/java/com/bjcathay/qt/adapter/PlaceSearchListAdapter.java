@@ -130,7 +130,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
                 holder.tuanCount.setBackgroundResource(R.drawable.stroke_bg);
                 holder.tuanCount.setText("已售罄");
                 holder.tuanCount.setTextColor(Color.GRAY);
-                holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
+             //   holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
             } else {
                 long days = diff / (1000 * 60 * 60 * 24);
                 long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
@@ -144,7 +144,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
                 if (csl != null) {
                     holder.tuanCount.setTextColor(csl);
                 }
-                holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
+             //   holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
             }
         } else if ("SPECIAL".equals(productModel.getType())) {
             holder.temaiImg.setVisibility(View.VISIBLE);
@@ -161,12 +161,12 @@ public class PlaceSearchListAdapter extends BaseAdapter {
                     holder.temaiCount.setTextColor(csl);
                 }
                 // holder.tuanCount.setTextColor(Color.WHITE);
-                holder.temaiImg.setImageResource(R.drawable.ic_te_icon);
+             //   holder.temaiImg.setImageResource(R.drawable.ic_te_icon);
             } else {
                 holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
                 holder.temaiCount.setText("已售罄");
                 holder.temaiCount.setTextColor(Color.GRAY);
-                holder.temaiImg.setImageResource(R.drawable.ic_te_finished);
+             //   holder.temaiImg.setImageResource(R.drawable.ic_te_finished);
             }
         } else if ("LIMIT".equals(productModel.getType())) {
             holder.tuanCount.setVisibility(View.INVISIBLE);
@@ -183,8 +183,8 @@ public class PlaceSearchListAdapter extends BaseAdapter {
     }
 
     class Holder {
-        ImageView tuanImg;
-        ImageView temaiImg;
+        TextView tuanImg;
+        TextView temaiImg;
         ImageView hotImg;
         RoundCornerImageView imageView;
         TextView title;
@@ -204,7 +204,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
             price = ViewUtil.findViewById(view, R.id.place_price);
             sale = ViewUtil.findViewById(view, R.id.place_sale);
             address = ViewUtil.findViewById(view, R.id.place_address);
-            tuanImg = ViewUtil.findViewById(view, R.id.tuan_img);
+            tuanImg = ViewUtil.findViewById(view, R.id.fanxian);
             temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);

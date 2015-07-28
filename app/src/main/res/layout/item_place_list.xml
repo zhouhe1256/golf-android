@@ -37,7 +37,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/renqi"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -45,7 +45,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:paddingBottom="15dp">
 
                 <LinearLayout
@@ -57,135 +57,153 @@
                     android:paddingBottom="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <!--android:textColor="@color/mian_text_color"-->
-
                         <TextView
                             android:id="@+id/place_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dip"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
                             android:ellipsize="end"
+                            android:gravity="left"
                             android:singleLine="true"
-                            android:text="北京清河湾乡村体育俱乐部"
-                            android:textColor="#3C3C3C"
+                            android:text="北京清河湾乡村体育俱乐部dsadsadsa"
+                            android:textColor="@color/main_text_color"
                             android:textSize="@dimen/main_textSize" />
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/tuan_img"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center"
-                            android:src="@drawable/ic_tuan_icon" />
+                            <TextView
+                                android:id="@+id/fanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/blue"
+                                android:text="返现"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sub_textSize" />
 
-
-                        <ImageView
-                            android:id="@+id/temai_img"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center"
-                            android:src="@drawable/ic_te_icon" />
+                            <TextView
+                                android:id="@+id/temai_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:background="@color/yellow"
+                                android:text="特卖"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sub_textSize" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/place_sale"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:gravity="left|bottom"
+                            android:text="18洞果/童/车/柜"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/sub_textSize" />
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="18洞果/童/车/柜"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/price_note"
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:gravity="bottom"
+                                android:paddingBottom="3dp"
+                                android:text="￥"
+                                android:textColor="@color/order_price_color"
+                                android:textSize="10sp"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/place_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:gravity="bottom"
+                                android:paddingTop="3dp"
+                                android:text="1660"
+                                android:textColor="@color/order_price_color"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/place_rest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@id/price_note"
+                                android:text="球场休息"
+                                android:textColor="@color/order_price_color"
+                                android:textSize="17sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/place_real"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@id/price_note"
+                                android:text="实时计价"
+                                android:textColor="@color/order_price_color"
+                                android:textSize="17sp"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/place_address"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="10dp"
+                            android:singleLine="true"
+                            android:text="地址"
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
                         <TextView
                             android:id="@+id/place_distance"
-                            android:layout_width="fill_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_marginTop="5dp"
                             android:gravity="right"
-                            android:text=""
+                            android:text="12km"
                             android:textColor="@color/exchange_text_color"
                             android:textSize="@dimen/sub_textSize" />
                     </LinearLayout>
 
-
-                    <TextView
-                        android:id="@+id/place_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:paddingRight="10dp"
-                        android:singleLine="true"
-                        android:text="地址"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp">
-
-                        <TextView
-                            android:id="@+id/price_note"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/place_price"
-                            android:layout_alignBottom="@+id/place_price"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:gravity="bottom"
-                            android:text="￥"
-                            android:textColor="@color/order_price_color"
-                            android:textSize="10sp"
-                            android:visibility="visible"/>
-
-                        <TextView
-                            android:id="@+id/place_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toRightOf="@id/price_note"
-                            android:text="1660"
-                            android:textColor="@color/order_price_color"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:visibility="visible"/>
-                        <TextView
-                            android:id="@+id/place_rest"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/price_note"
-                            android:text="球场休息"
-                            android:textColor="@color/order_price_color"
-                            android:textSize="17sp"
-                            android:visibility="gone"/>
-                        <TextView
-                            android:id="@+id/place_real"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/price_note"
-                            android:text="实时计价"
-                            android:textColor="@color/order_price_color"
-                            android:textSize="17sp"
-                            android:visibility="gone"/>
-                    </RelativeLayout>
                 </LinearLayout>
 
                 <TextView
@@ -203,7 +221,7 @@
                     android:text="还剩01天10小时22分"
                     android:textColor="@color/tuangou_color"
                     android:textSize="12dp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/temai_short"
@@ -217,7 +235,7 @@
                     android:singleLine="true"
                     android:textColor="@color/order_price_color"
                     android:textSize="12dp"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -225,8 +243,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/line_color" />
+            android:background="@drawable/touying_bg" />
 
         <View
             android:layout_width="match_parent"

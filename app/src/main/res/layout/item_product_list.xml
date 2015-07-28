@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/transparent_color" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.bjcathay.qt.view.RoundCornerImageView
+                android:id="@+id/place_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:background="@color/line_color"
+                android:scaleType="centerCrop" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:id="@+id/place_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:paddingRight="25dp"
+                    android:text="北京清河湾乡村体育俱乐部dsadsss"
+                    android:textColor="#3C3C3C"
+                    android:textSize="@dimen/main_textSize" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/place_title"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/price_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="bottom"
+                        android:paddingBottom="3dp"
+                        android:text="￥"
+                        android:textColor="@color/order_price_color"
+                        android:textSize="10sp"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/place_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="1660"
+                        android:textColor="@color/order_price_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="bottom"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
+                        android:text="起"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/xsmall_textSize"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/temai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/yellow"
+                    android:text="特卖"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_textSize" />
+
+                <TextView
+                    android:id="@+id/fanxian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/temai"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/blue"
+                    android:text="返现"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/line_divide_hor" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/this_way_to_get_glb"
+            android:textColor="@color/exchange_text_color"
+            android:textSize="@dimen/sub_textSize" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/touying_bg" />
+
+
+</LinearLayout>

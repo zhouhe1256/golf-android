@@ -98,7 +98,7 @@
             android:padding="10dp"
             android:text="快速注册"
             android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/main_textSize" />
+            android:textSize="@dimen/sub_textSize" />
 
         <TextView
             android:id="@+id/forget_secrete"
@@ -109,7 +109,7 @@
             android:padding="10dp"
             android:text="密码找回"
             android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/main_textSize" />
+            android:textSize="@dimen/sub_textSize" />
 
 
     </RelativeLayout>

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +36,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.GridViewexs;
 import com.bjcathay.qt.view.QExpandedListView;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -56,7 +56,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     private CityAdapter cityAdapter;
     private List<PModel> pModels;
     private HotCityAdapter hotCityAdapter;
-    private GridView listView;
+    private GridViewexs listView;
     private TextView myAddress;
     private List<ProvinceModel> province;
     private List<GetCitysModel> getCity;
@@ -104,11 +104,12 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                     PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
                             String.valueOf(getCity.get(j).getName()));
                     myAddressNote.setText(getCity.get(j).getName());
-                  /*  Intent intent = new Intent();
-                    intent.putExtra("cityId", getCity.get(j).getId());
-                    intent.putExtra("city", getCity.get(j).getName());
-                    setResult(1, intent);
-                    finish();*/
+                    /*
+                     * Intent intent = new Intent(); intent.putExtra("cityId",
+                     * getCity.get(j).getId()); intent.putExtra("city",
+                     * getCity.get(j).getName()); setResult(1, intent);
+                     * finish();
+                     */
                 }
             }
         });
@@ -155,7 +156,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                                 cModels = CitySelectUtil.getHot(getCity);
                                 hotCityAdapter.updateListView(cModels);
                                 cityAdapter.updateListView(pModels);
-                                setListViewHeight(listView);
+                                //setListViewHeight(listView);
                             }
                         }).fail(new ICallback() {
                             @Override
@@ -168,7 +169,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                         cModels = CitySelectUtil.getHot(getCity);
                         hotCityAdapter.updateListView(cModels);
                         cityAdapter.updateListView(pModels);
-                        setListViewHeight(listView);
+                      //  setListViewHeight(listView);
                     }
                 }
             }).fail(new ICallback() {
@@ -183,7 +184,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             hotCityAdapter.updateListView(cModels);
             cityAdapter.updateListView(pModels);
         }
-        setListViewHeight(listView);
+       // setListViewHeight(listView);
     }
 
     private void initView() {
@@ -222,7 +223,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         }
     }
 
-    public static void setListViewHeight(GridView listview) {
+   /* public static void setListViewHeight(GridView listview) {
         int totalHeight = 0;
         ListAdapter adapter = listview.getAdapter();
         if (null != adapter) {
@@ -235,10 +236,10 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             }
 
             ViewGroup.LayoutParams params = listview.getLayoutParams();
-            params.height = totalHeight - listview.getVerticalSpacing();
+            params.height = totalHeight - listview.getVerticalSpacing() - 110;
             listview.setLayoutParams(params);
         }
-    }
+    }*/
 
     public static void setListViewHeight(ExpandableListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
