@@ -18,7 +18,12 @@ public class CitySelectUtil {
         for (int i = 0; i < province.size(); i++) {
             PModel p = new PModel();
             p.setProvince(province.get(i).getName());
+            p.setId(province.get(i).getId());
             List<CModel> c = new ArrayList<CModel>();
+            CModel mp = new CModel();
+            mp.setId(p.getId());
+            mp.setName(p.getProvince());
+            c.add(mp);
             for (int j = 0; j < city.size(); j++) {
                 // todo 以后优化计算速度
                 if (city.get(j).getProvinceId() == province.get(i).getId()) {

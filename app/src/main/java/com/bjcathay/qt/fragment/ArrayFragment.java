@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.view.RichTextView;
 
 /**
  * Created by dengt on 15-7-28.
@@ -39,16 +40,21 @@ public class ArrayFragment extends Fragment {
         View v = null;
         if (mNum == 0) {
             v = inflater.inflate(R.layout.fragment_package_note, container, false);
-            ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
+           // ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
         } else if (mNum == 1) {
-            v = inflater.inflate(R.layout.fragment_package_note, container, false);
-            ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
+            v = inflater.inflate(R.layout.fragment_package_note2, container, false);
+            // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +
+            // "= mNum");
         } else if (mNum == 2) {
-            v = inflater.inflate(R.layout.fragment_package_note, container, false);
-            ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
+            v = inflater.inflate(R.layout.fragment_package_note3, container, false);
+            ((RichTextView) v.findViewById(R.id.richTextView))
+                    .setRichText("富文本<br><br>可以解析含有图片的html网页，图片既可以是本地的也可以是网络的"
+                            + "<font color='red'></font><br><br><br>"
+                            + "<font color='#0000ff'><big><i></i></big></font><p>"
+                            + "<big><a href='http://www.baidu.com'>百度</a></big><br>");
         } else {
             v = inflater.inflate(R.layout.fragment_package_note, container, false);
-            ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
+           // ((TextView) v.findViewById(R.id.textView1)).setText(mNum + "= mNum");
         }
         return v;
     }

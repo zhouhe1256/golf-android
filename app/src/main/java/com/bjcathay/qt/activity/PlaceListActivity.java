@@ -53,6 +53,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private String latitude;
     private String longitude;
     private String cityID;
+    private String provinceID;
     private TextView cityName;
     private TextView totalFrist;
     private TextView priceFrist;
@@ -97,17 +98,19 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i <= stadiumModelList.size()) {
-//                    // todo
-//                    Intent intent = new Intent(PlaceListActivity.this,
-//                            OrderStadiumDetailActivity.class);
-//                    intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
-//                    intent.putExtra("id", stadiumModelList.get(i - 1).getId());
-//                    intent.putExtra("type", stadiumModelList.get(i - 1).getType());
-//                    ViewUtil.startActivity(PlaceListActivity.this, intent);
-//                }
+                // if (i <= stadiumModelList.size()) {
+                // // todo
+                // Intent intent = new Intent(PlaceListActivity.this,
+                // OrderStadiumDetailActivity.class);
+                // intent.putExtra("imageurl", stadiumModelList.get(i -
+                // 1).getImageUrl());
+                // intent.putExtra("id", stadiumModelList.get(i - 1).getId());
+                // intent.putExtra("type", stadiumModelList.get(i -
+                // 1).getType());
+                // ViewUtil.startActivity(PlaceListActivity.this, intent);
+                // }
                 Intent intent = new Intent(PlaceListActivity.this,
-                         ProductActivity.class);
+                        ProductActivity.class);
                 ViewUtil.startActivity(PlaceListActivity.this, intent);
             }
         });
@@ -287,6 +290,14 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 cityID = String.valueOf(cityId);
                 cityName.setText(name);
                 loadData(AutoListView.REFRESH);
+            } else {
+                String proname = data.getStringExtra("province");
+                long proId = data.getLongExtra("provinceId", 0l);
+                if (proId != 0l) {
+                    provinceID = String.valueOf(proId);
+                    cityName.setText(proname);
+                    loadData(AutoListView.REFRESH);
+                }
             }
 
         }

@@ -156,7 +156,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                                 cModels = CitySelectUtil.getHot(getCity);
                                 hotCityAdapter.updateListView(cModels);
                                 cityAdapter.updateListView(pModels);
-                                //setListViewHeight(listView);
+                                // setListViewHeight(listView);
                             }
                         }).fail(new ICallback() {
                             @Override
@@ -169,7 +169,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                         cModels = CitySelectUtil.getHot(getCity);
                         hotCityAdapter.updateListView(cModels);
                         cityAdapter.updateListView(pModels);
-                      //  setListViewHeight(listView);
+                        // setListViewHeight(listView);
                     }
                 }
             }).fail(new ICallback() {
@@ -184,7 +184,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             hotCityAdapter.updateListView(cModels);
             cityAdapter.updateListView(pModels);
         }
-       // setListViewHeight(listView);
+        // setListViewHeight(listView);
     }
 
     private void initView() {
@@ -223,23 +223,17 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         }
     }
 
-   /* public static void setListViewHeight(GridView listview) {
-        int totalHeight = 0;
-        ListAdapter adapter = listview.getAdapter();
-        if (null != adapter) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                View listItem = adapter.getView(i, null, listview);
-                if (null != listItem) {
-                    listItem.measure(0, 0);// 注意listview子项必须为LinearLayout才能调用该方法
-                    totalHeight += listItem.getMeasuredHeight();
-                }
-            }
-
-            ViewGroup.LayoutParams params = listview.getLayoutParams();
-            params.height = totalHeight - listview.getVerticalSpacing() - 110;
-            listview.setLayoutParams(params);
-        }
-    }*/
+    /*
+     * public static void setListViewHeight(GridView listview) { int totalHeight
+     * = 0; ListAdapter adapter = listview.getAdapter(); if (null != adapter) {
+     * for (int i = 0; i < adapter.getCount(); i++) { View listItem =
+     * adapter.getView(i, null, listview); if (null != listItem) {
+     * listItem.measure(0, 0);// 注意listview子项必须为LinearLayout才能调用该方法 totalHeight
+     * += listItem.getMeasuredHeight(); } } ViewGroup.LayoutParams params =
+     * listview.getLayoutParams(); params.height = totalHeight -
+     * listview.getVerticalSpacing() - 110; listview.setLayoutParams(params); }
+     * }
+     */
 
     public static void setListViewHeight(ExpandableListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -308,10 +302,16 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             !parent.isItemChecked(flatPosition));
                 }
                 Intent intent = new Intent();
-                intent.putExtra("cityId", pModels.get(groupPosition).getCity().get(childPosition)
-                        .getId());
-                intent.putExtra("city", pModels.get(groupPosition).getCity().get(childPosition)
-                        .getName());
+                if (childPosition == 0) {
+                    intent.putExtra("provinceId", pModels.get(groupPosition).getId());
+                    intent.putExtra("province", pModels.get(groupPosition).getProvince());
+                } else {
+                    intent.putExtra("cityId",
+                            pModels.get(groupPosition).getCity().get(childPosition)
+                                    .getId());
+                    intent.putExtra("city", pModels.get(groupPosition).getCity().get(childPosition)
+                            .getName());
+                }
                 setResult(1, intent);
                 finish();
                 return true;

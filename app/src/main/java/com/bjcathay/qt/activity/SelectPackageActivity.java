@@ -45,7 +45,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
     private AutoListView lstv;
     private int page = 1;
     private TimeCount timeCount;
-
+    private String provinceID;
     private Date now;
     private String latitude;
     private String longitude;
@@ -284,6 +284,14 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                 cityID = String.valueOf(cityId);
                 cityName.setText(name);
                 loadData(AutoListView.REFRESH);
+            }else {
+                String proname = data.getStringExtra("province");
+                long proId = data.getLongExtra("provinceId", 0l);
+                if (proId != 0l) {
+                    provinceID = String.valueOf(proId);
+                    cityName.setText(proname);
+                    loadData(AutoListView.REFRESH);
+                }
             }
 
         }

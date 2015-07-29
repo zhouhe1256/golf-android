@@ -6,7 +6,10 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -15,24 +18,29 @@ import android.widget.TextView;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PackageFragmentAdapter;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.TopScrollView;
 import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.view.WrapContentHeightViewPager;
 
 /**
  * Created by dengt on 15-7-28.
  */
-public class PackageDetailActivity extends FragmentActivity {
+public class PackageDetailActivity extends FragmentActivity implements
+        TopScrollView.OnScrollListener, View.OnClickListener {
     private TopView topView;
     // 这个是有多少个 fragment页面
     static final int NUM_ITEMS = 5;
     private PackageFragmentAdapter mAdapter;
     private WrapContentHeightViewPager mPager;
     private int nowPage;
-    private ImageView cursor;// 动画图片
+    private ImageView cursor, cursor1;// 动画图片
     private TextView t1, t2, t3;// 页卡头标
+    private TextView t11, t22, t33;// 页卡头标
+
     private int offset = 0;// 动画图片偏移量
     private int currIndex = 0;// 当前页卡编号
     private int bmpW;// 动画图片宽度
+    private TopScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +48,41 @@ public class PackageDetailActivity extends FragmentActivity {
         setContentView(R.layout.activity_package_detail);
         initView();
         InitImageView();
+        InitImageViewtop();
         initEvent();
         initData();
     }
 
+    View viewA, viewB;
+
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_package_detail_layout);
-        t1 = (TextView) findViewById(R.id.text1);
-        t2 = (TextView) findViewById(R.id.text2);
-        t3 = (TextView) findViewById(R.id.text3);
+        viewA = findViewById(R.id.top_menu);
+        viewB = findViewById(R.id.middle_menu);
+        scrollView = ViewUtil.findViewById(this, R.id.hScrollView);
+        t1 = (TextView) viewA.findViewById(R.id.text1);
+        t2 = (TextView) viewA.findViewById(R.id.text2);
+        t3 = (TextView) viewA.findViewById(R.id.text3);
+        t11 = (TextView) viewB.findViewById(R.id.text1);
+        t22 = (TextView) viewB.findViewById(R.id.text2);
+        t33 = (TextView) viewB.findViewById(R.id.text3);
+    }
+
+    private void InitImageViewtop() {
+        cursor1 = (ImageView) viewA.findViewById(R.id.cursor);
+        bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.tab_line)
+                .getWidth();// 获取图片宽度
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW = dm.widthPixels;// 获取分辨率宽度
+        offset = (screenW / 3 - bmpW) / 2;// 计算偏移量
+        Matrix matrix = new Matrix();
+        matrix.postTranslate(offset, 0);
+        cursor1.setImageMatrix(matrix);// 设置动画初始位置
     }
 
     private void InitImageView() {
-        cursor = (ImageView) findViewById(R.id.cursor);
+        cursor = (ImageView) viewB.findViewById(R.id.cursor);
         bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.tab_line)
                 .getWidth();// 获取图片宽度
         DisplayMetrics dm = new DisplayMetrics();
@@ -65,9 +95,44 @@ public class PackageDetailActivity extends FragmentActivity {
     }
 
     private void initEvent() {
+        topView.setTitleBackVisiable();
         t1.setOnClickListener(new MyOnClickListener(0));
         t2.setOnClickListener(new MyOnClickListener(1));
         t3.setOnClickListener(new MyOnClickListener(2));
+        t11.setOnClickListener(new MyOnClickListener(0));
+        t22.setOnClickListener(new MyOnClickListener(1));
+        t33.setOnClickListener(new MyOnClickListener(2));
+        /*
+         * scrollView.setOnTouchListener(new View.OnTouchListener() {
+         * @Override public boolean onTouch(View v, MotionEvent event) { switch
+         * (event.getAction()){ case MotionEvent.ACTION_MOVE: case
+         * MotionEvent.ACTION_DOWN: case MotionEvent.ACTION_UP: if
+         * (scrollView.getScrollY() >= 200) { viewA.setVisibility(View.VISIBLE);
+         * } else { viewA.setVisibility(View.GONE); } }
+         *//*
+            * if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            * LogUtil.i("scorllview Y", "ACTION_MOVE Y=" +
+            * scrollView.getScrollY()); if (scrollView.getScrollY() >= 177) {
+            * viewA.setVisibility(View.VISIBLE); } else {
+            * viewA.setVisibility(View.GONE); } }
+            *//*
+               * return false; } }); scrollView.setOnDragListener(new
+               * View.OnDragListener() {
+               * @Override public boolean onDrag(View view, DragEvent dragEvent)
+               * { return false; } });
+               */
+        scrollView.setOnScrollListener(this);
+        // 当布局的状态或者控件的可见性发生改变回调的接口
+        findViewById(R.id.parent_layout).getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        // 这一步很重要，使得上面的购买布局和下面的购买布局重合
+                        onScroll(scrollView.getScrollY());
+
+                    }
+                });
     }
 
     private void initData() {
@@ -75,6 +140,22 @@ public class PackageDetailActivity extends FragmentActivity {
         mPager = (WrapContentHeightViewPager) findViewById(R.id.vPager);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+    }
+
+    @Override
+    public void onScroll(int scrollY) {
+        int mBuyLayout2ParentTop = Math.max(scrollY, viewB.getTop());
+        viewA.layout(0, mBuyLayout2ParentTop, viewA.getWidth(),
+                mBuyLayout2ParentTop + viewA.getHeight());
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.title_back_img:
+                finish();
+                break;
+        }
     }
 
     public class MyOnClickListener implements View.OnClickListener {
@@ -128,6 +209,7 @@ public class PackageDetailActivity extends FragmentActivity {
             animation.setFillAfter(true);// True:图片停在动画结束位置
             animation.setDuration(300);
             cursor.startAnimation(animation);
+            cursor1.startAnimation(animation);
         }
 
         @Override

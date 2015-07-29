@@ -8,8 +8,17 @@ import java.util.List;
  * Created by dengt on 15-6-24.
  */
 public class PModel implements Serializable {
+    private long id;
     private String province;
     private List<CModel> city;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getProvince() {
         return province;

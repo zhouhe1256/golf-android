@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.content.Context;
@@ -25,10 +26,12 @@ public class CityAdapter extends BaseExpandableListAdapter {
         this.context = context;
 
     }
+
     public void updateListView(List<PModel> list) {
         this.pModelList = list;
         notifyDataSetChanged();
     }
+
     @Override
     public int getGroupCount() {
         return null == pModelList ? 0 : pModelList.size();
@@ -36,7 +39,8 @@ public class CityAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return null == pModelList.get(groupPosition).getCity() ? 0 : pModelList.get(groupPosition).getCity().size();
+        return null == pModelList.get(groupPosition).getCity() ? 0 : pModelList.get(groupPosition)
+                .getCity().size();
     }
 
     @Override
@@ -66,7 +70,7 @@ public class CityAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
+            View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -74,7 +78,8 @@ public class CityAdapter extends BaseExpandableListAdapter {
                     R.layout.item_select_tag, null);
         }
         ((TextView) convertView
-                .findViewById(R.id.group_name)).setText(pModelList.get(groupPosition).getProvince());
+                .findViewById(R.id.group_name))
+                .setText(pModelList.get(groupPosition).getProvince());
         ImageView iv = (ImageView) convertView.findViewById(R.id.expand_right_img);
         if (isExpanded) {
             iv.setImageResource(R.drawable.ic_city_select);
@@ -99,7 +104,7 @@ public class CityAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
+            boolean isLastChild, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.
@@ -108,9 +113,11 @@ public class CityAdapter extends BaseExpandableListAdapter {
 
         }
         if (!pModelList.isEmpty() && pModelList.get(groupPosition).getCity().size() > 0) {
-            TextView title = (TextView) view
-                    .findViewById(R.id.child_name);
-            title.setText(pModelList.get(groupPosition).getCity().get(childPosition).getName());
+
+                TextView title = (TextView) view
+                        .findViewById(R.id.child_name);
+                title.setText(pModelList.get(groupPosition).getCity().get(childPosition).getName());
+
         }
         return view;
     }
