@@ -136,7 +136,7 @@ public class PackageDetailActivity extends FragmentActivity implements
     }
 
     private void initData() {
-        mAdapter = new PackageFragmentAdapter(getSupportFragmentManager());
+        mAdapter = new PackageFragmentAdapter(this,getSupportFragmentManager());
         mPager = (WrapContentHeightViewPager) findViewById(R.id.vPager);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
