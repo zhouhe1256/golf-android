@@ -15,6 +15,8 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.PlaceListActivity;
 import com.bjcathay.qt.activity.ProductSearchResultActivity;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.model.StadiumListModel;
+import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RoundCornerImageView;
@@ -28,13 +30,13 @@ import java.util.List;
  * Created by dengt on 15-4-20.
  */
 public class PlaceListAdapter extends BaseAdapter {
-    private List<ProductModel> items;
+    private List<StadiumModel> items;
     private Activity context;
     private int count = 0;
 
-    public PlaceListAdapter(List<ProductModel> items, PlaceListActivity activity) {
+    public PlaceListAdapter(List<StadiumModel> items, PlaceListActivity activity) {
         if (items == null) {
-            items = new ArrayList<ProductModel>();
+            items = new ArrayList<StadiumModel>();
         }
         this.items = items;
         this.context = activity;
@@ -47,8 +49,8 @@ public class PlaceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-       // return items == null ? 0 : items.size();
-        return 10;
+        return items == null ? 0 : items.size();
+        //return 10;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class PlaceListAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-      /*  ProductModel productModel = items.get(position);
+       StadiumModel productModel = items.get(position);
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
@@ -95,97 +97,25 @@ public class PlaceListAdapter extends BaseAdapter {
                 holder.distance.setText((int) productModel.getDistance() / 1000 + "km");
             }
         }
-        // NORMAL|REST|REAL_TIME 正常|休息|实时
-        if ("NORMAL".equals(productModel.getPriceType())) {
-            holder.price.setVisibility(View.VISIBLE);
-            holder.priceNote.setVisibility(View.VISIBLE);
-            holder.priceRest.setVisibility(View.GONE);
-            holder.priceReal.setVisibility(View.GONE);
-        } else if ("REST".equals(productModel.getPriceType())) {
-            holder.price.setVisibility(View.GONE);
-            holder.priceNote.setVisibility(View.GONE);
-            holder.priceRest.setVisibility(View.VISIBLE);
-            holder.priceReal.setVisibility(View.GONE);
-        } else if ("REAL_TIME".equals(productModel.getPriceType())) {
-            holder.price.setVisibility(View.GONE);
-            holder.priceNote.setVisibility(View.GONE);
-            holder.priceRest.setVisibility(View.GONE);
-            holder.priceReal.setVisibility(View.VISIBLE);
-        }
-        // GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
-        if ("NORMAL".equals(productModel.getLabel())) {
-            holder.hotImg.setVisibility(View.GONE);
-        } else if ("HOT".equals(productModel.getLabel())) {
-            holder.hotImg.setVisibility(View.VISIBLE);
-        } else {
-            holder.hotImg.setVisibility(View.GONE);
-        }
-        if ("GROUP".equals(productModel.getType())) {
-            holder.tuanImg.setVisibility(View.VISIBLE);
-            holder.tuanCount.setVisibility(View.VISIBLE);
-            holder.temaiCount.setVisibility(View.INVISIBLE);
-            holder.temaiImg.setVisibility(View.GONE);
-            Date start = null;
-            if (context instanceof PlaceListActivity) {
-                start = ((PlaceListActivity) context).getNow();
-            } else if (context instanceof PlaceListActivity) {
-                start = ((ProductSearchResultActivity) context).getNow();
+        String[] tagType = productModel.getTagsType();
+        holder.hotImg.setVisibility(View.GONE);
+        holder.temaiImg.setVisibility(View.GONE);
+        holder.fanxian.setVisibility(View.GONE);
+        if(tagType!=null)
+            for (int i = 0; i < tagType.length; i++) {
+                if ("人气".equals(tagType[i])) {
+                    holder.hotImg.setVisibility(View.VISIBLE);
+                } else if ("特卖".equals(tagType[i])) {
+                    holder.temaiImg.setVisibility(View.VISIBLE);
+                } else if ("返现".equals(tagType[i])) {
+                    holder.fanxian.setVisibility(View.VISIBLE);
+                }
             }
-            Date end = DateUtil.stringToDate(productModel.getEnd());
-            long diff = end.getTime() - start.getTime();
-            if (diff < 0) {
-                holder.tuanCount.setBackgroundResource(R.drawable.stroke_bg);
-                holder.tuanCount.setText("已售罄");
-                holder.tuanCount.setTextColor(Color.GRAY);
-                holder.tuanImg.setImageResource(R.drawable.ic_tuan_finish);
-            } else {
-                holder.tuanCount.setText(getcountTime(diff));
-                holder.tuanCount.setBackgroundResource(R.drawable.tuangou_bg);
-                holder.tuanCount.setTextColor(context.getResources().getColorStateList(
-                        R.color.tuangou_color));
-                holder.tuanImg.setImageResource(R.drawable.ic_tuan_icon);
-            }
-        } else if ("SPECIAL".equals(productModel.getType())) {
-            holder.temaiImg.setVisibility(View.VISIBLE);
-            holder.temaiCount.setVisibility(View.VISIBLE);
-            holder.tuanImg.setVisibility(View.GONE);
-            holder.tuanCount.setVisibility(View.INVISIBLE);
-            if (productModel.getAmount() > 0) {
-                holder.temaiCount.setText("仅剩" + productModel.getAmount() + "个名额");
-                holder.temaiCount.setBackgroundResource(R.drawable.temai_bg);
-                holder.temaiCount.setTextColor(context.getResources().getColorStateList(
-                        R.color.order_price_color));
-                holder.temaiImg.setImageResource(R.drawable.ic_te_icon);
-            } else {
-                holder.temaiCount.setBackgroundResource(R.drawable.texiangqingjieshu_bg);
-                holder.temaiCount.setText("已售罄");
-                holder.temaiCount.setTextColor(Color.GRAY);
-                holder.temaiImg.setImageResource(R.drawable.ic_te_finished);
-            }
-        } else if ("LIMIT".equals(productModel.getType())) {
-            holder.tuanCount.setVisibility(View.INVISIBLE);
-            holder.tuanImg.setVisibility(View.GONE);
-            holder.temaiCount.setVisibility(View.INVISIBLE);
-            holder.temaiImg.setVisibility(View.GONE);
-        } else {
-            holder.tuanImg.setVisibility(View.GONE);
-            holder.tuanCount.setVisibility(View.INVISIBLE);
-            holder.temaiCount.setVisibility(View.INVISIBLE);
-            holder.temaiImg.setVisibility(View.GONE);
-        }*/
+
         return convertView;
     }
-
-    private String getcountTime(long diff) {
-        long days = diff / (1000 * 60 * 60 * 24);
-        long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-        long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60))
-                / (1000 * 60);
-        return "仅剩" + days + "天" + hours + "小时" + minutes + "分";
-    }
-
     class Holder {
-        TextView tuanImg;
+        TextView fanxian;
         ImageView hotImg;
         TextView temaiImg;
         RoundCornerImageView imageView;
@@ -193,12 +123,7 @@ public class PlaceListAdapter extends BaseAdapter {
         TextView price;
         TextView sale;
         TextView address;
-        TextView tuanCount;
-        TextView temaiCount;
         TextView distance;
-        TextView priceNote;
-        TextView priceRest;
-        TextView priceReal;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -206,15 +131,10 @@ public class PlaceListAdapter extends BaseAdapter {
             price = ViewUtil.findViewById(view, R.id.place_price);
             sale = ViewUtil.findViewById(view, R.id.place_sale);
             address = ViewUtil.findViewById(view, R.id.place_address);
-            tuanImg = ViewUtil.findViewById(view, R.id.fanxian);
-            temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
-            tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
-            temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
+            fanxian = ViewUtil.findViewById(view, R.id.fanxian);
+            temaiImg = ViewUtil.findViewById(view, R.id.temai);
             hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
             distance = ViewUtil.findViewById(view, R.id.place_distance);
-            priceNote = ViewUtil.findViewById(view, R.id.price_note);
-            priceRest = ViewUtil.findViewById(view, R.id.place_rest);
-            priceReal = ViewUtil.findViewById(view, R.id.place_real);
         }
     }
 }

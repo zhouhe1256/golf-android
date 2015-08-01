@@ -16,7 +16,9 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
 
             <com.bjcathay.qt.view.RoundCornerImageView
                 android:id="@+id/place_image"
@@ -28,24 +30,22 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:id="@+id/place_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_gravity="center"
-                    android:text="北京清河湾乡村体育俱乐部dsadsss"
+                    android:layout_alignParentTop="true"
+                    android:text="北京清河湾乡村体育俱乐部"
                     android:textColor="#3C3C3C"
                     android:textSize="@dimen/main_textSize" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_below="@id/place_title"
                     android:orientation="horizontal">
 
@@ -79,7 +79,7 @@
                         android:paddingTop="3dp"
                         android:text="起"
                         android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/xsmall_textSize"
+                        android:textSize="@dimen/msmal_textSize"
                         android:visibility="visible" />
                 </LinearLayout>
             </RelativeLayout>
@@ -93,7 +93,8 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:text="@string/this_way_to_get_glb"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />
@@ -102,7 +103,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
 
 

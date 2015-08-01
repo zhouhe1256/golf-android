@@ -21,6 +21,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -89,31 +90,25 @@ public class MyOrderMessageAdapter extends BaseAdapter {
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.detail.getVisibility() == View.VISIBLE) {
+                ClickUtil.isFastClick();
+                OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
+                        .done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                OrderModel orderModel = arguments.get(0);
+                                Intent intent = new Intent(context,
+                                        OrderDetailActivity.class);
+                                intent.setAction("message");
+                                intent.putExtra("orderModel", orderModel);
+                                ViewUtil.startActivity(context, intent);
+                            }
+                        }).fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                dialog.show();
+                            }
+                        });
 
-                    if ("ORDER".equals(messageModel.getType())) {
-                        OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
-                                .done(new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        OrderModel orderModel = arguments.get(0);
-                                        Intent intent = new Intent(context,
-                                                OrderDetailActivity.class);
-                                        intent.setAction("message");
-                                        intent.putExtra("orderModel", orderModel);
-                                        ViewUtil.startActivity(context, intent);
-                                    }
-                                }).fail(new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        dialog.show();
-                                    }
-                                });
-                    } else if ("COMPETITION".equals(messageModel.getType())) {
-                        Intent intent = new Intent(context, MyCompetitionActivity.class);
-                        ViewUtil.startActivity(context, intent);
-                    }
-                }
             }
         });
         return convertView;

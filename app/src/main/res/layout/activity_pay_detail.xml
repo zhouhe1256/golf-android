@@ -201,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
                     android:text="使用钱包余额:"
-                    android:textColor="@color/exchange_text_color"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/sub_textSize" />
 
                 <LinearLayout
@@ -282,7 +282,7 @@
                         android:gravity="center_vertical"
                         android:text="支付方式选择"
                         android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/main_textSize" />
+                        android:textSize="@dimen/city_title" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -297,7 +297,7 @@
                             android:gravity="center"
                             android:text="实际支付:"
                             android:textColor="@color/exchange_text_color"
-                            android:textSize="@dimen/sub_textSize" />
+                            android:textSize="@dimen/city_title" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -309,7 +309,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="￥"
                                 android:textColor="@color/order_price_color"
-                                android:textSize="@dimen/sub_textSize" />
+                                android:textSize="@dimen/city_title" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -317,7 +317,7 @@
                                 android:paddingRight="10dp"
                                 android:text="1480"
                                 android:textColor="@color/guolinbi_color"
-                                android:textSize="@dimen/sub_textSize"
+                                android:textSize="@dimen/city_title"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -362,7 +362,7 @@
                                 android:paddingTop="20dp"
                                 android:text="微信支付"
                                 android:textColor="@color/main_text_color"
-                                android:textSize="@dimen/main_textSize" />
+                                android:textSize="@dimen/sub_textSize" />
 
 
                             <ImageView
@@ -496,7 +496,7 @@
                                 android:paddingTop="20dp"
                                 android:text="支付宝支付"
                                 android:textColor="@color/main_text_color"
-                                android:textSize="@dimen/main_textSize" />
+                                android:textSize="@dimen/sub_textSize" />
 
 
                             <ImageView

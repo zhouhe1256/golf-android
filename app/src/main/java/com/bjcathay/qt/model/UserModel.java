@@ -25,6 +25,15 @@ public class UserModel implements Serializable {
     private double latitude;
     private int inviteAmount;
     private Long inviteUserId;
+    private double balance;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public Long getInviteUserId() {
         return inviteUserId;

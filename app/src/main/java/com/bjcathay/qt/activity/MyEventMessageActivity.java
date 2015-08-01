@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyEventMessageAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
@@ -56,7 +57,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_my_event_msg_layout);
         topView.setTitleBackVisiable();
-        topView.setTitleText("通知消息");
+        topView.setTitleText("通知活动");
         messageModels = new ArrayList<MessageModel>();
         myOrderMessageAdapter = new MyEventMessageAdapter(messageModels, this);
         lstv = (AutoListView) findViewById(R.id.my_event_msg_list);
@@ -130,7 +131,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
         }
         String lastUpdate = PreferencesUtils.getString(this,
                 PreferencesConstant.LAST_UPDATE_MESSAGE, "1970-11-11 00:00:00");
-        MessageListModel.getMyMessage(page, lastUpdate).done(this).fail(new ICallback() {
+        MessageListModel.getMyMessage(MessageType.msgType.COMPETITION.name()).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 if (lstv != null) {

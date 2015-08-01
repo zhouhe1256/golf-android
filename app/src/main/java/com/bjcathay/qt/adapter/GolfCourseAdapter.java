@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.ProductActivity;
 import com.bjcathay.qt.activity.ProductSearchResultActivity;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.GolfCourseModel;
@@ -67,14 +68,11 @@ public class GolfCourseAdapter extends BaseAdapter {
             public void onClick(View view) {
                 // todo save
                 DBManager.getInstance().add(g);
-                /*Intent intent = new Intent();
-                intent.putExtra("placeId", g.getId());
-                intent.putExtra("place", g.getName());
-                context.setResult(2, intent);
-                context.finish();*/
-                Intent i = new Intent(context, ProductSearchResultActivity.class);
-                i.putExtra("placeId", g.getId());
-                ViewUtil.startActivity(context, i);
+                Intent intent = new Intent(context,
+                        ProductActivity.class);
+                intent.putExtra("id", g.getId());
+                intent.putExtra("name", g.getName());
+                ViewUtil.startActivity(context, intent);
                 context.finish();
             }
         });

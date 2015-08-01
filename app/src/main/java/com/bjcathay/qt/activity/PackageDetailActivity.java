@@ -1,6 +1,7 @@
 
 package com.bjcathay.qt.activity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -12,11 +13,18 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PackageFragmentAdapter;
+import com.bjcathay.qt.fragment.ArrayFragment;
+import com.bjcathay.qt.model.PriceModel;
+import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopScrollView;
 import com.bjcathay.qt.view.TopView;
@@ -26,7 +34,7 @@ import com.bjcathay.qt.view.WrapContentHeightViewPager;
  * Created by dengt on 15-7-28.
  */
 public class PackageDetailActivity extends FragmentActivity implements
-        TopScrollView.OnScrollListener, View.OnClickListener {
+        TopScrollView.OnScrollListener, View.OnClickListener, ArrayFragment.ChangePrice {
     private TopView topView;
     // 这个是有多少个 fragment页面
     static final int NUM_ITEMS = 5;
@@ -41,6 +49,11 @@ public class PackageDetailActivity extends FragmentActivity implements
     private int currIndex = 0;// 当前页卡编号
     private int bmpW;// 动画图片宽度
     private TopScrollView scrollView;
+    private ImageView imageView;
+    private TextView packageTitle;
+    private TextView packagePrice;
+    private TextView totalPrice;
+    private Button sureOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +70,12 @@ public class PackageDetailActivity extends FragmentActivity implements
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_package_detail_layout);
+        imageView = ViewUtil.findViewById(this, R.id.package_detail_img);
+        packageTitle = ViewUtil.findViewById(this, R.id.package_detail_name);
+        packagePrice = ViewUtil.findViewById(this, R.id.package_detail_price);
+        totalPrice = ViewUtil.findViewById(this, R.id.package_detail_sure_price);
+        sureOrder = ViewUtil.findViewById(this, R.id.sure_order);
+
         viewA = findViewById(R.id.top_menu);
         viewB = findViewById(R.id.middle_menu);
         scrollView = ViewUtil.findViewById(this, R.id.hScrollView);
@@ -102,25 +121,7 @@ public class PackageDetailActivity extends FragmentActivity implements
         t11.setOnClickListener(new MyOnClickListener(0));
         t22.setOnClickListener(new MyOnClickListener(1));
         t33.setOnClickListener(new MyOnClickListener(2));
-        /*
-         * scrollView.setOnTouchListener(new View.OnTouchListener() {
-         * @Override public boolean onTouch(View v, MotionEvent event) { switch
-         * (event.getAction()){ case MotionEvent.ACTION_MOVE: case
-         * MotionEvent.ACTION_DOWN: case MotionEvent.ACTION_UP: if
-         * (scrollView.getScrollY() >= 200) { viewA.setVisibility(View.VISIBLE);
-         * } else { viewA.setVisibility(View.GONE); } }
-         *//*
-            * if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            * LogUtil.i("scorllview Y", "ACTION_MOVE Y=" +
-            * scrollView.getScrollY()); if (scrollView.getScrollY() >= 177) {
-            * viewA.setVisibility(View.VISIBLE); } else {
-            * viewA.setVisibility(View.GONE); } }
-            *//*
-               * return false; } }); scrollView.setOnDragListener(new
-               * View.OnDragListener() {
-               * @Override public boolean onDrag(View view, DragEvent dragEvent)
-               * { return false; } });
-               */
+        sureOrder.setOnClickListener(this);
         scrollView.setOnScrollListener(this);
         // 当布局的状态或者控件的可见性发生改变回调的接口
         findViewById(R.id.parent_layout).getViewTreeObserver().addOnGlobalLayoutListener(
@@ -135,11 +136,24 @@ public class PackageDetailActivity extends FragmentActivity implements
                 });
     }
 
+    private Long id;
+    private String name;
+
     private void initData() {
-        mAdapter = new PackageFragmentAdapter(this,getSupportFragmentManager());
+        Intent intent = getIntent();
+        id = intent.getLongExtra("id", 0);
+        name = intent.getStringExtra("name");
+        productModel = (ProductModel) intent.getSerializableExtra("product");
+        topView.setTitleText(name);
+        ImageViewAdapter.adapt(imageView, productModel.getImageUrl(),
+                R.drawable.exchange_default);
+        packageTitle.setText(productModel.getName());
+        packagePrice.setText(productModel.getPrice() + "");
+        mAdapter = new PackageFragmentAdapter(this, getSupportFragmentManager(), productModel);
         mPager = (WrapContentHeightViewPager) findViewById(R.id.vPager);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+
     }
 
     @Override
@@ -149,13 +163,42 @@ public class PackageDetailActivity extends FragmentActivity implements
                 mBuyLayout2ParentTop + viewA.getHeight());
     }
 
+    String date;
+    int number;
+    private PriceModel currentPrice;
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_back_img:
                 finish();
                 break;
+            case R.id.sure_order:
+                Intent intent = new Intent(this, OrderCommitActivity.class);
+                intent.putExtra("product", productModel);
+                intent.putExtra("date", date);
+                intent.putExtra("number", number);
+                intent.putExtra("currentPrice", currentPrice);
+                ViewUtil.startActivity(this, intent);
+                break;
         }
+    }
+
+    ProductModel productModel;
+
+    public ProductModel getProduct() {
+        return productModel;
+    }
+
+    @Override
+    public void priceChanged(int price, PriceModel currentPrice, int number, String date) {
+        this.currentPrice = currentPrice;
+        this.number = number;
+        this.date = date;
+        if (price == 0) {
+            totalPrice.setText("总金额:￥" + currentPrice.getPrice() * number);
+        } else
+            totalPrice.setText("总金额:￥" + price * number);
     }
 
     public class MyOnClickListener implements View.OnClickListener {
@@ -182,6 +225,12 @@ public class PackageDetailActivity extends FragmentActivity implements
         @Override
         public void onPageSelected(int arg0) {
             Animation animation = null;
+            t1.setTextColor(getResources().getColor(R.color.main_text_color));
+            t2.setTextColor(getResources().getColor(R.color.main_text_color));
+            t3.setTextColor(getResources().getColor(R.color.main_text_color));
+            t11.setTextColor(getResources().getColor(R.color.main_text_color));
+            t22.setTextColor(getResources().getColor(R.color.main_text_color));
+            t33.setTextColor(getResources().getColor(R.color.main_text_color));
             switch (arg0) {
                 case 0:
                     if (currIndex == 1) {
@@ -189,6 +238,8 @@ public class PackageDetailActivity extends FragmentActivity implements
                     } else if (currIndex == 2) {
                         animation = new TranslateAnimation(two, 0, 0, 0);
                     }
+                    t1.setTextColor(getResources().getColor(R.color.order_price_color));
+                    t11.setTextColor(getResources().getColor(R.color.order_price_color));
                     break;
                 case 1:
                     if (currIndex == 0) {
@@ -196,6 +247,8 @@ public class PackageDetailActivity extends FragmentActivity implements
                     } else if (currIndex == 2) {
                         animation = new TranslateAnimation(two, one, 0, 0);
                     }
+                    t2.setTextColor(getResources().getColor(R.color.order_price_color));
+                    t22.setTextColor(getResources().getColor(R.color.order_price_color));
                     break;
                 case 2:
                     if (currIndex == 0) {
@@ -203,6 +256,8 @@ public class PackageDetailActivity extends FragmentActivity implements
                     } else if (currIndex == 1) {
                         animation = new TranslateAnimation(one, two, 0, 0);
                     }
+                    t3.setTextColor(getResources().getColor(R.color.order_price_color));
+                    t33.setTextColor(getResources().getColor(R.color.order_price_color));
                     break;
             }
             currIndex = arg0;

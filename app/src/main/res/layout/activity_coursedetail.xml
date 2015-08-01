@@ -7,23 +7,25 @@
     android:orientation="vertical">
 
     <com.bjcathay.qt.view.TopView
-        android:layout_alignParentTop="true"
         android:id="@+id/top_schedule_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/white" />
+
     <View
         android:id="@+id/title_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/top_schedule_layout"
         android:background="@drawable/touying_bg" />
+
     <com.bjcathay.qt.view.VerScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:fillViewport="true"
         android:layout_above="@+id/ok"
         android:layout_below="@id/title_line"
+        android:fillViewport="true"
         android:orientation="vertical"
         android:scrollbars="none">
 
@@ -146,7 +148,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="171dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical"
@@ -155,7 +158,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -293,9 +296,9 @@
                         android:layout_width="fill_parent"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:paddingRight="35dp"
                         android:layout_toRightOf="@id/address_note"
                         android:ellipsize="end"
+                        android:paddingRight="35dp"
                         android:singleLine="true"
                         android:text="北京市海淀区清河湾"
                         android:textColor="@color/exchange_text_color"
@@ -314,8 +317,9 @@
                 <LinearLayout
 
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp">
 
@@ -335,33 +339,54 @@
                         android:layout_marginLeft="35dp"
                         android:text="￥--"
                         android:textColor="@color/order_price_color"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pay_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(全额付款)"
+                        android:textColor="@color/order_price_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/sch_back"
+                        android:layout_width="50dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/yc_tag"
+                        android:gravity="center_vertical"
+                        android:text="返50"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sub_textSize"
+                        android:visibility="visible" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/touying_bg" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/touying_bg" />
+
 
 
         </LinearLayout>
     </com.bjcathay.qt.view.VerScrollView>
 
 
-        <Button
-            android:layout_alignParentBottom="true"
-            android:id="@+id/ok"
-            android:layout_width="fill_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:background="@color/yellow_bg_color"
-            android:gravity="center"
-            android:text="提交订单"
-            android:textColor="@color/white"
-            android:textSize="@dimen/main_textSize"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/yellow_bg_color"
+        android:gravity="center"
+        android:text="提交订单"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_textSize"
+        android:textStyle="bold" />
 
 </RelativeLayout>

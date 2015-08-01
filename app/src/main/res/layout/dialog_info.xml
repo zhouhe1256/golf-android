@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@android:color/transparent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:background="@drawable/message_delete_cirle"
         android:layout_width="280dp"
-        android:layout_height="160dp">
+        android:layout_height="160dp"
+        android:background="@drawable/message_delete_cirle">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/dialog_content"
-                android:text=""
-                android:gravity="center"
-                android:textColor="@color/main_text_color"
-                android:textSize="@dimen/main_textSize"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
 
             <View
                 android:layout_width="match_parent"
-                android:background="#DEDEDE"
-                android:layout_height="0.5dp" />
+                android:layout_height="0.5dp"
+                android:background="#DEDEDE" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="45dp">
+                android:layout_height="45dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:gravity="center"
-                    android:text="取消"
-                    android:clickable="true"
                     android:id="@+id/dialog_cancel"
-                    android:layout_weight="1"
-                    android:textColor="@color/red"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/right_btn_selector"
-                    android:bottomRightRadius="5dp"/>
+                    android:bottomRightRadius="5dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:textColor="@color/blue" />
 
                 <View
                     android:layout_width="0.5dp"
-                    android:background="#DEDEDE"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="#DEDEDE" />
 
                 <TextView
                     android:id="@+id/dialog_confirm"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="确定"
-                    android:clickable="true"
-                    android:textColor="@color/home_title_color"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/left_btn_selector"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/left_btn_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/blue" />
 
             </LinearLayout>
         </LinearLayout>

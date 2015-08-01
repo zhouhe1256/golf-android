@@ -26,6 +26,7 @@ public class DialogEventFragment extends DialogFragment {
     private String message;
     TextView note;
     TextView sure;
+    TextView cancle;
     private Long id;
 
     public DialogEventFragment() {
@@ -53,6 +54,13 @@ public class DialogEventFragment extends DialogFragment {
         rootView = inflater.inflate(R.layout.dialog_exchange_fragment, container);
         note = ViewUtil.findViewById(rootView, R.id.dialog_exchange_note);
         sure = ViewUtil.findViewById(rootView, R.id.dialog_exchange_sure);
+        cancle = ViewUtil.findViewById(rootView, R.id.dialog_exchange_cancel);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
         note.setText(message);
         sure.setText("确认消耗");
         sure.setOnClickListener(new View.OnClickListener() {

@@ -8,16 +8,23 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import com.bjcathay.qt.fragment.ArrayFragment;
+import com.bjcathay.qt.model.ProductModel;
 
 /**
  * Created by dengt on 15-7-28.
  */
 public class PackageFragmentAdapter extends FragmentStatePagerAdapter {
     private Context context;
+    private ProductModel productModel;
 
-    public PackageFragmentAdapter(Context context, FragmentManager fm) {
+    public PackageFragmentAdapter(Context context, FragmentManager fm,ProductModel productModel) {
         super(fm);
         this.context = context;
+        this.productModel=productModel;
+    }
+
+    public void setProduct(ProductModel productModel) {
+        this.productModel = productModel;
     }
 
     @Override
@@ -28,8 +35,8 @@ public class PackageFragmentAdapter extends FragmentStatePagerAdapter {
     // 得到每个item
     @Override
     public Fragment getItem(int position) {
-        ArrayFragment arrayFragment = ArrayFragment.newInstance(position);
-        arrayFragment.setContext(context);
+        ArrayFragment arrayFragment = ArrayFragment.newInstance(position,productModel);
+        arrayFragment.setContext(context, productModel);
         return arrayFragment;
     }
 

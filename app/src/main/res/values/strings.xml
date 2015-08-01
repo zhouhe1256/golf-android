@@ -101,14 +101,14 @@
     <string name="how_to_get_glb">如何获得果岭币</string>
     <string name="this_way_to_get_glb">邀请一名球友注册7铁会员，并成功完成一次订场、打球，可获得一枚果岭币。</string>
     <string name="what_is_wallet">什么是钱包余额?</string>
-    <string name="this_is_wallet">钱包余额是您在7铁的</string>
-    <string name="wallet_note">提示:</string>
+    <string name="this_is_wallet">钱包余额是您在7铁的一个账户，当账户有款项，下单时可以勾选使用，抵消部分总额。</string>
+    <string name="wallet_note">提示：钱包余额仅支持最大化使用，请您酌情使用。</string>
     <string name="pay_success_note">请您在%1$s到%2$s球场尽情挥杆~</string>
     <string name="attend_success_note">您已成功报名%1$s.</string>
     <string name="copyright_text">copyright©2015  北京国泰银科科技有限公司  版权所有</string>
     <string name="share_with_friend_text">邀请您的小伙伴加入亲友团，根据您提供的邀请码注册，然后订场消费，即可完成捧场。同时您将成功获得一枚果岭币。当果岭币积累到一定数量，便可兑换各种类型的赛事卡，凭得到的赛事卡可以</string>
     <string name="share_with_friend_text_color"><font color='#FFAC41'>免费</font>参加诸如<font color='#FFAC41'>美国圆石滩邀请赛</font>之类的赛事。</string>
-    <string name="history_clear"><u>清除历史记录</u></string>
+    <string name="history_clear">清除历史记录</string>
     <string name="update_note_message">\n您所使用的“7铁高尔夫”版本过低，继续使用可能会存在无法正确下单等问题，建议您升级到最新版本！</string>
 
     <string name="image_view_tag">ImageViewAdapter</string>

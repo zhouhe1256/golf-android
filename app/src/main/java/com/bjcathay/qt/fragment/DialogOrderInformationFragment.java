@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.OrderCommitActivity;
+import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -43,25 +44,27 @@ public class DialogOrderInformationFragment extends PopupWindow {
     TextView note;
     String date;
     int number;
-    private int currentPrice;
+    private PriceModel currentPrice;
     private Animation animShow;
     private Animation animHide;
     private View rootView;
     LinearLayout poplayout;
     boolean hasMeasured = false;
     int height;
+    String hourSelect;
 
     public DialogOrderInformationFragment() {
     }
 
     @SuppressLint("ValidFragment")
     public DialogOrderInformationFragment(Context context_, ProductModel stadiumModel_,
-            int currentPrice_, String date_, int number_) {
+            PriceModel currentPrice_, String date_, int number_,String hourselect) {
         this.date = date_;
         this.number = number_;
         this.context = context_;
         this.stadiumModel = stadiumModel_;
         this.currentPrice = currentPrice_;
+        this.hourSelect=hourselect;
         this.height = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
         initAnim();
@@ -85,6 +88,7 @@ public class DialogOrderInformationFragment extends PopupWindow {
                 intent.putExtra("date", date);
                 intent.putExtra("number", number);
                 intent.putExtra("currentPrice", currentPrice);
+                intent.putExtra("hourSelect", hourSelect);
                 ViewUtil.startActivity(context, intent);
                 // dismiss();
                 poplayout.setVisibility(View.VISIBLE);

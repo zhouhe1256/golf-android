@@ -17,6 +17,8 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PlaceListAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.model.StadiumListModel;
+import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -44,11 +46,9 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private TopView topView;
     private GApplication gApplication;
     private PlaceListAdapter placeListAdapter;
-    private List<ProductModel> stadiumModelList;
+    private List<StadiumModel> stadiumModelList;
     private AutoListView lstv;
     private int page = 1;
-    private TimeCount timeCount;
-
     private Date now;
     private String latitude;
     private String longitude;
@@ -61,6 +61,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     private int cityreqCode = 1;
     private int fristFlag = 1;
     ColorStateList csl;
+    private String order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         priceFrist = ViewUtil.findViewById(this, R.id.price_frist);
         disatnceFrist = ViewUtil.findViewById(this, R.id.distance_frist);
         csl = getResources().getColorStateList(R.color.order_price_color);
-        stadiumModelList = new ArrayList<ProductModel>();
+        stadiumModelList = new ArrayList<StadiumModel>();
         placeListAdapter = new PlaceListAdapter(stadiumModelList, this);
 
         lstv = (AutoListView) findViewById(R.id.place_lstv);
@@ -93,43 +94,37 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     private void initEvent() {
 
-        lstv.setListViewEmptyImage(R.drawable.ic_network_error);
-        lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
+        lstv.setListViewEmptyImage(R.drawable.yuechang);
+        lstv.setListViewEmptyMessage("没有查到相关球场～");
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // if (i <= stadiumModelList.size()) {
-                // // todo
-                // Intent intent = new Intent(PlaceListActivity.this,
-                // OrderStadiumDetailActivity.class);
-                // intent.putExtra("imageurl", stadiumModelList.get(i -
-                // 1).getImageUrl());
-                // intent.putExtra("id", stadiumModelList.get(i - 1).getId());
-                // intent.putExtra("type", stadiumModelList.get(i -
-                // 1).getType());
-                // ViewUtil.startActivity(PlaceListActivity.this, intent);
-                // }
-                Intent intent = new Intent(PlaceListActivity.this,
-                        ProductActivity.class);
-                ViewUtil.startActivity(PlaceListActivity.this, intent);
+                if (i <= stadiumModelList.size()) {
+                    Intent intent = new Intent(PlaceListActivity.this,
+                            ProductActivity.class);
+                    intent.putExtra("id", stadiumModelList.get(i - 1).getId());
+                    intent.putExtra("name", stadiumModelList.get(i - 1).getName());
+                    ViewUtil.startActivity(PlaceListActivity.this, intent);
+                }
             }
         });
     }
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            ProductListModel result = (ProductListModel) msg.obj;
+            StadiumListModel result = (StadiumListModel) msg.obj;
             boolean hasNext = result.isHasNext();
-            if (result != null && result.getProducts() != null && !result.getProducts().isEmpty()) {
+            if (result != null && result.getGolfCourses() != null
+                    && !result.getGolfCourses().isEmpty()) {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         lstv.onRefreshComplete();
                         stadiumModelList.clear();
-                        stadiumModelList.addAll(result.getProducts());
+                        stadiumModelList.addAll(result.getGolfCourses());
                         break;
                     case AutoListView.LOAD:
                         lstv.onLoadComplete();
-                        stadiumModelList.addAll(result.getProducts());
+                        stadiumModelList.addAll(result.getGolfCourses());
                         break;
                 }
                 lstv.setResultSize(stadiumModelList.size(), hasNext);
@@ -137,6 +132,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             } else {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
+                        stadiumModelList.clear();
                         lstv.onRefreshComplete();
                         break;
                     case AutoListView.LOAD:
@@ -178,7 +174,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 break;
         }
 
-        ProductListModel.productList(page, latitude, longitude, cityID).done(this)
+        StadiumListModel.stadiums(page, latitude, longitude, cityID, provinceID, order).done(this)
                 .fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
@@ -192,7 +188,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     @Override
     public void call(Arguments arguments) {
-        ProductListModel stadiumListModel = arguments.get(0);
+        StadiumListModel stadiumListModel = arguments.get(0);
         Message msg = handler.obtainMessage();
         if (page == 1)
             msg.what = AutoListView.REFRESH;
@@ -201,26 +197,6 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         }
         msg.obj = stadiumListModel;
         handler.sendMessage(msg);
-
-        now = DateUtil.stringToDate(stadiumListModel.getNow());
-        if (timeCount == null) {
-            timeCount = new TimeCount(Long.MAX_VALUE, 60000, new TimeCount.TimeUpdate() {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    if (now != null) {
-                        now = new Date(now.getTime() + 60000);
-                        setNow(now);
-                        placeListAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-            timeCount.start();
-        }
     }
 
     @Override
@@ -264,15 +240,18 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
             totalFrist.setTextColor(csl);
             disatnceFrist.setTextColor(Color.BLACK);
             priceFrist.setTextColor(Color.BLACK);
-
+            order = null;
+            // price|distance
         } else if (fristFlag == 2) {
             priceFrist.setTextColor(csl);
             totalFrist.setTextColor(Color.BLACK);
             disatnceFrist.setTextColor(Color.BLACK);
+            order = "price";
         } else if (fristFlag == 3) {
             disatnceFrist.setTextColor(csl);
             priceFrist.setTextColor(Color.BLACK);
             totalFrist.setTextColor(Color.BLACK);
+            order = "distance";
         }
         loadData(AutoListView.REFRESH);
     }
@@ -295,6 +274,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
                 long proId = data.getLongExtra("provinceId", 0l);
                 if (proId != 0l) {
                     provinceID = String.valueOf(proId);
+                    cityID = null;
                     cityName.setText(proname);
                     loadData(AutoListView.REFRESH);
                 }

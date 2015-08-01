@@ -49,7 +49,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:text="订单信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -59,7 +62,10 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:visibility="visible">
 
                     <LinearLayout
@@ -158,15 +164,14 @@
 
                         <TextView
                             android:id="@+id/order_detail_price_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="22dp"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/blue"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
+                            android:background="@drawable/yc_tag"
+                            android:gravity="center_vertical"
                             android:text="返50"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/middle_textSize" />
+                            android:textSize="@dimen/sub_textSize"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -234,10 +239,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:text="预订信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,7 +271,7 @@
                             android:paddingRight="20dp"
                             android:text=""
                             android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/main_textSize"
+                            android:textSize="@dimen/city_title"
                             android:visibility="visible" />
 
                         <ImageView
@@ -319,7 +328,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="开球时间:"
                                         android:textColor="@color/exchange_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
 
                                     <TextView
                                         android:id="@+id/order_detail_comsumer_date"
@@ -330,7 +339,7 @@
                                         android:singleLine="true"
                                         android:text=""
                                         android:textColor="@color/main_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -345,7 +354,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="打球人数:"
                                         android:textColor="@color/exchange_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
 
                                     <TextView
                                         android:id="@+id/order_detail_comsumer_numb"
@@ -354,7 +363,7 @@
                                         android:layout_marginLeft="10dp"
                                         android:text=""
                                         android:textColor="@color/main_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -369,7 +378,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="包含服务:"
                                         android:textColor="@color/exchange_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
 
                                     <TextView
                                         android:id="@+id/order_detail_sale"
@@ -380,7 +389,7 @@
                                         android:singleLine="true"
                                         android:text=""
                                         android:textColor="@color/main_text_color"
-                                        android:textSize="@dimen/middle_textSize" />
+                                        android:textSize="@dimen/sub_textSize" />
                                 </LinearLayout>
                             </LinearLayout>
                         </RelativeLayout>
@@ -395,7 +404,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:text="打球人信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -405,8 +417,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
 
 
                     <LinearLayout
@@ -416,7 +428,7 @@
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="5dp">
+                       >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -499,7 +511,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="15dp"
                     android:text="温馨提示"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -544,7 +559,7 @@
                         android:gravity="center"
                         android:text="取消订单"
                         android:textColor="@color/order_price_color"
-                        android:textSize="@dimen/main_textSize"
+                        android:textSize="@dimen/city_title"
                         android:visibility="visible" />
 
                     <Button
@@ -556,7 +571,7 @@
                         android:gravity="center"
                         android:text="联系客服"
                         android:textColor="@color/order_price_color"
-                        android:textSize="@dimen/main_textSize"
+                        android:textSize="@dimen/city_title"
                         android:visibility="visible" />
 
 

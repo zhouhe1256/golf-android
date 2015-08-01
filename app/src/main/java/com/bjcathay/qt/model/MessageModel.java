@@ -10,14 +10,15 @@ import java.io.Serializable;
  */
 public class MessageModel implements Serializable {
     private Long id;// 1,
-    private String name;// "赛事名称",
-    private String description;// "描述",
-    private String content;// "消息内容",
-    private String type;// "xxx",
-    private String imageUrl;// "/upload/image/xxx.png",
-    private String relativeDate;
     private String target;
     private String status;
+    private String content;// "消息内容",
+    private String name;// "赛事名称",
+    private String type;// "xxx",
+    private String description;// "描述",
+    private String relativeDate;
+    // 待定
+    private String imageUrl;// "/upload/image/xxx.png",
 
     private static IContentDecoder<MessageModel> decoder = new IContentDecoder.BeanDecoder<MessageModel>(
             MessageModel.class, "message");

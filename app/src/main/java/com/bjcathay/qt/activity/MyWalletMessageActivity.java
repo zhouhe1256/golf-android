@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyOrderMessageAdapter;
+import com.bjcathay.qt.adapter.MyWalletMessageAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
@@ -37,7 +39,7 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
         AutoListView.OnLoadListener, ICallback, DeleteInfoDialog.DeleteInfoDialogResult,
         View.OnClickListener {
     private Activity context;
-    private MyOrderMessageAdapter myOrderMessageAdapter;
+    private MyWalletMessageAdapter myOrderMessageAdapter;
     private List<MessageModel> messageModels;
     private TopView topView;
     private AutoListView lstv;
@@ -58,7 +60,7 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
         topView.setTitleBackVisiable();
         topView.setTitleText("我的资产");
         messageModels = new ArrayList<MessageModel>();
-        myOrderMessageAdapter = new MyOrderMessageAdapter(messageModels, this);
+        myOrderMessageAdapter = new MyWalletMessageAdapter(messageModels, this);
         lstv = (AutoListView) findViewById(R.id.my_wallet_list);
         lstv.setAdapter(myOrderMessageAdapter);
         lstv.setOnRefreshListener(this);
@@ -130,7 +132,7 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
         }
         String lastUpdate = PreferencesUtils.getString(this,
                 PreferencesConstant.LAST_UPDATE_MESSAGE, "1970-11-11 00:00:00");
-        MessageListModel.getMyMessage(page, lastUpdate).done(this).fail(new ICallback() {
+        MessageListModel.getMyMessage(MessageType.msgType.PROPERTY.name()).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 if (lstv != null) {

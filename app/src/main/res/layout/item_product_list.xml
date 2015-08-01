@@ -20,37 +20,49 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-            <com.bjcathay.qt.view.RoundCornerImageView
-                android:id="@+id/place_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:background="@color/line_color"
-                android:scaleType="centerCrop" />
+                <com.bjcathay.qt.view.RoundCornerImageView
+                    android:id="@+id/place_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:background="@color/line_color"
+                    android:scaleType="centerCrop" />
+                <ImageView
+                    android:id="@+id/hot_flag"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/renqi"
+                    android:visibility="visible" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:id="@+id/place_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
                     android:layout_gravity="center"
                     android:paddingRight="25dp"
-                    android:text="北京清河湾乡村体育俱乐部dsadsss"
+                    android:text="北京清河湾乡村体育俱乐部"
                     android:textColor="#3C3C3C"
                     android:textSize="@dimen/main_textSize" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_below="@id/place_title"
                     android:orientation="horizontal">
 
@@ -84,7 +96,7 @@
                         android:paddingTop="3dp"
                         android:text="起"
                         android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/xsmall_textSize"
+                        android:textSize="@dimen/msmal_textSize"
                         android:visibility="visible" />
                 </LinearLayout>
 
@@ -92,21 +104,21 @@
                 <TextView
                     android:id="@+id/temai"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_alignParentRight="true"
-                    android:background="@color/yellow"
+                    android:background="@drawable/yellow"
                     android:text="特卖"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sub_textSize" />
 
                 <TextView
                     android:id="@+id/fanxian"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/temai"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/blue"
+                    android:background="@drawable/blue"
                     android:text="返现"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sub_textSize" />
@@ -119,9 +131,11 @@
             android:background="@drawable/line_divide_hor" />
 
         <TextView
+            android:id="@+id/discription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:text="@string/this_way_to_get_glb"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />

@@ -37,6 +37,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
 
     private CircleImageView userImg;
     private TextView userPhone;
+    private TextView balance;
     private UserModel userModel;
     private boolean newMeaage;
 
@@ -59,6 +60,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         myMessage = ViewUtil.findViewById(this, R.id.my_message);
         myPerson = ViewUtil.findViewById(this, R.id.my_personal);
         myExchange = ViewUtil.findViewById(this, R.id.my_exchange);
+        balance = ViewUtil.findViewById(this, R.id.my_balance);
 
     }
 
@@ -76,6 +78,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                                 userPhone.setText(userModel1.getMobileNumber());
                             else
                                 userPhone.setText(userModel1.getNickname());
+                            balance.setText(userModel.getBalance() + "");
                         }
                     }
                 }
@@ -114,6 +117,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.my_wallet:
                 intent = new Intent(this, MyWalletActivity.class);
+                intent.putExtra("balance",userModel.getBalance()+"");
                 IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_order:
@@ -166,6 +170,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
             userPhone.setText(userModel.getMobileNumber());
         else
             userPhone.setText(userModel.getNickname());
+        balance.setText(userModel.getBalance() + "");
     }
 
     @Override

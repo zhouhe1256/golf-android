@@ -20,11 +20,10 @@ public class ApiUrl {
 
     public static final String HOME_BANNER = "/api/banner";// 首页活动(GET
                                                            // /api/banner)
-    public static final String STSDIUM_LIST = "/api/goods";// 场馆列表(GET
+    public static final String STSDIUM_LIST = "/api/golf_courses";// 场馆列表(GET
                                                            // /api/golf_course)
-    public static final String PRODUCT_LIST = "/api/products";// 产品列表(GET
-                                                              // /api/products)
 
+    public static final String COMBO_LIST = "/api/combos";//套餐列表(GET /api/combos)
     public static final String REGISTER = "/api/user/register";// 注册用户(POST
                                                                // /api/user/register)
     public static final String USER_LOGIN = "/api/user/login";// 登录(POST
@@ -100,6 +99,11 @@ public class ApiUrl {
     public static final String PROVINCES = "/api/province"; // 获取省份(GET
                                                             // /api/province)
     public static final String CITIES = "/api/cities"; // 获取城市(GET /api/cities)
+    public static final String PRODUCT_LIST = "/api/products";
+    // 产品列表(GET /api/golf_courses/:id/products)
+    public static String productList(Long id) {
+        return "/api/golf_courses/" + id+"/products";
+    }
 
     // 产品详情(GET /api/products/:id)
     public static String productDetail(Long id) {

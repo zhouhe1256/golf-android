@@ -72,7 +72,7 @@ public class TopView extends LinearLayout {
     }
 
     public void setShareVisiable() {
-        share.setVisibility(VISIBLE);
+        share.setVisibility(GONE);
     }
 
     public void setSettingVisiable() {

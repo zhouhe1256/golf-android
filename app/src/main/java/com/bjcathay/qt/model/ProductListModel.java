@@ -47,9 +47,25 @@ public class ProductListModel implements Serializable {
     private static IContentDecoder<ProductListModel> decoder = new IContentDecoder.BeanDecoder<ProductListModel>(
             ProductListModel.class);
 
-    public static IPromise productList(int page, String lat, String lon,String cityId) {
+    public static IPromise productList(int page, String lat, String lon, String cityId) {
         return Http.instance().get(ApiUrl.PRODUCT_LIST).
-                param("page", page).param("cityId", cityId).param("lat", lat).param("lon", lon).contentDecoder(decoder)
+                param("page", page).param("cityId", cityId).param("lat", lat).param("lon", lon)
+                .contentDecoder(decoder)
+                .run();
+    }
+
+    public static IPromise productList(long id, int page, String lat, String lon, String cityId) {
+        return Http.instance().get(ApiUrl.productList(id)).
+                param("page", page).param("cityId", cityId).param("lat", lat).param("lon", lon)
+                .contentDecoder(decoder)
+                .run();
+    }
+
+    public static IPromise comboList(int page, String lat, String lon, String cityId,
+                                     String provinceId,String order) {
+        return Http.instance().get(ApiUrl.COMBO_LIST).
+                param("page", page).param("cityId", cityId).param("lat", lat).param("lon", lon)
+                .param("provinceId", provinceId).param("order", order).contentDecoder(decoder)
                 .run();
     }
 

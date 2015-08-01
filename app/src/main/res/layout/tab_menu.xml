@@ -19,7 +19,7 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="选择日期"
-            android:textColor="@color/exchange_text_color"
+            android:textColor="@color/order_price_color"
             android:textSize="@dimen/main_textSize" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="套餐详情"
-            android:textColor="@color/exchange_text_color"
+            android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="行程安排"
-            android:textColor="@color/exchange_text_color"
+            android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
     </LinearLayout>
 
@@ -48,7 +48,9 @@
         android:layout_width="fill_parent"
         android:layout_height="3dp"
         android:scaleType="matrix"
-        android:src="@drawable/tab_line" />
+        android:src="@drawable/tab_line"
+        android:visibility="gone" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

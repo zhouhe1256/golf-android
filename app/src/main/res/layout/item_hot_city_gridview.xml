@@ -10,11 +10,11 @@
         android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/city_item_bg"
+        android:background="@drawable/yc_rectangle"
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
         android:text="未知位置"
-        android:textColor="@color/exchange_text_color"
-        android:textSize="@dimen/main_textSize" />
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/city_title" />
 </LinearLayout>

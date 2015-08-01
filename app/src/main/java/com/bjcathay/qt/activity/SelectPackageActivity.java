@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
@@ -13,14 +14,13 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
-import com.bjcathay.qt.adapter.PlaceListAdapter;
-import com.bjcathay.qt.adapter.SelectContactAdapter;
 import com.bjcathay.qt.adapter.SelectPackageAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
-import com.bjcathay.qt.util.DateUtil;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.TimeCount;
@@ -57,6 +57,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
     private int cityreqCode = 1;
     private int fristFlag = 1;
     ColorStateList csl;
+    private String order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,23 +90,43 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
 
     private void initEvent() {
 
-        lstv.setListViewEmptyImage(R.drawable.ic_network_error);
-        lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
+        lstv.setListViewEmptyImage(R.drawable.yuechang);
+        lstv.setListViewEmptyMessage("没有查到相关球场～");
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i <= stadiumModelList.size()) {
-//                    // todo
-//                    Intent intent = new Intent(SelectPackageActivity.this,
-//                            OrderStadiumDetailActivity.class);
-//                    intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
-//                    intent.putExtra("id", stadiumModelList.get(i - 1).getId());
-//                    intent.putExtra("type", stadiumModelList.get(i - 1).getType());
-//                    ViewUtil.startActivity(SelectPackageActivity.this, intent);
-//                }
-                Intent intent = new Intent(SelectPackageActivity.this,
-                        PackageDetailActivity.class);
-                ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                if (i <= stadiumModelList.size()) {
+                    // todo
+                    if (ProductType.prdtType.COMBO.equals(stadiumModelList.get(i - 1).getType())) {
+                        // 跳套餐
+                        final int ids = i - 1;
+                        ProductModel.product(stadiumModelList.get(ids).getId())
+                                .done(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        ProductModel productModel = arguments.get(0);
+                                        Intent intent = new Intent(SelectPackageActivity.this,
+                                                PackageDetailActivity.class);
+                                        intent.putExtra("id", stadiumModelList.get(ids).getId());
+                                        intent.putExtra("name", stadiumModelList.get(ids).getName());
+                                        intent.putExtra("product", productModel);
+                                        ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                                    }
+                                }).fail(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        DialogUtil.showMessage("该产品已下架");
+                                    }
+                                });
+
+                    } else {
+                    }
+                }
+                /*
+                 * Intent intent = new Intent(SelectPackageActivity.this,
+                 * PackageDetailActivity.class);
+                 * ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                 */
             }
         });
     }
@@ -131,6 +152,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
             } else {
                 switch (msg.what) {
                     case AutoListView.REFRESH:
+                        stadiumModelList.clear();
                         lstv.onRefreshComplete();
                         break;
                     case AutoListView.LOAD:
@@ -172,7 +194,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                 break;
         }
 
-        ProductListModel.productList(page, latitude, longitude, cityID).done(this)
+        ProductListModel.comboList(page, latitude, longitude, cityID, provinceID, order).done(this)
                 .fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
@@ -180,6 +202,11 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                             lstv.onRefreshComplete();
                             lstv.setResultSize(-1, false);
                         }
+                    }
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+
                     }
                 });
     }
@@ -196,25 +223,6 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
         msg.obj = stadiumListModel;
         handler.sendMessage(msg);
 
-        now = DateUtil.stringToDate(stadiumListModel.getNow());
-        if (timeCount == null) {
-            timeCount = new TimeCount(Long.MAX_VALUE, 60000, new TimeCount.TimeUpdate() {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    if (now != null) {
-                        now = new Date(now.getTime() + 60000);
-                        setNow(now);
-                        placeListAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-            timeCount.start();
-        }
     }
 
     @Override
@@ -258,15 +266,17 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
             totalFrist.setTextColor(csl);
             disatnceFrist.setTextColor(Color.BLACK);
             priceFrist.setTextColor(Color.BLACK);
-
+            order = null;
         } else if (fristFlag == 2) {
             priceFrist.setTextColor(csl);
             totalFrist.setTextColor(Color.BLACK);
             disatnceFrist.setTextColor(Color.BLACK);
+            order = "price";
         } else if (fristFlag == 3) {
             disatnceFrist.setTextColor(csl);
             priceFrist.setTextColor(Color.BLACK);
             totalFrist.setTextColor(Color.BLACK);
+            order = "day";
         }
         loadData(AutoListView.REFRESH);
     }
@@ -284,10 +294,11 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                 cityID = String.valueOf(cityId);
                 cityName.setText(name);
                 loadData(AutoListView.REFRESH);
-            }else {
+            } else {
                 String proname = data.getStringExtra("province");
                 long proId = data.getLongExtra("provinceId", 0l);
                 if (proId != 0l) {
+                    cityID = null;
                     provinceID = String.valueOf(proId);
                     cityName.setText(proname);
                     loadData(AutoListView.REFRESH);

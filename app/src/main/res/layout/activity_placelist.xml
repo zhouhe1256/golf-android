@@ -39,35 +39,36 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="5dp">
 
             <LinearLayout
                 android:id="@+id/place_search_key"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/stroke_bg"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:onClick="onClick"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:src="@drawable/ic_search" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
+                    android:focusable="false"
                     android:singleLine="true"
                     android:text="请输入球场关键字"
-                    android:focusable="false"
                     android:textColor="@color/exchange_text_color"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/sub_textSize" />
 
 
             </LinearLayout>
@@ -82,8 +83,8 @@
             android:clickable="true"
             android:gravity="right|center_vertical"
             android:onClick="onClick"
-            android:paddingRight="20dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp">
 
             <TextView
                 android:id="@+id/city_name"
@@ -95,7 +96,6 @@
             <ImageView
                 android:layout_width="9dp"
                 android:layout_height="10dp"
-
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_down" />
@@ -111,9 +111,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:weightSum="3"
-        android:background="@color/white">
+        android:weightSum="3">
 
 
         <TextView
@@ -122,11 +122,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/item_click"
+            android:clickable="true"
             android:gravity="center_vertical"
+            android:onClick="onClick"
             android:paddingLeft="20dp"
             android:text="综合排序"
-            android:clickable="true"
-            android:onClick="onClick"
             android:textColor="@color/order_price_color"
             android:textSize="@dimen/sub_textSize" />
 
@@ -142,10 +142,10 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/item_click"
-            android:gravity="center"
-            android:text="价格优先"
             android:clickable="true"
+            android:gravity="center"
             android:onClick="onClick"
+            android:text="价格优先"
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/sub_textSize" />
 
@@ -161,11 +161,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/item_click"
+            android:clickable="true"
             android:gravity="center_vertical|right"
+            android:onClick="onClick"
             android:paddingRight="20dp"
             android:text="距离优先"
-            android:clickable="true"
-            android:onClick="onClick"
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/sub_textSize" />
 

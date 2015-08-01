@@ -29,7 +29,6 @@
             android:drawablePadding="10dp"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/main_textSize"
-            android:drawableLeft="@drawable/ic_send_phone"
             android:background="@android:color/transparent"
             android:text="输入手机号码" />
 
@@ -61,7 +60,6 @@
             android:drawablePadding="10dp"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/main_textSize"
-            android:drawableLeft="@drawable/ic_send_list"
             android:background="@android:color/transparent"
             android:text="赠送给通讯录好友" />
 

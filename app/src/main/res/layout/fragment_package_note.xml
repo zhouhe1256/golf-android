@@ -19,12 +19,14 @@
             android:layout_height="150dp"
             android:layout_weight="1"
             android:longClickable="true" />
+
         <com.bjcathay.qt.widget.WheelView
             android:id="@+id/wheel_month"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_weight="1"
             android:longClickable="true" />
+
         <com.bjcathay.qt.widget.WheelView
             android:id="@+id/wheel_date"
             android:layout_width="0dp"
@@ -40,9 +42,9 @@
         android:background="@drawable/touying_bg" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -59,7 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
                 android:text="打球人数"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize" />
@@ -107,6 +108,7 @@
             android:background="@drawable/line_divide_hor" />
 
         <TextView
+            android:id="@+id/amountNotice"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

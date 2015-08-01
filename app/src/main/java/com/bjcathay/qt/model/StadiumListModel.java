@@ -15,14 +15,22 @@ import java.util.List;
  */
 public class StadiumListModel implements Serializable {
     @JSONCollection(type = StadiumModel.class)
-    private List<StadiumModel> goods;
-
-    public List<StadiumModel> getGoods() {
-        return goods;
+    private List<StadiumModel> golfCourses;
+    private boolean hasNext;
+    public List<StadiumModel> getGolfCourses() {
+        return golfCourses;
     }
 
-    public void setGoods(List<StadiumModel> goods) {
-        this.goods = goods;
+    public void setGolfCourses(List<StadiumModel> golfCourses) {
+        this.golfCourses = golfCourses;
+    }
+
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
     }
 
     private static IContentDecoder<StadiumListModel> decoder = new IContentDecoder.BeanDecoder<StadiumListModel>(
@@ -31,5 +39,13 @@ public class StadiumListModel implements Serializable {
     public static IPromise stadiums(int page) {
         return Http.instance().get(ApiUrl.STSDIUM_LIST).
                 param("page", page).contentDecoder(decoder).run();
+    }
+
+    public static IPromise stadiums(int page, String lat, String lon, String cityId,
+            String provinceId, String order) {
+        return Http.instance().get(ApiUrl.STSDIUM_LIST).
+                param("page", page).param("cityId", cityId).param("lat", lat).param("lon", lon)
+                .param("provinceId", provinceId).param("order", order).contentDecoder(decoder)
+                .run();
     }
 }

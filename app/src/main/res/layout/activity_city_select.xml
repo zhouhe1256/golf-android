@@ -39,7 +39,7 @@
                 android:paddingLeft="10dp"
                 android:text="当前位置"
                 android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/main_textSize" />
+                android:textSize="@dimen/city_title" />
 
             <TextView
                 android:id="@+id/my_address_note"
@@ -47,11 +47,11 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/city_item_bg"
+                android:background="@drawable/yc_rectangle"
                 android:gravity="center"
                 android:text="未知位置"
-                android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/main_textSize" />
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/city_title" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:paddingTop="10dp"
                 android:text="热门城市"
                 android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/main_textSize" />
+                android:textSize="@dimen/city_title" />
 
             <com.bjcathay.qt.view.GridViewexs
                 android:id="@+id/hot_city_gridview"
@@ -92,7 +92,7 @@
                 android:layout_marginTop="20dp"
                 android:text="所有城市"
                 android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/main_textSize" />
+                android:textSize="@dimen/city_title" />
 
             <com.bjcathay.qt.view.QExpandedListView
                 android:id="@+id/qelistview"

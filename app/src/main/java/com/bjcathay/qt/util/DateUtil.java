@@ -331,7 +331,27 @@ public class DateUtil {
             long t = date3.getTime();// 时间的毫秒
             long s = date1.getTime();
             long e = date2.getTime();
-            if (t > s && t < e) {
+            if (t >= s && t <= e) {
+                return true;
+            } else
+                return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean CompareShortTime(String time, String start, String end) {
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("HH:mm");
+            Date date1 = sd.parse(start);
+            Date date2 = sd.parse(end);
+            Date date3 = sd.parse(time);
+            long t = date3.getTime();// 时间的毫秒
+            long s = date1.getTime();
+            long e = date2.getTime();
+            if (t >= s && t <= e) {
                 return true;
             } else
                 return false;

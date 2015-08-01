@@ -42,6 +42,7 @@ public class DialogExchFragment extends DialogFragment {
     private UserModel userModel;
     TextView note;
     TextView sure;
+    TextView cancle;
     private String type;
     private int num;
     private ExchangeResult exchangeResult;
@@ -87,6 +88,13 @@ public class DialogExchFragment extends DialogFragment {
         rootView = inflater.inflate(R.layout.dialog_exchange_fragment, container);
         note = ViewUtil.findViewById(rootView, R.id.dialog_exchange_note);
         sure = ViewUtil.findViewById(rootView, R.id.dialog_exchange_sure);
+        cancle = ViewUtil.findViewById(rootView, R.id.dialog_exchange_cancel);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
         if (!"user".equals(type)) {
             if (items.getNeedAmount() > num) {
                 note.setText(getString(R.string.dialog_cant_to_exchange_a_card));

@@ -35,7 +35,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/main_text_color"
-                    android:textSize="@dimen/main_textSize" />
+                    android:textSize="@dimen/city_title" />
 
                 <TextView
                     android:id="@+id/my_order_status"
@@ -93,7 +93,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="开球时间:"
                                 android:textColor="@color/exchange_text_color"
-                                android:textSize="@dimen/middle_textSize" />
+                                android:textSize="@dimen/sub_textSize" />
 
                             <TextView
                                 android:id="@+id/my_order_time"
@@ -118,7 +118,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="打球人数:"
                                 android:textColor="@color/exchange_text_color"
-                                android:textSize="@dimen/middle_textSize" />
+                                android:textSize="@dimen/sub_textSize" />
 
                             <RelativeLayout
                                 android:layout_width="fill_parent"
@@ -158,7 +158,8 @@
                                         android:layout_height="wrap_content"
                                         android:text="--"
                                         android:textColor="@color/order_price_color"
-                                        android:textSize="17sp" />
+                                        android:textSize="17sp"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
                             </RelativeLayout>
                         </LinearLayout>
@@ -174,7 +175,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="包含服务:"
                                 android:textColor="@color/exchange_text_color"
-                                android:textSize="@dimen/middle_textSize" />
+                                android:textSize="@dimen/sub_textSize" />
 
 
                             <TextView

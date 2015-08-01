@@ -205,7 +205,7 @@ public class PlaceSearchListAdapter extends BaseAdapter {
             sale = ViewUtil.findViewById(view, R.id.place_sale);
             address = ViewUtil.findViewById(view, R.id.place_address);
             tuanImg = ViewUtil.findViewById(view, R.id.fanxian);
-            temaiImg = ViewUtil.findViewById(view, R.id.temai_img);
+            temaiImg = ViewUtil.findViewById(view, R.id.temai);
             tuanCount = ViewUtil.findViewById(view, R.id.tuan_short);
             temaiCount = ViewUtil.findViewById(view, R.id.temai_short);
             hotImg = ViewUtil.findViewById(view, R.id.hot_flag);

@@ -5,6 +5,7 @@ import com.bjcathay.android.async.IPromise;
 import com.bjcathay.android.json.annotation.JSONCollection;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.constant.ApiUrl;
 
 import java.io.Serializable;
@@ -15,32 +16,114 @@ import java.util.List;
  */
 public class ProductModel implements Serializable {
 
-    private Long id;// 2,
     private String name;// "北京十三陵国际高尔夫"
-    private double lat;// 46.213213,
-    private double lon;// 116.23213,
-    private double price;// 200, //默认为当日价格，团购和特卖价格也是此字段
-    private String priceInclude;// "18洞/车/餐",
-    private String address;// "北京市朝阳区清河湾高尔夫俱乐部",
+    private String tags; // "特卖"
     private Long golfCourseId;// 1,//球场ID 用于进入球场详情
     private String imageUrl;// "/upload/stadium/2015/5/15/1431667509354-7367.jpg",
-    private String type;// GROUP|SPECIAL|LIMIT|NONE //团购，特卖，最低起卖，无
-    private String start;// "2015-05-05 09:00:00", //类型团购时存在
-    private String end;// "2015-05-05 09:00:00", //类型团购时存在
-    private String now;// "2015-05-05 09:00:00", //类型团购时存在
-    private int amount;// "11", //类型 特卖和最低起卖时存在，表示特卖剩余数量和最低起卖数
-    private String date;
-    private String feature;
-    private String bhStartAt;
-    private String bhEndAt;
+    private String now;// "2015-05-05 09:00:00",
     private String purchasingNotice;
-    private String label;
-    private double distance;
-    private String priceType;//NORMAL|REST|REAL_TIME 正常|休息|实时
+    private String type;// "COMBO"|"DATE"|"TIME"|"REAL_TIME",//套餐,日期,时间,实时
+    private String payType;// "PREPAY"|"SPOTPAY"|"BLENDPAY"|,
+    private double price;// 200, //默认为当日价格
+    private Long id;// 2,
+    private String description;
+    private String priceInclude;// "18洞/车/餐",
+    private String address;// "北京市朝阳区清河湾高尔夫俱乐部",
+private String recommendReason;
+    private double lat;// 46.213213,
+    private double lon;// 116.23213,
+    private String costInclude;
+    private String feature;
+    private  String scheduling;
+    private String amountNotice;
+    private  int intervalTime;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
+
+    // 待定
+
+    private String start;// "2015-05-05 09:00:00", //类型团购时存在
+    private String end;// "2015-05-05 09:00:00", //类型团购时存在
+    private int amount;// "11", //类型 特卖和最低起卖时存在，表示特卖剩余数量和最低起卖数
+    private String date;
+
+    private String bhStartAt;
+    private String bhEndAt;
+    private String label;
+    private double distance;
+    private String priceType;// NORMAL|REST|REAL_TIME 正常|休息|实时
+
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(
             ProductModel.class, "product");
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getRecommendReason() {
+        return recommendReason;
+    }
+
+    public void setRecommendReason(String recommendReason) {
+        this.recommendReason = recommendReason;
+    }
+
+    public String getCostInclude() {
+        return costInclude;
+    }
+
+    public void setCostInclude(String costInclude) {
+        this.costInclude = costInclude;
+    }
+
+    public String getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(String scheduling) {
+        this.scheduling = scheduling;
+    }
+
+    public String getAmountNotice() {
+        return amountNotice;
+    }
+
+    public void setAmountNotice(String amountNotice) {
+        this.amountNotice = amountNotice;
+    }
+
+    public int getIntervalTime() {
+        return intervalTime;
+    }
+
+    public void setIntervalTime(int intervalTime) {
+        this.intervalTime = intervalTime;
+    }
+
+    public String[] getTagsType() {
+        String[] tagType = tags.split(",");
+        return tagType;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTag() {
+        return tags;
+    }
+
+    public void setTag(String tag) {
+        this.tags = tag;
+    }
 
     public String getPriceType() {
         return priceType;
@@ -178,12 +261,20 @@ public class ProductModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getType() {
-        return type;
+    public ProductType.prdtType getType() {
+        return ProductType.prdtType.valueOf(type);
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public ProductType.payType getPayType() {
+        return ProductType.payType.valueOf(payType);
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 
     public String getStart() {

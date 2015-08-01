@@ -37,10 +37,12 @@ public class MessageListModel implements Serializable {
     private static IContentDecoder<MessageListModel> decoder = new IContentDecoder.BeanDecoder<MessageListModel>(
             MessageListModel.class);
 
-    public static IPromise getMyMessage(int page, String lastUpdatedAt) {
+    public static IPromise getMyMessage() {
         return Http.instance().get(ApiUrl.MY_MESSAGE).
-                param("page", page).
-                param("lastUpdatedAt", lastUpdatedAt).
+                contentDecoder(decoder).run();
+    }
+    public static IPromise getMyMessage(String type) {
+        return Http.instance().get(ApiUrl.MY_MESSAGE).param("type", type).
                 contentDecoder(decoder).run();
     }
 
@@ -78,5 +80,10 @@ public class MessageListModel implements Serializable {
         return Http.instance().post(ApiUrl.DELETE_MESSAGE).
                 param("_method", "DELETE").
                 param("from", buffer).contentDecoder(decoder).run();
+    }
+
+    public static IPromise messageList(String type) {
+        return Http.instance().put(ApiUrl.MY_MESSAGE).
+                param("type", type).run();
     }
 }

@@ -11,8 +11,8 @@
         android:paddingLeft="10dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:textColor="@color/exchange_text_color"
-        android:textSize="@dimen/sub_textSize"
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/city_title"
         android:text=""
         android:gravity="center" />
 </LinearLayout>

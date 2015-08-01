@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/call_service"
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
+            android:layout_height="55dp"
             android:background="@drawable/item_click"
             android:gravity="center"
             android:text="电话预订"

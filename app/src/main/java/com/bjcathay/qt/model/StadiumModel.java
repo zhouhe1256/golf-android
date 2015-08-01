@@ -33,10 +33,49 @@ public class StadiumModel implements Serializable {
     private String startAt;// "09:00", "开始营业时间",
     private String endAt;// "18:00","结束营业时间",
     private String date;// "建设日期",
+    private String tags;
+    private double distance;
+    private double price;// 200, //默认为当日价格
+    private String feature;
 
     @JSONCollection(type = String.class)
     private List<String> imageUrls;// [ "/upload/image/xxx.png",
     private String imageUrl;
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+    public String[] getTagsType() {
+        String[] tagType = tags.split(",");
+        return tagType;
+    }
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getMode() {
         return mode;

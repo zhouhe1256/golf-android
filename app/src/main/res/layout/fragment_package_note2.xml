@@ -20,6 +20,7 @@
             android:textSize="@dimen/main_textSize" />
 
         <TextView
+            android:id="@+id/recommendReason"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/this_way_to_get_glb"
@@ -48,6 +49,7 @@
             android:textSize="@dimen/main_textSize" />
 
         <TextView
+            android:id="@+id/costInclude"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/this_way_to_get_glb"
@@ -76,6 +78,7 @@
             android:textSize="@dimen/main_textSize" />
 
         <TextView
+            android:id="@+id/purchasingNotice"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/this_way_to_get_glb"

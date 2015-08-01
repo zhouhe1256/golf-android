@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,8 +32,7 @@
             android:layout_height="wrap_content"
             android:text="北京清河湾高尔夫俱乐部"
             android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize"
-            />
+            android:textSize="@dimen/main_textSize" />
 
         <TextView
             android:id="@+id/commit_place_date"
@@ -39,8 +40,7 @@
             android:layout_height="wrap_content"
             android:text="2015.4.26  2:30"
             android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize"
-            />
+            android:textSize="@dimen/main_textSize" />
 
     </LinearLayout>
 
@@ -105,7 +105,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
@@ -241,8 +240,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:gravity="right"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -261,7 +260,7 @@
             android:textColor="@color/order_price_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="20sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -269,29 +268,111 @@
         android:layout_height="fill_parent"
         android:layout_gravity="bottom"
         android:gravity="bottom"
-        android:weightSum="2"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/dialog_order_sure_price"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/time"
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
-            android:background="@color/home_exchange_press_color"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="￥123(全额付款)"
-            android:textColor="@color/white"
-            android:textSize="@dimen/main_textSize"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/sure_order"
-            android:layout_width="fill_parent"
-            android:layout_height="48dp"
-            android:background="@color/yellow_bg_color"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="提交订单"
-            android:textColor="@color/white"
-            android:textSize="@dimen/main_textSize"
-            android:textStyle="bold" />
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/popwindows_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总价"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/order_price_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="800"
+                android:textColor="@color/order_price_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=",球场现付"
+                android:textColor="@color/main_text_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/order_price_color"
+                android:textSize="@dimen/main_textSize" />
+
+            <TextView
+                android:id="@+id/spotPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="800"
+                android:textColor="@color/order_price_color"
+                android:textSize="@dimen/main_textSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/price_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="￥123"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_textSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pay_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_textSize"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/sure_order"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/yellow_bg_color"
+                android:gravity="center"
+                android:text="提交订单"
+                android:textColor="@color/white"
+                android:textSize="@dimen/main_textSize"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

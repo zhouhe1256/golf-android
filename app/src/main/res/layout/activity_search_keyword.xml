@@ -30,7 +30,7 @@
             <EditText
                 android:id="@+id/search_key"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:background="@drawable/input_light_bg"
                 android:drawableLeft="@drawable/ic_search"
                 android:drawablePadding="5dp"
@@ -65,8 +65,13 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
 
     <ListView
+        android:layout_marginTop="5dp"
         android:id="@+id/golflist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

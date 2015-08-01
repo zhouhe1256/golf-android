@@ -2,8 +2,10 @@
 package com.bjcathay.qt.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.util.ViewUtil;
@@ -15,14 +17,17 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class MyWalletActivity extends Activity implements View.OnClickListener {
     private TopView topView;
-
+private TextView wallet_remain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet);
         topView = ViewUtil.findViewById(this, R.id.top_my_wallet_layout);
+        wallet_remain=ViewUtil.findViewById(this,R.id.wallet_remain);
         topView.setTitleBackVisiable();
         topView.setTitleText("我的钱包");
+        wallet_remain.setText(getIntent().getStringExtra("balance"));
+
     }
 
     @Override

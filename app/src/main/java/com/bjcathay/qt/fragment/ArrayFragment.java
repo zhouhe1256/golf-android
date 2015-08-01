@@ -1,6 +1,7 @@
 
 package com.bjcathay.qt.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,17 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.model.PriceModel;
+import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.SizeUtil;
+import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.RichTextView;
 import com.bjcathay.qt.widget.TosGallery;
 import com.bjcathay.qt.widget.WheelView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by dengt on 15-7-28.
@@ -29,17 +37,104 @@ import java.util.Calendar;
 public class ArrayFragment extends Fragment {
     int mNum;
     private Context context;
+    private static ProductModel productModel;
+    private ChangePrice changePrice;
+    private List<PriceModel> priceModels;
 
-    public static ArrayFragment newInstance(int num) {
+    public interface ChangePrice {
+        void priceChanged(int price, PriceModel currentPrice, int number, String date);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.changePrice = (ChangePrice) activity;
+    }
+
+    public static ArrayFragment newInstance(int num, ProductModel productModel) {
         ArrayFragment array = new ArrayFragment();
         Bundle args = new Bundle();
         args.putInt("num", num);
+        args.putSerializable("product", productModel);
         array.setArguments(args);
         return array;
     }
 
-    public void setContext(Context context) {
+    public void setContext(Context context, ProductModel productModel) {
         this.context = context;
+        this.productModel = productModel;
+        this.priceModels = productModel.getPrices();
+    }
+
+    private TextView time;
+    private String date;
+    String hourSelect;
+    private int number;
+    private PriceModel currentPrice;
+    private ImageView minas;
+    private ImageView plus;
+    private TextView fourPlus;
+    private int amount = -1;
+    private String daySelect;
+
+    private void getDate() {
+        // mCurYear, mCurMonth + 1, mCurDate
+        String mounth = mCurMonth + 1 + "";
+        String day = mCurDate + "";
+        daySelect = mCurYear + "-" + (mounth.length() == 1 ? "0" + mounth : mounth) + "-"
+                + (day.length() == 1 ? "0" + day : day) + " 00:00:00";
+    }
+
+    private void getDayPrice() {
+        if (priceModels != null && priceModels.size() > 0)
+            for (PriceModel priceModel : priceModels) {
+                if (DateUtil.CompareTime(daySelect, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+                    priceModel.getPersonsDuring(productModel.getType());
+                    currentPrice = priceModel;
+                    amount = priceModel.getMinPerson();
+                    if (number < amount) {
+                        number = amount;
+                    }
+                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                    int[] priceStr = priceModel.getFianlPrice(productModel.getType(),
+                            number, hourSelect);
+                    changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
+                    return;
+                }
+            }
+    }
+
+    private void person() {
+        minas.setOnClickListener(new
+                View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (amount > 0) {
+                            if (number > amount) {
+                                number--;
+                                fourPlus.setText(number < 10 ? " " + number : number + "");
+                                getDayPrice();
+                            }
+                        } else {
+                            if (number > 1) {
+                                number--;
+                                fourPlus.setText(number < 10 ? " " + number : number + "");
+                                getDayPrice();
+                            }
+                        }
+                    }
+                });
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                number++;
+                fourPlus.setText(number < 10 ? " " + number : number + "");
+                getDayPrice();
+            }
+        });
+        fourPlus.setText(number < 10 ? " " + number : number + "");
+        getDayPrice();
+
     }
 
     // 日期选择
@@ -68,9 +163,8 @@ public class ArrayFragment extends Fragment {
                 TextInfo info = mYears.get(pos);
                 setYear(info.mIndex);
             }
-
-            // mSelDateTxt.setText(formatDate());
-            DialogUtil.showMessage(formatDate());
+            getDate();
+            getDayPrice();
         }
     };
 
@@ -121,6 +215,7 @@ public class ArrayFragment extends Fragment {
         mYearWheel.setAdapter(new WheelTextAdapter(context));
 
         prepareData();
+        person();
     }
 
     private static final int[] DAYS_PER_MONTH = {
@@ -147,13 +242,13 @@ public class ArrayFragment extends Fragment {
         mCurDate = day;
         mCurMonth = month;
         mCurYear = year;
-
+        getDate();
         for (int i = 0; i < MONTH_NAME.length; ++i) {
             mMonths.add(new TextInfo(i, MONTH_NAME[i], (i == month)));
         }
 
         for (int i = startYear; i <= endYear; ++i) {
-            mYears.add(new TextInfo(i, String.valueOf(i)+"年", (i == year)));
+            mYears.add(new TextInfo(i, String.valueOf(i) + "年", (i == year)));
         }
 
         ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
@@ -177,49 +272,52 @@ public class ArrayFragment extends Fragment {
         }
 
         for (int i = 1; i <= days; ++i) {
-            mDates.add(new TextInfo(i, String.valueOf(i)+"日"+isWeek(year,month,i,curDate), (i == curDate)));
+            mDates.add(new TextInfo(i, String.valueOf(i) + "日" + isWeek(year, month, i, curDate),
+                    (i == curDate)));
         }
 
         ((WheelTextAdapter) mDateWheel.getAdapter()).setData(mDates);
     }
-private String isWeek(int year,int month,int day,int curDate){
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(year,month,day);
-    Calendar calendartoday = Calendar.getInstance();
-    calendartoday.set(year,month,curDate);
-    int day1 = calendar.get(Calendar.DAY_OF_WEEK);
-    int _day = calendar.get(Calendar.DAY_OF_MONTH);
-    int now_daye = calendartoday.get(Calendar.DAY_OF_MONTH);
-    String today = "(今天)";
-    if (day == now_daye) {
-        today = "(今天)";
-    }else{
-        switch (day1) {
-            case 2:
-                today = "(星期一)";
-                break;
-            case 3:
-                today = "(星期二)";
-                break;
-            case 4:
-                today = "(星期三)";
-                break;
-            case 5:
-                today = "(星期四)";
-                break;
-            case 6:
-                today = "(星期五)";
-                break;
-            case 7:
-                today = "(星期六)";
-                break;
-            case 1:
-                today = "(星期日)";
-                break;
+
+    private String isWeek(int year, int month, int day, int curDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        Calendar calendartoday = Calendar.getInstance();
+        calendartoday.set(year, month, curDate);
+        int day1 = calendar.get(Calendar.DAY_OF_WEEK);
+        int _day = calendar.get(Calendar.DAY_OF_MONTH);
+        int now_daye = calendartoday.get(Calendar.DAY_OF_MONTH);
+        String today = "(今天)";
+        if (day == now_daye) {
+            today = "(今天)";
+        } else {
+            switch (day1) {
+                case 2:
+                    today = "(星期一)";
+                    break;
+                case 3:
+                    today = "(星期二)";
+                    break;
+                case 4:
+                    today = "(星期三)";
+                    break;
+                case 5:
+                    today = "(星期四)";
+                    break;
+                case 6:
+                    today = "(星期五)";
+                    break;
+                case 7:
+                    today = "(星期六)";
+                    break;
+                case 1:
+                    today = "(星期日)";
+                    break;
+            }
         }
+        return today;
     }
-    return today;
-}
+
     protected class TextInfo {
         public TextInfo(int index, String text, boolean isSelected) {
             mIndex = index;
@@ -302,6 +400,8 @@ private String isWeek(int year,int month,int day,int curDate){
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
+        productModel = (ProductModel) getArguments().getSerializable("product");
+        this.priceModels = productModel.getPrices();
         System.out.println("mNum Fragment create =" + mNum);
     }
 
@@ -315,18 +415,32 @@ private String isWeek(int year,int month,int day,int curDate){
             v = inflater.inflate(R.layout.fragment_package_note, container, false);
             // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +
             // "= mNum");
+            if (productModel != null)
+                ((TextView) v.findViewById(R.id.amountNotice)).setText(productModel
+                        .getAmountNotice());
+            minas = ViewUtil.findViewById(v, R.id.dialog_order_minas);
+            plus = ViewUtil.findViewById(v, R.id.dialog_order_plus);
+            fourPlus = ViewUtil.findViewById(v, R.id.dialog_order_sure_number_edit);
             initView(v);
         } else if (mNum == 1) {
             v = inflater.inflate(R.layout.fragment_package_note2, container, false);
             // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +
             // "= mNum");
+            if (productModel != null) {
+
+                ((TextView) v.findViewById(R.id.purchasingNotice)).setText(productModel
+                        .getPurchasingNotice());
+                ((TextView) v.findViewById(R.id.costInclude))
+                        .setText(productModel.getCostInclude());
+                ((TextView) v.findViewById(R.id.recommendReason)).setText(productModel
+                        .getRecommendReason());
+            }
         } else if (mNum == 2) {
             v = inflater.inflate(R.layout.fragment_package_note3, container, false);
-            ((RichTextView) v.findViewById(R.id.richTextView))
-                    .setRichText("富文本<br><br>可以解析含有图片的html网页，图片既可以是本地的也可以是网络的"
-                            + "<font color='red'></font><br><br><br>"
-                            + "<font color='#0000ff'><big><i></i></big></font><p>"
-                            + "<big><a href='http://www.baidu.com'>百度</a></big><br>");
+            if (productModel != null)
+
+                ((RichTextView) v.findViewById(R.id.richTextView))
+                        .setRichText(productModel.getScheduling());
         } else {
             v = inflater.inflate(R.layout.fragment_package_note, container, false);
             // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +
