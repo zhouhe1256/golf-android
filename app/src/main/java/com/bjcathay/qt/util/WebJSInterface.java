@@ -84,9 +84,10 @@ public class WebJSInterface implements /*
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {
-                            Intent intent = new Intent(mActivity, AttendSucActivity.class);
+                            /*Intent intent = new Intent(mActivity, AttendSucActivity.class);
                             intent.putExtra("title", mWebview.getTitle());
-                            ViewUtil.startActivity(mActivity, intent);
+                            ViewUtil.startActivity(mActivity, intent);*/
+                            DialogUtil.showMessage("报名成功");
                         } else {
                             String errorMessage = jsonObject.optString("message");
                             if (!StringUtils.isEmpty(errorMessage))
@@ -145,9 +146,10 @@ public class WebJSInterface implements /*
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
-                        Intent intent = new Intent(mActivity, AttendSucActivity.class);
-                        intent.putExtra("title", mWebview.getTitle());
-                        ViewUtil.startActivity(mActivity, intent);
+//                        Intent intent = new Intent(mActivity, AttendSucActivity.class);
+//                        intent.putExtra("title", mWebview.getTitle());
+//                        ViewUtil.startActivity(mActivity, intent);
+                        DialogUtil.showMessage("报名成功");
                     } else {
                         String errorMessage = jsonObject.optString("message");
                         if (!StringUtils.isEmpty(errorMessage))

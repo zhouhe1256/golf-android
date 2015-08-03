@@ -49,10 +49,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:text="订单信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -62,10 +62,10 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:visibility="visible">
 
                     <LinearLayout
@@ -171,7 +171,7 @@
                             android:gravity="center_vertical"
                             android:text="返50"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/sub_textSize"/>
+                            android:textSize="@dimen/sub_textSize" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -239,16 +239,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:text="预订信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
 
 
                 <LinearLayout
+                    android:id="@+id/order_detail_to_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_click"
@@ -404,10 +405,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:text="打球人信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -427,8 +428,7 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                       >
+                        android:paddingRight="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -511,10 +511,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:text="温馨提示"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />

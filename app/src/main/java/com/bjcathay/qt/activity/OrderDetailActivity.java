@@ -62,6 +62,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView personNames;
     private TextView purchasingNotice;
     private RoundCornerImageView orderImg;
+    private TextView fanxian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         personNames = ViewUtil.findViewById(this, R.id.personNames);
         purchasingNotice = ViewUtil.findViewById(this, R.id.purchasingNotice);
         orderImg = ViewUtil.findViewById(this, R.id.my_order_img);
+        fanxian = ViewUtil.findViewById(this, R.id.order_detail_price_back);
     }
 
     private void initEvent() {
@@ -146,6 +148,12 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
             purchasingNotice.setText(orderModel.getPurchasingNotice());
+            if (orderModel.getFan() != 0) {
+                fanxian.setVisibility(View.VISIBLE);
+                fanxian.setText("返"+(int) Math.floor(orderModel.getFan()) + "");
+            } else {
+                fanxian.setVisibility(View.GONE);
+            }
             cancleOrder.setOnClickListener(this);
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
@@ -290,7 +298,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                         cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                         cancleOrder.setTextColor(Color.GRAY);
 
-                      //  cancleOrder.setVisibility(View.GONE);
+                        // cancleOrder.setVisibility(View.GONE);
                         cancleOrder.setOnClickListener(null);
                         orderToPay.setVisibility(View.GONE);
                         orderStatus.setText("已取消");

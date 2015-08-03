@@ -2,6 +2,7 @@
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.async.IPromise;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.json.annotation.JSONCollection;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
@@ -29,17 +30,18 @@ public class ProductModel implements Serializable {
     private String description;
     private String priceInclude;// "18洞/车/餐",
     private String address;// "北京市朝阳区清河湾高尔夫俱乐部",
-private String recommendReason;
+    private String recommendReason;
     private double lat;// 46.213213,
     private double lon;// 116.23213,
     private String costInclude;
     private String feature;
-    private  String scheduling;
+    private String scheduling;
     private String amountNotice;
-    private  int intervalTime;
+    private int intervalTime;
     @JSONCollection(type = PriceModel.class)
     private List<PriceModel> prices;// [ "/upload/image/xxx.png",
-
+    private String priceJson;
+    private PackagePriceModel packagePriceModel;
     // 待定
 
     private String start;// "2015-05-05 09:00:00", //类型团购时存在
@@ -55,6 +57,26 @@ private String recommendReason;
 
     private static IContentDecoder<ProductModel> decoder = new IContentDecoder.BeanDecoder<ProductModel>(
             ProductModel.class, "product");
+
+    public String getPriceJson() {
+        return priceJson;
+    }
+
+    public PackagePriceModel getPackagePriceModel() {
+        //String json = priceJson.replaceAll("", "\\");
+        packagePriceModel = JSONUtil.load(PackagePriceModel.class, priceJson);
+        return packagePriceModel;
+    }
+
+    public void setPackagePriceModel(PackagePriceModel packagePriceModel) {
+        String json = priceJson.replaceAll("", "\\");
+        packagePriceModel = JSONUtil.load(PackagePriceModel.class, json);
+        this.packagePriceModel = packagePriceModel;
+    }
+
+    public void setPriceJson(String priceJson) {
+        this.priceJson = priceJson;
+    }
 
     public String getDescription() {
         return description;

@@ -2,6 +2,7 @@
 package com.bjcathay.qt.model;
 
 import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.qt.Enumeration.MessageType;
 
 import java.io.Serializable;
 
@@ -55,8 +56,8 @@ public class MessageModel implements Serializable {
         this.content = content;
     }
 
-    public String getType() {
-        return type;
+    public MessageType.msgType getType() {
+        return MessageType.msgType.valueOf(type);
     }
 
     public void setType(String type) {
@@ -87,8 +88,8 @@ public class MessageModel implements Serializable {
         this.target = target;
     }
 
-    public String getStatus() {
-        return status;
+    public MessageType.msgReadType getStatus() {
+        return MessageType.msgReadType.valueOf(status);
     }
 
     public void setStatus(String status) {

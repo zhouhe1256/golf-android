@@ -35,9 +35,18 @@ public class OrderModel implements Serializable {
     private String userRealName;
     private String personNames;
     private String purchasingNotice;
+    private double fan;
 
     private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(
             OrderModel.class, "order");
+
+    public double getFan() {
+        return fan;
+    }
+
+    public void setFan(double fan) {
+        this.fan = fan;
+    }
 
     public String getUserRealName() {
         return userRealName;

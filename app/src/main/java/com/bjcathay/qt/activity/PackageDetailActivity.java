@@ -23,6 +23,7 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PackageFragmentAdapter;
 import com.bjcathay.qt.fragment.ArrayFragment;
+import com.bjcathay.qt.model.PackagePriceModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.ViewUtil;
@@ -138,17 +139,18 @@ public class PackageDetailActivity extends FragmentActivity implements
 
     private Long id;
     private String name;
-
+    PackagePriceModel packagePriceModel;
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         name = intent.getStringExtra("name");
         productModel = (ProductModel) intent.getSerializableExtra("product");
+        packagePriceModel=productModel.getPackagePriceModel();
         topView.setTitleText(name);
         ImageViewAdapter.adapt(imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         packageTitle.setText(productModel.getName());
-        packagePrice.setText(productModel.getPrice() + "");
+        packagePrice.setText((int) Math.floor(productModel.getPrice()) + "");
         mAdapter = new PackageFragmentAdapter(this, getSupportFragmentManager(), productModel);
         mPager = (WrapContentHeightViewPager) findViewById(R.id.vPager);
         mPager.setAdapter(mAdapter);
@@ -165,7 +167,7 @@ public class PackageDetailActivity extends FragmentActivity implements
 
     String date;
     int number;
-    private PriceModel currentPrice;
+    private PackagePriceModel currentPrice;
 
     @Override
     public void onClick(View view) {
@@ -178,7 +180,7 @@ public class PackageDetailActivity extends FragmentActivity implements
                 intent.putExtra("product", productModel);
                 intent.putExtra("date", date);
                 intent.putExtra("number", number);
-                intent.putExtra("currentPrice", currentPrice);
+                intent.putExtra("comboPrice", currentPrice);
                 ViewUtil.startActivity(this, intent);
                 break;
         }
@@ -191,13 +193,10 @@ public class PackageDetailActivity extends FragmentActivity implements
     }
 
     @Override
-    public void priceChanged(int price, PriceModel currentPrice, int number, String date) {
+    public void priceChanged(int price, PackagePriceModel currentPrice, int number, String date) {
         this.currentPrice = currentPrice;
         this.number = number;
         this.date = date;
-        if (price == 0) {
-            totalPrice.setText("总金额:￥" + currentPrice.getPrice() * number);
-        } else
             totalPrice.setText("总金额:￥" + price * number);
     }
 

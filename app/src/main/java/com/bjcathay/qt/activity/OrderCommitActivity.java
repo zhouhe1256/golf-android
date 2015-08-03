@@ -24,6 +24,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.PackagePriceModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.UserModel;
@@ -55,6 +56,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     String hourSelect;
     private int number;
     private PriceModel currentPrice;
+    private PackagePriceModel comboPrice;
     private ImageView minas;
     private ImageView plus;
     private TextView fourPlus;
@@ -63,6 +65,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     private EditText cName;
     private TextView palyerNames;
     private int amount = -1;
+    private int amountmax = -1;
     private String players;
     private BookListModel bookListModel = new BookListModel();
 
@@ -136,17 +139,22 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                             dialog.dismiss();
                             DialogUtil.showMessage("下单成功");
                             Intent intent = null;
-//                            if ("LIMIT".equals(stadiumModel.getType())
-//                                    || "NONE".equals(stadiumModel.getType())) {
-//                                intent = new Intent(context, OrderSucActivity.class);
-//                            } else if ("SPECIAL".equals(stadiumModel.getType())) {
-//                                intent = new Intent(context, OrderSucTEActivity.class);
-//                            } else if ("GROUP".equals(stadiumModel.getType())) {
-//                                intent = new Intent(context, SelectPayWayActivity.class);
-//                                intent.putExtra("order", orderModel);
-//                            }
-//                            intent.putExtra("id", orderModel.getId());
-//                            ViewUtil.startActivity(context, intent);
+                            // if ("LIMIT".equals(stadiumModel.getType())
+                            // || "NONE".equals(stadiumModel.getType())) {
+                            // intent = new Intent(context,
+                            // OrderSucActivity.class);
+                            // } else if
+                            // ("SPECIAL".equals(stadiumModel.getType())) {
+                            // intent = new Intent(context,
+                            // OrderSucTEActivity.class);
+                            // } else if
+                            // ("GROUP".equals(stadiumModel.getType())) {
+                            // intent = new Intent(context,
+                            // SelectPayWayActivity.class);
+                            // intent.putExtra("order", orderModel);
+                            // }
+                            // intent.putExtra("id", orderModel.getId());
+                            // ViewUtil.startActivity(context, intent);
                         } else {
                             dialog.dismiss();
                             String errorMessage = jsonObject.optString("message");
@@ -192,6 +200,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         date = intent.getStringExtra("date");
         number = intent.getIntExtra("number", 1);
         currentPrice = (PriceModel) intent.getSerializableExtra("currentPrice");
+        comboPrice = (PackagePriceModel) intent.getSerializableExtra("comboPrice");
         hourSelect = intent.getStringExtra("hourSelect");
         name.setText(stadiumModel.getName());
         time.setText(DateUtil.stringToDateToOrderString(date));
@@ -212,11 +221,367 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         palyerNames.setText(bookModel.getName());
         minas.setVisibility(View.VISIBLE);
         plus.setVisibility(View.VISIBLE);
+        if (ProductType.prdtType.COMBO.equals(stadiumModel.getType())) {
+            getComboPrice();
+            time.setText(DateUtil.stringToDateToOrderString(date).substring(0, 11));
+        } else
+            getProductPrice();
         /*
          * if ("LIMIT".equals(stadiumModel.getType())) { amount =
          * stadiumModel.getAmount(); }
          */
+        // amount = currentPrice.getMinPerson();
+        // if (number == 0) {
+        // number = 5;
+        // int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+        // number, hourSelect);
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice() *
+        // number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math.floor((priceStr[0] * number == 0 ? currentPrice.getPrice()
+        // * number : priceStr[0]
+        // * number)));
+        // minas.setOnClickListener(new
+        // View.OnClickListener() {
+        // @Override
+        // public void onClick(View view) {
+        // if (number > 5) {
+        // number--;
+        // int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+        // number, hourSelect);
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math
+        // .floor((priceStr[0] * number == 0 ? currentPrice
+        // .getPrice()
+        // * number
+        // : priceStr[0]
+        // * number)));
+        // }
+        // }
+        // });
+        // plus.setOnClickListener(new View.OnClickListener() {
+        // @Override
+        // public void onClick(View view) {
+        // // if(number>=5){
+        // number++;
+        // int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+        // number, hourSelect);
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
+        // .getPrice() * number : priceStr[0]
+        // * number)));
+        // }
+        // });
+        // } else {
+        // int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+        // number, hourSelect);
+        // minas.setOnClickListener(new
+        // View.OnClickListener() {
+        // @Override
+        // public void onClick(View view) {
+        // if (amount > 0) {
+        // if (number > amount) {
+        // number--;
+        // int[] priceStr = currentPrice.getFianlPrice(
+        // stadiumModel.getType(),
+        // number, hourSelect);
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel
+        // .getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math
+        // .floor((priceStr[0] * number == 0 ? currentPrice
+        // .getPrice()
+        // * number
+        // : priceStr[0]
+        // * number)));
+        // }
+        // } else {
+        // if (number > 1) {
+        // number--;
+        // int[] priceStr = currentPrice.getFianlPrice(
+        // stadiumModel.getType(),
+        // number, hourSelect);
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel
+        // .getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice
+        // .getPrice() * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math
+        // .floor((priceStr[0] * number == 0 ? currentPrice
+        // .getPrice()
+        // * number
+        // : priceStr[0]
+        // * number)));
+        // }
+        // }
+        // }
+        // });
+        // plus.setOnClickListener(new View.OnClickListener() {
+        // @Override
+        // public void onClick(View view) {
+        // number++;
+        // int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+        // number, hourSelect);
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
+        // .getPrice() * number : priceStr[0]
+        // * number)));
+        // }
+        // });
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+        // double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice() *
+        // number
+        // : priceStr[2]
+        // * number;
+        // double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+        // * number
+        // : priceStr[3]
+        // * number;
+        // price.setText("￥" + (int) Math.floor(prepay));
+        // totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+        // spotPrice.setText((int) Math.floor(spotpay) + "");
+        // } else
+        // price.setText("￥"
+        // +
+        // (int) Math.floor((priceStr[0] * number == 0 ? currentPrice.getPrice()
+        // * number : priceStr[0]
+        // * number)));
+        // }
+    }
+
+    private void getComboPrice() {
+        amount = comboPrice.getMinPerson();
+        amountmax = comboPrice.getMaxPerson();
+        if (number == 0) {
+            number = 5;
+            int[] priceStr = comboPrice.getFianlPrice(stadiumModel.getType(),
+                    number, hourSelect);
+            if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                double prepay = priceStr[2] * number;
+                double spotpay = priceStr[3] * number;
+                price.setText("￥" + (int) Math.floor(prepay));
+                totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                spotPrice.setText((int) Math.floor(spotpay) + "");
+            } else
+                price.setText("￥"
+                        +
+                        (int) Math.floor((priceStr[0] * number)));
+            minas.setOnClickListener(new
+                    View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (number > 5) {
+                                number--;
+                                int[] priceStr = comboPrice.getFianlPrice(stadiumModel.getType(),
+                                        number, hourSelect);
+                                fourPlus.setText(number < 10 ? " " + number : number + "");
+                                if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                                    double prepay = priceStr[2] * number;
+                                    double spotpay = priceStr[3] * number;
+                                    price.setText("￥" + (int) Math.floor(prepay));
+                                    totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                                    spotPrice.setText((int) Math.floor(spotpay) + "");
+                                } else
+                                    price.setText("￥"
+                                            +
+                                            (int) Math
+                                                    .floor((priceStr[0] * number)));
+                            }
+                        }
+                    });
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (number < amountmax) {
+                        number++;
+                        int[] priceStr = comboPrice.getFianlPrice(stadiumModel.getType(),
+                                number, hourSelect);
+                        fourPlus.setText(number < 10 ? " " + number : number + "");
+                        if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                            double prepay = priceStr[2] * number;
+                            double spotpay = priceStr[3] * number;
+                            price.setText("￥" + (int) Math.floor(prepay));
+                            totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                            spotPrice.setText((int) Math.floor(spotpay) + "");
+                        } else
+                            price.setText("￥"
+                                    +
+                                    (int) Math.floor((priceStr[0] * number)));
+                    }
+                }
+            });
+        } else {
+            int[] priceStr = comboPrice.getFianlPrice(stadiumModel.getType(),
+                    number, hourSelect);
+            minas.setOnClickListener(new
+                    View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (amount > 0) {
+                                if (number > amount) {
+                                    number--;
+                                    int[] priceStr = comboPrice.getFianlPrice(
+                                            stadiumModel.getType(),
+                                            number, hourSelect);
+                                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                                    if (ProductType.payType.BLENDPAY.equals(stadiumModel
+                                            .getPayType())) {
+                                        double prepay = priceStr[2] * number;
+                                        double spotpay = priceStr[3] * number;
+                                        price.setText("￥" + (int) Math.floor(prepay));
+                                        totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                                        spotPrice.setText((int) Math.floor(spotpay) + "");
+                                    } else
+                                        price.setText("￥"
+                                                +
+                                                (int) Math
+                                                        .floor((priceStr[0] * number)));
+                                }
+                            } else {
+                                if (number > 1) {
+                                    number--;
+                                    int[] priceStr = comboPrice.getFianlPrice(
+                                            stadiumModel.getType(),
+                                            number, hourSelect);
+                                    fourPlus.setText(number < 10 ? " " + number : number + "");
+                                    if (ProductType.payType.BLENDPAY.equals(stadiumModel
+                                            .getPayType())) {
+                                        double prepay = priceStr[2] * number;
+                                        double spotpay = priceStr[3] * number;
+                                        price.setText("￥" + (int) Math.floor(prepay));
+                                        totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                                        spotPrice.setText((int) Math.floor(spotpay) + "");
+                                    } else
+                                        price.setText("￥"
+                                                +
+                                                (int) Math
+                                                        .floor((priceStr[0] * number)));
+                                }
+                            }
+                        }
+                    });
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (number < amountmax) {
+                        number++;
+                        int[] priceStr = comboPrice.getFianlPrice(stadiumModel.getType(),
+                                number, hourSelect);
+                        fourPlus.setText(number < 10 ? " " + number : number + "");
+                        if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                            double prepay = priceStr[2] * number;
+                            double spotpay = priceStr[3] * number;
+                            price.setText("￥" + (int) Math.floor(prepay));
+                            totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                            spotPrice.setText((int) Math.floor(spotpay) + "");
+                        } else
+                            price.setText("￥"
+                                    +
+                                    (int) Math.floor((priceStr[0] * number)));
+                    }
+                }
+            });
+            fourPlus.setText(number < 10 ? " " + number : number + "");
+            if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                double prepay = priceStr[2] * number;
+                double spotpay = priceStr[3] * number;
+                price.setText("￥" + (int) Math.floor(prepay));
+                totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                spotPrice.setText((int) Math.floor(spotpay) + "");
+            } else
+                price.setText("￥"
+                        +
+                        (int) Math.floor((priceStr[0] * number)));
+        }
+    }
+
+    private void getProductPrice() {
         amount = currentPrice.getMinPerson();
+        amountmax = currentPrice.getMaxPerson();
         if (number == 0) {
             number = 5;
             int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
@@ -273,29 +638,30 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // if(number>=5){
-                    number++;
-                    int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
-                            number, hourSelect);
-                    fourPlus.setText(number < 10 ? " " + number : number + "");
-                    if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
-                        double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
-                                * number
-                                : priceStr[2]
-                                        * number;
-                        double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
-                                * number
-                                : priceStr[3]
-                                        * number;
-                        price.setText("￥" + (int) Math.floor(prepay));
-                        totalprice.setText((int) Math.floor(prepay + spotpay) + "");
-                        spotPrice.setText((int) Math.floor(spotpay) + "");
-                    } else
-                        price.setText("￥"
-                                +
-                                (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
-                                        .getPrice() * number : priceStr[0]
-                                        * number)));
+                    if (number < amountmax) {
+                        number++;
+                        int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+                                number, hourSelect);
+                        fourPlus.setText(number < 10 ? " " + number : number + "");
+                        if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                            double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
+                                    * number
+                                    : priceStr[2]
+                                            * number;
+                            double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+                                    * number
+                                    : priceStr[3]
+                                            * number;
+                            price.setText("￥" + (int) Math.floor(prepay));
+                            totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                            spotPrice.setText((int) Math.floor(spotpay) + "");
+                        } else
+                            price.setText("￥"
+                                    +
+                                    (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
+                                            .getPrice() * number : priceStr[0]
+                                            * number)));
+                    }
                 }
             });
         } else {
@@ -371,28 +737,30 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    number++;
-                    int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
-                            number, hourSelect);
-                    fourPlus.setText(number < 10 ? " " + number : number + "");
-                    if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
-                        double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
-                                * number
-                                : priceStr[2]
-                                        * number;
-                        double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
-                                * number
-                                : priceStr[3]
-                                        * number;
-                        price.setText("￥" + (int) Math.floor(prepay));
-                        totalprice.setText((int) Math.floor(prepay + spotpay) + "");
-                        spotPrice.setText((int) Math.floor(spotpay) + "");
-                    } else
-                        price.setText("￥"
-                                +
-                                (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
-                                        .getPrice() * number : priceStr[0]
-                                        * number)));
+                    if (number < amountmax) {
+                        number++;
+                        int[] priceStr = currentPrice.getFianlPrice(stadiumModel.getType(),
+                                number, hourSelect);
+                        fourPlus.setText(number < 10 ? " " + number : number + "");
+                        if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+                            double prepay = priceStr[2] * number == 0 ? currentPrice.getPrice()
+                                    * number
+                                    : priceStr[2]
+                                            * number;
+                            double spotpay = priceStr[3] * number == 0 ? currentPrice.getPrice()
+                                    * number
+                                    : priceStr[3]
+                                            * number;
+                            price.setText("￥" + (int) Math.floor(prepay));
+                            totalprice.setText((int) Math.floor(prepay + spotpay) + "");
+                            spotPrice.setText((int) Math.floor(spotpay) + "");
+                        } else
+                            price.setText("￥"
+                                    +
+                                    (int) Math.floor((priceStr[0] * number == 0 ? currentPrice
+                                            .getPrice() * number : priceStr[0]
+                                            * number)));
+                    }
                 }
             });
             fourPlus.setText(number < 10 ? " " + number : number + "");

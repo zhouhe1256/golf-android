@@ -138,14 +138,14 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
 
         cityAdapter = new CityAdapter(this, pModels);
         elv.setAdapter(cityAdapter);
-        if (province.isEmpty()) {
+        if (province==null||province.isEmpty()) {
             ProvinceListModel.getProvince().done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     ProvinceListModel provinceListModel = arguments.get(0);
                     province = provinceListModel.getProvinces();
                     DBManager.getInstance().addProvinces(province);
-                    if (getCity.isEmpty()) {
+                    if (getCity==null||getCity.isEmpty()) {
                         CityListModel.getTotalCities().done(new ICallback() {
                             @Override
                             public void call(Arguments arguments) {
