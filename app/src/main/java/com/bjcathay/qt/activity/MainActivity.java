@@ -269,7 +269,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 ViewUtil.startActivity(this, intent);
                 overridePendingTransition(R.anim.activity_open, R.anim.activity_close);
                 break;
-            case R.id.title_phone_img:
+            case R.id.home_call:
                 DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                         R.style.InfoDialog, getResources().getString(R.string.service_tel_format)
                                 .toString().trim(), "呼叫", 0l, this);

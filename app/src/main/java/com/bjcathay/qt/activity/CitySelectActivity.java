@@ -87,10 +87,11 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
                 ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
                 String address = addressComponent.city;
+                myAddressNote.setText(address);
                 if (address.endsWith("市")) {
                     address = address.substring(0, address.length() - 1);
                 }
-                if (!getCity.isEmpty()) {
+                if (getCity != null && !getCity.isEmpty()) {
                     int j = 0;
                     for (int i = 0; i < getCity.size(); i++) {
                         if (getCity.get(i).getName().startsWith(address)) {
@@ -103,7 +104,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                             String.valueOf(getCity.get(j).getId()));
                     PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
                             String.valueOf(getCity.get(j).getName()));
-                    myAddressNote.setText(getCity.get(j).getName());
+
                     /*
                      * Intent intent = new Intent(); intent.putExtra("cityId",
                      * getCity.get(j).getId()); intent.putExtra("city",
@@ -130,28 +131,28 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         pModels = new ArrayList<PModel>();
         cModels = new ArrayList<CModel>();
         // todo　从数据库读取省份
-        province = DBManager.getInstance().queryProvinces();
+        // province = DBManager.getInstance().queryProvinces();
         // todo 从数据库去读城市
-        getCity = DBManager.getInstance().queryCitys();
+        // getCity = DBManager.getInstance().queryCitys();
         hotCityAdapter = new HotCityAdapter(cModels, this);
         listView.setAdapter(hotCityAdapter);
 
         cityAdapter = new CityAdapter(this, pModels);
         elv.setAdapter(cityAdapter);
-        if (province==null||province.isEmpty()) {
+        if (province == null || province.isEmpty()) {
             ProvinceListModel.getProvince().done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     ProvinceListModel provinceListModel = arguments.get(0);
                     province = provinceListModel.getProvinces();
-                    DBManager.getInstance().addProvinces(province);
-                    if (getCity==null||getCity.isEmpty()) {
+                    // DBManager.getInstance().addProvinces(province);
+                    if (getCity == null || getCity.isEmpty()) {
                         CityListModel.getTotalCities().done(new ICallback() {
                             @Override
                             public void call(Arguments arguments) {
                                 CityListModel cityListModel = arguments.get(0);
                                 getCity = cityListModel.getCities();
-                                DBManager.getInstance().addCitys(getCity);
+                                // DBManager.getInstance().addCitys(getCity);
                                 pModels = CitySelectUtil.getCities(province, getCity);
                                 cModels = CitySelectUtil.getHot(getCity);
                                 hotCityAdapter.updateListView(cModels);
@@ -319,6 +320,13 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         });
         GeoCoderAddreaa();
         myAddressNote.setOnClickListener(this);
+        String cityName =
+                PreferencesUtils.getString(this, PreferencesConstant.CITY_NAME, "");
+        if (!StringUtils.isEmpty(cityName)) {
+            myAddressNote.setText(cityName);
+        } else {
+
+        }
     }
 
     @Override
@@ -334,10 +342,12 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
                 String cityID = PreferencesUtils.getString(this, PreferencesConstant.CITY_ID, "");
                 String cityName =
                         PreferencesUtils.getString(this, PreferencesConstant.CITY_NAME, "");
-                if (!StringUtils.isEmpty(cityID) && !StringUtils.isEmpty(cityID)) {
+
+                if (!StringUtils.isEmpty(cityID) && !StringUtils.isEmpty(cityName)) {
                     intent.putExtra("cityId",
                             Long.valueOf(cityID));
                     intent.putExtra("city", cityName);
+
                     setResult(1, intent);
                     finish();
                 } else {

@@ -90,6 +90,9 @@ public class ArrayFragment extends Fragment {
         String day = mCurDate + "";
         daySelect = mCurYear + "-" + (mounth.length() == 1 ? "0" + mounth : mounth) + "-"
                 + (day.length() == 1 ? "0" + day : day) + " 00:00:00";
+        int[] priceStr = packagePriceModel.getFianlPrice(productModel.getType(),
+                number, hourSelect);
+        changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
     }
 
     private void getDayPrice() {
@@ -100,11 +103,11 @@ public class ArrayFragment extends Fragment {
             if (number < amount) {
                 number = amount;
             }
-            fourPlus.setText(number < 10 ? " " + number : number + "");
+           // fourPlus.setText(number < 10 ? " " + number : number + "");
             int[] priceStr = packagePriceModel.getFianlPrice(productModel.getType(),
                     number, hourSelect);
             changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
-            return;
+           // return;
         }
 
 
@@ -188,7 +191,7 @@ public class ArrayFragment extends Fragment {
                 setYear(info.mIndex);
             }
             getDate();
-            getDayPrice();
+            //getDayPrice();
         }
     };
 
@@ -240,6 +243,7 @@ public class ArrayFragment extends Fragment {
 
         prepareData();
         person();
+
     }
 
     private static final int[] DAYS_PER_MONTH = {
@@ -308,7 +312,7 @@ public class ArrayFragment extends Fragment {
             ((WheelTextAdapter) mYearWheel.getAdapter()).setData(mYears);
 
             prepareDayData(year, month, day);
-
+            getDayPrice();
             mMonthWheel.setSelection(month);
             mYearWheel.setSelection(year - startYear);
             mDateWheel.setSelection(0);

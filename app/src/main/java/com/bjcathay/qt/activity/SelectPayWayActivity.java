@@ -8,11 +8,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.alipay.Alipay;
+import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.model.WXPayModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -21,7 +30,10 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.wxpay.WXpay;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 /**
  * Created by dengt on 15-5-14.
@@ -37,6 +49,16 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     private TextView orderConNum;
     private TextView orderPay;
     private TextView orderPhone;
+    private Button sysPay;
+    private LinearLayout payThree;
+    private boolean isUseBalance = false;
+    private LinearLayout useWallet;
+
+    private ImageView showSelect;
+    private TextView myWallet;
+    UserModel userModel;
+    private TextView shouldPay;
+
     private WXPAYBroadcastReceiver wxpayBroadcastReceiver;
 
     @Override
@@ -59,6 +81,9 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderConNum.setText("" + Integer.toString(orderModel.getPeopleNumber()) + "人");
         orderPay.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         orderPhone.setText("" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
+        shouldPay.setText((int) Math.floor(orderModel.getTotalPrice()) + "");
+        userModel = GApplication.getInstance().getUser();
+        myWallet.setText((int) Math.floor(userModel.getBalance()) + "");
 
     }
 
@@ -77,7 +102,12 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderConNum = ViewUtil.findViewById(this, R.id.dialog_order_sure_number);
         orderPay = ViewUtil.findViewById(this, R.id.dialog_order_sure_price);
         orderPhone = ViewUtil.findViewById(this, R.id.dialog_order_sure_phone);
-
+        sysPay = ViewUtil.findViewById(this, R.id.pay_sure);
+        useWallet = ViewUtil.findViewById(this, R.id.use_wallet);
+        showSelect = ViewUtil.findViewById(this, R.id.show_selected);
+        payThree = ViewUtil.findViewById(this, R.id.to_pay_layout);
+        shouldPay = ViewUtil.findViewById(this, R.id.shouldpay);
+        myWallet = ViewUtil.findViewById(this, R.id.my_wallet);
     }
 
     private void initEvent() {
@@ -97,18 +127,99 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
             case R.id.pay_wx:
                 findViewById(R.id.pay_wx).setOnClickListener(null);
                 WXpay wXpay = new WXpay(this, orderModel);
-                wXpay.wxpay();
+                wXpay.wxpay(isUseBalance);
                 break;
             case R.id.pay_ipay:
                 findViewById(R.id.pay_ipay).setOnClickListener(null);
-                Alipay alipay = new Alipay(this, orderModel, this);
-                alipay.pay();
+                WXPayModel.paytext(orderModel.getId(), isUseBalance, "alipay").done(
+                        new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                JSONObject jsonObject = arguments.get(0);
+                                if (jsonObject.optBoolean("success")) {
+                                    String pay = jsonObject.optString("prepay");
+                                    if (Integer.valueOf(pay) > 0) {
+                                        Alipay alipay = new Alipay(activity, orderModel,
+                                                SelectPayWayActivity.this);
+                                        alipay.pay(pay);
+                                    } else {
+                                        DialogUtil.showMessage("支付失败");
+                                    }
+                                } else {
+                                    String errorMessage = jsonObject.optString("message");
+                                    if (!StringUtils.isEmpty(errorMessage))
+                                        DialogUtil.showMessage(errorMessage);
+                                    else {
+                                        int code = jsonObject.optInt("code");
+                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    }
+                                }
+                            }
+                        });
+
                 break;
             case R.id.pay_yinlian:
                 findViewById(R.id.pay_yinlian).setOnClickListener(null);
                 break;
             case R.id.title_back_img:
                 finish();
+                break;
+            case R.id.use_wallet:
+                if (showSelect.getVisibility() == View.VISIBLE) {
+                    showSelect.setVisibility(View.GONE);
+                    isUseBalance = false;
+                    payThree.setVisibility(View.VISIBLE);
+                    shouldPay.setText((int) Math.floor(orderModel.getTotalPrice())
+                            + "");
+                } else {
+                    showSelect.setVisibility(View.VISIBLE);
+                    isUseBalance = true;
+
+                    if (orderModel.getTotalPrice() <= userModel.getBalance()) {
+                        sysPay.setVisibility(View.VISIBLE);
+                        payThree.setVisibility(View.GONE);
+                    } else {
+                        sysPay.setVisibility(View.GONE);
+                        payThree.setVisibility(View.VISIBLE);
+                        shouldPay.setText((int) Math.floor(orderModel.getTotalPrice()
+                                - userModel.getBalance())
+                                + "");
+                    }
+                }
+
+                break;
+            case R.id.pay_sure:
+                // 钱包支付
+                WXPayModel.paytext(orderModel.getId(), isUseBalance, "system").done(
+                        new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                JSONObject jsonObject = arguments.get(0);
+                                if (jsonObject.optBoolean("success")) {
+                                    // DialogUtil.showMessage("支付成功");
+                                    Intent intent;
+                                    if ("GROUP".equals(orderModel.getType())) {
+                                        intent = new Intent(SelectPayWayActivity.this,
+                                                OrderSucTuanActivity.class);
+                                        intent.putExtra("id", orderModel.getId());
+                                    } else {
+                                        intent = new Intent(SelectPayWayActivity.this,
+                                                PaySuccessActivity.class);
+                                    }
+                                    intent.putExtra("order", orderModel);
+                                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                                    finish();
+                                } else {
+                                    String errorMessage = jsonObject.optString("message");
+                                    if (!StringUtils.isEmpty(errorMessage))
+                                        DialogUtil.showMessage(errorMessage);
+                                    else {
+                                        int code = jsonObject.optInt("code");
+                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    }
+                                }
+                            }
+                        });
                 break;
         }
     }

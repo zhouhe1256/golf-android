@@ -4,6 +4,7 @@ package com.bjcathay.qt.model;
 import com.bjcathay.android.async.IPromise;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.constant.ApiUrl;
 
 import java.io.Serializable;
@@ -76,8 +77,8 @@ public class OrderModel implements Serializable {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public ProductType.prdtType getType() {
+        return ProductType.prdtType.valueOf(type);
     }
 
     public void setId(Long id) {

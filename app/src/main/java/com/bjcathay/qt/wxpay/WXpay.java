@@ -65,12 +65,12 @@ public class WXpay {
         genPayReq();
     }
 
-    public void wxpay() {
+    public void wxpay(boolean isUseBalance) {
         if (!msgApi.isWXAppInstalled()) {
             DialogUtil.showMessage("尚未安装微信");
             return;
         }
-        WXPayModel.paytext(orderModel.getId()).done(new ICallback() {
+        WXPayModel.paytext(orderModel.getId(),isUseBalance,"wx").done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 JSONObject jsonObject = arguments.get(0);

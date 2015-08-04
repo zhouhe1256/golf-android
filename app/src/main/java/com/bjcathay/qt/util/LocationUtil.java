@@ -66,38 +66,40 @@ public class LocationUtil {
                     PreferencesUtils.putString(context, PreferencesConstant.LONGITUDE,
                             String.valueOf(location.getLongitude()));
                     String name = location.getCity();
-                   /* String cityName=PreferencesUtils.getString(context,
-                            PreferencesConstant.CITY_NAME," ");
-                    if (!name.equals(cityName)) {*/
-                        GetCitysModel city = DBManager.getInstance().getCity(
-                                location.getCity());
-                        if (city.getName() == null) {
-                            CityListModel.getTotalCities().done(new ICallback() {
-                                @Override
-                                public void call(Arguments arguments) {
-                                    CityListModel cityListModel = arguments.get(0);
-                                    DBManager.getInstance().addCitys(cityListModel.getCities());
-                                    for (GetCitysModel getCitysModel : cityListModel.getCities()) {
-                                        if (getCitysModel.getName().startsWith(location.getCity())) {
-                                            PreferencesUtils.putString(context,
-                                                    PreferencesConstant.CITY_ID,
-                                                    String.valueOf(getCitysModel.getId()));
-                                            PreferencesUtils.putString(context,
-                                                    PreferencesConstant.CITY_NAME,
-                                                    String.valueOf(getCitysModel.getName()));
-                                            break;
-                                        }
+                    /*
+                     * String cityName=PreferencesUtils.getString(context,
+                     * PreferencesConstant.CITY_NAME," "); if
+                     * (!name.equals(cityName)) {
+                     */
+                    GetCitysModel city = DBManager.getInstance().getCity(
+                            location.getCity());
+                    if (city.getName() == null) {
+                        CityListModel.getTotalCities().done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                CityListModel cityListModel = arguments.get(0);
+                                DBManager.getInstance().addCitys(cityListModel.getCities());
+                                for (GetCitysModel getCitysModel : cityListModel.getCities()) {
+                                    if (getCitysModel.getName().startsWith(location.getCity())) {
+                                        PreferencesUtils.putString(context,
+                                                PreferencesConstant.CITY_ID,
+                                                String.valueOf(getCitysModel.getId()));
+                                        PreferencesUtils.putString(context,
+                                                PreferencesConstant.CITY_NAME,
+                                                String.valueOf(getCitysModel.getName()));
+                                        break;
                                     }
-
                                 }
-                            });
-                        } else {
-                            PreferencesUtils.putString(context, PreferencesConstant.CITY_ID,
-                                    String.valueOf(city.getId()));
-                            PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
-                                    String.valueOf(city.getName()));
-                        }
-                   // }
+
+                            }
+                        });
+                    } else {
+                        PreferencesUtils.putString(context, PreferencesConstant.CITY_ID,
+                                String.valueOf(city.getId()));
+                        PreferencesUtils.putString(context, PreferencesConstant.CITY_NAME,
+                                String.valueOf(city.getName()));
+                    }
+                    // }
                 } else {
                     LogUtil.d("LocSDK5", "locClient failed");
                 }
@@ -108,7 +110,6 @@ public class LocationUtil {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
         option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
-        option.setScanSpan(3600000);// 设置发起定位请求的间隔时间为5000ms
         option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
         option.setNeedDeviceDirect(false);// 返回的定位结果包含手机机头的方向
         mLocationClient.setLocOption(option);

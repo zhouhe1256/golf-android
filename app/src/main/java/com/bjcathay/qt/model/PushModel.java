@@ -1,6 +1,8 @@
 
 package com.bjcathay.qt.model;
 
+import com.bjcathay.qt.Enumeration.MessageType;
+
 /**
  * Created by dengt on 15-5-22.
  */
@@ -9,8 +11,8 @@ public class PushModel {
     private String g;
     private String m;
 
-    public String getT() {
-        return t;
+    public MessageType.pushMsgType getT() {
+        return MessageType.pushMsgType.valueOf(t);
     }
 
     public void setT(String t) {

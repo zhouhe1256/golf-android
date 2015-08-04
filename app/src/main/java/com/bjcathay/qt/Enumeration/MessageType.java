@@ -13,4 +13,7 @@ public class MessageType implements Serializable {
     public enum msgReadType{
         UNREAD,READ;
     }
+    public enum pushMsgType{
+        ORDER,COMPETITION,PROPERTY;
+    }
 }

@@ -11,8 +11,10 @@ import android.os.Bundle;
 
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.util.LogUtil;
+import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.MyWalletActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.model.PushModel;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -63,16 +65,40 @@ public class MessageReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(context);
         Intent intent = null;
-        if ("ORDER".equals(pushModel.getT())) {
-            intent = new Intent(context, OrderDetailActivity.class);
-            intent.putExtra("id", Long.parseLong(pushModel.getG()));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else if ("COMPETITION".equals(pushModel.getT())) {
-            intent = new Intent(context, CompetitionDetailActivity.class);
-            intent.putExtra("id", Long.parseLong(pushModel.getG()));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
+        switch (pushModel.getT()) {
+            case ORDER:
+                intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("id", Long.parseLong(pushModel.getG()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                break;
+            case COMPETITION:
+                intent = new Intent(context, CompetitionDetailActivity.class);
+                intent.putExtra("id", Long.parseLong(pushModel.getG()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                break;
+            case PROPERTY:
+                intent = new Intent(context, MyWalletActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                break;
+            default:
+                intent = new Intent();
+                break;
 
+        }
+        // if (MessageType.pushMsgType.ORDER.equals(pushModel.getT())) {
+        // intent = new Intent(context, OrderDetailActivity.class);
+        // intent.putExtra("id", Long.parseLong(pushModel.getG()));
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // } else if
+        // (MessageType.pushMsgType.COMPETITION.equals(pushModel.getT())) {
+        // intent = new Intent(context, CompetitionDetailActivity.class);
+        // intent.putExtra("id", Long.parseLong(pushModel.getG()));
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // }else
+        // if(MessageType.pushMsgType.COMPETITION.equals(pushModel.getT())){
+        //
+        // }
+        // todo
         PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);

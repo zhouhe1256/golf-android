@@ -1,6 +1,7 @@
 
 package com.bjcathay.qt.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,10 +15,10 @@ import com.bjcathay.qt.model.ProductModel;
  * Created by dengt on 15-7-28.
  */
 public class PackageFragmentAdapter extends FragmentStatePagerAdapter {
-    private Context context;
+    private Activity context;
     private ProductModel productModel;
 
-    public PackageFragmentAdapter(Context context, FragmentManager fm,ProductModel productModel) {
+    public PackageFragmentAdapter(Activity context, FragmentManager fm,ProductModel productModel) {
         super(fm);
         this.context = context;
         this.productModel=productModel;

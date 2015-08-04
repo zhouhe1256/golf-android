@@ -45,6 +45,14 @@ public class MessageListModel implements Serializable {
         return Http.instance().get(ApiUrl.MY_MESSAGE).param("type", type).
                 contentDecoder(decoder).run();
     }
+    public static IPromise msgReadByType(String type) {
+        return Http.instance().put(ApiUrl.ALREADY_READ_MESSAGE).param("type", type).
+               run();
+    }
+    public static IPromise msgClearByType(String type) {
+        return Http.instance().post(ApiUrl.DELETE_MESSAGE).param("type", type).param("_method", "DELETE").
+                run();
+    }
 
     public static IPromise changeAlreadyRead(List<String> ids) {
         StringBuffer buffer = new StringBuffer();

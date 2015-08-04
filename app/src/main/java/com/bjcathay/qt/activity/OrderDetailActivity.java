@@ -25,6 +25,7 @@ import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CancleInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog;
+import com.bjcathay.qt.view.RichTextView;
 import com.bjcathay.qt.view.RoundCornerImageView;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -63,6 +64,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView purchasingNotice;
     private RoundCornerImageView orderImg;
     private TextView fanxian;
+    private TextView orderMessageNote;
+    private TextView dataNote;
+    private TextView numberNote;
+    private TextView serviceNote;
+
+    private TextView peopleNote;
+    private TextView notifyNote;
+
+    // private TextView orderMessageNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +106,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         purchasingNotice = ViewUtil.findViewById(this, R.id.purchasingNotice);
         orderImg = ViewUtil.findViewById(this, R.id.my_order_img);
         fanxian = ViewUtil.findViewById(this, R.id.order_detail_price_back);
+        // todo combo
+        orderMessageNote = ViewUtil.findViewById(this, R.id.order_message_note);
+        dataNote = ViewUtil.findViewById(this, R.id.order_detail_comsumer_date_note);
+        numberNote = ViewUtil.findViewById(this, R.id.order_detail_comsumer_numb_note);
+        serviceNote = ViewUtil.findViewById(this, R.id.order_detail_sale_note);
+
+        peopleNote = ViewUtil.findViewById(this, R.id.company_with_note);
+        // serviceNote=ViewUtil.findViewById(this,R.id.order_detail_sale_note);
+        // serviceNote=ViewUtil.findViewById(this,R.id.order_detail_sale_note);
     }
 
     private void initEvent() {
@@ -147,10 +166,11 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             orderPayDate.setText("" + DateUtil.shortDateString(orderModel.getCreatedAt()));
             personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
+
             purchasingNotice.setText(orderModel.getPurchasingNotice());
             if (orderModel.getFan() != 0) {
                 fanxian.setVisibility(View.VISIBLE);
-                fanxian.setText("返"+(int) Math.floor(orderModel.getFan()) + "");
+                fanxian.setText("返" + (int) Math.floor(orderModel.getFan()) + "");
             } else {
                 fanxian.setVisibility(View.GONE);
             }
@@ -216,6 +236,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     infoDialog.show();
                 }
             });
+            // todo
+            // orderToPay.setVisibility(View.VISIBLE);
         }
 
     }

@@ -194,7 +194,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:onClick="onClick"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -217,9 +219,10 @@
                         android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/my_wallet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1480"
+                        android:text="0"
                         android:textColor="@color/guolinbi_color"
                         android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
@@ -231,10 +234,12 @@
                     android:gravity="right">
 
                     <ImageView
+                        android:id="@+id/show_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/tick" />
+                        android:src="@drawable/tick"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -312,6 +317,7 @@
                                 android:textSize="@dimen/city_title" />
 
                             <TextView
+                                android:id="@+id/shouldpay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="10dp"

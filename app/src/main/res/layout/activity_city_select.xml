@@ -49,7 +49,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/yc_rectangle"
                 android:gravity="center"
-                android:text="未知位置"
+                android:text="定位中"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/city_title" />
 

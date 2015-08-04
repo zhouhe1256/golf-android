@@ -120,21 +120,65 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
             case R.id.my_order_message:
                 intent = new Intent(this, MyOrderMessageActivity.class);
                 ViewUtil.startActivity(this, intent);
-                PreferencesUtils.putBoolean(this, PreferencesConstant.NEW_MESSAGE_FLAG, false);
+                if(orderStatus.getVisibility()==View.VISIBLE){
+                    MessageListModel.msgReadByType(MessageType.msgType.ORDER.name()).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            JSONObject jsonObject = arguments.get(0);
+                            if (jsonObject.optBoolean("success")) {
+                                orderStatus.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+              //  PreferencesUtils.putBoolean(this, PreferencesConstant.NEW_MESSAGE_FLAG, false);
                 break;
             case R.id.my_activity_message:
                 intent = new Intent(this, MyEventMessageActivity.class);
                 ViewUtil.startActivity(this, intent);
+                if(activityStatus.getVisibility()==View.VISIBLE){
+                    MessageListModel.msgReadByType(MessageType.msgType.SYSTEM.name()).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            JSONObject jsonObject = arguments.get(0);
+                            if (jsonObject.optBoolean("success")) {
+                                activityStatus.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
                 // DialogUtil.showMessage("活动");
                 break;
             case R.id.my_notification_message:
                 intent = new Intent(this, MyNtfMessageActivity.class);
                 ViewUtil.startActivity(this, intent);
+                if(notifyStatus.getVisibility()==View.VISIBLE){
+                    MessageListModel.msgReadByType(MessageType.msgType.NOTIFY.name()).done(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            JSONObject jsonObject = arguments.get(0);
+                            if (jsonObject.optBoolean("success")) {
+                                notifyStatus.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
                 // DialogUtil.showMessage("通知");
                 break;
             case R.id.my_wallet_message:
                 intent = new Intent(this, MyWalletMessageActivity.class);
                 ViewUtil.startActivity(this, intent);
+                if(walletStatus.getVisibility()==View.VISIBLE){
+                MessageListModel.msgReadByType(MessageType.msgType.PROPERTY.name()).done(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        JSONObject jsonObject = arguments.get(0);
+                        if (jsonObject.optBoolean("success")) {
+                            walletStatus.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }
                 // DialogUtil.showMessage("资产");
                 break;
         }
@@ -158,7 +202,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                         orderStatus.setVisibility(View.VISIBLE);
                     } else
                         orderStatus.setVisibility(View.GONE);
-                } else if (MessageType.msgType.COMPETITION.equals(messageModel.getType())) {
+                } else if (MessageType.msgType.SYSTEM.equals(messageModel.getType())) {
                     myActivity.setVisibility(View.VISIBLE);
                     activityContent.setText(messageModel.getName());
                     activityTime.setText(messageModel.getRelativeDate());
@@ -167,8 +211,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                     } else
                         activityStatus.setVisibility(View.GONE);
                 }
-                else if (MessageType.msgType.NOTIFY.equals(messageModel.getType())
-                        || MessageType.msgType.SYSTEM.equals(messageModel.getType())) {
+                else if (MessageType.msgType.NOTIFY.equals(messageModel.getType())) {
                     myNotify.setVisibility(View.VISIBLE);
                     notifyContent.setText(messageModel.getName());
                     notifyTime.setText(messageModel.getRelativeDate());
@@ -193,23 +236,26 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
     @Override
     public void deleteResult(Long targetId, boolean isDelete) {
         if (isDelete) {
+            String type = null;
             if (targetId == 1l) {
                 // 清空消息
+                type = MessageType.msgType.ORDER.name();
             } else if (targetId == 2l) {
-
+                type = MessageType.msgType.SYSTEM.name();
             } else if (targetId == 3l) {
-
+                type = MessageType.msgType.NOTIFY.name();
             }
             else if (targetId == 4l) {
-
+                type = MessageType.msgType.PROPERTY.name();
             }
             if (messageListModel != null && messageListModel.getMessages().size() > 0)
-                MessageListModel.deleteMessages().done(new ICallback() {
+                MessageListModel.msgClearByType(type).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
                         if (jsonObject.optBoolean("success")) {
                             DialogUtil.showMessage("已清空消息");
+                            reflesh();
                             // messageModels.clear();
                             // loadData(AutoListView.REFRESH);
                             // }
@@ -267,6 +313,10 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
         super.onResume();
         MobclickAgent.onPageStart("消息页面");
         MobclickAgent.onResume(this);
+    }
+
+    private void reflesh() {
+        initData();
     }
 
     @Override

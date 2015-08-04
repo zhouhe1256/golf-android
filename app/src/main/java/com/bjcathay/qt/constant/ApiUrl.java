@@ -61,9 +61,7 @@ public class ApiUrl {
                                                                 // /api/user/order)
     public static final String ORDER_TO_PAY = "/api/user/order/pay";// 订单支付 (GET
                                                                     // /api/user/order/pay)
-    public static final String WX_ORDER_TO_PAY = "/api/wx_pay";// 订单支付
-                                                               // api/wx_pay?id=
-                                                               // post
+    public static final String WX_ORDER_TO_PAY = "/api/pay";// 支付接口(GET /api/pay)
 
     // /api/wx_notify_url?id= post
     public static final String ORDER_PAY_SUCESS = "/api/alipay_notify_url"; // 订单支付成功回调URL(POST
@@ -71,8 +69,7 @@ public class ApiUrl {
 
     public static final String DELETE_MESSAGE = "/api/user/empty_message"; // 清空消息(DELETE
                                                                            // /api/user/empty_message)
-    public static final String ALREADY_READ_MESSAGE = "/api/user/message"; // 消息状态改为已读(PUT
-                                                                           // /api/user/message)
+    public static final String ALREADY_READ_MESSAGE = "/api/user/message/mark"; //将某一类消息状态改为已读(PUT /api/user/message/mark)
     public static final String MY_MESSAGE = "/api/user/message"; // 我的消息(GET
                                                                  // /api/user/message)
     public static final String MY_PROPS = "/api/user/prop"; // 我的兑换(GET

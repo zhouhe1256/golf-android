@@ -17,8 +17,8 @@ public class WXPayModel {
                 param("id", id).run();
     }
 
-    public static IPromise paytext(Long id) {
+    public static IPromise paytext(Long id,boolean isUseBalance,String type) {
         return Http.instance().post(ApiUrl.WX_ORDER_TO_PAY).
-                param("id", id).run();
+                param("id", id).param("isUseBalance", isUseBalance).param("type", type).run();
     }
 }

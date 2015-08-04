@@ -130,9 +130,9 @@ public class Alipay {
     /**
      * call alipay sdk pay. 调用SDK支付
      */
-    public void pay() {
+    public void pay(String price) {
         // 订单
-        String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
+        String orderInfo = getOrderInfo(orderModel.getTitle(),orderModel.getTitle(), price);
 
         // 对订单做RSA 签名
         String sign = sign(orderInfo);
@@ -223,7 +223,7 @@ public class Alipay {
         orderInfo += "&body=" + "\"" + body + "\"";
 
         // 商品金额
-        orderInfo += "&total_fee=" + "\"" + orderModel.getTotalPrice() + "\"";
+        orderInfo += "&total_fee=" + "\"" +price + "\"";
         // http://api0.bjcathay.com:81/api/alipay_notify_url
         // http://api.7tiegolf.com/api/alipay_notify_url
         // 服务器异步通知页面路径　http://api.qt.bjcathay.com/api/alipay_notify_url

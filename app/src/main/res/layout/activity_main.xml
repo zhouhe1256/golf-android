@@ -23,7 +23,7 @@
 
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
+            android:layout_weight="10"
             android:orientation="vertical">
 
             <com.bjcathay.qt.view.JazzyViewPager
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/jazzy_viewpager"
-                android:layout_marginBottom="3dip"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"></LinearLayout>
 
@@ -45,21 +45,22 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="19"
+            android:weightSum="10"
             android:orientation="vertical">
 
             <LinearLayout
 
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="8"
                 android:orientation="horizontal"
-                android:weightSum="17">
+                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:weightSum="5">
 
@@ -71,26 +72,21 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
-                        android:layout_weight="3"
+                        android:layout_weight="1"
                         android:background="@drawable/home_event_bg_selector"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="fill_parent"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="免费赛事"
                             android:textColor="@color/white"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/home_compete" />
 
                     </LinearLayout>
 
@@ -103,8 +99,74 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:background="@drawable/home_exchange_bg_selector"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="兑换商城"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/selection_packages"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/home_order_bg_selector"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:onClick="onClick">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="精选套餐"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:src="@drawable/home_package" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="13">
+
+                    <LinearLayout
+                        android:id="@+id/order_place"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="10"
+                        android:background="@drawable/home_order_bg_selector"
                         android:orientation="vertical">
 
                         <TextView
@@ -112,143 +174,113 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:padding="10dp"
-                            android:text="兑换商城"
+                            android:layout_marginTop="20dp"
+                            android:text="球场预订"
                             android:textColor="@color/white"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="fill_parent"
                             android:layout_gravity="center"
-                            android:src="@drawable/home_shop" />
+                            android:src="@drawable/home_yuechang" />
                     </LinearLayout>
 
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/order_place"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="10"
-                    android:background="@drawable/home_order_bg_selector"
-                    android:orientation="vertical">
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="约场"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/home_share_title"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/home_code_bg_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:orientation="vertical"
+                            android:weightSum="2">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/home_order" />
+                            <ImageView
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:layout_gravity="center"
+
+                                android:src="@drawable/home_qr_code" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_call"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/home_code_bg_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+                            <ImageView
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/home_phone" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@color/blue">
-
-                <TextView
-                    android:id="@+id/selection_packages"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="套餐"
-                    android:clickable="true"
-                    android:onClick="onClick"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="3">
+                android:layout_weight="2">
 
                 <LinearLayout
                     android:id="@+id/user_center"
-                    android:layout_width="0dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     android:layout_marginBottom="9dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="6dp"
                     android:layout_weight="2"
                     android:background="@drawable/home_my_bg_selector"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="130dp"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="个人中心"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="60dp"
                         android:gravity="center"
-                        android:src="@drawable/home_me" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/home_share_title"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/home_code_bg_selector"
-                    android:clickable="true"
-                    android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:weightSum="2">
+                        android:src="@drawable/home_personal_center" />
 
                     <TextView
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="邀请"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical|right"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="60dp"
+                        android:text="个人中心"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:src="@drawable/home_code" />
+
                 </LinearLayout>
+
 
             </LinearLayout>
 
