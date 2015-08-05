@@ -18,11 +18,20 @@ public class MessageModel implements Serializable {
     private String type;// "xxx",
     private String description;// "描述",
     private String relativeDate;
+    private String created;
     // 待定
     private String imageUrl;// "/upload/image/xxx.png",
 
     private static IContentDecoder<MessageModel> decoder = new IContentDecoder.BeanDecoder<MessageModel>(
             MessageModel.class, "message");
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
 
     public Long getId() {
         return id;

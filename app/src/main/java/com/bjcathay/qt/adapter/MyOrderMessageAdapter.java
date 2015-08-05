@@ -85,7 +85,7 @@ public class MyOrderMessageAdapter extends BaseAdapter {
         }
         final MessageModel messageModel = items.get(position);
         holder.name.setText(messageModel.getName());
-        holder.day.setText(messageModel.getRelativeDate());
+        holder.day.setText(messageModel.getCreated().substring(5,16));
         holder.content.setText(messageModel.getContent());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override

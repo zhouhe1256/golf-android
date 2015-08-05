@@ -169,9 +169,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="选择人数:"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textStyle="bold" />
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <RadioGroup
                         android:id="@+id/radio_group"
@@ -260,9 +259,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="包含服务:"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textStyle="bold" />
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/sch_content"
@@ -270,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="18洞果岭/僮/车/柜"
-                        android:textColor="@color/exchange_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
                 </LinearLayout>
@@ -287,9 +285,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="所在地址:"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textStyle="bold" />
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/sch_address"
@@ -301,14 +298,14 @@
                         android:paddingRight="35dp"
                         android:singleLine="true"
                         android:text="北京市海淀区清河湾"
-                        android:textColor="@color/exchange_text_color"
+                        android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="10dp"
                         android:focusable="false"
                         android:src="@drawable/ic_address" />
 
@@ -328,9 +325,8 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:text="价格:"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/sub_textSize"
-                        android:textStyle="bold" />
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/sch_price"
@@ -363,13 +359,12 @@
                         android:textSize="@dimen/sub_textSize"
                         android:visibility="visible" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@drawable/touying_bg" />
             </LinearLayout>
-
-
 
 
         </LinearLayout>

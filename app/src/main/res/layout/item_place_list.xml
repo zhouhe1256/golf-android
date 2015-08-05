@@ -29,6 +29,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="0.1dp"
                     android:background="@color/line_color"
                     android:scaleType="centerCrop" />
 
@@ -36,6 +37,7 @@
                     android:id="@+id/hot_flag"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+
                     android:src="@drawable/renqi"
                     android:visibility="visible" />
 

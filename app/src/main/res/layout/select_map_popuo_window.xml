@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/sub_textSize"
+                    android:textSize="@dimen/main_textSize"
                     android:background="@null"
                     android:focusable="false"
                     android:textColor="@color/red"
@@ -42,7 +42,7 @@
 
                 <View
                     android:layout_alignParentBottom="true"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_width="match_parent"
                     android:background="@drawable/line_divide_hor" />
             </LinearLayout>
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/sub_textSize"
+                    android:textSize="@dimen/main_textSize"
                     android:background="@null"
                     android:textColor="@color/home_title_color"
                     android:focusable="false"
@@ -67,7 +67,7 @@
 
                 <View
                     android:layout_alignParentBottom="true"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_width="match_parent"
                     android:background="@drawable/line_divide_hor" />
             </LinearLayout>
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/sub_textSize"
+                    android:textSize="@dimen/main_textSize"
                     android:background="@null"
                     android:focusable="false"
                     android:textColor="@color/home_title_color"
@@ -92,7 +92,7 @@
 
                 <View
                     android:layout_alignParentBottom="true"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_width="match_parent"
                     android:background="@drawable/line_divide_hor" />
             </LinearLayout>
@@ -109,10 +109,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/sub_textSize"
                     android:background="@null"
                     android:focusable="false"
                     android:textColor="@color/home_title_color"
+                    android:textSize="@dimen/main_textSize"
+
                     android:text="搜狗地图" />
             </LinearLayout>
         </LinearLayout>
@@ -126,6 +127,8 @@
             android:background="@drawable/message_delete_cirle"
             android:textColor="@color/home_title_color"
             android:text="取消"
+            android:textSize="@dimen/main_textSize"
+
             android:layout_marginBottom="10dp" />
 
     </LinearLayout>

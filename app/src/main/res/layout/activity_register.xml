@@ -48,7 +48,7 @@
                 android:textSize="@dimen/main_textSize" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/line_divide_hor" />
 
@@ -57,7 +57,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@drawable/line_divide_hor" />
 
         <RelativeLayout
@@ -99,7 +99,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@drawable/line_divide_hor" />
         <com.bjcathay.qt.view.ClearEditText
             android:id="@+id/register_user_pwd"
@@ -122,7 +122,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@drawable/line_divide_hor" />
 
 

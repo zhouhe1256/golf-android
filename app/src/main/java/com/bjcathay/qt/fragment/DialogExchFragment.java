@@ -17,6 +17,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.ExchangeSucActivity;
+import com.bjcathay.qt.activity.MyExchangeActivity;
 import com.bjcathay.qt.activity.SendExchangeSucActivity;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.PropModel;
@@ -139,10 +140,11 @@ public class DialogExchFragment extends DialogFragment {
                                             dismiss();
                                         }
                                     });
-                                    Intent intent = new Intent(context, ExchangeSucActivity.class);
-                                    intent.putExtra("prop", propModel);
-                                    intent.putExtra("title", "兑换");
-                                    ViewUtil.startActivity(context, intent);
+                                    DialogUtil.showMessage("兑换成功");
+//                                    Intent intent = new Intent(context, ExchangeSucActivity.class);
+//                                    intent.putExtra("prop", propModel);
+//                                    intent.putExtra("title", "兑换");
+//                                    ViewUtil.startActivity(context, intent);
                                 } else {
                                     String errorMessage = jsonObject.optString("message");
                                     if (!StringUtils.isEmpty(errorMessage))
@@ -186,11 +188,12 @@ public class DialogExchFragment extends DialogFragment {
                                         if (jsonObject.optBoolean("success")) {
                                             exchangeResult.exchangeResult(userModel, true);
                                             Intent intent = new Intent(context,
-                                                    SendExchangeSucActivity.class);
-                                            intent.putExtra("name", name);
-                                            intent.putExtra("phone", phone);
-                                            intent.putExtra("title", "赠送");
+                                                    MyExchangeActivity.class);
+//                                            intent.putExtra("name", name);
+//                                            intent.putExtra("phone", phone);
+//                                            intent.putExtra("title", "赠送");
                                             ViewUtil.startActivity(context, intent);
+                                            DialogUtil.showMessage("赠送成功");
                                         } else {
                                             String errorMessage = jsonObject.optString("message");
                                             if (!StringUtils.isEmpty(errorMessage))

@@ -138,7 +138,11 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                                     jsonObject.optJSONObject("order"));
                             dialog.dismiss();
                             DialogUtil.showMessage("下单成功");
-                            Intent intent = null;
+                            Intent intent = new Intent(context, OrderDetailActivity.class);
+                            intent.putExtra("imageurl", orderModel.getImageUrl());
+                            intent.putExtra("id", orderModel.getId());
+                            ViewUtil.startActivity(context, intent);
+
                             // if ("LIMIT".equals(stadiumModel.getType())
                             // || "NONE".equals(stadiumModel.getType())) {
                             // intent = new Intent(context,
@@ -178,7 +182,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     }
 
     private void initEvent() {
-        topView.setTitleText("完善订单");
+        topView.setTitleText("填写订单");
         topView.setTitleBackVisiable();
         sure.setOnClickListener(this);
         if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {

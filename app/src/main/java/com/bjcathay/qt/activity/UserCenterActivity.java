@@ -78,7 +78,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                                 userPhone.setText(userModel1.getMobileNumber());
                             else
                                 userPhone.setText(userModel1.getNickname());
-                            balance.setText(userModel.getBalance() + "");
+                          //  balance.setText(userModel.getBalance() + "");
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
             userPhone.setText(userModel.getMobileNumber());
         else
             userPhone.setText(userModel.getNickname());
-        balance.setText(userModel.getBalance() + "");
+      //  balance.setText(userModel.getBalance() + "");
     }
 
     @Override

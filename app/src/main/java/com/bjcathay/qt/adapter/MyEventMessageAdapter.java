@@ -82,36 +82,12 @@ public class MyEventMessageAdapter extends BaseAdapter {
         ImageViewAdapter
                 .adapt(holder.name, messageModel.getImageUrl(), R.drawable.exchange_default);
 
-        holder.day.setText(messageModel.getRelativeDate());
+        holder.day.setText(messageModel.getCreated().substring(5,16));
         holder.content.setText(messageModel.getName());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.detail.getVisibility() == View.VISIBLE) {
 
-                    if ("ORDER".equals(messageModel.getType())) {
-                        OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
-                                .done(new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        OrderModel orderModel = arguments.get(0);
-                                        Intent intent = new Intent(context,
-                                                OrderDetailActivity.class);
-                                        intent.setAction("message");
-                                        intent.putExtra("orderModel", orderModel);
-                                        ViewUtil.startActivity(context, intent);
-                                    }
-                                }).fail(new ICallback() {
-                                    @Override
-                                    public void call(Arguments arguments) {
-                                        dialog.show();
-                                    }
-                                });
-                    } else if ("COMPETITION".equals(messageModel.getType())) {
-                        Intent intent = new Intent(context, MyCompetitionActivity.class);
-                        ViewUtil.startActivity(context, intent);
-                    }
-                }
             }
         });
         return convertView;

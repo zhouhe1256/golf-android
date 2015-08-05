@@ -16,347 +16,358 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
-        <LinearLayout
-            android:id="@+id/empty_lin"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+
+    <LinearLayout
+        android:id="@+id/empty_lin"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/list_image_empty"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:src="@drawable/ic_empty_msg" />
+
+        <TextView
+            android:id="@+id/list_view_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_marginTop="30dp"
+            android:text="@string/empty_msg_text"
+            android:textColor="@color/exchange_text_color"
+            android:textSize="@dimen/sub_textSize" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/list_image_empty"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:src="@drawable/ic_empty_msg" />
+    <LinearLayout
+        android:id="@+id/my_order_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-            <TextView
-                android:id="@+id/list_view_empty"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:text="@string/empty_msg_text"
-                android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/sub_textSize" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/my_order_message"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_click"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:visibility="gone">
+                android:layout_margin="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/per_order_message" />
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/my_order_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/per_order_message" />
-
-                    <ImageView
-                        android:id="@+id/my_order_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="39dp"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/per_new_message" />
-                </RelativeLayout>
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/per_new_message" />
+            </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/order_message_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="订单消息"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/city_title" />
-
-                    <TextView
-                        android:id="@+id/order_message_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:text="刚才"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
-
-                    <TextView
-                        android:id="@+id/order_message_content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="订单已确认"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/line_divide_hor" />
-        </LinearLayout>
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/my_activity_message"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_click"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/order_message_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:text="订单消息"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title" />
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/per_qtie_message" />
+                <TextView
+                    android:id="@+id/order_message_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/small_textSize" />
 
-                    <ImageView
-                        android:id="@+id/my_activity_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="39dp"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/per_new_message" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/order_message_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/sub_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_activity_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/per_qtie_message" />
+
+                <ImageView
+                    android:id="@+id/my_activity_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/per_new_message" />
+            </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/order_activity_title"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="7铁活动"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/city_title" />
-
-                    <TextView
-                        android:id="@+id/order_activity_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:text="刚才"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
-
-                    <TextView
-                        android:id="@+id/order_activity_content"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="订单已确认"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/line_divide_hor" />
-        </LinearLayout>
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/my_notification_message"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_click"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:visibility="gone">
+                <TextView
+                    android:id="@+id/order_activity_title"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:text="7铁活动"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title" />
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/per_notice" />
+                <TextView
+                    android:id="@+id/order_activity_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/small_textSize" />
 
-                    <ImageView
-                        android:id="@+id/my_notify_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="39dp"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/per_new_message" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/order_activity_content"
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/sub_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/order_notify_title"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+    </LinearLayout>
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="通知消息"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/city_title" />
+    <LinearLayout
+        android:id="@+id/my_notification_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/order_notify_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:text="刚才"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/order_notify_content"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="订单已确认"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize" />
-                </RelativeLayout>
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/per_notice" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                <ImageView
+                    android:id="@+id/my_notify_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/per_new_message" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/line_divide_hor" />
-        </LinearLayout>
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/my_wallet_message"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_click"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:visibility="gone">
+                <TextView
+                    android:id="@+id/order_notify_title"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:text="通知消息"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title" />
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/per_asset_message" />
+                <TextView
+                    android:id="@+id/order_notify_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
 
-                    <ImageView
-                        android:id="@+id/my_wallet_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="39dp"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/per_new_message" />
-                </RelativeLayout>
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/small_textSize" />
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/order_wallet_title"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="我的资产"
-                        android:textColor="@color/main_text_color"
-                        android:textSize="@dimen/city_title" />
-
-                    <TextView
-                        android:id="@+id/order_wallet_time"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:text="刚才"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/small_textSize" />
-
-                    <TextView
-                        android:id="@+id/order_wallet_content"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="订单已确认"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/sub_textSize" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/touying_bg" />
+                <TextView
+                    android:id="@+id/order_notify_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/sub_textSize" />
+            </RelativeLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_wallet_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_click"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/per_asset_message" />
+
+                <ImageView
+                    android:id="@+id/my_wallet_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/per_new_message" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/order_wallet_title"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的资产"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/city_title" />
+
+                <TextView
+                    android:id="@+id/order_wallet_time"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/small_textSize" />
+
+                <TextView
+                    android:id="@+id/order_wallet_content"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/exchange_text_color"
+                    android:textSize="@dimen/sub_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/touying_bg" />
 
 </LinearLayout>

@@ -21,10 +21,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingBottom="20dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="20dp">
+        android:paddingTop="15dp">
 
         <TextView
             android:id="@+id/commit_place_name"
@@ -35,6 +35,7 @@
             android:textSize="@dimen/main_textSize" />
 
         <TextView
+            android:paddingTop="5dp"
             android:id="@+id/commit_place_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,62 +51,73 @@
         android:background="@drawable/touying_bg" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="打球人数"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="right"
-            android:gravity="right">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/dialog_order_minas"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10dp"
-                android:src="@drawable/ic_plus" />
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/dialog_order_sure_number_edit"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:minEms="2"
-                android:text="5"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="打球人数"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize" />
 
-            <ImageView
-                android:id="@+id/dialog_order_plus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10dp"
-                android:src="@drawable/ic_minas" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/dialog_order_minas"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_plus" />
+
+                <TextView
+                    android:id="@+id/dialog_order_sure_number_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:minEms="2"
+                    android:text="5"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <ImageView
+                    android:id="@+id/dialog_order_plus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_minas" />
+            </LinearLayout>
         </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/line_divide_hor" />
     </LinearLayout>
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
         android:id="@+id/select_player_layout"
@@ -161,11 +173,16 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
-
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -190,13 +207,17 @@
             android:textColor="@color/exchange_text_color"
             android:textColorHint="@color/exchange_text_color"
             android:textSize="@dimen/main_textSize" />
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/line_divide_hor" />
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

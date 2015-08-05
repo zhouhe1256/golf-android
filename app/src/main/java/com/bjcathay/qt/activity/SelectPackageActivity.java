@@ -115,7 +115,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                                 }).fail(new ICallback() {
                                     @Override
                                     public void call(Arguments arguments) {
-                                        DialogUtil.showMessage("该产品已下架");
+                                        DialogUtil.showMessage(getString(R.string.empty_net_text));
                                     }
                                 });
 

@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="订场须知："
-                    android:textColor="@color/exchange_text_color"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/sub_textSize" />
 
                 <TextView
@@ -73,7 +73,7 @@
                     android:scrollbars="none"
                     android:singleLine="false"
                     android:text=""
-                    android:textColor="@color/exchange_text_color"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/sub_textSize" />
             </LinearLayout>
 

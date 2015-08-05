@@ -25,10 +25,12 @@
                 android:layout_height="45dp"
                 android:textColor="@color/red"
                 android:background="@null"
+                android:textSize="@dimen/main_textSize"
+
                 android:text="拍照" />
             <View
                 android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/line_divide_hor" />
 
@@ -38,6 +40,8 @@
                 android:layout_height="45dp"
                 android:background="@null"
                 android:textColor="@color/blue"
+                android:textSize="@dimen/main_textSize"
+
                 android:text="从相册选择" />
         </LinearLayout>
         <Button
@@ -50,6 +54,7 @@
             android:textColor="@color/blue"
             android:text="取消"
             android:layout_marginBottom="10dp"
+            android:textSize="@dimen/main_textSize"
             android:textStyle="bold"/>
 
     </LinearLayout>

@@ -163,6 +163,14 @@
                             android:text="1234"
                             android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
+                        <TextView
+                            android:id="@+id/order_detail_price_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="(全额预付)"
+                            android:textColor="@color/order_price_color"
+                            android:textSize="@dimen/middle_textSize" />
 
                         <TextView
                             android:id="@+id/order_detail_price_back"
@@ -183,6 +191,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/use_wallet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
@@ -209,7 +218,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/line_divide_hor" />
 
@@ -221,6 +230,7 @@
                             android:paddingTop="5dp">
 
                             <TextView
+                                android:id="@+id/should_pay_fact"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="实付金额:"
@@ -251,10 +261,10 @@
                     android:id="@+id/order_message_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
+                    android:paddingBottom="12dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="15dp"
+                    android:paddingTop="12dp"
                     android:text="预订信息"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/city_title" />
@@ -266,15 +276,17 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_click"
                     android:descendantFocusability="afterDescendants"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:onClick="onClick"
+                    android:clickable="true">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="20dp"
+                        android:paddingBottom="15dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="20dp">
+                        android:paddingTop="15dp">
 
                         <TextView
                             android:id="@+id/order_detail_name"
@@ -299,7 +311,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/line_divide_hor" />
@@ -543,13 +555,16 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/purchasingNotice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lineSpacingExtra="9dp"
+                        android:lineSpacingExtra="8dp"
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>

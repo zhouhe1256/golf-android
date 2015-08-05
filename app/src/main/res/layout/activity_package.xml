@@ -106,7 +106,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@drawable/line_divide_hor" />
 
     <LinearLayout
@@ -129,7 +129,7 @@
             android:paddingLeft="20dp"
             android:text="综合排序"
             android:textColor="@color/order_price_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:textSize="@dimen/city_title" />
 
         <View
             android:layout_width="1dp"
@@ -148,7 +148,7 @@
             android:onClick="onClick"
             android:text="价格优先"
             android:textColor="@color/main_text_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:textSize="@dimen/city_title" />
 
         <View
             android:layout_width="1dp"
@@ -168,14 +168,14 @@
             android:paddingRight="20dp"
             android:text="游玩天数"
             android:textColor="@color/main_text_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:textSize="@dimen/city_title" />
 
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@drawable/line_divide_hor" />
 
     <com.bjcathay.qt.view.AutoListView

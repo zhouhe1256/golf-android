@@ -37,9 +37,45 @@ public class OrderModel implements Serializable {
     private String personNames;
     private String purchasingNotice;
     private double fan;
+    private String payType;
+    private double balancePayMoney;
+    private double prepayMoney;
+    private Long productId;
 
     private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(
             OrderModel.class, "order");
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public double getPrepayMoney() {
+        return prepayMoney;
+    }
+
+    public void setPrepayMoney(double prepayMoney) {
+        this.prepayMoney = prepayMoney;
+    }
+
+    public double getBalancePayMoney() {
+        return balancePayMoney;
+    }
+
+    public void setBalancePayMoney(double balancePayMoney) {
+        this.balancePayMoney = balancePayMoney;
+    }
+
+    public ProductType.payType getPayType() {
+        return ProductType.payType.valueOf(payType);
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
 
     public double getFan() {
         return fan;

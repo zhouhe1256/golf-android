@@ -70,13 +70,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:lineSpacingExtra="9dp"
+                    android:lineSpacingExtra="8dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="15dp"
-                    android:textColor="@color/exchange_text_color"
-                    android:textSize="@dimen/city_title" />
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/sub_textSize" />
 
                 <View
                     android:layout_width="match_parent"
@@ -106,8 +106,8 @@
                         android:layout_height="wrap_content"
 
                         android:text="球场类型:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_mode"
@@ -115,8 +115,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,8 +133,8 @@
                         android:layout_height="wrap_content"
 
                         android:text="球场长度:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_length"
@@ -142,8 +142,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
 
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -160,16 +160,16 @@
                         android:layout_height="wrap_content"
 
                         android:text="球场数据:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -185,16 +185,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="球场面积:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
 
@@ -211,8 +211,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="建立时间:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_date"
@@ -221,8 +221,8 @@
 
                         android:layout_marginLeft="5dp"
 
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,8 +239,8 @@
                         android:layout_height="wrap_content"
 
                         android:text="果岭草种:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_greenGrass"
@@ -248,8 +248,8 @@
                         android:layout_height="wrap_content"
 
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -266,8 +266,8 @@
                         android:layout_height="wrap_content"
 
                         android:text="球场草种:"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <TextView
                         android:id="@+id/golfcourse_fairwayGrass"
@@ -275,13 +275,13 @@
                         android:layout_height="wrap_content"
 
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/line_divide_hor" />
 
@@ -300,7 +300,6 @@
                         android:layout_height="wrap_content"
                         android:text="球场电话:"
                         android:textColor="@color/main_text_color"
-
                         android:textSize="@dimen/city_title"
                         android:textStyle="bold" />
 
@@ -317,7 +316,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/line_divide_hor" />
 
@@ -350,8 +349,8 @@
                         android:layout_toRightOf="@id/golfcourse_address_note"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:textColor="@color/exchange_text_color"
-                        android:textSize="@dimen/city_title" />
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/sub_textSize" />
 
                     <ImageView
                         android:id="@+id/golfcourse_map"
@@ -364,7 +363,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/line_divide_hor" />
 

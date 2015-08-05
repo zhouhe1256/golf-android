@@ -11,12 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
+import com.bjcathay.qt.activity.PackageDetailActivity;
 import com.bjcathay.qt.model.BannerModel;
+import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.OutlineContainer;
@@ -78,10 +83,45 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     intent.putExtra("url", bannerModel.getTarget());
                     ViewUtil.startActivity(context, intent);
                 } else if ("PRODUCT".equals(target)) {
-                    intent = new Intent(context, OrderStadiumDetailActivity.class);
-                    intent.putExtra("imageurl", bannerModel.getImageUrl());
-                    intent.putExtra("id", Long.valueOf(bannerModel.getTarget()));
-                    ViewUtil.startActivity(context, intent);
+                    ProductModel.product(Long.valueOf(bannerModel.getTarget()))
+                            .done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    ProductModel productModel = arguments.get(0);
+                                    Intent intent = null;
+                                    switch (productModel.getType()) {
+                                        case COMBO:
+                                            intent = new Intent(context,
+                                                    PackageDetailActivity.class);
+                                            intent.putExtra("id", productModel.getId());
+                                            intent.putExtra("name", productModel.getName());
+                                            intent.putExtra("product", productModel);
+                                            ViewUtil.startActivity(context, intent);
+                                            break;
+                                        default:
+                                            intent = new Intent(context,
+                                                    OrderStadiumDetailActivity.class);
+                                            intent.putExtra("id", productModel.getId());
+                                            intent.putExtra("imageurl", productModel.getImageUrl());
+                                            ViewUtil.startActivity(context, intent);
+                                            break;
+                                    }
+
+                                }
+                            }).fail(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    DialogUtil.showMessage(context
+                                            .getString(R.string.empty_net_text));
+                                }
+                            });
+
+                    // intent = new Intent(context,
+                    // OrderStadiumDetailActivity.class);
+                    // intent.putExtra("imageurl", bannerModel.getImageUrl());
+                    // intent.putExtra("id",
+                    // Long.valueOf(bannerModel.getTarget()));
+                    // ViewUtil.startActivity(context, intent);
                 } else if ("COMPETITION".equals(target)) {
                     intent = new Intent(context, CompetitionDetailActivity.class);
                     intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));

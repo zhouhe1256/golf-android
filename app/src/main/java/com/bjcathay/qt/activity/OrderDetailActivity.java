@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
@@ -70,9 +72,11 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView serviceNote;
 
     private TextView peopleNote;
-    private TextView notifyNote;
-
-    // private TextView orderMessageNote;
+    private TextView shouldPayFact;// payType
+    private TextView payType;
+    private TextView paywallet;
+    private LinearLayout orderStatusGone;
+    private LinearLayout useWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +117,12 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         serviceNote = ViewUtil.findViewById(this, R.id.order_detail_sale_note);
 
         peopleNote = ViewUtil.findViewById(this, R.id.company_with_note);
-        // serviceNote=ViewUtil.findViewById(this,R.id.order_detail_sale_note);
-        // serviceNote=ViewUtil.findViewById(this,R.id.order_detail_sale_note);
+        shouldPayFact = ViewUtil.findViewById(this, R.id.should_pay_fact);
+        orderStatusGone = ViewUtil.findViewById(this, R.id.order_status_gone);
+        payType = ViewUtil.findViewById(this, R.id.order_detail_price_type);
+        useWallet = ViewUtil.findViewById(this, R.id.use_wallet);
+        paywallet = ViewUtil.findViewById(this, R.id.order_detail_pay_wallet);
+
     }
 
     private void initEvent() {
@@ -149,18 +157,28 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         if (orderModel != null) {
             topView.setShareVisiable();
             orderName.setText(orderModel.getTitle());
-            orderSale.setText("" + orderModel.getPriceInclude());
-            ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
 
+            ImageViewAdapter.adapt(orderImg, orderModel.getImageUrl(), R.drawable.exchange_default);
             orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
-            orderConNum.setText(""
-                    + (orderModel.getPeopleNumber() == 0 ? "4人+"
-                            : (orderModel.getPeopleNumber() + "人")));
+
             if (orderModel.getPeopleNumber() == 0)
                 orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
             else
                 orderPrice.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
-            orderPay.setText("￥0");
+            orderPay.setText("￥" + (int) Math.floor(orderModel.getPrepayMoney()));
+            if (ProductType.payType.PREPAY.equals(orderModel.getPayType())) {
+                payType.setText("(全额预付)");
+            } else if (ProductType.payType.BLENDPAY.equals(orderModel.getPayType())) {
+                payType.setText("(部分预付)");
+            } else if (ProductType.payType.SPOTPAY.equals(orderModel.getPayType())) {
+                payType.setText("(全额现付)");
+            }
+            if (orderModel.getBalancePayMoney() == 0) {
+                useWallet.setVisibility(View.GONE);
+            } else {
+                useWallet.setVisibility(View.VISIBLE);
+                paywallet.setText("￥" + (int) Math.floor(orderModel.getBalancePayMoney()));
+            }
             orderPhone.setText(orderModel.getMobileNumber());
             orderNum.setText("" + orderModel.getOrderId());
             orderPayDate.setText("" + DateUtil.shortDateString(orderModel.getCreatedAt()));
@@ -174,6 +192,21 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             } else {
                 fanxian.setVisibility(View.GONE);
             }
+            switch (orderModel.getType()) {
+                case COMBO:
+                    orderMessageNote.setText("旅游信息");
+                    dataNote.setText("出发时间:");
+                    numberNote.setText("返回日期:");
+                    serviceNote.setText("出发城市:");
+                    peopleNote.setText("同行人信息");
+                    break;
+                default:
+                    orderConNum.setText(""
+                            + (orderModel.getPeopleNumber() == 0 ? "4人+"
+                                    : (orderModel.getPeopleNumber() + "人")));
+                    orderSale.setText("" + orderModel.getPriceInclude());
+                    break;
+            }
             cancleOrder.setOnClickListener(this);
             if ("PENDING".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
@@ -181,35 +214,44 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
                 cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
                 cancleOrder.setVisibility(View.VISIBLE);
+                shouldPayFact.setText("应付金额:");
             } else if ("UNPAID".equals(orderModel.getStatus())) {
+                shouldPayFact.setText("应付金额:");
                 orderToPay.setVisibility(View.VISIBLE);
                 orderStatus.setText("待支付");
                 cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
                 cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
                 cancleOrder.setVisibility(View.VISIBLE);
             } else if ("PAID".equals(orderModel.getStatus())) {
+                shouldPayFact.setText("实付金额:");
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已支付");
                 cancleOrder.setVisibility(View.VISIBLE);
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
-                if (orderModel.getPeopleNumber() == 0)
-                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
-                else
-                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+                // if (orderModel.getPeopleNumber() == 0)
+                // orderPay.setText("￥" + (int)
+                // Math.floor(orderModel.getTotalPrice()) + "+");
+                // else
+                // orderPay.setText("￥" + (int)
+                // Math.floor(orderModel.getTotalPrice()));
             } else if ("FINISH".equals(orderModel.getStatus())) {
                 orderToPay.setVisibility(View.GONE);
+                shouldPayFact.setText("实付金额:");
                 orderStatus.setText("已完成");
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
                 cancleOrder.setVisibility(View.VISIBLE);
-                if (orderModel.getPeopleNumber() == 0)
-                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()) + "+");
-                else
-                    orderPay.setText("￥" + (int) Math.floor(orderModel.getTotalPrice()));
+                // if (orderModel.getPeopleNumber() == 0)
+                // orderPay.setText("￥" + (int)
+                // Math.floor(orderModel.getTotalPrice()) + "+");
+                // else
+                // orderPay.setText("￥" + (int)
+                // Math.floor(orderModel.getTotalPrice()));
             } else if ("CANCEL".equals(orderModel.getStatus())) {
+                orderStatusGone.setVisibility(View.GONE);
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已取消");
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
@@ -272,6 +314,38 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 break;
             case R.id.order_cancle:
                 cancleOrder();
+                break;
+            case R.id.order_detail_to_place:
+                switch (orderModel.getType()) {
+                    case COMBO:
+                        ProductModel.product(orderModel.getProductId())
+                                .done(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        ProductModel productModel = arguments.get(0);
+                                        Intent intent = new Intent(OrderDetailActivity.this,
+                                                PackageDetailActivity.class);
+                                        intent.putExtra("id", orderModel.getProductId());
+                                        intent.putExtra("name", orderModel.getTitle());
+                                        intent.putExtra("product", productModel);
+                                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                    }
+                                }).fail(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        DialogUtil.showMessage(getString(R.string.empty_net_text));
+                                    }
+                                });
+                        break;
+                    default:
+                        Intent intent = new Intent(OrderDetailActivity.this,
+                                OrderStadiumDetailActivity.class);
+                        intent.putExtra("id", orderModel.getProductId());
+                        intent.putExtra("imageurl", orderModel.getImageUrl());
+                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                        break;
+                }
+
                 break;
         }
     }

@@ -95,7 +95,7 @@
                         android:paddingBottom="3dp"
                         android:paddingTop="3dp"
                         android:text="起"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/exchange_text_color"
                         android:textSize="@dimen/msmal_textSize"
                         android:visibility="visible" />
                 </LinearLayout>
