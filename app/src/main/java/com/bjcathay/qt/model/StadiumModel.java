@@ -53,10 +53,16 @@ public class StadiumModel implements Serializable {
     public String getTags() {
         return tags;
     }
+
     public String[] getTagsType() {
-        String[] tagType = tags.split(",");
-        return tagType;
+        if (tags != null) {
+            String[] tagType = tags.split(",");
+            return tagType;
+        }
+        else
+            return null;
     }
+
     public void setTags(String tags) {
         this.tags = tags;
     }

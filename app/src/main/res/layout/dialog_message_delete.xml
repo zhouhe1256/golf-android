@@ -39,6 +39,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="确定"
+                    android:textSize="@dimen/main_textSize"
+
                     android:clickable="true"
                     android:textColor="@color/blue"
                     android:layout_width="match_parent"

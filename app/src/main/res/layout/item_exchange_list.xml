@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/exchange_image"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:src="@drawable/exchange_default"
                 android:scaleType="fitXY"
                 android:layout_centerVertical="true" />

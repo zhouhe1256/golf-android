@@ -96,7 +96,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
                                             proName);
                                 }
                                 dialogExchFragment.show(getSupportFragmentManager(), "send");
-                                finish();
+                               // finish();
 
                             }
                         });

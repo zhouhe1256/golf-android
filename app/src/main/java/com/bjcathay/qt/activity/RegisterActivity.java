@@ -204,6 +204,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
             PreferencesUtils.putString(gApplication, PreferencesConstant.API_TOKEN, token);
             PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME,
                     userModel.getNickname());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, userPhone.getText().toString().trim());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD,  userPwd.getText().toString().trim());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE,
                     userModel.getMobileNumber());
             PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,

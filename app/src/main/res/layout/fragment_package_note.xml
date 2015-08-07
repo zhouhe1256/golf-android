@@ -51,16 +51,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
+
+
+                android:layout_gravity="center_vertical"
                 android:text="打球人数"
                 android:textColor="@color/main_text_color"
                 android:textSize="@dimen/main_textSize" />
@@ -112,7 +116,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+
             android:text="@string/this_way_to_get_glb" />
 
     </LinearLayout>

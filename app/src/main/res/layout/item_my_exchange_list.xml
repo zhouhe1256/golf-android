@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/exchange_image"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:src="@drawable/exchange_default"
                 android:scaleType="fitXY"
                 android:layout_centerVertical="true" />
@@ -38,7 +38,9 @@
                 android:id="@+id/center_layout"
                 android:layout_toRightOf="@id/exchange_image"
                 android:padding="10dp"
-                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_centerInParent="true"
+                android:layout_width="fill_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 
@@ -81,7 +83,9 @@
                     android:paddingTop="10dp"
                     android:id="@+id/exchange_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="bottom"
+                    android:layout_gravity="bottom"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:layout_marginRight="40dp"

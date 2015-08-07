@@ -131,8 +131,11 @@ public class ProductModel implements Serializable {
     }
 
     public String[] getTagsType() {
+        if (tags != null) {
         String[] tagType = tags.split(",");
-        return tagType;
+        return tagType; }
+        else
+            return null;
     }
 
     public void setDescription(String description) {

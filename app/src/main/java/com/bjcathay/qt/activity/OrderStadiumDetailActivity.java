@@ -613,8 +613,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                             int min = priceModel.getMinPerson();
                             if (attendNumber < min) {
                                 attendNumber = min;
-                                for (int i = 0; i < min - 1; i++)
+                                for (int i = 0; i < min - 1; i++){
                                     radioGroup.getChildAt(i).setVisibility(View.GONE);
+                                    break;
+                                }
                                 radioGroup.getChildAt(attendNumber - 1).isSelected();
                             }
 

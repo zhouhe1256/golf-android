@@ -117,7 +117,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.my_wallet:
                 intent = new Intent(this, MyWalletActivity.class);
-                intent.putExtra("balance",userModel.getBalance());
+              //  intent.putExtra("balance",userModel.getBalance());
                 IsLoginUtil.isLogin(this, intent);
                 break;
             case R.id.my_order:
