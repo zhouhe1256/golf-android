@@ -96,41 +96,42 @@ public class ArrayFragment extends Fragment {
     }
 
     private void getDayPrice() {
-        if(packagePriceModel!=null){
+        if (packagePriceModel != null) {
             packagePriceModel.getPersonsDuring(ProductType.prdtType.COMBO);
-            currentPrice=packagePriceModel;
+            currentPrice = packagePriceModel;
             amount = packagePriceModel.getMinPerson();
             if (number < amount) {
                 number = amount;
             }
-           // fourPlus.setText(number < 10 ? " " + number : number + "");
+            // fourPlus.setText(number < 10 ? " " + number : number + "");
             int[] priceStr = packagePriceModel.getFianlPrice(productModel.getType(),
                     number, hourSelect);
             changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
-           // return;
+            // return;
         }
 
-
-//        if (priceModels != null && priceModels.size() > 0)
-//            for (PriceModel priceModel : priceModels) {
-//                if (DateUtil.CompareTime(daySelect, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
-//                    priceModel.getPersonsDuring(productModel.getType());
-//                    currentPrice = priceModel;
-//                    amount = priceModel.getMinPerson();
-//                    if (number < amount) {
-//                        number = amount;
-//                    }
-//                    fourPlus.setText(number < 10 ? " " + number : number + "");
-//                    int[] priceStr = priceModel.getFianlPrice(productModel.getType(),
-//                            number, hourSelect);
-//                    changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
-//                    return;
-//                }
-//            }
+        // if (priceModels != null && priceModels.size() > 0)
+        // for (PriceModel priceModel : priceModels) {
+        // if (DateUtil.CompareTime(daySelect, priceModel.getStartAt(),
+        // priceModel.getEndAt()) == true) {
+        // priceModel.getPersonsDuring(productModel.getType());
+        // currentPrice = priceModel;
+        // amount = priceModel.getMinPerson();
+        // if (number < amount) {
+        // number = amount;
+        // }
+        // fourPlus.setText(number < 10 ? " " + number : number + "");
+        // int[] priceStr = priceModel.getFianlPrice(productModel.getType(),
+        // number, hourSelect);
+        // changePrice.priceChanged(priceStr[0], currentPrice, number,
+        // daySelect);
+        // return;
+        // }
+        // }
     }
 
     private void person() {
-        amountmax=packagePriceModel.getMaxPerson();
+        amountmax = packagePriceModel.getMaxPerson();
         minas.setOnClickListener(new
                 View.OnClickListener() {
                     @Override
@@ -153,8 +154,8 @@ public class ArrayFragment extends Fragment {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(number<amountmax)
-                number++;
+                if (number < amountmax)
+                    number++;
                 fourPlus.setText(number < 10 ? " " + number : number + "");
                 getDayPrice();
             }
@@ -191,7 +192,7 @@ public class ArrayFragment extends Fragment {
                 setYear(info.mIndex);
             }
             getDate();
-            //getDayPrice();
+            // getDayPrice();
         }
     };
 
@@ -210,7 +211,7 @@ public class ArrayFragment extends Fragment {
             mCurYear = year;
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, mCurMonth, date);
+            prepareDayData(mCurYear, mCurMonth-1, date);
         }
     }
 
@@ -220,7 +221,7 @@ public class ArrayFragment extends Fragment {
 
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, month, date);
+            prepareDayData(mCurYear, month-1, date);
         }
     }
 
@@ -273,7 +274,6 @@ public class ArrayFragment extends Fragment {
         int day = calendar.get(Calendar.DATE);
         // int startYear = 2015;
         // int endYear = 2016;
-
 
         // 价格
 
@@ -344,17 +344,19 @@ public class ArrayFragment extends Fragment {
                             (i == curDate)));
                 }
             }
-        }else{
+        } else {
             for (int i = startday; i <= endday; ++i) {
-                mDates.add(new TextInfo(i, String.valueOf(i) + "日" + isWeek(year, month, i, curDate),
+                String week = isWeek(year, month, i, curDate);
+                mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
                         (i == curDate)));
             }
         }
 
-       /* for (int i = 1; i <= days; ++i) {
-            mDates.add(new TextInfo(i, String.valueOf(i) + "日" + isWeek(year, month, i, curDate),
-                    (i == curDate)));
-        }*/
+        /*
+         * for (int i = 1; i <= days; ++i) { mDates.add(new TextInfo(i,
+         * String.valueOf(i) + "日" + isWeek(year, month, i, curDate), (i ==
+         * curDate))); }
+         */
 
         ((WheelTextAdapter) mDateWheel.getAdapter()).setData(mDates);
     }
@@ -362,10 +364,10 @@ public class ArrayFragment extends Fragment {
     private String isWeek(int year, int month, int day, int curDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        Calendar calendartoday = Calendar.getInstance();
-        calendartoday.set(year, month, curDate);
         int day1 = calendar.get(Calendar.DAY_OF_WEEK);
         int _day = calendar.get(Calendar.DAY_OF_MONTH);
+        Calendar calendartoday = Calendar.getInstance();
+        calendartoday.set(year, month, curDate);
         int now_daye = calendartoday.get(Calendar.DAY_OF_MONTH);
         String today = "(今天)";
         if (day == now_daye) {

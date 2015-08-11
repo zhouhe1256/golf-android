@@ -24,13 +24,17 @@ public class CitySelectUtil {
             mp.setId(p.getId());
             mp.setName(p.getProvince());
             c.add(mp);
-            for (int j = 0; j < city.size(); j++) {
-                // todo 以后优化计算速度
-                if (city.get(j).getProvinceId() == province.get(i).getId()) {
-                    CModel m = new CModel();
-                    m.setId(city.get(j).getId());
-                    m.setName(city.get(j).getName());
-                    c.add(m);
+            if (p.getProvince().startsWith("北京") || p.getProvince().startsWith("天津")
+                    || p.getProvince().startsWith("上海") || p.getProvince().startsWith("重庆")) {
+            } else {
+                for (int j = 0; j < city.size(); j++) {
+                    // todo 以后优化计算速度
+                    if (city.get(j).getProvinceId() == province.get(i).getId()) {
+                        CModel m = new CModel();
+                        m.setId(city.get(j).getId());
+                        m.setName(city.get(j).getName());
+                        c.add(m);
+                    }
                 }
             }
             p.setCity(c);
