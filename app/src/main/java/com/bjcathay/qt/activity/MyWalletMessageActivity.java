@@ -202,14 +202,14 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("我的资产页面");
+        MobclickAgent.onPageStart("我的资产消息页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("我的资产页面");
+        MobclickAgent.onPageEnd("我的资产消息页面");
         MobclickAgent.onPause(this);
     }
 }

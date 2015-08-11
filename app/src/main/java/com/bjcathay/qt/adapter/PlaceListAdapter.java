@@ -50,7 +50,7 @@ public class PlaceListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
-        //return 10;
+        // return 10;
     }
 
     @Override
@@ -75,11 +75,17 @@ public class PlaceListAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-       StadiumModel productModel = items.get(position);
+        StadiumModel productModel = items.get(position);
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
+        if (productModel.getPrice() <= 0l) {
+            holder.priceNote.setVisibility(View.GONE);
+            holder.price.setText("实时计价");
+        } else {
+            holder.priceNote.setVisibility(View.VISIBLE);
+            holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
+        }
         holder.sale.setText(productModel.getFeature());
         holder.address.setText(productModel.getAddress());
         if (productModel.getDistance() == 0) {
@@ -101,7 +107,8 @@ public class PlaceListAdapter extends BaseAdapter {
         holder.hotImg.setVisibility(View.GONE);
         holder.temaiImg.setVisibility(View.GONE);
         holder.fanxian.setVisibility(View.GONE);
-        if(tagType!=null)
+        holder.comboImg.setVisibility(View.GONE);
+        if (tagType != null)
             for (int i = 0; i < tagType.length; i++) {
                 if ("人气".equals(tagType[i])) {
                     holder.hotImg.setVisibility(View.VISIBLE);
@@ -109,21 +116,26 @@ public class PlaceListAdapter extends BaseAdapter {
                     holder.temaiImg.setVisibility(View.VISIBLE);
                 } else if ("返现".equals(tagType[i])) {
                     holder.fanxian.setVisibility(View.VISIBLE);
+                } else if ("套餐".equals(tagType[i])) {
+                    holder.comboImg.setVisibility(View.VISIBLE);
                 }
             }
 
         return convertView;
     }
+
     class Holder {
         TextView fanxian;
         ImageView hotImg;
         TextView temaiImg;
+        TextView comboImg;
         RoundCornerImageView imageView;
         TextView title;
         TextView price;
         TextView sale;
         TextView address;
         TextView distance;
+        TextView priceNote;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -135,6 +147,8 @@ public class PlaceListAdapter extends BaseAdapter {
             temaiImg = ViewUtil.findViewById(view, R.id.temai);
             hotImg = ViewUtil.findViewById(view, R.id.hot_flag);
             distance = ViewUtil.findViewById(view, R.id.place_distance);
+            comboImg = ViewUtil.findViewById(view, R.id.combo);
+            priceNote = ViewUtil.findViewById(view, R.id.price_note);
         }
     }
 }

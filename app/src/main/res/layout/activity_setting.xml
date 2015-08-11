@@ -215,7 +215,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         android:text="退出登录" />
 </LinearLayout>
 

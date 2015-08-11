@@ -89,7 +89,7 @@
                                 android:layout_height="17dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/blue"
-                                android:text="返现"
+                                android:text="返"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sub_textSize" />
 
@@ -98,9 +98,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="17dp"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="2dp"
                                 android:background="@drawable/yellow"
-                                android:text="特卖"
+                                android:text="特"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sub_textSize" />
+                            <TextView
+                                android:id="@+id/combo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="17dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:background="@drawable/red_"
+                                android:text="套餐"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sub_textSize" />
                         </LinearLayout>

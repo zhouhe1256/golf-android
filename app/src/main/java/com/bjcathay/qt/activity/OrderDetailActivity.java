@@ -77,6 +77,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private TextView paywallet;
     private LinearLayout orderStatusGone;
     private LinearLayout useWallet;
+    private LinearLayout notice_linear;
+    private LinearLayout schNotice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         payType = ViewUtil.findViewById(this, R.id.order_detail_price_type);
         useWallet = ViewUtil.findViewById(this, R.id.use_wallet);
         paywallet = ViewUtil.findViewById(this, R.id.order_detail_pay_wallet);
+
+        notice_linear = ViewUtil.findViewById(this, R.id.notice_linear);
+        schNotice = ViewUtil.findViewById(this, R.id.schNotice);
 
     }
 
@@ -199,8 +204,12 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     numberNote.setText("返回日期:");
                     serviceNote.setText("出发城市:");
                     peopleNote.setText("同行人信息");
+                    schNotice.setVisibility(View.VISIBLE);
+                    notice_linear.setVisibility(View.GONE);
                     break;
                 default:
+                    schNotice.setVisibility(View.GONE);
+                    notice_linear.setVisibility(View.VISIBLE);
                     orderConNum.setText(""
                             + (orderModel.getPeopleNumber() == 0 ? "4人+"
                                     : (orderModel.getPeopleNumber() + "人")));
@@ -298,6 +307,27 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         switch (view.getId()) {
             case R.id.title_back_img:
                 finish();
+                break;
+            case R.id.schNotice:
+                ProductModel.product(orderModel.getProductId())
+                        .done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                ProductModel productModel = arguments.get(0);
+                                Intent intent = new Intent(OrderDetailActivity.this,
+                                        PackageDetailActivity.class);
+                                intent.putExtra("id", orderModel.getProductId());
+                                intent.putExtra("name", orderModel.getTitle());
+                                intent.putExtra("product", productModel);
+                                intent.putExtra("sch", true);
+                                ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                            }
+                        }).fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                DialogUtil.showMessage(getString(R.string.empty_net_text));
+                            }
+                        });
                 break;
             case R.id.title_share_img:
                 if (orderModel != null)

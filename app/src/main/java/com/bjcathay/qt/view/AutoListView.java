@@ -206,6 +206,7 @@ public class AutoListView extends ListView implements OnScrollListener {
     public void onRefreshComplete(String updateTime) {
         lastUpdate.setText(this.getContext().getString(R.string.lastUpdateTime,
                 SystemUtil.getCurrentTime()));
+        lastUpdate.setVisibility(GONE);
         state = NONE;
         refreshHeaderViewByState();
     }
@@ -428,7 +429,7 @@ public class AutoListView extends ListView implements OnScrollListener {
             case PULL:
                 arrow.setVisibility(View.VISIBLE);
                 tip.setVisibility(View.VISIBLE);
-                lastUpdate.setVisibility(View.VISIBLE);
+              //  lastUpdate.setVisibility(View.VISIBLE);
                 refreshing.setVisibility(View.GONE);
                 tip.setText(R.string.pull_to_refresh);
                 arrow.clearAnimation();
@@ -437,7 +438,7 @@ public class AutoListView extends ListView implements OnScrollListener {
             case RELEASE:
                 arrow.setVisibility(View.VISIBLE);
                 tip.setVisibility(View.VISIBLE);
-                lastUpdate.setVisibility(View.VISIBLE);
+               // lastUpdate.setVisibility(View.VISIBLE);
                 refreshing.setVisibility(View.GONE);
                 tip.setText(R.string.pull_to_refresh);
                 tip.setText(R.string.release_to_refresh);
@@ -450,7 +451,7 @@ public class AutoListView extends ListView implements OnScrollListener {
                 arrow.clearAnimation();
                 arrow.setVisibility(View.GONE);
                 tip.setVisibility(View.GONE);
-                lastUpdate.setVisibility(View.GONE);
+              //  lastUpdate.setVisibility(View.GONE);
                 break;
         }
     }

@@ -70,6 +70,8 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
             InviteListModel result = (InviteListModel) msg.obj;
             boolean hasNext = false;
             if (result != null && result.getUsers() != null && !result.getUsers().isEmpty()) {
+                myFriendTitle.setVisibility(View.VISIBLE);
+
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         lstv.onRefreshComplete();

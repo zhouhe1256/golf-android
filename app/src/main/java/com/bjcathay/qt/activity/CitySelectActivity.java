@@ -325,7 +325,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         if (!StringUtils.isEmpty(cityName)) {
             myAddressNote.setText(cityName);
         } else {
-
+            myAddressNote.setText("未知位置");
         }
     }
 

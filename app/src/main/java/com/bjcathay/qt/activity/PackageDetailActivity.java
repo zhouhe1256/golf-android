@@ -22,14 +22,17 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PackageFragmentAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.ArrayFragment;
 import com.bjcathay.qt.model.PackagePriceModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopScrollView;
 import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.view.WrapContentHeightViewPager;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by dengt on 15-7-28.
@@ -55,6 +58,7 @@ public class PackageDetailActivity extends FragmentActivity implements
     private TextView packagePrice;
     private TextView totalPrice;
     private Button sureOrder;
+    private boolean sch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,12 +144,15 @@ public class PackageDetailActivity extends FragmentActivity implements
     private Long id;
     private String name;
     PackagePriceModel packagePriceModel;
+
     private void initData() {
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         name = intent.getStringExtra("name");
         productModel = (ProductModel) intent.getSerializableExtra("product");
-        packagePriceModel=productModel.getPackagePriceModel();
+        sch = intent.getBooleanExtra("sch", false);
+
+        packagePriceModel = productModel.getPackagePriceModel();
         topView.setTitleText(name);
         ImageViewAdapter.adapt(imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
@@ -155,7 +162,9 @@ public class PackageDetailActivity extends FragmentActivity implements
         mPager = (WrapContentHeightViewPager) findViewById(R.id.vPager);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
-
+        if (sch) {
+            mPager.setCurrentItem(2);
+        }
     }
 
     @Override
@@ -176,12 +185,13 @@ public class PackageDetailActivity extends FragmentActivity implements
                 finish();
                 break;
             case R.id.sure_order:
+
                 Intent intent = new Intent(this, OrderCommitActivity.class);
                 intent.putExtra("product", productModel);
                 intent.putExtra("date", date);
                 intent.putExtra("number", number);
                 intent.putExtra("comboPrice", currentPrice);
-                ViewUtil.startActivity(this, intent);
+                IsLoginUtil.isLogin(this, intent);
                 break;
         }
     }
@@ -197,7 +207,7 @@ public class PackageDetailActivity extends FragmentActivity implements
         this.currentPrice = currentPrice;
         this.number = number;
         this.date = date;
-            totalPrice.setText("总金额:￥" + price * number);
+        totalPrice.setText("总金额:￥" + price * number);
     }
 
     public class MyOnClickListener implements View.OnClickListener {
@@ -275,4 +285,17 @@ public class PackageDetailActivity extends FragmentActivity implements
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("套餐详情页面");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("套餐详情页面");
+        MobclickAgent.onPause(this);
+    }
 }

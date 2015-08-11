@@ -66,7 +66,17 @@ public class ProductAdapter extends BaseAdapter {
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
+        if (productModel.getPrice() <= 0l) {
+            holder.priceNote.setVisibility(View.GONE);
+            holder.priceNote_.setVisibility(View.GONE);
+            holder.price.setText("实时计价");
+        } else {
+            holder.priceNote.setVisibility(View.VISIBLE);
+            holder.priceNote_.setVisibility(View.VISIBLE);
+            holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
+        }
+
+       // holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
 
         String[] tagType = productModel.getTagsType();
         holder.renqi.setVisibility(View.GONE);
@@ -94,6 +104,9 @@ public class ProductAdapter extends BaseAdapter {
         TextView fanxian;
         TextView desp;
         ImageView renqi;
+        TextView comboImg;
+        TextView priceNote;
+        TextView priceNote_;
 
         public Holder(View view) {
             imageView = ViewUtil.findViewById(view, R.id.place_image);
@@ -103,6 +116,9 @@ public class ProductAdapter extends BaseAdapter {
             fanxian = ViewUtil.findViewById(view, R.id.fanxian);
             desp = ViewUtil.findViewById(view, R.id.discription);
             renqi = ViewUtil.findViewById(view, R.id.hot_flag);
+            comboImg = ViewUtil.findViewById(view, R.id.combo);
+            priceNote_ = ViewUtil.findViewById(view, R.id.price_note_);
+            priceNote = ViewUtil.findViewById(view, R.id.price_note);
         }
     }
 }
