@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SelectPackageAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DialogUtil;
@@ -27,7 +29,10 @@ import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,13 +109,26 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                                 .done(new ICallback() {
                                     @Override
                                     public void call(Arguments arguments) {
-                                        ProductModel productModel = arguments.get(0);
+                                        JSONObject jsonObject = arguments.get(0);
+                                        if (jsonObject.optBoolean("success")) {
+                                            ProductModel productModel = JSONUtil.load(ProductModel.class,
+                                                    jsonObject.optJSONObject("product"));
+                                      //  ProductModel productModel = arguments.get(0);
                                         Intent intent = new Intent(SelectPackageActivity.this,
                                                 PackageDetailActivity.class);
                                         intent.putExtra("id", stadiumModelList.get(ids).getId());
                                         intent.putExtra("name", stadiumModelList.get(ids).getName());
                                         intent.putExtra("product", productModel);
                                         ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                                        } else {
+                                            String errorMessage = jsonObject.optString("message");
+                                            if (!StringUtils.isEmpty(errorMessage))
+                                                DialogUtil.showMessage(errorMessage);
+                                            else {
+                                                int code = jsonObject.optInt("code");
+                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            }
+                                        }
                                     }
                                 }).fail(new ICallback() {
                                     @Override

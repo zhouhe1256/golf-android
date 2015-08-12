@@ -344,6 +344,6 @@ public class ProductModel implements Serializable {
 
     public static IPromise product(long id) {
         return Http.instance().get(ApiUrl.productDetail(id)).
-                contentDecoder(decoder).run();
+                run();
     }
 }

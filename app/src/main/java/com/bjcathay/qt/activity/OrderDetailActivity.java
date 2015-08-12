@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
@@ -313,14 +314,28 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                         .done(new ICallback() {
                             @Override
                             public void call(Arguments arguments) {
-                                ProductModel productModel = arguments.get(0);
-                                Intent intent = new Intent(OrderDetailActivity.this,
-                                        PackageDetailActivity.class);
-                                intent.putExtra("id", orderModel.getProductId());
-                                intent.putExtra("name", orderModel.getTitle());
-                                intent.putExtra("product", productModel);
-                                intent.putExtra("sch", true);
-                                ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                JSONObject jsonObject = arguments.get(0);
+                                if (jsonObject.optBoolean("success")) {
+                                    ProductModel productModel = JSONUtil.load(ProductModel.class,
+                                            jsonObject.optJSONObject("product"));
+                                    // ProductModel productModel =
+                                    // arguments.get(0);
+                                    Intent intent = new Intent(OrderDetailActivity.this,
+                                            PackageDetailActivity.class);
+                                    intent.putExtra("id", orderModel.getProductId());
+                                    intent.putExtra("name", orderModel.getTitle());
+                                    intent.putExtra("product", productModel);
+                                    intent.putExtra("sch", true);
+                                    ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                } else {
+                                    String errorMessage = jsonObject.optString("message");
+                                    if (!StringUtils.isEmpty(errorMessage))
+                                        DialogUtil.showMessage(errorMessage);
+                                    else {
+                                        int code = jsonObject.optInt("code");
+                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    }
+                                }
                             }
                         }).fail(new ICallback() {
                             @Override
@@ -346,19 +361,32 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder();
                 break;
             case R.id.order_detail_to_place:
+                Intent intent;
                 switch (orderModel.getType()) {
                     case COMBO:
                         ProductModel.product(orderModel.getProductId())
                                 .done(new ICallback() {
                                     @Override
                                     public void call(Arguments arguments) {
-                                        ProductModel productModel = arguments.get(0);
+                                        JSONObject jsonObject = arguments.get(0);
+                                        if (jsonObject.optBoolean("success")) {
+                                            ProductModel productModel = JSONUtil.load(ProductModel.class,
+                                                    jsonObject.optJSONObject("product"));
                                         Intent intent = new Intent(OrderDetailActivity.this,
                                                 PackageDetailActivity.class);
                                         intent.putExtra("id", orderModel.getProductId());
                                         intent.putExtra("name", orderModel.getTitle());
                                         intent.putExtra("product", productModel);
                                         ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                        } else {
+                                            String errorMessage = jsonObject.optString("message");
+                                            if (!StringUtils.isEmpty(errorMessage))
+                                                DialogUtil.showMessage(errorMessage);
+                                            else {
+                                                int code = jsonObject.optInt("code");
+                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            }
+                                        }
                                     }
                                 }).fail(new ICallback() {
                                     @Override
@@ -367,8 +395,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                     }
                                 });
                         break;
+                    case REAL_TIME:
+                        intent = new Intent(OrderDetailActivity.this,
+                                RealTOrderActivity.class);
+                        intent.putExtra("id", orderModel.getProductId());
+                        intent.putExtra("imageurl", orderModel.getImageUrl());
+                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                        break;
                     default:
-                        Intent intent = new Intent(OrderDetailActivity.this,
+                        intent = new Intent(OrderDetailActivity.this,
                                 OrderStadiumDetailActivity.class);
                         intent.putExtra("id", orderModel.getProductId());
                         intent.putExtra("imageurl", orderModel.getImageUrl());

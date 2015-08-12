@@ -25,6 +25,8 @@ public class PriceJsonModel implements Serializable {
                 if(number>=Integer.valueOf(start) && number<=Integer.valueOf(end)){
                     priceStr[0]=price;
                     priceStr[1]=fan;
+                    priceStr[2]=prePay;
+                    priceStr[3]=spotPay;
                 }
                 break;
             case TIME:

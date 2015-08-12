@@ -19,10 +19,12 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.ProductAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.util.DateUtil;
@@ -33,7 +35,10 @@ import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,25 +110,53 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                     // todo
                     if (ProductType.prdtType.COMBO.equals(stadiumModelList.get(i).getType())) {
                         // 跳套餐
-                        final int ids=i;
-                        ProductModel.product(stadiumModelList.get(ids).getId()).done(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                ProductModel productModel = arguments.get(0);
-                                Intent intent = new Intent(ProductActivity.this,
-                                        PackageDetailActivity.class);
-                                intent.putExtra("id", stadiumModelList.get(ids).getId());
-                                intent.putExtra("name", stadiumModelList.get(ids).getName());
-                                intent.putExtra("product", productModel);
-                                ViewUtil.startActivity(ProductActivity.this, intent);
-                            }
-                        }).fail(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                DialogUtil.showMessage(getString(R.string.empty_net_text));
-                            }
-                        });
+                        final int ids = i;
+                        ProductModel.product(stadiumModelList.get(ids).getId())
+                                .done(new ICallback() {
+                                          @Override
+                                          public void call(Arguments arguments) {
+                                              JSONObject jsonObject = arguments.get(0);
+                                              if (jsonObject.optBoolean("success")) {
+                                                  ProductModel productModel = JSONUtil.load(ProductModel.class,
+                                                          jsonObject.optJSONObject("product"));
+                                                //  ProductModel productModel = arguments.get(0);
+                                                  Intent intent = new Intent(ProductActivity.this,
+                                                          PackageDetailActivity.class);
+                                                  intent.putExtra("id", stadiumModelList.get(ids).getId());
+                                                  intent.putExtra("name", stadiumModelList.get(ids).getName());
+                                                  intent.putExtra("product", productModel);
+                                                  ViewUtil.startActivity(ProductActivity.this, intent);
+                                              } else {
+                                                  String errorMessage = jsonObject.optString("message");
+                                                  if (!StringUtils.isEmpty(errorMessage))
+                                                      DialogUtil.showMessage(errorMessage);
+                                                  else {
+                                                      int code = jsonObject.optInt("code");
+                                                      DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                                  }
+                                              }
+                                          }
+                                      }
 
+                                ).
+
+                                    fail(new ICallback() {
+                                             @Override
+                                             public void call(Arguments arguments) {
+                                                 DialogUtil.showMessage(getString(R.string.empty_net_text));
+                                             }
+                                         }
+
+                                    );
+
+                                }else if (ProductType.prdtType.REAL_TIME.equals(stadiumModelList.get(i)
+                            .getType())) {
+                        Intent intent = new Intent(ProductActivity.this,
+                                RealTOrderActivity.class);
+                        intent.putExtra("imageurl", stadiumModelList.get(i).getImageUrl());
+                        intent.putExtra("id", stadiumModelList.get(i).getId());
+                        intent.putExtra("type", stadiumModelList.get(i).getType());
+                        ViewUtil.startActivity(ProductActivity.this, intent);
                     } else {
                         // 跳产品
                         Intent intent = new Intent(ProductActivity.this,
@@ -134,9 +167,11 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                         ViewUtil.startActivity(ProductActivity.this, intent);
                     }
                 }
-               /* Intent intent = new Intent(ProductActivity.this,
-                        OrderStadiumDetailActivity.class);
-                ViewUtil.startActivity(ProductActivity.this, intent);*/
+                /*
+                 * Intent intent = new Intent(ProductActivity.this,
+                 * OrderStadiumDetailActivity.class);
+                 * ViewUtil.startActivity(ProductActivity.this, intent);
+                 */
             }
         });
     }

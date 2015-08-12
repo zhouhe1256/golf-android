@@ -90,7 +90,7 @@
                 android:id="@+id/city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="北京"
+                android:text="北京市"
                 android:textColor="@color/home_title_color" />
 
             <ImageView
