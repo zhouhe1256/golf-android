@@ -88,6 +88,60 @@ public class DateUtil {
             return null;
     }
 
+    public static List<String> getLimitDates(List<PriceModel> priceModels) {
+        if (priceModels != null) {
+            List<String> dayList = new ArrayList<String>();
+            // String start = priceModels.get(0).getStartAt();
+            // String end = priceModels.get(priceModels.size() -
+            // 1).getStartAt();
+            Calendar now = Calendar.getInstance();
+            int now_daye = now.get(Calendar.DAY_OF_MONTH);
+            String today = "今天";
+            for (int i = 0; i < priceModels.size(); i++) {
+                String start = priceModels.get(i).getStartAt();
+                Date s = stringToDate(start);
+                Calendar rights = Calendar.getInstance();
+                rights.setTime(s);
+                int month = rights.get(Calendar.MONTH);
+                int day = rights.get(Calendar.DAY_OF_MONTH);
+                int day1 = rights.get(Calendar.DAY_OF_WEEK);
+                if (day == now_daye) {
+                    today = "今天";
+                } else {
+                    switch (day1) {
+                        case 2:
+                            today = "星期一";
+                            break;
+                        case 3:
+                            today = "星期二";
+                            break;
+                        case 4:
+                            today = "星期三";
+                            break;
+                        case 5:
+                            today = "星期四";
+                            break;
+                        case 6:
+                            today = "星期五";
+                            break;
+                        case 7:
+                            today = "星期六";
+                            break;
+                        case 1:
+                            today = "星期日";
+                            break;
+                    }
+                }
+                if (month < 9) {
+                    dayList.add("0" + (month + 1) + "月" + day + "日" + "(" + today + ")");
+                } else
+                    dayList.add(month + 1 + "月" + day + "日" + "(" + today + ")");
+            }
+            return dayList;
+        }
+        return null;
+    }
+
     // 根据起始时间决定小时上午
     public static List<String> getTuanHourAM(ProductModel productModel) {
         List<String> dayList = new ArrayList<String>();

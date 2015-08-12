@@ -324,7 +324,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         // todo
         hourSelect = hoursAM.get(0);
         beforSelect = "上午";
-        days = DateUtil.getLimitDate(priceModels);
+        days = DateUtil.getLimitDates(priceModels);
         prepareData(1);
         if ("LIMIT".equals(stadiumModel.getType())) {
             int num = stadiumModel.getAmount();
