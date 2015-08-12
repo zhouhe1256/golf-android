@@ -105,33 +105,30 @@
                         android:visibility="visible" />
                 </LinearLayout>
 
-                <LinearLayout
+
+                <TextView
+                    android:id="@+id/temai"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="17dp"
                     android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/yellow"
+                    android:text="特卖"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_textSize"
+                    android:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/fanxian"
-                        android:layout_width="wrap_content"
-                        android:layout_height="17dp"
-                        android:background="@drawable/blue"
-                        android:text="返"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sub_textSize" />
-
-                    <TextView
-                        android:id="@+id/temai"
-                        android:layout_width="wrap_content"
-                        android:layout_height="17dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="2dp"
-                        android:background="@drawable/yellow"
-                        android:text="特"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sub_textSize"
-                        android:visibility="visible" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/fanxian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/temai"
+                    android:background="@drawable/blue"
+                    android:text="返现"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_textSize" />
 
 
             </RelativeLayout>

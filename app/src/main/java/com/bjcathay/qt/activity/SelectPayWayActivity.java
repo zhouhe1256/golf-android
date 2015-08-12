@@ -196,18 +196,18 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                             public void call(Arguments arguments) {
                                 JSONObject jsonObject = arguments.get(0);
                                 if (jsonObject.optBoolean("success")) {
-                                    // DialogUtil.showMessage("支付成功");
+                                     DialogUtil.showMessage("支付成功");
                                     Intent intent;
-                                    if ("GROUP".equals(orderModel.getType())) {
-                                        intent = new Intent(SelectPayWayActivity.this,
-                                                OrderSucTuanActivity.class);
-                                        intent.putExtra("id", orderModel.getId());
-                                    } else {
-                                        intent = new Intent(SelectPayWayActivity.this,
-                                                PaySuccessActivity.class);
-                                    }
-                                    intent.putExtra("order", orderModel);
-                                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+//                                    if ("GROUP".equals(orderModel.getType())) {
+//                                        intent = new Intent(SelectPayWayActivity.this,
+//                                                OrderSucTuanActivity.class);
+//                                        intent.putExtra("id", orderModel.getId());
+//                                    } else {
+//                                        intent = new Intent(SelectPayWayActivity.this,
+//                                                PaySuccessActivity.class);
+//                                    }
+//                                    intent.putExtra("order", orderModel);
+//                                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
                                     finish();
                                 } else {
                                     String errorMessage = jsonObject.optString("message");
@@ -233,6 +233,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         findViewById(R.id.pay_ipay).setOnClickListener(this);
         if (isPay) {
             if ("sucess".equals(status)) {
+                DialogUtil.showMessage("支付成功");
                 Intent intent;
                 /*
                  * OrderModel.orderVerify(orderModel.getId()).done(new
@@ -242,14 +243,14 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                  * (jsonObject.optBoolean("success")) {
                  */
                 // Intent intent;
-                if ("GROUP".equals(orderModel.getType())) {
-                    intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
-                    intent.putExtra("id", orderModel.getId());
-                } else {
-                    intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
-                }
-                intent.putExtra("order", orderModel);
-                ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+//                if ("GROUP".equals(orderModel.getType())) {
+//                    intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+//                    intent.putExtra("id", orderModel.getId());
+//                } else {
+//                    intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+//                }
+//                intent.putExtra("order", orderModel);
+//                ViewUtil.startActivity(SelectPayWayActivity.this, intent);
                 finish();
                 /*
                  * } else { int code = jsonObject.optInt("code");
@@ -299,14 +300,15 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                 // Intent intent;
                 String tag = intent.getStringExtra("tag");
                 if ("sucess".equals(tag)) {
-                    if ("GROUP".equals(orderModel.getType())) {
-                        intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
-                        intent.putExtra("id", orderModel.getId());
-                    } else {
-                        intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
-                    }
-                    intent.putExtra("order", orderModel);
-                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
+                    DialogUtil.showMessage("支付成功");
+//                    if ("GROUP".equals(orderModel.getType())) {
+//                        intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
+//                        intent.putExtra("id", orderModel.getId());
+//                    } else {
+//                        intent = new Intent(SelectPayWayActivity.this, PaySuccessActivity.class);
+//                    }
+//                    intent.putExtra("order", orderModel);
+//                    ViewUtil.startActivity(SelectPayWayActivity.this, intent);
                     finish();
                 } else {
 

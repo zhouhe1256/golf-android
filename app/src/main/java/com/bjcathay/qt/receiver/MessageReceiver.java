@@ -14,6 +14,7 @@ import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.MainActivity;
 import com.bjcathay.qt.activity.MyWalletActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.model.PushModel;
@@ -27,7 +28,7 @@ import com.igexin.sdk.PushManager;
  */
 public class MessageReceiver extends BroadcastReceiver {
 
-    private static int ids = 1;
+    private static int ids = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -64,7 +65,7 @@ public class MessageReceiver extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(context);
-        Intent intent = null;
+        Intent intent;
         switch (pushModel.getT()) {
             case ORDER:
                 intent = new Intent(context, OrderDetailActivity.class);
@@ -81,7 +82,8 @@ public class MessageReceiver extends BroadcastReceiver {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
             default:
-                intent = new Intent();
+                intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
 
         }
@@ -94,22 +96,27 @@ public class MessageReceiver extends BroadcastReceiver {
         // intent = new Intent(context, CompetitionDetailActivity.class);
         // intent.putExtra("id", Long.parseLong(pushModel.getG()));
         // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // }else
-        // if(MessageType.pushMsgType.COMPETITION.equals(pushModel.getT())){
-        //
+        // } else if (MessageType.pushMsgType.PROPERTY.equals(pushModel.getT()))
+        // {
+        // intent = new Intent(context, MyWalletActivity.class);
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // } else {
+        // intent = new Intent(context, MainActivity.class);
+        // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         // }
         // todo
         PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-        Notification notification = builder.setTicker(pushModel.getM()).
+        builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
                 setContentTitle("7铁高尔夫").
                 setContentText(pushModel.getM()).
                 setSmallIcon(R.drawable.ic_launcher).
+                setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_SOUND);
+        Notification notification = builder.
                 build();
 
-        notification.defaults = Notification.DEFAULT_SOUND;
-        notification.flags = 0x00000010;
+        // notification.defaults = Notification.DEFAULT_SOUND;
         mNotificationManager.notify(ids++, notification);
     }
 }
