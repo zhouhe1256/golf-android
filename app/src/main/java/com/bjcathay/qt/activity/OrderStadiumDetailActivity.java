@@ -87,6 +87,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     private List<PriceModel> priceModels;
     private int currentPrice;
     private ShareModel shareModel;
+    private List<String> hoursAMnow = new ArrayList<String>();
+    private List<String> hoursPMnow = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,7 +219,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             if (days != null && !days.isEmpty()) {
                 if (v == mOption1) {
                     String info = days.get(pos);
-                    setDate(info);
+                    setDate(info, pos);
                 } else if (v == mOption2) {
                     String info = minits.get(pos);
                     setMinit(info);
@@ -243,10 +245,64 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         }
     };
 
-    private void setDate(String date) {
+    private void setDate(String date, int pos) {
         if (!date.equals(daySelect)) {
             daySelect = date;
+            // todo 设置小时数据
+            // todo 1
+            if (ProductType.prdtType.TIME.equals(stadiumModel.getType())) {
+                // if (hoursAMnow.isEmpty())
+                hoursAMnow = DateUtil.getAM("00:00");
+                // if (hoursPMnow.isEmpty())
+                hoursPMnow = DateUtil.getPMShort("23:30");
+                // todo 2
+                for (int i = hoursAMnow.size() - 1; i >= 0; i--) {
+                    if (!priceModels.get(pos).getAMTime(ProductType.prdtType.TIME,
+                            hoursAMnow.get(i))) {
+                        hoursAMnow.remove(i);
+                    } else {
 
+                    }
+                    if (!priceModels.get(pos).getAMTime(ProductType.prdtType.TIME,
+                            hoursPMnow.get(i))) {
+                        hoursPMnow.remove(i);
+                    } else {
+
+                    }
+                }
+                hoursAM = hoursAMnow;
+                hoursPM = hoursPMnow;
+                minits.clear();
+                if (!hoursAM.isEmpty()) {
+                    minits.add("上午");
+                }
+                if (!hoursPM.isEmpty()) {
+                    minits.add("下午");
+                }
+
+                ((WheelTextAdapter) mOption2.getAdapter()).setData(minits);
+                if (minits.size() == 1) {
+                    if ("上午".equals(minits.get(0))) {
+                        beforSelect = "上午";
+                        ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                    }
+                    else {
+                        beforSelect = "下午";
+                        ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+                    }
+                } else {
+                    beforSelect = "上午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                }
+
+                // if (priceModels != null && priceModels.size() == 1) {
+                // mOption1.setSelection(0);
+                // } else
+                // mOption1.setSelection(0);
+                mOption2.setSelection(0);
+                mOption3.setSelection(0);
+              //  getDayPrice(0);
+            }
         }
     }
 
@@ -319,13 +375,72 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         topView.setTitleText(stadiumModel.getName());
         priceModels = stadiumModel.getPrices();
         days.clear();
-        hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
-        hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
-        // todo
-        hourSelect = hoursAM.get(0);
-        beforSelect = "上午";
-        days = DateUtil.getLimitDates(priceModels);
-        prepareData(1);
+        if (ProductType.prdtType.TIME.equals(stadiumModel.getType())) {
+            // if (hoursAMnow.isEmpty())
+            days = DateUtil.getLimitDates(priceModels);
+            hoursAMnow = DateUtil.getAM("00:00");
+            // if (hoursPMnow.isEmpty())
+            hoursPMnow = DateUtil.getPMShort("23:30");
+            // todo 2
+            for (int i = hoursAMnow.size() - 1; i >= 0; i--) {
+                if (!priceModels.get(0).getAMTime(ProductType.prdtType.TIME,
+                        hoursAMnow.get(i))) {
+                    hoursAMnow.remove(i);
+                } else {
+
+                }
+                if (!priceModels.get(0).getAMTime(ProductType.prdtType.TIME,
+                        hoursPMnow.get(i))) {
+                    hoursPMnow.remove(i);
+                } else {
+
+                }
+            }
+            hoursAM = hoursAMnow;
+            hoursPM = hoursPMnow;
+            minits.clear();
+            if (!hoursAM.isEmpty()) {
+                minits.add("上午");
+            }
+            if (!hoursPM.isEmpty()) {
+                minits.add("下午");
+            }
+            ((WheelTextAdapter) mOption1.getAdapter()).setData(days);
+            ((WheelTextAdapter) mOption2.getAdapter()).setData(minits);
+            if (minits.size() == 1) {
+                if ("上午".equals(minits.get(0))) {
+                    beforSelect = "上午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                    hourSelect = hoursAM.get(0);
+                }
+                else {
+                    beforSelect = "下午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+                    hourSelect = hoursPM.get(0);
+                }
+            } else {
+                beforSelect = "上午";
+                ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                hourSelect = hoursAM.get(0);
+            }
+
+            if (priceModels != null && priceModels.size() == 1) {
+                mOption1.setSelection(0);
+            } else {
+                mOption1.setSelection(1);
+            }
+            mOption2.setSelection(0);
+            mOption3.setSelection(0);
+            getDayPrice(0);
+        } else {
+            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
+            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
+            // todo
+            hourSelect = hoursAM.get(0);
+            beforSelect = "上午";
+            days = DateUtil.getLimitDates(priceModels);
+            prepareData(1);
+        }
         if ("LIMIT".equals(stadiumModel.getType())) {
             int num = stadiumModel.getAmount();
             attendNumber = num;
@@ -334,10 +449,6 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             radioGroup.check(radioGroup.getChildAt(num - 1).getId());
         } else
             getDayPrice(stadiumModel.getPrice());
-        // } else {
-        // String endAt = stadiumModel.getPrices().get(0).getEndAt();
-        //
-        // }
         stadiumContents.setText(stadiumModel.getPriceInclude());
         stadiumAddress.setText(stadiumModel.getAddress());
         if (ProductType.payType.PREPAY.equals(stadiumModel.getPayType())) {
@@ -435,6 +546,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         if (priceModels != null && priceModels.size() > 0)
             for (PriceModel priceModel : priceModels) {
                 if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+
                     if (ProductType.priceType.INACTIVE.equals(priceModel.getStatus())) {
                         // okbtn.setBackgroundResource(R.drawable.bg_sold_out);
                         okbtn.setBackgroundResource(R.color.gray);
@@ -491,10 +603,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                             stadiumPrice
                                     .setText("￥"
                                             + (int) Math
-                                                    .floor((priceStr[0] * attendNumber == 0 ? priceModel
-                                                            .getPrice()
-                                                            : priceStr[0]
-                                                                    * attendNumber)) + "");
+                                            .floor((priceStr[0] * attendNumber == 0 ? priceModel
+                                                    .getPrice()
+                                                    : priceStr[0]
+                                                    * attendNumber)) + "");
                             if (priceStr[1] != 0) {
                                 schBack.setText("返" + priceStr[1] * attendNumber);
                                 schBack.setVisibility(View.VISIBLE);
@@ -502,11 +614,6 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                             else
                                 schBack.setVisibility(View.GONE);
                             payType.setVisibility(View.VISIBLE);
-                            /*
-                             * stadiumPrice.setText("￥" + (int)
-                             * Math.floor(priceModel.getPrice() *
-                             * attendNumber));
-                             */
                             finalPrice = priceModel;
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         }
@@ -543,16 +650,15 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                     if (noPrice) {
                         DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                                 R.style.InfoDialog, getResources()
-                                        .getString(R.string.service_tel_format)
-                                        .toString().trim(), "呼叫", 0l, this);
+                                .getString(R.string.service_tel_format)
+                                .toString().trim(), "呼叫", 0l, this);
                         infoDialog.show();
                     } else
                         showDialog();
                 } else {
                     Intent intent = new Intent(context, LoginActivity.class);
                     ViewUtil.startActivity(context, intent);
-                    // context.overridePendingTransition(R.anim.activity_open,
-                    // R.anim.activity_close);
+
                 }
                 break;
         }

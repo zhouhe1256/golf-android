@@ -2,9 +2,13 @@
 package com.bjcathay.qt.widget;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,12 +20,14 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.BaiduAddressActivity;
 import com.bjcathay.qt.activity.GolfCourseDetailActicity;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.fragment.DialogOrderInformationFragment;
 import com.bjcathay.qt.fragment.DialogSureOrderFragment;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
@@ -32,8 +38,10 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -47,15 +55,18 @@ import java.util.regex.Pattern;
 /**
  * Created by dengt on 15-5-31.
  */
-public class DSActivity extends FragmentActivity implements ICallback, View.OnClickListener {
-    WheelView mOption1 = null;
-    WheelView mOption2 = null;
-    WheelView mOption3 = null;
+public class DSActivity extends FragmentActivity implements ICallback,
+        View.OnClickListener, DeleteInfoDialog.DeleteInfoDialogResult {
+    private WheelView mOption1 = null;
+    private WheelView mOption2 = null;
+    private WheelView mOption3 = null;
+    private FragmentActivity context;
     private GApplication gApplication;
     private ImageView imageView;
     private TextView stadiumContents;
     private TextView stadiumAddress;
     private TextView stadiumPrice;
+    private TextView schBack;
     private RadioGroup radioGroup;
     private ProductModel stadiumModel;
     private Button okbtn;
@@ -70,21 +81,22 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private String beforSelect;// 0上午　１下午
     private String hourSelect = "07:00";
     private int attendNumber = 1;
-    private int selectDay = 0;
-    // 状态标识
 
     private TextView tuanCount;
     private TextView temaiCount;
     private TextView soldOut;
-    List<PriceModel> priceModels;
+    private List<PriceModel> priceModels;
     private int currentPrice;
     private ShareModel shareModel;
+    private List<String> hoursAMnow = new ArrayList<String>();
+    private List<String> hoursPMnow = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coursedetail);
         gApplication = GApplication.getInstance();
+        context = this;
         initView();
         initData();
         initEvent();
@@ -97,6 +109,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         stadiumAddress = ViewUtil.findViewById(this, R.id.sch_address);
         stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
         stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
+        schBack = ViewUtil.findViewById(this, R.id.sch_back);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
         // 根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
@@ -104,7 +117,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         tuanCount = ViewUtil.findViewById(this, R.id.tuan_short);
         temaiCount = ViewUtil.findViewById(this, R.id.temai_short);
         soldOut = ViewUtil.findViewById(this, R.id.seld_out_short);
-
+        payType = ViewUtil.findViewById(this, R.id.pay_type);
         mOption1 = (WheelView) findViewById(R.id.wheel_date);
         mOption2 = (WheelView) findViewById(R.id.wheel_month);
         mOption3 = (WheelView) findViewById(R.id.wheel_year);
@@ -124,41 +137,29 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     }
 
     private void initEvent() {
-        okbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gApplication.isLogin() == true) {
-                    showDialog();
-                } else {
-                    Intent intent = new Intent(DSActivity.this, LoginActivity.class);
-                    ViewUtil.startActivity(DSActivity.this, intent);
-                    // DSActivity.this.overridePendingTransition(R.anim.activity_open,
-                    // R.anim.activity_close);
-                }
-            }
-        });
+        okbtn.setOnClickListener(this);
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DSActivity.this, GolfCourseDetailActicity.class);
+                Intent intent = new Intent(context, GolfCourseDetailActicity.class);
                 intent.putExtra("id", stadiumModel.getGolfCourseId());
-                ViewUtil.startActivity(DSActivity.this, intent);
+                ViewUtil.startActivity(context, intent);
             }
         });
         stadiumAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (stadiumModel != null) {
-                    Intent intent = new Intent(DSActivity.this, BaiduAddressActivity.class);
+                    Intent intent = new Intent(context, BaiduAddressActivity.class);
                     intent.putExtra("url", getString(R.string.course_address));
                     intent.putExtra("location", stadiumModel.getLat() + "," + stadiumModel.getLon());
                     intent.putExtra("lat", stadiumModel.getLat());
                     intent.putExtra("lon", stadiumModel.getLon());
                     intent.putExtra("title", stadiumModel.getName());
                     intent.putExtra("content", stadiumModel.getAddress());
-                    // intent.putExtra("address",stationAddress.getText().toString().trim());
                     intent.putExtra("src", "A|GOLF");
-                    ViewUtil.startActivity(DSActivity.this, intent);
+                    ViewUtil.startActivity(context, intent);
                 }
             }
         });
@@ -184,8 +185,6 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         attendNumber = 4;
                         break;
                     case R.id.btn_4:
-                        // 转人工
-                        // showSureDialog();
                         attendNumber = 0;
                         break;
                 }
@@ -195,13 +194,22 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         });
     }
 
-    DialogSureOrderFragment dialogSureOrderFragment;
+    DialogOrderInformationFragment dialogSureOrderFragment;
 
     private void showDialog() {
         if (stadiumModel != null) {
-            dialogSureOrderFragment = new DialogSureOrderFragment(this, stadiumModel, currentPrice,
-                    getDate(), attendNumber);
-            dialogSureOrderFragment.show(getSupportFragmentManager(), "sure");
+            String orderDate = getDate();
+            if (DateUtil.CompareNowTime(orderDate)) {
+                dialogSureOrderFragment = new DialogOrderInformationFragment(this, stadiumModel,
+                        finalPrice, orderDate, attendNumber, hourSelect);
+
+                dialogSureOrderFragment.showAtLocation(this.findViewById(R.id.ok), Gravity.BOTTOM
+                        | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                // dialogSureOrderFragment.show(getSupportFragmentManager(),
+                // "sure");
+            } else {
+                DialogUtil.showMessage("您选的时间已过呦～");
+            }
         }
     }
 
@@ -212,7 +220,7 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
             if (days != null && !days.isEmpty()) {
                 if (v == mOption1) {
                     String info = days.get(pos);
-                    setDate(info);
+                    setDate(info, pos);
                 } else if (v == mOption2) {
                     String info = minits.get(pos);
                     setMinit(info);
@@ -226,7 +234,6 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         setHour(info);
                     }
                 }
-                // 算天数据 mSelDateTxt.setText(formatDate());
                 if (stadiumModel != null) {
                     getDate();
                     if ("LIMIT".equals(stadiumModel.getType())
@@ -239,10 +246,64 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         }
     };
 
-    private void setDate(String date) {
+    private void setDate(String date, int pos) {
         if (!date.equals(daySelect)) {
             daySelect = date;
+            // todo 设置小时数据
+            // todo 1
+            if (ProductType.prdtType.TIME.equals(stadiumModel.getType())) {
+                // if (hoursAMnow.isEmpty())
+                hoursAMnow = DateUtil.getAM("00:00");
+                // if (hoursPMnow.isEmpty())
+                hoursPMnow = DateUtil.getPMShort("23:30");
+                // todo 2
+                for (int i = hoursAMnow.size() - 1; i >= 0; i--) {
+                    if (!priceModels.get(pos).getAMTime(ProductType.prdtType.TIME,
+                            hoursAMnow.get(i))) {
+                        hoursAMnow.remove(i);
+                    } else {
 
+                    }
+                    if (!priceModels.get(pos).getAMTime(ProductType.prdtType.TIME,
+                            hoursPMnow.get(i))) {
+                        hoursPMnow.remove(i);
+                    } else {
+
+                    }
+                }
+                hoursAM = hoursAMnow;
+                hoursPM = hoursPMnow;
+                minits.clear();
+                if (!hoursAM.isEmpty()) {
+                    minits.add("上午");
+                }
+                if (!hoursPM.isEmpty()) {
+                    minits.add("下午");
+                }
+
+                ((WheelTextAdapter) mOption2.getAdapter()).setData(minits);
+                if (minits.size() == 1) {
+                    if ("上午".equals(minits.get(0))) {
+                        beforSelect = "上午";
+                        ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                    }
+                    else {
+                        beforSelect = "下午";
+                        ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+                    }
+                } else {
+                    beforSelect = "上午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                }
+
+                // if (priceModels != null && priceModels.size() == 1) {
+                // mOption1.setSelection(0);
+                // } else
+                // mOption1.setSelection(0);
+                mOption2.setSelection(0);
+                mOption3.setSelection(0);
+                getDayPrice(0);
+            }
         }
     }
 
@@ -270,8 +331,10 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         } else
             ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
 
-        // prepareDayData(year, month, day);
-        mOption1.setSelection(a);
+        if (priceModels != null && priceModels.size() == 1) {
+            mOption1.setSelection(0);
+        } else
+            mOption1.setSelection(a);
         mOption2.setSelection(0);
         mOption3.setSelection(0);
         getDayPrice(0);
@@ -296,8 +359,106 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
-        ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
-        ProductModel.product(id).done(this);
+        if (imaUrl != null)
+            ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
+        ProductModel.product(id).done(this).fail(new ICallback() {
+            @Override
+            public void call(Arguments arguments) {
+                DialogUtil.showMessage(getString(R.string.empty_net_text));
+            }
+        });
+    }
+
+    public void setTextDate() {
+        if (imaUrl == null)
+            ImageViewAdapter.adapt(imageView, stadiumModel.getImageUrl(),
+                    R.drawable.exchange_default);
+        topView.setTitleText(stadiumModel.getName());
+        priceModels = stadiumModel.getPrices();
+        days.clear();
+        if (ProductType.prdtType.TIME.equals(stadiumModel.getType())) {
+            // if (hoursAMnow.isEmpty())
+            days = DateUtil.getLimitDates(priceModels);
+            hoursAMnow = DateUtil.getAM("00:00");
+            // if (hoursPMnow.isEmpty())
+            hoursPMnow = DateUtil.getPMShort("23:30");
+            // todo 2
+            for (int i = hoursAMnow.size() - 1; i >= 0; i--) {
+                if (!priceModels.get(0).getAMTime(ProductType.prdtType.TIME,
+                        hoursAMnow.get(i))) {
+                    hoursAMnow.remove(i);
+                } else {
+
+                }
+                if (!priceModels.get(0).getAMTime(ProductType.prdtType.TIME,
+                        hoursPMnow.get(i))) {
+                    hoursPMnow.remove(i);
+                } else {
+
+                }
+            }
+            hoursAM = hoursAMnow;
+            hoursPM = hoursPMnow;
+            minits.clear();
+            if (!hoursAM.isEmpty()) {
+                minits.add("上午");
+            }
+            if (!hoursPM.isEmpty()) {
+                minits.add("下午");
+            }
+            ((WheelTextAdapter) mOption1.getAdapter()).setData(days);
+            ((WheelTextAdapter) mOption2.getAdapter()).setData(minits);
+            if (minits.size() == 1) {
+                if ("上午".equals(minits.get(0))) {
+                    beforSelect = "上午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                    hourSelect = hoursAM.get(0);
+                }
+                else {
+                    beforSelect = "下午";
+                    ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursPM);
+                    hourSelect = hoursPM.get(0);
+                }
+            } else {
+                beforSelect = "上午";
+                ((WheelTextAdapter) mOption3.getAdapter()).setData(hoursAM);
+                hourSelect = hoursAM.get(0);
+            }
+
+            if (priceModels != null && priceModels.size() == 1) {
+                mOption1.setSelection(0);
+            } else {
+                mOption1.setSelection(1);
+            }
+            mOption2.setSelection(0);
+            mOption3.setSelection(0);
+            getDayPrice(0);
+        } else {
+            hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 5));
+            hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 5));
+            // todo
+            hourSelect = hoursAM.get(0);
+            beforSelect = "上午";
+            days = DateUtil.getLimitDates(priceModels);
+            prepareData(1);
+        }
+        if ("LIMIT".equals(stadiumModel.getType())) {
+            int num = stadiumModel.getAmount();
+            attendNumber = num;
+            for (int i = 0; i < num - 1; i++)
+                radioGroup.getChildAt(i).setVisibility(View.GONE);
+            radioGroup.check(radioGroup.getChildAt(num - 1).getId());
+        } else
+            getDayPrice(stadiumModel.getPrice());
+        stadiumContents.setText(stadiumModel.getPriceInclude());
+        stadiumAddress.setText(stadiumModel.getAddress());
+        if (ProductType.payType.PREPAY.equals(stadiumModel.getPayType())) {
+            payType.setText("(全额预付)");
+        } else if (ProductType.payType.BLENDPAY.equals(stadiumModel.getPayType())) {
+            payType.setText("(部分预付)");
+        } else if (ProductType.payType.SPOTPAY.equals(stadiumModel.getPayType())) {
+            payType.setText("(全额现付)");
+        }
     }
 
     @Override
@@ -306,94 +467,11 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
         if (jsonObject.optBoolean("success")) {
             stadiumModel = JSONUtil.load(ProductModel.class, jsonObject.optJSONObject("product"));
             // stadiumModel = arguments.get(0);
+            if (imaUrl == null)
+                ImageViewAdapter.adapt(imageView, stadiumModel.getImageUrl(),
+                        R.drawable.exchange_default);
             topView.setTitleText(stadiumModel.getName());
-            // 控制LIMIT最低人数
-            if ("LIMIT".equals(stadiumModel.getType())) {
-                topView.setShareVisiable();
-                int num = stadiumModel.getAmount();
-                attendNumber = num;
-                for (int i = 0; i < num - 1; i++)
-                    radioGroup.getChildAt(i).setVisibility(View.GONE);
-                radioGroup.getChildAt(num - 1).isSelected();
-            }
-            if ("GROUP".equals(stadiumModel.getType())) {
-                topView.setShareVisiable();
-                days.clear();
-                select = stadiumModel.getDate();
-                String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
-                days.add(tuan_day);
-                // dayView.setData(days);
-                String tuan_am_pm = DateUtil.getTuanFinalAMoPM(stadiumModel.getDate());
-                minits.clear();
-                minits.add(tuan_am_pm);
-
-                // wheelView1.setData(minits);
-                if ("下午".equals(tuan_am_pm))
-                    hoursPM = DateUtil.getPM(stadiumModel.getDate());
-                else
-                    hoursAM = DateUtil.getAM(stadiumModel.getDate());
-                // hourView.setData(hours);
-                getDayPrice(stadiumModel.getPrice());
-                // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
-                prepareData(0);
-                // tuanImg.setVisibility(View.VISIBLE);
-                tuanCount.setVisibility(View.VISIBLE);
-                Date start = DateUtil.stringToDate(stadiumModel.getNow());
-                Date end = DateUtil.stringToDate(stadiumModel.getEnd());
-                long diff = end.getTime() - start.getTime();
-                TimeView timeView = new TimeView(diff, 1000, tuanCount, okbtn);
-                timeView.start();
-                // tuanCount.setText(stadiumModel.getAmount());
-            } else if ("SPECIAL".equals(stadiumModel.getType())) {
-                topView.setShareVisiable();
-                days.clear();
-                select = stadiumModel.getDate();
-                String tuan_day = DateUtil.getTuanFinalDays(stadiumModel.getDate());
-                days.add(tuan_day);
-
-                // todo 目前写死
-                // hours = DateUtil.getAM(stadiumModel.getDate());
-                hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
-                hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
-                // wheelDateOption.setPicker(days,minits,hoursAM,hoursPM,true);
-                prepareData(0);
-                getDayPrice(stadiumModel.getPrice());
-                // temaiImg.setVisibility(View.VISIBLE);
-                temaiCount.setVisibility(View.VISIBLE);
-                if (stadiumModel.getAmount() > 0) {
-                    temaiCount.setText("仅剩" + stadiumModel.getAmount() + "个名额");
-                } else {
-                    temaiCount.setBackgroundResource(R.drawable.solid_bg);
-                    okbtn.setBackgroundResource(R.drawable.bg_sold_out);
-                    okbtn.setOnClickListener(null);
-                    temaiCount.setText("已售罄");
-                }
-                // NONE
-            } else if ("LIMIT".equals(stadiumModel.getType())
-                    || "NONE".equals(stadiumModel.getType())) {
-                priceModels = DateUtil.getCollectionsDate(stadiumModel.getPrices());
-                days.clear();
-                hoursAM = DateUtil.getAM(stadiumModel.getBhStartAt().substring(0, 4));
-                hoursPM = DateUtil.getPMShort(stadiumModel.getBhEndAt().substring(0, 4));
-                // todo
-                hourSelect = hoursAM.get(0);
-                beforSelect = "上午";
-                days = DateUtil.getLimitDate(priceModels);
-                prepareData(1);
-                if ("LIMIT".equals(stadiumModel.getType())) {
-                    int num = stadiumModel.getAmount();
-                    attendNumber = num;
-                    for (int i = 0; i < num - 1; i++)
-                        radioGroup.getChildAt(i).setVisibility(View.GONE);
-                    radioGroup.check(radioGroup.getChildAt(num - 1).getId());
-                } else
-                    getDayPrice(stadiumModel.getPrice());
-            } else {
-                String endAt = stadiumModel.getPrices().get(0).getEndAt();
-
-            }
-            stadiumContents.setText(stadiumModel.getPriceInclude());
-            stadiumAddress.setText(stadiumModel.getAddress());
+            setTextDate();
         } else {
             String errorMessage = jsonObject.optString("message");
             if (!StringUtils.isEmpty(errorMessage))
@@ -408,17 +486,23 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
     private String select;
 
     private String getDate() {
-        if ("GROUP".equals(stadiumModel.getType()))
-            return stadiumModel.getDate();
-        else if ("下午".equals(beforSelect)) {
-            hourSelect = DateUtil.To24(hourSelect);
+        if ("下午".equals(beforSelect)) {
+            // todo 24
+            // hourSelect = DateUtil.To24(hourSelect);
         }
         Calendar c = Calendar.getInstance();
         Date d = null;
-        if ("SPECIAL".equals(stadiumModel.getType())) {
-            d = DateUtil.stringToDate(stadiumModel.getDate());
+        if (priceModels != null && priceModels.size() == 1) {
+            d = DateUtil.stringToDate(priceModels.get(0).getStartAt());
         } else {
-            d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
+            if ("SPECIAL".equals(stadiumModel.getType())) {
+                d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
+            } else if ("GROUP".equals(stadiumModel.getType())) {
+                d = DateUtil.stringToDate(priceModels.get(0).getStartAt());
+            } else {
+
+                d = DateUtil.stringToDate(priceModels.get(1).getStartAt());
+            }
         }
         c.setTime(d);
         // 取得系统日期:
@@ -438,40 +522,107 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                 + (daysub.length() == 1 ? "0" + daysub : daysub)
                 + " " + (hourSelect.length() == 1 ? "0" + hourSelect : hourSelect) + ":00";
         LogUtil.e("选择的日期是", select);
-        // getDayPrice(stadiumModel.getPrices());
         return select;
     }
 
+    ColorStateList csl;
+    boolean noPrice;
+    private PriceModel finalPrice;
+    private TextView payType;
+
     private void getDayPrice(double price) {
-        if ("LIMIT".equals(stadiumModel.getType()) || "NONE".equals(stadiumModel.getType())) {
-            if (select == null)
-                getDate();
-            if (priceModels != null && priceModels.size() > 0)
-                for (PriceModel priceModel : priceModels) {
-                    if (DateUtil
-                            .CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+        if (ProductType.prdtType.REAL_TIME.equals(stadiumModel.getType())) {
+            // okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+            okbtn.setBackgroundResource(R.color.yellow_bg_color);
+            okbtn.setText("联系客服");
+            stadiumPrice.setText("实时计价");
+            noPrice = true;
+            schBack.setVisibility(View.GONE);
+            payType.setVisibility(View.GONE);
+            okbtn.setOnClickListener(this);
+            return;
+        }
+        if (select == null)
+            getDate();
+        if (priceModels != null && priceModels.size() > 0)
+            for (PriceModel priceModel : priceModels) {
+                if (DateUtil.CompareTime(select, priceModel.getStartAt(), priceModel.getEndAt()) == true) {
+
+                    if (ProductType.priceType.INACTIVE.equals(priceModel.getStatus())) {
+                        // okbtn.setBackgroundResource(R.drawable.bg_sold_out);
+                        okbtn.setBackgroundResource(R.color.gray);
+                        okbtn.setOnClickListener(null);
+                        okbtn.setText("提交订单");
+                        stadiumPrice.setText("球场休息");
+                        schBack.setVisibility(View.GONE);
+                        payType.setVisibility(View.GONE);
+                        stadiumPrice.setTextColor(Color.GRAY);
+                    } else if (ProductType.priceType.REAL_TIME.equals(priceModel.getStatus())) {
+                        // okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                        okbtn.setBackgroundResource(R.color.yellow_bg_color);
+                        okbtn.setText("联系客服");
+                        stadiumPrice.setText("实时计价");
+                        schBack.setVisibility(View.GONE);
+                        payType.setVisibility(View.GONE);
+                        noPrice = true;
+                        okbtn.setOnClickListener(this);
+                        return;
+                    } else {
+
+                        noPrice = false;
+                        okbtn.setText("提交订单");
+                        stadiumContents.setText(priceModel.getPriceInclude());
+                        // okbtn.setBackgroundResource(R.drawable.yellow_big_selector);
+                        okbtn.setBackgroundResource(R.color.yellow_bg_color);
+                        okbtn.setOnClickListener(this);
+                        if (csl != null) {
+                            stadiumPrice.setTextColor(csl);
+                        } else {
+                            csl = getResources().getColorStateList(R.color.order_price_color);
+                            stadiumPrice.setTextColor(csl);
+                        }
                         if (attendNumber == 0) {
-                            stadiumPrice.setText("￥" + (int) Math.floor(priceModel.getPrice()) * 4
+                            int[] priceStr = priceModel.getFianlPrice(stadiumModel.getType(),
+                                    4, hourSelect);
+                            stadiumPrice.setText("￥" + (int) Math.floor(priceStr[0]) * 4
                                     + "+");
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         } else {
-                            stadiumPrice.setText("￥"
-                                    + (int) Math.floor(priceModel.getPrice() * attendNumber));
+                            priceModel.getPersonsDuring(stadiumModel.getType());
+                            int min = priceModel.getMinPerson();
+                            if (attendNumber < min) {
+                                attendNumber = min;
+                                for (int i = 0; i < min - 1; i++) {
+                                    radioGroup.getChildAt(i).setVisibility(View.GONE);
+                                    break;
+                                }
+                                radioGroup.getChildAt(attendNumber - 1).isSelected();
+                            }
+
+                            int[] priceStr = priceModel.getFianlPrice(stadiumModel.getType(),
+                                    attendNumber, hourSelect);
+                            stadiumPrice
+                                    .setText("￥"
+                                            + (int) Math
+                                                    .floor((priceStr[0] * attendNumber == 0 ? priceModel
+                                                            .getPrice()
+                                                            : priceStr[0]
+                                                                    * attendNumber)) + "");
+                            if (priceStr[1] != 0) {
+                                schBack.setText("返" + priceStr[1] * attendNumber);
+                                schBack.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                schBack.setVisibility(View.GONE);
+                            payType.setVisibility(View.VISIBLE);
+                            finalPrice = priceModel;
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         }
-                        return;
                     }
+                    return;
                 }
-            return;
-        }
-        if (attendNumber == 0) {
-            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * 4) + "+");
-            currentPrice = (int) Math.floor(stadiumModel.getPrice());
-        } else {
-            stadiumPrice.setText("￥" + (int) Math.floor(stadiumModel.getPrice() * attendNumber));
-            currentPrice = (int) Math.floor(stadiumModel.getPrice());
-        }
-
+            }
+        return;
     }
 
     @Override
@@ -489,16 +640,51 @@ public class DSActivity extends FragmentActivity implements ICallback, View.OnCl
                         @Override
                         public void call(Arguments arguments) {
                             shareModel = arguments.get(0);
-                            ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
+                            ShareUtil.getInstance().shareDemo(context, shareModel);
                         }
                     });
                 else
-                    ShareUtil.getInstance().shareDemo(DSActivity.this, shareModel);
+                    ShareUtil.getInstance().shareDemo(context, shareModel);
                 break;
-            case R.id.title_delete_img:
-                if (dialogSureOrderFragment != null)
-                    dialogSureOrderFragment.dismiss();
+            case R.id.ok:
+                if (gApplication.isLogin() == true) {
+                    if (noPrice) {
+                        DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
+                                R.style.InfoDialog, getResources()
+                                        .getString(R.string.service_tel_format)
+                                        .toString().trim(), "呼叫", 0l, this);
+                        infoDialog.show();
+                    } else
+                        showDialog();
+                } else {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    ViewUtil.startActivity(context, intent);
+
+                }
                 break;
         }
+    }
+
+    @Override
+    public void deleteResult(Long targetId, boolean isDelete) {
+        if (isDelete) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                    + getResources().getString(R.string.service_tel).toString().trim()));
+            this.startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("产品详情页面");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("产品详情页面");
+        MobclickAgent.onPause(this);
     }
 }

@@ -169,6 +169,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                     showSelect.setVisibility(View.GONE);
                     isUseBalance = false;
                     payThree.setVisibility(View.VISIBLE);
+                    sysPay.setVisibility(View.GONE);
                     shouldPay.setText((int) Math.floor(orderModel.getTotalPrice())
                             + "");
                 } else {

@@ -257,7 +257,68 @@ public class DateUtil {
         }
         return null;
     }
+    public static List<String> getAM(String am,String end) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dff = new SimpleDateFormat("HH:mm");
+        try {
+            Date dt = dff.parse(am);
+            List<String> ams = new ArrayList<String>();
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(dt);
+            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+            while (hour < 12) {
+                Date a = rightNow.getTime();
+                ams.add(dff.format(a));
+                rightNow.add(Calendar.MINUTE, 30);
+                hour = rightNow.get(Calendar.HOUR_OF_DAY);
+            }
+            // ams.remove(ams.size() - 1);
+            return ams;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static List<String> getPMShort(String pm,String ends) {
 
+        try {
+            String pmStart = "12:00";
+            // DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat dff = new SimpleDateFormat("HH:mm");
+            Date dt = dff.parse(pm);
+            Date pmDate = dff.parse(pmStart);
+            List<String> ams = new ArrayList<String>();
+            Calendar end = Calendar.getInstance();
+            end.setTime(dt);
+            Calendar start = Calendar.getInstance();
+            start.setTime(pmDate);
+            int endHour = end.get(Calendar.HOUR);
+            // endHour = endHour - 12;
+            int endmin = end.get(Calendar.MINUTE);
+            int startHour = start.get(Calendar.HOUR);
+            int startmin = start.get(Calendar.MINUTE);
+            while (startHour < endHour) {
+
+                if (startHour < endHour) {
+                    Date a = start.getTime();
+                    ams.add(dff.format(a));
+                    start.add(Calendar.MINUTE, 30);
+                    startHour = start.get(Calendar.HOUR);
+                }
+            }
+            if (startHour == endHour && startmin < endmin == true) {
+                start.add(Calendar.MINUTE, 30);
+                Date a = start.getTime();
+                ams.add(dff.format(a));
+                // startHour = start.get(Calendar.HOUR_OF_DAY);
+            }
+            ams.add(dff.format(dt));
+            return ams;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static List<String> getPM(String pm) {
 
         try {

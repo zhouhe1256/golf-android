@@ -64,6 +64,19 @@ public class PriceModel implements Serializable {
         }
     }
 
+    public boolean getAMTime(ProductType.prdtType prdtType, String hour) {
+        switch (prdtType) {
+            case TIME:
+                for (PriceJsonModel json : priceJson) {
+                    if (json.getTimeTrue(hour)) {
+                        return true;
+                    }
+                }
+                return false;
+        }
+        return false;
+    }
+
     public int getMinPerson() {
         return minPerson;
     }

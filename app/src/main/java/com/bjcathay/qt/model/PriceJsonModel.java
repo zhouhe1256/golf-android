@@ -42,7 +42,12 @@ public class PriceJsonModel implements Serializable {
         }
         return priceStr;
     }
-
+public boolean getTimeTrue(String hour){
+    if(DateUtil.CompareShortTime(hour,start,end)){
+        return  true;
+    }
+    return false;
+}
     public String getStart() {
         return start;
     }
