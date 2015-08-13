@@ -81,7 +81,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         orderConNum.setText("" + Integer.toString(orderModel.getPeopleNumber()) + "人");
         orderPay.setText("" + (int) Math.floor(orderModel.getTotalPrice()));
         orderPhone.setText("" + PreferencesUtils.getString(this, PreferencesConstant.USER_PHONE));
-        shouldPay.setText((int) Math.floor(orderModel.getTotalPrice()) + "");
+        shouldPay.setText((int) Math.floor(orderModel.getPrepayMoney()) + "");
         userModel = GApplication.getInstance().getUser();
         myWallet.setText((int) Math.floor(userModel.getBalance()) + "");
 
@@ -170,19 +170,19 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                     isUseBalance = false;
                     payThree.setVisibility(View.VISIBLE);
                     sysPay.setVisibility(View.GONE);
-                    shouldPay.setText((int) Math.floor(orderModel.getTotalPrice())
+                    shouldPay.setText((int) Math.floor(orderModel.getPrepayMoney())
                             + "");
                 } else {
                     showSelect.setVisibility(View.VISIBLE);
                     isUseBalance = true;
 
-                    if (orderModel.getTotalPrice() <= userModel.getBalance()) {
+                    if (orderModel.getPrepayMoney() <= userModel.getBalance()) {
                         sysPay.setVisibility(View.VISIBLE);
                         payThree.setVisibility(View.GONE);
                     } else {
                         sysPay.setVisibility(View.GONE);
                         payThree.setVisibility(View.VISIBLE);
-                        shouldPay.setText((int) Math.floor(orderModel.getTotalPrice()
+                        shouldPay.setText((int) Math.floor(orderModel.getPrepayMoney()
                                 - userModel.getBalance())
                                 + "");
                     }
@@ -289,6 +289,8 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            activity.findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
+
             if ("WXPAY".equals(action)) {
                 activity.findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
                 /*
@@ -338,6 +340,8 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         super.onResume();
         MobclickAgent.onPageStart("支付页面");
         MobclickAgent.onResume(this);
+        activity.findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);
+
     }
 
     @Override
