@@ -92,7 +92,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         Http.instance().option(HttpOption.BASE_URL, ApiUrl.HOST_URL).
                 option(HttpOption.MIME, "application/json").
                 param("t", token).param("v", ApiUrl.VERSION).
-                param("o", ApiUrl.OS).
+                param("os", ApiUrl.OS).
                 option(HttpOption.CONNECT_TIMEOUT, 10000).
                 option(HttpOption.READ_TIMEOUT, 10000).
                 option(HttpOption.X_Token,token).

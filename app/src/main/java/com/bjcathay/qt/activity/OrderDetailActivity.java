@@ -207,6 +207,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     peopleNote.setText("同行人信息");
                     schNotice.setVisibility(View.VISIBLE);
                     notice_linear.setVisibility(View.GONE);
+                    orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
                     break;
                 default:
                     schNotice.setVisibility(View.GONE);
