@@ -13,7 +13,6 @@ import android.os.Bundle;
 
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.util.LogUtil;
-import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.MainActivity;
@@ -22,9 +21,10 @@ import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.activity.WelcomeActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.PushModel;
-import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
+import com.bjcathay.qt.util.ViewUtil;
+import com.bjcathay.qt.view.PushInfoDialog;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Created by dengt on 15-5-22.
  */
-public class MessageReceiver extends BroadcastReceiver {
+public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog.PushResult {
 
     private static int ids = 0;
 
@@ -69,52 +69,55 @@ public class MessageReceiver extends BroadcastReceiver {
     }
 
     private void handlePush(Context context, PushModel pushModel) {
-        PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
-        NotificationManager mNotificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification.Builder builder = new Notification.Builder(context);
+
         Intent intent;
         if (isRunning(context)) {
-            switch (pushModel.getT()) {
-                case ORDER:
-                    intent = new Intent(context, OrderDetailActivity.class);
-                    intent.putExtra("id", Long.parseLong(pushModel.getG()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    break;
-                case COMPETITION:
-                    intent = new Intent(context, CompetitionDetailActivity.class);
-                    intent.putExtra("id", Long.parseLong(pushModel.getG()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    break;
-                case PROPERTY:
-                    intent = new Intent(context, MyWalletActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    break;
-                default:
-                    intent = new Intent(context, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    break;
-
-            }
+            PushInfoDialog.getInstance(context,
+                    R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
+            // switch (pushModel.getT()) {
+            // case ORDER:
+            // intent = new Intent(context, OrderDetailActivity.class);
+            // intent.putExtra("id", Long.parseLong(pushModel.getG()));
+            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            // break;
+            // case COMPETITION:
+            // intent = new Intent(context, CompetitionDetailActivity.class);
+            // intent.putExtra("id", Long.parseLong(pushModel.getG()));
+            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // break;
+            // case BALANCE:
+            // intent = new Intent(context, MyWalletActivity.class);
+            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // break;
+            // default:
+            // intent = new Intent(context, MainActivity.class);
+            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            // break;
+            //
+            // }
         } else {
+            PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
+            NotificationManager mNotificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification.Builder builder = new Notification.Builder(context);
             intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.setClass(context, WelcomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
+                    setContentTitle("7铁高尔夫").
+                    setContentText(pushModel.getM()).
+                    setSmallIcon(R.drawable.ic_launcher).
+                    setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_SOUND);
+            Notification notification = builder.
+                    build();
+            mNotificationManager.notify(ids++, notification);
         }
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
-                setContentTitle("7铁高尔夫").
-                setContentText(pushModel.getM()).
-                setSmallIcon(R.drawable.ic_launcher).
-                setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_SOUND);
-        Notification notification = builder.
-                build();
-        mNotificationManager.notify(ids++, notification);
     }
 
     public boolean isRunningForeground(Context context) {
@@ -170,4 +173,32 @@ public class MessageReceiver extends BroadcastReceiver {
         return packageName;
     }
 
+    @Override
+    public void pushResult(PushModel pushModel, boolean isDelete, Context context) {
+        if (isDelete) {
+            Intent intent;
+            switch (pushModel.getT()) {
+                case ORDER:
+                    intent = new Intent(context, OrderDetailActivity.class);
+                    intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    break;
+                case COMPETITION:
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                    intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    break;
+                case BALANCE:
+                    intent = new Intent(context, MyWalletActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    break;
+                default:
+                    intent = new Intent(context, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    break;
+
+            }
+            ViewUtil.startActivity(context, intent);
+        }
+    }
 }

@@ -1,3 +1,4 @@
+
 package com.bjcathay.qt.adapter;
 
 import android.app.Activity;
@@ -12,12 +13,23 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.MyCompetitionActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
+import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
+import com.bjcathay.qt.activity.PackageDetailActivity;
+import com.bjcathay.qt.activity.RealTOrderActivity;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
+import com.ta.utdid2.android.utils.StringUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +88,87 @@ public class MyNtfMessageAdapter extends BaseAdapter {
         }
         final MessageModel messageModel = items.get(position);
         holder.name.setText(messageModel.getName());
-        holder.day.setText(messageModel.getCreated().substring(5,16));
+        holder.day.setText(messageModel.getCreated().substring(5, 16));
         holder.content.setText(messageModel.getContent());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent;
+                // 产品
+                if ("a".equals("a")) {
+                    // 跳转产品详情页
+                    ProductModel.product(1)
+                            .done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    JSONObject jsonObject = arguments.get(0);
+                                    if (jsonObject.optBoolean("success")) {
+                                        ProductModel productModel = JSONUtil.load(
+                                                ProductModel.class,
+                                                jsonObject.optJSONObject("product"));
+                                        Intent intent = null;
+                                        switch (productModel.getType()) {
+                                            case COMBO:
+                                                intent = new Intent(context,
+                                                        PackageDetailActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("name", productModel.getName());
+                                                intent.putExtra("product", productModel);
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                            case REAL_TIME:
+                                                intent = new Intent(context,
+                                                        RealTOrderActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("imageurl",
+                                                        productModel.getImageUrl());
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                            default:
+                                                intent = new Intent(context,
+                                                        OrderStadiumDetailActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("imageurl",
+                                                        productModel.getImageUrl());
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                        }
+                                    } else {
+                                        String errorMessage = jsonObject.optString("message");
+                                        if (!StringUtils.isEmpty(errorMessage))
+                                            DialogUtil.showMessage(errorMessage);
+                                        else {
+                                            int code = jsonObject.optInt("code");
+                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        }
+                                    }
+                                }
+                            }
+
+                            ).
+
+                            fail(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    DialogUtil.showMessage(context
+                                            .getString(R.string.empty_net_text));
+                                }
+                            }
+
+                            );
+
+                }
+                // web
+                if ("a".equals("a")) {
+                    // 跳转web页
+                    intent = new Intent(context, ExerciseActivity.class);
+                    intent.putExtra("url", "www.baidu.com");
+                    ViewUtil.startActivity(context, intent);
+                }
+                // 纯消息
+                if ("a".equals("a")) {
+                    // 无操作
+                }
 
             }
         });
@@ -103,4 +191,3 @@ public class MyNtfMessageAdapter extends BaseAdapter {
         }
     }
 }
-

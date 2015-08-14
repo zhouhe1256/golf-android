@@ -8,23 +8,27 @@ import com.bjcathay.qt.Enumeration.MessageType;
  */
 public class PushModel {
     private String t;
-    private String g;
+    private String id;
     private String m;
 
     public MessageType.pushMsgType getT() {
-        return MessageType.pushMsgType.valueOf(t);
+        try {
+            return MessageType.pushMsgType.valueOf(t);
+        } catch (IllegalArgumentException e) {
+            return MessageType.pushMsgType.OTHER;
+        }
     }
 
     public void setT(String t) {
         this.t = t;
     }
 
-    public String getG() {
-        return g;
+    public String getId() {
+        return id;
     }
 
-    public void setG(String g) {
-        this.g = g;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getM() {
