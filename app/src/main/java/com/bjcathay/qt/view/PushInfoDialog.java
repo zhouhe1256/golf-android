@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -84,11 +85,12 @@ public class PushInfoDialog extends Dialog {
         dialogCancel = (TextView) findViewById(R.id.dialog_cancel);
         dialogConfirm = (TextView) findViewById(R.id.dialog_confirm);
         dialogTitle = (TextView) findViewById(R.id.dialog_content);
+        dialogTitle.setMovementMethod(ScrollingMovementMethod.getInstance());
         dialogTitle.setText(text);
         if (!StringUtils.isEmpty(comfire)) {
             dialogCancel.setText(comfire);
-            dialogCancel.setTextColor(Color.BLUE);
-            dialogCancel.setTextColor(Color.BLUE);
+          //  dialogCancel.setTextColor(Color.BLUE);
+         //   dialogCancel.setTextColor(Color.BLUE);
         }
         dialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override

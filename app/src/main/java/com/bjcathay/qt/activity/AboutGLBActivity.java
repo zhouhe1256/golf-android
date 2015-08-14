@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
@@ -37,6 +38,7 @@ public class AboutGLBActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("关于果岭币");
         MobclickAgent.onResume(this);
     }

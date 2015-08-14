@@ -12,6 +12,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -128,6 +129,7 @@ public class SendExchangeSucActivity extends Activity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("兑换赠送成功页面");
         MobclickAgent.onResume(this);
     }

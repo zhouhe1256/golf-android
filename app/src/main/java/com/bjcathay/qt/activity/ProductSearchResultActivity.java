@@ -16,6 +16,7 @@ import com.bjcathay.qt.adapter.PlaceSearchListAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -223,6 +224,7 @@ public class ProductSearchResultActivity extends Activity implements
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("相关球场页面");
         MobclickAgent.onResume(this);
     }

@@ -41,9 +41,18 @@ public class OrderModel implements Serializable {
     private double balancePayMoney;
     private double prepayMoney;
     private Long productId;
+    private String scheduling;
 
     private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(
             OrderModel.class, "order");
+
+    public String getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(String scheduling) {
+        this.scheduling = scheduling;
+    }
 
     public Long getProductId() {
         return productId;

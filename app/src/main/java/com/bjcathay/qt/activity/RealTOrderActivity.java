@@ -20,6 +20,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -175,6 +176,7 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("实时计价产品详情页面");
         MobclickAgent.onResume(this);
     }

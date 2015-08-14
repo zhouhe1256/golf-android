@@ -8,12 +8,12 @@ import java.io.Serializable;
  */
 public class MessageType implements Serializable {
     public enum msgType {
-        NOTIFY, ORDER, SYSTEM, PROPERTY, COMPETITION;
+        NOTIFY, ORDER, SYSTEM, PROPERTY, COMPETITION,OTHER;
     }
     public enum msgReadType{
         UNREAD,READ;
     }
     public enum pushMsgType{
-        ORDER,SYSTEM,BALANCE,PRODUCT,AD,COMPETITION,OTHER;
+        ORDER,MESSAGE,BALANCE,PRODUCT,AD,COMPETITION,OTHER;
     }
 }

@@ -78,7 +78,7 @@ public class MyWalletMessageAdapter extends BaseAdapter {
         }
         final MessageModel messageModel = items.get(position);
         holder.name.setText(messageModel.getName());
-        holder.day.setText(messageModel.getCreated().substring(5,16));
+        holder.day.setText(messageModel.getCreated().substring(2,16));
         holder.content.setText(messageModel.getContent());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,10 +16,12 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.MyCompetitionActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ViewUtil;
 
 import java.util.ArrayList;
@@ -82,12 +84,15 @@ public class MyEventMessageAdapter extends BaseAdapter {
         ImageViewAdapter
                 .adapt(holder.name, messageModel.getImageUrl(), R.drawable.exchange_default);
 
-        holder.day.setText(messageModel.getCreated().substring(5,16));
+        holder.day.setText(messageModel.getCreated().substring(2, 16));
         holder.content.setText(messageModel.getName());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ClickUtil.isFastClick();
+                Intent intent = new Intent(context, CompetitionDetailActivity.class);
+                intent.putExtra("id", Long.valueOf(messageModel.getTarget()));
+                ViewUtil.startActivity(context, intent);
             }
         });
         return convertView;
@@ -95,7 +100,7 @@ public class MyEventMessageAdapter extends BaseAdapter {
 
     class Holder {
         LinearLayout detail;
-        TextView toPay;
+        LinearLayout toPay;
         ImageView name;
         TextView content;
         TextView day;

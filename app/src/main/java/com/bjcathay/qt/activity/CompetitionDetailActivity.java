@@ -18,6 +18,7 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -227,6 +228,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
             }
             webview.loadUrl(url);
         }
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赛事详情页面");
         MobclickAgent.onResume(this);
     }

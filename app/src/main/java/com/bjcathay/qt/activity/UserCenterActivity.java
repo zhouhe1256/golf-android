@@ -15,6 +15,7 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -176,6 +177,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         initDate();
         MobclickAgent.onPageStart("个人中心页面");
         MobclickAgent.onResume(this);

@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="18洞果岭/僮/车/柜"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -164,7 +164,7 @@
                         android:ellipsize="end"
                         android:paddingRight="35dp"
                         android:singleLine="true"
-                        android:text="北京市海淀区清河湾"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 

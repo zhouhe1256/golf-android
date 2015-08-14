@@ -21,6 +21,7 @@ import com.bjcathay.qt.adapter.GolfCourseAdapter;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.GolfCourseListModel;
 import com.bjcathay.qt.model.GolfCourseModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -198,6 +199,7 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("关键字搜索页面");
         MobclickAgent.onResume(this);
     }

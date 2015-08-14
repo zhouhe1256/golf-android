@@ -19,6 +19,7 @@ import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
@@ -164,6 +165,7 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("选择打球人页面");
         MobclickAgent.onResume(this);
     }

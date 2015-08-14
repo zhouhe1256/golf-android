@@ -27,6 +27,7 @@ import com.bjcathay.qt.fragment.ArrayFragment;
 import com.bjcathay.qt.model.PackagePriceModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopScrollView;
@@ -288,6 +289,7 @@ public class PackageDetailActivity extends FragmentActivity implements
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("套餐详情页面");
         MobclickAgent.onResume(this);
     }

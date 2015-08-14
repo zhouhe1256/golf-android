@@ -16,6 +16,7 @@ import com.bjcathay.qt.adapter.MyOrderAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderListModel;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
@@ -216,6 +217,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         initData();
         MobclickAgent.onPageStart("我的订单页面");
         MobclickAgent.onResume(this);

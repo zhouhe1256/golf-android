@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.BookModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ValidformUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -91,6 +92,7 @@ public class EditPlayerActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("编辑打球人页面");
         MobclickAgent.onResume(this);
     }

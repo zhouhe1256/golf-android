@@ -62,7 +62,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:weightSum="5">
+                    android:weightSum="7">
 
                     <LinearLayout
                         android:id="@+id/compitetion_event"
@@ -74,7 +74,8 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/home_event_bg_selector"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="fill_parent"
@@ -82,7 +83,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:text="免费赛事"
+                            android:text="精彩赛事"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -98,21 +99,27 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="3"
                         android:background="@drawable/home_exchange_bg_selector"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
                             android:gravity="center"
-                            android:padding="10dp"
+
                             android:text="兑换商城"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="58dp"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:src="@drawable/home_con" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -124,7 +131,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:background="@drawable/home_order_bg_selector"
                         android:orientation="vertical"
                         android:clickable="true"

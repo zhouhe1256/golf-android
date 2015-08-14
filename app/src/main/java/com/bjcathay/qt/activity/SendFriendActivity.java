@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
 import com.umeng.analytics.MobclickAgent;
@@ -78,6 +79,7 @@ public class SendFriendActivity extends FragmentActivity implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赠送好友页面");
         MobclickAgent.onResume(this);
     }

@@ -19,13 +19,19 @@ import android.widget.Toast;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.BannerViewPagerAdapter;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
+import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.model.PushModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.uptutil.DownloadManager;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -35,7 +41,10 @@ import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.JazzyViewPager;
 import com.bjcathay.qt.view.TopView;
 import com.igexin.sdk.PushManager;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
 
     private int page = 1;
     private Runnable runnable;
+    private PushModel pushModel;
 
     private void setupBanner(final List<BannerModel> bannerModels) {
         bannerViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
@@ -163,6 +173,113 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
             intent.putExtra("id", webid);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ViewUtil.startActivity(context, intent);
+        }
+        pushModel = (PushModel) intent.getSerializableExtra("push");
+        if (pushModel != null) {
+            pushNoticeIntent(pushModel);
+        }
+    }
+
+    private void pushNoticeIntent(PushModel pushModel) {
+        Intent intent;
+        // ORDER,SYSTEM,BALANCE,PRODUCT,AD,COMPETITION,OTHER;
+        switch (pushModel.getT()) {
+            case ORDER:
+                intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ViewUtil.startActivity(context, intent);
+                break;
+            case MESSAGE:
+                break;
+            case BALANCE:
+                intent = new Intent(context, MyWalletActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ViewUtil.startActivity(context, intent);
+                break;
+            case COMPETITION:
+                intent = new Intent(context, CompetitionDetailActivity.class);
+                intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ViewUtil.startActivity(context, intent);
+                break;
+            case PRODUCT:
+                ProductModel.product(Long.parseLong(pushModel.getId()))
+                        .done(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                JSONObject jsonObject = arguments.get(0);
+                                if (jsonObject.optBoolean("success")) {
+                                    ProductModel productModel = JSONUtil.load(
+                                            ProductModel.class,
+                                            jsonObject.optJSONObject("product"));
+                                    Intent intent = null;
+                                    switch (productModel.getType()) {
+                                        case COMBO:
+                                            intent = new Intent(context,
+                                                    PackageDetailActivity.class);
+                                            intent.putExtra("id", productModel.getId());
+                                            intent.putExtra("name", productModel.getName());
+                                            intent.putExtra("product", productModel);
+                                            ViewUtil.startActivity(context, intent);
+                                            break;
+                                        case REAL_TIME:
+                                            intent = new Intent(context,
+                                                    RealTOrderActivity.class);
+                                            intent.putExtra("id", productModel.getId());
+                                            intent.putExtra("imageurl",
+                                                    productModel.getImageUrl());
+                                            ViewUtil.startActivity(context, intent);
+                                            break;
+                                        default:
+                                            intent = new Intent(context,
+                                                    OrderStadiumDetailActivity.class);
+                                            intent.putExtra("id", productModel.getId());
+                                            intent.putExtra("imageurl",
+                                                    productModel.getImageUrl());
+                                            ViewUtil.startActivity(context, intent);
+                                            break;
+                                    }
+                                } else {
+                                    String errorMessage = jsonObject.optString("message");
+                                    if (!StringUtils.isEmpty(errorMessage))
+                                        DialogUtil.showMessage(errorMessage);
+                                    else {
+                                        int code = jsonObject.optInt("code");
+                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    }
+                                }
+                            }
+                        }
+
+                        ).
+
+                        fail(new ICallback() {
+                            @Override
+                            public void call(Arguments arguments) {
+                                DialogUtil.showMessage(context
+                                        .getString(R.string.empty_net_text));
+                            }
+                        }
+
+                        );
+                break;
+            case AD:
+                intent = new Intent(context, ExerciseActivity.class);
+                intent.putExtra("url", pushModel.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ViewUtil.startActivity(context, intent);
+                break;
+            case OTHER:
+                // intent = new Intent(context, MainActivity.class);
+                // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                // ViewUtil.startActivity(context, intent);
+                break;
+            default:
+                // intent = new Intent(context, MainActivity.class);
+                // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                // ViewUtil.startActivity(context, intent);
+                break;
         }
     }
 
@@ -307,6 +424,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(this);
     }

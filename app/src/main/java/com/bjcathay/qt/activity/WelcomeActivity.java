@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.WelcomeViewPagerAdapter;
+import com.bjcathay.qt.model.PushModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.SizeUtil;
@@ -33,6 +35,7 @@ public class WelcomeActivity extends Activity {
     private ImageView imageView;
     private String action;
     private String competionId;
+    private PushModel pushModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class WelcomeActivity extends Activity {
     }
 
     private void startMainActivity() {
+        pushModel= (PushModel) getIntent().getSerializableExtra("push");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -89,6 +93,8 @@ public class WelcomeActivity extends Activity {
                     intent.setAction(action);
                     intent.putExtra("id", Long.valueOf(competionId));
                 }
+                if(pushModel!=null)
+                    intent.putExtra("push",pushModel);
                 ViewUtil.startActivity(WelcomeActivity.this, intent);
                 finish();
             }
@@ -160,6 +166,7 @@ public class WelcomeActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("闪屏页面");
         MobclickAgent.onResume(this);
     }

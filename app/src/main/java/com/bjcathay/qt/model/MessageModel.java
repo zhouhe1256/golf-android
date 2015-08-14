@@ -19,6 +19,7 @@ public class MessageModel implements Serializable {
     private String description;// "描述",
     private String relativeDate;
     private String created;
+    private String subType;
     // 待定
     private String imageUrl;// "/upload/image/xxx.png",
 
@@ -66,7 +67,23 @@ public class MessageModel implements Serializable {
     }
 
     public MessageType.msgType getType() {
-        return MessageType.msgType.valueOf(type);
+        try {
+            return MessageType.msgType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            return MessageType.msgType.OTHER;
+        }
+    }
+
+    public MessageType.pushMsgType getSubType() {
+        try {
+            return MessageType.pushMsgType.valueOf(subType);
+        } catch (IllegalArgumentException e) {
+            return MessageType.pushMsgType.OTHER;
+        }
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
 
     public void setType(String type) {

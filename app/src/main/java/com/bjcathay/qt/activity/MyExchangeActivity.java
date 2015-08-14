@@ -14,6 +14,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyPropAdapter;
 import com.bjcathay.qt.model.PropListModel;
 import com.bjcathay.qt.model.PropModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.TopView;
@@ -161,6 +162,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         initData();
         MobclickAgent.onPageStart("我的兑换页面");
         MobclickAgent.onResume(this);

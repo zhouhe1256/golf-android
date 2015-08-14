@@ -343,18 +343,36 @@
         getui.appKey=LxDDOH8ptR6R2Ze8P0KI98
         getui.appSecret=V1lYyfzCtxADYNGlUpaEX7-->
         <!--个推SDK配置开始-->
+
         <!--配置第三方应用参数属性-->
+        <!--运营-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPID"-->
+            <!--android:value="e8PImaZ1XD94yVLgV82ar1" />-->
+        <!--&lt;!&ndash;替换为第三方应用的APPID&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPKEY"-->
+            <!--android:value="LxDDOH8ptR6R2Ze8P0KI98" />-->
+        <!--&lt;!&ndash;替换为第三方应用的APPKEY&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPSECRET"-->
+            <!--android:value="V1lYyfzCtxADYNGlUpaEX7" />-->
+        <!--开发
+      AppID XWDQF8njL5AeBj8VH3Yto6
+AppKey qFvVrsP0cuA08PTfmdaGn2
+AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
+        <!--开发-->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="e8PImaZ1XD94yVLgV82ar1" />
+            android:value="XWDQF8njL5AeBj8VH3Yto6" />
         <!--替换为第三方应用的APPID-->
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="LxDDOH8ptR6R2Ze8P0KI98" />
+            android:value="qFvVrsP0cuA08PTfmdaGn2" />
         <!--替换为第三方应用的APPKEY-->
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="V1lYyfzCtxADYNGlUpaEX7" />
+            android:value="w3PqmtWy5V8FLtpdF2jvm3" />
         <!--替换为第三方应用的APPSECRET-->
         <meta-data
             android:name="PUSH_GROUPID"
@@ -407,7 +425,10 @@
                 <!--这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改-->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!--替换为android:name="com.igexin.sdk.action.第三方的appId"-->
-                <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
+                <!--运营-->
+                <!--<action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />-->
+                <!--开发-->
+                <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />
             </intent-filter>
         </receiver>
         <service
@@ -423,7 +444,10 @@
             android:exported="false">
             <intent-filter>
                 <!-- 替换为action android:name="com.igexin.sdk.action.第三方应用APPID" -->
-                <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
+                <!-- 运营-->
+                <!--<action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />-->
+                <!-- 开发-->
+                <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />
             </intent-filter>
         </receiver>
         <!--个推end-->

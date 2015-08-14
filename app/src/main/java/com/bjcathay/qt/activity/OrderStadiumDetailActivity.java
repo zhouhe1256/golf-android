@@ -28,6 +28,7 @@ import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductListModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -676,6 +677,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("产品详情页面");
         MobclickAgent.onResume(this);
     }

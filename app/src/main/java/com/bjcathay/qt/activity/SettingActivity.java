@@ -13,6 +13,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.uptutil.DownloadManager;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -114,6 +115,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("设置页面");
         MobclickAgent.onResume(this);
     }

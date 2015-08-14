@@ -13,6 +13,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ShareUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -121,6 +122,7 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("兑换成功页面");
         MobclickAgent.onResume(this);
     }

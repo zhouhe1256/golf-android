@@ -28,6 +28,7 @@ import com.bjcathay.qt.model.PackagePriceModel;
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -601,6 +602,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("完善订单页面");
         MobclickAgent.onResume(this);
     }

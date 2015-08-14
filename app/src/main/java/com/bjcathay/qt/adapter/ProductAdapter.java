@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.ProductActivity;
 import com.bjcathay.qt.model.ProductModel;
@@ -66,7 +67,7 @@ public class ProductAdapter extends BaseAdapter {
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        if (productModel.getPrice() <= 0l) {
+        if (ProductType.prdtType.REAL_TIME.equals(productModel.getType())) {
             holder.priceNote.setVisibility(View.GONE);
             holder.priceNote_.setVisibility(View.GONE);
             holder.price.setText("实时计价");

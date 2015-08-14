@@ -47,7 +47,7 @@
                         android:id="@+id/dialog_order_sure_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="北京清河湾高尔夫俱乐部"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="2015.4.26  2:30"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -85,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
-                            android:text="1234567890"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
-                            android:text="18洞果岭/僮/车/柜"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
@@ -133,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
-                            android:text="４人"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/sub_textSize" />
 
@@ -171,7 +171,7 @@
                                 android:id="@+id/dialog_order_sure_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1480"
+                                android:text=""
                                 android:textColor="@color/guolinbi_color"
                                 android:textSize="@dimen/sub_textSize" />
                         </LinearLayout>
@@ -321,7 +321,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="10dp"
-                                android:text="1480"
+                                android:text=""
                                 android:textColor="@color/guolinbi_color"
                                 android:textSize="@dimen/city_title"
                                 android:textStyle="bold" />

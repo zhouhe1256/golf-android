@@ -19,6 +19,7 @@ import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.PropListModel;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -146,6 +147,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
                 }
             });
         }
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("兑换商城页面");
         MobclickAgent.onResume(this);
     }

@@ -212,7 +212,7 @@
         android:clickable="true"
         android:onClick="onClick"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"

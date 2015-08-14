@@ -31,6 +31,7 @@ import com.bjcathay.qt.model.GetCitysModel;
 import com.bjcathay.qt.model.PModel;
 import com.bjcathay.qt.model.ProvinceListModel;
 import com.bjcathay.qt.model.ProvinceModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.CitySelectUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
@@ -359,6 +360,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("城市选择页面");
         MobclickAgent.onResume(this);
     }

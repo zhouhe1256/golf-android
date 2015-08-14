@@ -21,6 +21,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.ShareModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -80,6 +81,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private LinearLayout useWallet;
     private LinearLayout notice_linear;
     private LinearLayout schNotice;
+    private LinearLayout schNoticeNumber;
+    private TextView comboNumber;
+    private RichTextView richTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +132,9 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
         notice_linear = ViewUtil.findViewById(this, R.id.notice_linear);
         schNotice = ViewUtil.findViewById(this, R.id.schNotice);
+        schNoticeNumber = ViewUtil.findViewById(this, R.id.combo_number);
+        comboNumber = ViewUtil.findViewById(this, R.id.combo_personnumber);
+        richTextView = ViewUtil.findViewById(this, R.id.purchasing);
 
     }
 
@@ -187,7 +194,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             }
             orderPhone.setText(orderModel.getMobileNumber());
             orderNum.setText("" + orderModel.getOrderId());
-            orderPayDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getCreatedAt()));
+            orderPayDate
+                    .setText("" + DateUtil.stringToDateToOrderString(orderModel.getCreatedAt()));
             personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
 
@@ -205,9 +213,12 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     numberNote.setText("返回日期:");
                     serviceNote.setText("出发城市:");
                     peopleNote.setText("同行人信息");
+                    schNoticeNumber.setVisibility(View.VISIBLE);
+                    comboNumber.setText(orderModel.getPeopleNumber() + "人");
                     schNotice.setVisibility(View.VISIBLE);
                     notice_linear.setVisibility(View.GONE);
                     orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
+                    richTextView.setRichText(orderModel.getScheduling());
                     break;
                 default:
                     schNotice.setVisibility(View.GONE);
@@ -269,6 +280,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
                 cancleOrder.setVisibility(View.VISIBLE);
+            } else if ("CONFIRMED".equals(orderModel.getStatus())) {
+               // shouldPayFact.setText("实付金额:");
+                orderStatusGone.setVisibility(View.GONE);
+                orderToPay.setVisibility(View.GONE);
+                orderStatus.setText("已确认");
+               // cancleOrder.setVisibility(View.VISIBLE);
+                cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
+                cancleOrder.setTextColor(Color.GRAY);
+                cancleOrder.setOnClickListener(null);
             }
             orderToPay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -371,14 +391,15 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                     public void call(Arguments arguments) {
                                         JSONObject jsonObject = arguments.get(0);
                                         if (jsonObject.optBoolean("success")) {
-                                            ProductModel productModel = JSONUtil.load(ProductModel.class,
+                                            ProductModel productModel = JSONUtil.load(
+                                                    ProductModel.class,
                                                     jsonObject.optJSONObject("product"));
-                                        Intent intent = new Intent(OrderDetailActivity.this,
-                                                PackageDetailActivity.class);
-                                        intent.putExtra("id", orderModel.getProductId());
-                                        intent.putExtra("name", orderModel.getTitle());
-                                        intent.putExtra("product", productModel);
-                                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                            Intent intent = new Intent(OrderDetailActivity.this,
+                                                    PackageDetailActivity.class);
+                                            intent.putExtra("id", orderModel.getProductId());
+                                            intent.putExtra("name", orderModel.getTitle());
+                                            intent.putExtra("product", productModel);
+                                            ViewUtil.startActivity(OrderDetailActivity.this, intent);
                                         } else {
                                             String errorMessage = jsonObject.optString("message");
                                             if (!StringUtils.isEmpty(errorMessage))
@@ -428,6 +449,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
 
                 }
             });
+        MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("订单详情页面");
         MobclickAgent.onResume(this);
     }

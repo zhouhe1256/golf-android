@@ -51,7 +51,7 @@
                 android:id="@+id/wallet_remain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1480"
+                android:text=""
                 android:textColor="@color/guolinbi_color"
                 android:textSize="@dimen/sub_textSize" />
         </LinearLayout>

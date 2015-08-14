@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
@@ -93,6 +94,7 @@ public class OrderSucTEActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("特卖下单成功页面");
         MobclickAgent.onResume(this);
     }

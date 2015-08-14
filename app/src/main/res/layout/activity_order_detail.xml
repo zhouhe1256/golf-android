@@ -86,7 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="123456"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="123456"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
@@ -134,7 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="erew"
+                            android:text=""
                             android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
@@ -158,7 +158,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="1234"
+                            android:text=""
                             android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
 
@@ -223,7 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="￥123"
+                            android:text=""
                             android:textColor="@color/order_price_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>

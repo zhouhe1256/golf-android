@@ -21,6 +21,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.SelectMapPopupWindow;
@@ -132,6 +133,7 @@ public class BaiduAddressActivity extends Activity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         mMapView.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("球场地址页面");
         MobclickAgent.onResume(this);
     }

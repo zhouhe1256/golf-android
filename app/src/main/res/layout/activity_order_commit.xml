@@ -30,7 +30,7 @@
             android:id="@+id/commit_place_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="北京清河湾高尔夫俱乐部"
+            android:text=""
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
 
@@ -39,7 +39,7 @@
             android:id="@+id/commit_place_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015.4.26  2:30"
+            android:text=""
             android:textColor="@color/main_text_color"
             android:textSize="@dimen/main_textSize" />
 
@@ -319,7 +319,7 @@
                 android:id="@+id/total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="800"
+                android:text=""
                 android:textColor="@color/order_price_color"
                 android:textSize="@dimen/main_textSize" />
 
@@ -341,7 +341,7 @@
                 android:id="@+id/spotPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="800"
+                android:text=""
                 android:textColor="@color/order_price_color"
                 android:textSize="@dimen/main_textSize" />
         </LinearLayout>

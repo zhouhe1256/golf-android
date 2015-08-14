@@ -19,6 +19,7 @@ import com.bjcathay.qt.adapter.PlaceListAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.StadiumListModel;
 import com.bjcathay.qt.model.StadiumModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -294,6 +295,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("产品列表页面");
         MobclickAgent.onResume(this);
     }

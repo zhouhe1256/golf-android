@@ -1,6 +1,7 @@
 
 package com.bjcathay.qt.receiver;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,22 +12,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bjcathay.android.async.Arguments;
+import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
-import com.bjcathay.qt.activity.MainActivity;
+import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.MyWalletActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
+import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
+import com.bjcathay.qt.activity.PackageDetailActivity;
+import com.bjcathay.qt.activity.RealTOrderActivity;
 import com.bjcathay.qt.activity.WelcomeActivity;
 import com.bjcathay.qt.application.GApplication;
+import com.bjcathay.qt.constant.ErrorCode;
+import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.PushModel;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.PushInfoDialog;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.ta.utdid2.android.utils.StringUtils;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -36,6 +48,7 @@ import java.util.List;
 public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog.PushResult {
 
     private static int ids = 0;
+    public static Activity baseActivity;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -69,38 +82,44 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
     }
 
     private void handlePush(Context context, PushModel pushModel) {
-
+        PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
         Intent intent;
         if (isRunning(context)) {
-            PushInfoDialog.getInstance(context,
-                    R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
-            // switch (pushModel.getT()) {
-            // case ORDER:
-            // intent = new Intent(context, OrderDetailActivity.class);
-            // intent.putExtra("id", Long.parseLong(pushModel.getG()));
-            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            // break;
-            // case COMPETITION:
-            // intent = new Intent(context, CompetitionDetailActivity.class);
-            // intent.putExtra("id", Long.parseLong(pushModel.getG()));
-            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            // break;
-            // case BALANCE:
-            // intent = new Intent(context, MyWalletActivity.class);
-            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            // break;
-            // default:
-            // intent = new Intent(context, MainActivity.class);
-            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            // break;
-            //
-            // }
+            if (isRunningForeground(context)) {
+                if (baseActivity != null)
+                    PushInfoDialog.getInstance(baseActivity,
+                            R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
+            } else {
+                NotificationManager mNotificationManager = (NotificationManager) context
+                        .getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification.Builder builder = new Notification.Builder(context);
+                intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setClass(context, WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|
+                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED|Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);//关键的一步，设置启动模式
+                PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
+                        setContentTitle("7铁高尔夫").
+                        setContentText(pushModel.getM()).
+                        setSmallIcon(R.drawable.ic_launcher).
+                        setAutoCancel(true)
+                        .setDefaults(Notification.DEFAULT_SOUND);
+                Notification notification = builder.
+                        build();
+                mNotificationManager.notify(ids++, notification);
+                if (baseActivity != null)
+                    PushInfoDialog.getInstance(baseActivity,
+                            R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
+            }
         } else {
-            PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
+
             NotificationManager mNotificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             intent = new Intent(Intent.ACTION_MAIN);
+            intent.putExtra("push", pushModel);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.setClass(context, WelcomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
@@ -174,31 +193,109 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
     }
 
     @Override
-    public void pushResult(PushModel pushModel, boolean isDelete, Context context) {
+    public void pushResult(PushModel pushModel, boolean isDelete, final Context context) {
         if (isDelete) {
             Intent intent;
+            // ORDER,SYSTEM,BALANCE,PRODUCT,AD,COMPETITION,OTHER;
             switch (pushModel.getT()) {
                 case ORDER:
                     intent = new Intent(context, OrderDetailActivity.class);
                     intent.putExtra("id", Long.parseLong(pushModel.getId()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    ViewUtil.startActivity(context, intent);
+                    break;
+                case MESSAGE:
+                    break;
+                case BALANCE:
+                    intent = new Intent(context, MyWalletActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    ViewUtil.startActivity(context, intent);
                     break;
                 case COMPETITION:
                     intent = new Intent(context, CompetitionDetailActivity.class);
                     intent.putExtra("id", Long.parseLong(pushModel.getId()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    ViewUtil.startActivity(context, intent);
                     break;
-                case BALANCE:
-                    intent = new Intent(context, MyWalletActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                case PRODUCT:
+                    ProductModel.product(Long.parseLong(pushModel.getId()))
+                            .done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    JSONObject jsonObject = arguments.get(0);
+                                    if (jsonObject.optBoolean("success")) {
+                                        ProductModel productModel = JSONUtil.load(
+                                                ProductModel.class,
+                                                jsonObject.optJSONObject("product"));
+                                        Intent intent = null;
+                                        switch (productModel.getType()) {
+                                            case COMBO:
+                                                intent = new Intent(context,
+                                                        PackageDetailActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("name", productModel.getName());
+                                                intent.putExtra("product", productModel);
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                            case REAL_TIME:
+                                                intent = new Intent(context,
+                                                        RealTOrderActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("imageurl",
+                                                        productModel.getImageUrl());
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                            default:
+                                                intent = new Intent(context,
+                                                        OrderStadiumDetailActivity.class);
+                                                intent.putExtra("id", productModel.getId());
+                                                intent.putExtra("imageurl",
+                                                        productModel.getImageUrl());
+                                                ViewUtil.startActivity(context, intent);
+                                                break;
+                                        }
+                                    } else {
+                                        String errorMessage = jsonObject.optString("message");
+                                        if (!StringUtils.isEmpty(errorMessage))
+                                            DialogUtil.showMessage(errorMessage);
+                                        else {
+                                            int code = jsonObject.optInt("code");
+                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        }
+                                    }
+                                }
+                            }
+
+                            ).
+
+                            fail(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    DialogUtil.showMessage(context
+                                            .getString(R.string.empty_net_text));
+                                }
+                            }
+
+                            );
+                    break;
+                case AD:
+                    intent = new Intent(context, ExerciseActivity.class);
+                    intent.putExtra("url", pushModel.getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    ViewUtil.startActivity(context, intent);
+                    break;
+                case OTHER:
+                    // intent = new Intent(context, MainActivity.class);
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    // ViewUtil.startActivity(context, intent);
                     break;
                 default:
-                    intent = new Intent(context, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    // intent = new Intent(context, MainActivity.class);
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    // ViewUtil.startActivity(context, intent);
                     break;
-
             }
-            ViewUtil.startActivity(context, intent);
+
         }
     }
 }

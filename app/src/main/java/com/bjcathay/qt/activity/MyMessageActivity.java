@@ -16,6 +16,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -202,7 +203,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                         orderStatus.setVisibility(View.VISIBLE);
                     } else
                         orderStatus.setVisibility(View.GONE);
-                } else if (MessageType.msgType.SYSTEM.equals(messageModel.getType())) {
+                } else if (MessageType.msgType.COMPETITION.equals(messageModel.getType())) {
                     myActivity.setVisibility(View.VISIBLE);
                     activityContent.setText(messageModel.getName());
                     activityTime.setText(messageModel.getRelativeDate());
@@ -241,7 +242,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                 // 清空消息
                 type = MessageType.msgType.ORDER.name();
             } else if (targetId == 2l) {
-                type = MessageType.msgType.SYSTEM.name();
+                type = MessageType.msgType.COMPETITION.name();
             } else if (targetId == 3l) {
                 type = MessageType.msgType.NOTIFY.name();
             }
@@ -311,11 +312,16 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("消息页面");
         MobclickAgent.onResume(this);
     }
 
     private void reflesh() {
+        myOrder.setVisibility(View.GONE);
+        myActivity.setVisibility(View.GONE);
+        myNotify.setVisibility(View.GONE);
+        myWallet.setVisibility(View.GONE);
         initData();
     }
 

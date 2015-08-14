@@ -93,8 +93,8 @@
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="快速注册"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:textColor="@color/order_price_color"
+            android:textSize="@dimen/city_title" />
 
         <TextView
             android:id="@+id/forget_secrete"
@@ -104,8 +104,8 @@
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:text="密码找回"
-            android:textColor="@color/exchange_text_color"
-            android:textSize="@dimen/sub_textSize" />
+            android:textColor="@color/order_price_color"
+            android:textSize="@dimen/city_title" />
 
 
     </RelativeLayout>

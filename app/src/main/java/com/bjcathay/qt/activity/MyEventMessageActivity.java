@@ -15,6 +15,7 @@ import com.bjcathay.qt.adapter.MyEventMessageAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -201,6 +202,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("通知活动页面");
         MobclickAgent.onResume(this);
     }

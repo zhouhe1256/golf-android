@@ -16,6 +16,7 @@ import com.bjcathay.qt.adapter.MyCompetitionAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventListModel;
 import com.bjcathay.qt.model.EventModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
@@ -182,6 +183,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("我的赛事页面");
         MobclickAgent.onResume(this);
     }

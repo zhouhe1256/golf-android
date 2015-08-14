@@ -150,7 +150,7 @@
                 android:layout_toLeftOf="@+id/name_go"
                 android:layout_toRightOf="@id/info_name_note"
                 android:gravity="right"
-                android:text="ewqweq"
+                android:text=""
                 android:textColor="@color/exchange_text_color"
                 android:textSize="@dimen/sub_textSize" />
 
@@ -194,7 +194,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="30dp"
                 android:gravity="right"
-                android:text="ewqewq"
+                android:text=""
                 android:textColor="@color/exchange_text_color"
                 android:textSize="@dimen/sub_textSize" />
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
@@ -108,6 +109,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("搜索页面");
         MobclickAgent.onResume(this);
     }

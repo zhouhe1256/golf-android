@@ -22,6 +22,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.model.WXPayModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -338,6 +339,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("支付页面");
         MobclickAgent.onResume(this);
         activity.findViewById(R.id.pay_wx).setOnClickListener(SelectPayWayActivity.this);

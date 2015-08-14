@@ -15,6 +15,7 @@ import com.bjcathay.qt.adapter.MyOrderMessageAdapter;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -200,6 +201,7 @@ public class MyOrderMessageActivity extends Activity implements AutoListView.OnR
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("订单消息页面");
         MobclickAgent.onResume(this);
     }

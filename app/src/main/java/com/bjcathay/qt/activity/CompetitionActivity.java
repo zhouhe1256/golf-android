@@ -15,6 +15,7 @@ import com.bjcathay.qt.adapter.CompetitionAdapter;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.EventListModel;
 import com.bjcathay.qt.model.EventModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.TopView;
@@ -169,6 +170,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("免费赛事页面");
         MobclickAgent.onResume(this);
     }

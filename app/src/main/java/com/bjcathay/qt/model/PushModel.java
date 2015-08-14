@@ -3,10 +3,12 @@ package com.bjcathay.qt.model;
 
 import com.bjcathay.qt.Enumeration.MessageType;
 
+import java.io.Serializable;
+
 /**
  * Created by dengt on 15-5-22.
  */
-public class PushModel {
+public class PushModel implements Serializable{
     private String t;
     private String id;
     private String m;

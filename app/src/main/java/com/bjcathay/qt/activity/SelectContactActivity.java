@@ -23,6 +23,7 @@ import com.bjcathay.qt.adapter.SelectContactAdapter;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.BookPinyinComparator;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
@@ -279,6 +280,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("选择打球人通讯录页面");
         MobclickAgent.onResume(this);
     }

@@ -16,6 +16,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.UserListModle;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ValidformUtil;
@@ -139,6 +140,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赠送好友输入手机号页面");
         MobclickAgent.onResume(this);
     }

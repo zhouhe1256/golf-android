@@ -88,7 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="123456"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
@@ -112,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="123456"
+                            android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
                     </LinearLayout>
@@ -453,6 +453,34 @@
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp">
 
+                    <LinearLayout
+                        android:id="@+id/combo_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="同行人数:"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/middle_textSize" />
+
+                        <TextView
+                            android:id="@+id/combo_personnumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/middle_textSize" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -475,7 +503,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:maxLines="2"
                             android:text=""
                             android:textColor="@color/main_text_color"
                             android:textSize="@dimen/middle_textSize" />
@@ -583,29 +610,38 @@
                     android:id="@+id/schNotice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/item_click"
-                    android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="15dp"
-                    android:visibility="gone"
-                    android:onClick="onClick"
-                    android:clickable="true">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:paddingBottom="12dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
                         android:text="行程安排"
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/city_title" />
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="17dp"
-                        android:src="@drawable/ic_info_enter" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <com.bjcathay.qt.view.RichTextView
+                            android:id="@+id/purchasing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="8dp"
+                            android:textColor="@color/main_text_color"
+                            android:textSize="@dimen/sub_textSize" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

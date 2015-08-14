@@ -26,6 +26,7 @@ import com.bjcathay.qt.model.BooksModel;
 import com.bjcathay.qt.model.SortListModel;
 import com.bjcathay.qt.model.SortModel;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.CharacterParser;
 import com.bjcathay.qt.util.ConstactUtil;
 import com.bjcathay.qt.util.PinyinComparator;
@@ -294,6 +295,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赠送好友通讯录页面");
         MobclickAgent.onResume(this);
     }

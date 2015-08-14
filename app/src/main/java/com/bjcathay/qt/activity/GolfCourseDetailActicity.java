@@ -20,6 +20,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.GolfDetailViewPagerAdapter;
 import com.bjcathay.qt.model.StadiumModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.SizeUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
@@ -218,6 +219,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     @Override
     public void onResume() {
         super.onResume();
+        MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("球场详情页面");
         MobclickAgent.onResume(this);
     }
