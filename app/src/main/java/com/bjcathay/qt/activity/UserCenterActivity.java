@@ -66,6 +66,17 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     }
 
     private void initDate() {
+        if (GApplication.getInstance().isLogin()) {
+            UserModel userModel1 = GApplication.getInstance().getUser();
+            if (userModel1 != null) {
+                ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(),
+                        R.drawable.ic_default_user);
+                if (userModel1.getNickname() == null)
+                    userPhone.setText(userModel1.getMobileNumber());
+                else
+                    userPhone.setText(userModel1.getNickname());
+            }
+        }
         if (gApplication.isLogin())
             UserModel.get().done(this).fail(new ICallback() {
                 @Override

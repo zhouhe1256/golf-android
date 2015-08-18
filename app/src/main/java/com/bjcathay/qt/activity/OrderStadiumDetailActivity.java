@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import com.bjcathay.qt.util.TimeView;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.bjcathay.qt.view.VerScrollView;
 import com.bjcathay.qt.widget.TosGallery;
 import com.bjcathay.qt.widget.WheelTextAdapter;
 import com.bjcathay.qt.widget.WheelView;
@@ -81,7 +83,9 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     private String beforSelect;// 0上午　１下午
     private String hourSelect = "07:00";
     private int attendNumber = 1;
-
+    private VerScrollView verScrollView;
+    private LinearLayout proOffline;
+    private String name;
     private TextView tuanCount;
     private TextView temaiCount;
     private TextView soldOut;
@@ -111,6 +115,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
         schBack = ViewUtil.findViewById(this, R.id.sch_back);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
+        verScrollView = ViewUtil.findViewById(this, R.id.verscrollview);
+        proOffline = ViewUtil.findViewById(this, R.id.pro_offline);
         // 根据ID找到RadioGroup实例
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
         topView.setTitleText("加载中");
@@ -302,7 +308,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                 // mOption1.setSelection(0);
                 mOption2.setSelection(0);
                 mOption3.setSelection(0);
-              //  getDayPrice(0);
+                // getDayPrice(0);
             }
         }
     }
@@ -359,6 +365,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
+        name = intent.getStringExtra("name");
         if (imaUrl != null)
             ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this).fail(new ICallback() {
@@ -474,11 +481,18 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
             setTextDate();
         } else {
             String errorMessage = jsonObject.optString("message");
-            if (!StringUtils.isEmpty(errorMessage))
-                DialogUtil.showMessage(errorMessage);
-            else {
-                int code = jsonObject.optInt("code");
-                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+            int code = jsonObject.optInt("code");
+            if (code == 13005) {
+                verScrollView.setVisibility(View.GONE);
+                okbtn.setVisibility(View.GONE);
+                proOffline.setVisibility(View.VISIBLE);
+                topView.setTitleText(name);
+            } else {
+                if (!StringUtils.isEmpty(errorMessage))
+                    DialogUtil.showMessage(errorMessage);
+                else {
+                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                }
             }
         }
     }
@@ -586,6 +600,12 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                                     4, hourSelect);
                             stadiumPrice.setText("￥" + (int) Math.floor(priceStr[0]) * 4
                                     + "+");
+                            if (priceStr[1] != 0) {
+                                schBack.setText("返" + priceStr[1] * 4 + "+");
+                                schBack.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                schBack.setVisibility(View.GONE);
                             currentPrice = (int) Math.floor(priceModel.getPrice());
                         } else {
                             priceModel.getPersonsDuring(stadiumModel.getType());
@@ -604,10 +624,10 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                             stadiumPrice
                                     .setText("￥"
                                             + (int) Math
-                                            .floor((priceStr[0] * attendNumber == 0 ? priceModel
-                                                    .getPrice()
-                                                    : priceStr[0]
-                                                    * attendNumber)) + "");
+                                                    .floor((priceStr[0] * attendNumber == 0 ? priceModel
+                                                            .getPrice()
+                                                            : priceStr[0]
+                                                                    * attendNumber)) + "");
                             if (priceStr[1] != 0) {
                                 schBack.setText("返" + priceStr[1] * attendNumber);
                                 schBack.setVisibility(View.VISIBLE);
@@ -651,8 +671,8 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
                     if (noPrice) {
                         DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                                 R.style.InfoDialog, getResources()
-                                .getString(R.string.service_tel_format)
-                                .toString().trim(), "呼叫", 0l, this);
+                                        .getString(R.string.service_tel_format)
+                                        .toString().trim(), "呼叫", 0l, this);
                         infoDialog.show();
                     } else
                         showDialog();
@@ -677,7 +697,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     @Override
     public void onResume() {
         super.onResume();
-        MessageReceiver.baseActivity=this;
+        MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("产品详情页面");
         MobclickAgent.onResume(this);
     }

@@ -97,7 +97,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
     private void initEvent() {
 
         lstv.setListViewEmptyImage(R.drawable.yuechang);
-        lstv.setListViewEmptyMessage("没有查到相关球场～");
+        lstv.setListViewEmptyMessage("没有查到相关套餐～");
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,12 +123,19 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                                         ViewUtil.startActivity(SelectPackageActivity.this, intent);
                                         } else {
                                             String errorMessage = jsonObject.optString("message");
+                                            int code = jsonObject.optInt("code");
+                                            if (code == 13005){
+                                                Intent intent = new Intent(SelectPackageActivity.this,
+                                                        ProductOfflineActivity.class);
+                                                intent.putExtra("name", stadiumModelList.get(ids).getName());
+                                                ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                                            } else {
                                             if (!StringUtils.isEmpty(errorMessage))
                                                 DialogUtil.showMessage(errorMessage);
                                             else {
-                                                int code = jsonObject.optInt("code");
+
                                                 DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                            }
+                                            }}
                                         }
                                     }
                                 }).fail(new ICallback() {

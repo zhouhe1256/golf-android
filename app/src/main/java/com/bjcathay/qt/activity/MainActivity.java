@@ -26,13 +26,15 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.BannerListModel;
 import com.bjcathay.qt.model.BannerModel;
+import com.bjcathay.qt.model.LocationModel;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.PushModel;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.uptutil.DownloadManager;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.LocationUtil;
+import com.bjcathay.qt.util.IsLoginUtil;
+import com.bjcathay.qt.util.LocationProvider;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.SizeUtil;
@@ -169,10 +171,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         Intent intent = getIntent();
         if ("web".equals(intent.getAction())) {
             Long webid = intent.getLongExtra("id", 0l);
-            intent = new Intent(context, CompetitionDetailActivity.class);
-            intent.putExtra("id", webid);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ViewUtil.startActivity(context, intent);
+//            intent = new Intent(context, CompetitionDetailActivity.class);
+//            intent.putExtra("id", webid);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            ViewUtil.startActivity(context, intent);
         }
         pushModel = (PushModel) intent.getSerializableExtra("push");
         if (pushModel != null) {
@@ -188,20 +190,20 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("id", Long.parseLong(pushModel.getId()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ViewUtil.startActivity(context, intent);
+                IsLoginUtil.isLogin(context, intent);
                 break;
             case MESSAGE:
                 break;
             case BALANCE:
                 intent = new Intent(context, MyWalletActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ViewUtil.startActivity(context, intent);
+                IsLoginUtil.isLogin(context, intent);
                 break;
             case COMPETITION:
-                intent = new Intent(context, CompetitionDetailActivity.class);
-                intent.putExtra("id", Long.parseLong(pushModel.getId()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ViewUtil.startActivity(context, intent);
+//                intent = new Intent(context, CompetitionDetailActivity.class);
+//                intent.putExtra("id", Long.parseLong(pushModel.getId()));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                ViewUtil.startActivity(context, intent);
                 break;
             case PRODUCT:
                 ProductModel.product(Long.parseLong(pushModel.getId()))
@@ -237,16 +239,25 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                                             intent.putExtra("id", productModel.getId());
                                             intent.putExtra("imageurl",
                                                     productModel.getImageUrl());
+                                            intent.putExtra("name", productModel.getName());
                                             ViewUtil.startActivity(context, intent);
                                             break;
                                     }
                                 } else {
                                     String errorMessage = jsonObject.optString("message");
-                                    if (!StringUtils.isEmpty(errorMessage))
-                                        DialogUtil.showMessage(errorMessage);
-                                    else {
-                                        int code = jsonObject.optInt("code");
-                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    int code = jsonObject.optInt("code");
+                                    if (code == 13005) {
+                                        Intent intent = new Intent(MainActivity.this,
+                                                ProductOfflineActivity.class);
+                                        intent.putExtra("name", "产品已下线");
+                                        ViewUtil.startActivity(MainActivity.this, intent);
+                                    } else {
+                                        if (!StringUtils.isEmpty(errorMessage))
+                                            DialogUtil.showMessage(errorMessage);
+                                        else {
+
+                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        }
                                     }
                                 }
                             }
@@ -305,9 +316,26 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         }
     }
 
+    LocationProvider location;
+
+    private void getLocation() {
+        location = new LocationProvider(this);
+        location.startLocation();
+        LocationModel.SItude station = location.getLocation();
+        if (station.latitude == 0.0 && station.longitude == 0.0) {
+            location.updateListener();
+            station = location.getLocation();
+        }
+        if (station.latitude == 0.0 && station.longitude == 0.0) {
+            return;
+        }
+        location.stopListener();
+    }
+
     private void initData() {
         PreferencesUtils.putBoolean(this, PreferencesConstant.FRIST_OPEN, false);
-        LocationUtil.getLocationBybd(this);
+        getLocation();
+        // LocationProvider.getLocationBybd(this);
         BannerListModel.getHomeBanners().done(this);
         if (GApplication.getInstance().isLogin() && GApplication.getInstance().isPushID() == false) {
             String latitude = PreferencesUtils.getString(this, PreferencesConstant.LATITUDE);
@@ -427,6 +455,14 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (location != null) {
+            location.stopListener();
+        }
     }
 
     @Override

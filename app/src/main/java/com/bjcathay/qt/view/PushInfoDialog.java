@@ -9,6 +9,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PushModel;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -85,12 +86,20 @@ public class PushInfoDialog extends Dialog {
         dialogCancel = (TextView) findViewById(R.id.dialog_cancel);
         dialogConfirm = (TextView) findViewById(R.id.dialog_confirm);
         dialogTitle = (TextView) findViewById(R.id.dialog_content);
-        dialogTitle.setMovementMethod(ScrollingMovementMethod.getInstance());
+       // dialogTitle.setMovementMethod(ScrollingMovementMethod.getInstance());
         dialogTitle.setText(text);
+        if (pushModel != null)
+            if (MessageType.pushMsgType.MESSAGE.equals(pushModel.getT())) {
+                dialogCancel.setVisibility(View.GONE);
+                dialogConfirm.setText("确认");
+            } else {
+                dialogCancel.setVisibility(View.VISIBLE);
+                dialogConfirm.setText("查看");
+            }
         if (!StringUtils.isEmpty(comfire)) {
             dialogCancel.setText(comfire);
-          //  dialogCancel.setTextColor(Color.BLUE);
-         //   dialogCancel.setTextColor(Color.BLUE);
+            // dialogCancel.setTextColor(Color.BLUE);
+            // dialogCancel.setTextColor(Color.BLUE);
         }
         dialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override

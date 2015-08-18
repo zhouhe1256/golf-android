@@ -1,132 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/transparent_color"
+    android:orientation="vertical">
 
     <com.bjcathay.qt.view.TopView
         android:id="@+id/top_setting_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/touying_bg" />
+
     <RelativeLayout
         android:id="@+id/setting_share"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:background="@drawable/btn_background_selector"
-        android:layout_height="52dp">
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_background_selector">
 
         <TextView
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:text="分享7铁给好友"
-            android:textSize="@dimen/main_textSize"
             android:textColor="@color/main_text_color"
-            />
+            android:textSize="@dimen/main_textSize" />
 
         <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_info_enter"
-            android:gravity="center_vertical"
             android:layout_width="10dp"
-            android:layout_height="17dp" />
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_info_enter" />
 
 
     </RelativeLayout>
 
     <View
-        android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/touying_bg" />
 
     <RelativeLayout
         android:id="@+id/setting_change_pwd"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_background_selector"
         android:clickable="true"
         android:onClick="onClick">
 
         <TextView
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:text="修改密码"
-            android:textSize="@dimen/main_textSize"
             android:textColor="@color/main_text_color"
-            />
+            android:textSize="@dimen/main_textSize" />
 
         <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_info_enter"
-            android:gravity="center_vertical"
             android:layout_width="10dp"
-            android:layout_height="17dp" />
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_info_enter" />
     </RelativeLayout>
 
     <View
-        android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/touying_bg" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/setting_feedback"
 
             android:layout_width="match_parent"
-            android:background="@drawable/btn_background_selector"
             android:layout_height="52dp"
+            android:background="@drawable/btn_background_selector"
             android:clickable="true"
             android:onClick="onClick">
 
             <TextView
-                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="意见反馈"
-                android:textSize="@dimen/main_textSize"
                 android:textColor="@color/main_text_color"
-                />
+                android:textSize="@dimen/main_textSize" />
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_info_enter"
-                android:gravity="center_vertical"
                 android:layout_width="10dp"
-                android:layout_height="17dp" />
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_info_enter" />
 
         </RelativeLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_height="0.5dp"
-            android:layout_width="match_parent"
             android:background="@drawable/line_divide_hor" />
 
         <RelativeLayout
@@ -138,85 +137,87 @@
             android:onClick="onClick">
 
             <TextView
-                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="版本更新"
-                android:textSize="@dimen/main_textSize"
                 android:textColor="@color/main_text_color"
-                 />
+                android:textSize="@dimen/main_textSize" />
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_info_enter"
-                android:gravity="center_vertical"
                 android:layout_width="10dp"
-                android:layout_height="17dp" />
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_info_enter" />
         </RelativeLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_height="0.5dp"
-            android:layout_width="match_parent"
             android:background="@drawable/line_divide_hor" />
 
         <RelativeLayout
             android:id="@+id/setting_about"
             android:layout_width="match_parent"
-            android:background="@drawable/btn_background_selector"
             android:layout_height="52dp"
+            android:background="@drawable/btn_background_selector"
             android:clickable="true"
             android:onClick="onClick">
 
             <TextView
-                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="关于7铁"
-                android:textSize="@dimen/main_textSize"
                 android:textColor="@color/main_text_color"
-                 />
+                android:textSize="@dimen/main_textSize" />
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_info_enter"
-                android:gravity="center_vertical"
                 android:layout_width="10dp"
-                android:layout_height="17dp" />
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_info_enter" />
 
         </RelativeLayout>
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/touying_bg" />
+
     </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="bottom"
-    android:gravity="bottom"
-    android:orientation="horizontal">
-    <Button
-        android:id="@+id/logout_btn"
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/touying_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="bottom"
-        android:gravity="center"
-        android:background="@color/yellow_bg_color"
-        android:textColor="@color/white"
-        android:textSize="@dimen/main_textSize"
-        android:textStyle="bold"
-        android:visibility="gone"
-        android:text="退出登录" />
-</LinearLayout>
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:background="@color/yellow_bg_color"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_textSize"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>

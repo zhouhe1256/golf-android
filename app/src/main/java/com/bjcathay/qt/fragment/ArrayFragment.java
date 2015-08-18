@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -211,7 +212,7 @@ public class ArrayFragment extends Fragment {
             mCurYear = year;
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, mCurMonth-1, date);
+            prepareDayData(mCurYear, mCurMonth - 1, date);
         }
     }
 
@@ -221,7 +222,7 @@ public class ArrayFragment extends Fragment {
 
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, month-1, date);
+            prepareDayData(mCurYear, month - 1, date);
         }
     }
 
@@ -522,8 +523,14 @@ public class ArrayFragment extends Fragment {
             v = inflater.inflate(R.layout.fragment_package_note3, container, false);
             if (productModel != null)
 
-                ((RichTextView) v.findViewById(R.id.richTextView))
-                        .setRichText(productModel.getScheduling());
+                ((WebView) v.findViewById(R.id.richTextView))
+                        .loadDataWithBaseURL(
+                                null,
+                                productModel.getScheduling()
+                                        .replaceAll("font-size:.*pt;", "font-size:0pt;")
+                                        .replaceAll("font-family:.*;", "font-family:;"),
+                                "text/html", "UTF-8", null);
+
         } else {
             v = inflater.inflate(R.layout.fragment_package_note, container, false);
             // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,7 +84,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private LinearLayout schNotice;
     private LinearLayout schNoticeNumber;
     private TextView comboNumber;
-    private RichTextView richTextView;
+    private WebView richTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +219,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     schNotice.setVisibility(View.VISIBLE);
                     notice_linear.setVisibility(View.GONE);
                     orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
-                    richTextView.setRichText(orderModel.getScheduling());
+                    richTextView.loadDataWithBaseURL(null, orderModel.getScheduling().replaceAll("font-size:.*pt;", "font-size:0pt;").replaceAll("font-family:.*;", "font-family:;"), "text/html", "UTF-8", null);
                     break;
                 default:
                     schNotice.setVisibility(View.GONE);
@@ -281,11 +282,11 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder.setOnClickListener(null);
                 cancleOrder.setVisibility(View.VISIBLE);
             } else if ("CONFIRMED".equals(orderModel.getStatus())) {
-               // shouldPayFact.setText("实付金额:");
+                // shouldPayFact.setText("实付金额:");
                 orderStatusGone.setVisibility(View.GONE);
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已确认");
-               // cancleOrder.setVisibility(View.VISIBLE);
+                // cancleOrder.setVisibility(View.VISIBLE);
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
@@ -350,11 +351,19 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                     ViewUtil.startActivity(OrderDetailActivity.this, intent);
                                 } else {
                                     String errorMessage = jsonObject.optString("message");
-                                    if (!StringUtils.isEmpty(errorMessage))
-                                        DialogUtil.showMessage(errorMessage);
-                                    else {
-                                        int code = jsonObject.optInt("code");
-                                        DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                    int code = jsonObject.optInt("code");
+                                    if (code == 13005) {
+                                        Intent intent = new Intent(OrderDetailActivity.this,
+                                                ProductOfflineActivity.class);
+                                        intent.putExtra("name", orderModel.getTitle());
+                                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                                    } else {
+                                        if (!StringUtils.isEmpty(errorMessage))
+                                            DialogUtil.showMessage(errorMessage);
+                                        else {
+
+                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        }
                                     }
                                 }
                             }
@@ -402,11 +411,22 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                             ViewUtil.startActivity(OrderDetailActivity.this, intent);
                                         } else {
                                             String errorMessage = jsonObject.optString("message");
-                                            if (!StringUtils.isEmpty(errorMessage))
-                                                DialogUtil.showMessage(errorMessage);
-                                            else {
-                                                int code = jsonObject.optInt("code");
-                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            int code = jsonObject.optInt("code");
+                                            if (code == 13005) {
+                                                Intent intent = new Intent(
+                                                        OrderDetailActivity.this,
+                                                        ProductOfflineActivity.class);
+                                                intent.putExtra("name", orderModel.getTitle());
+                                                ViewUtil.startActivity(OrderDetailActivity.this,
+                                                        intent);
+                                            } else {
+                                                if (!StringUtils.isEmpty(errorMessage))
+                                                    DialogUtil.showMessage(errorMessage);
+                                                else {
+
+                                                    DialogUtil.showMessage(ErrorCode
+                                                            .getCodeName(code));
+                                                }
                                             }
                                         }
                                     }
@@ -429,6 +449,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                 OrderStadiumDetailActivity.class);
                         intent.putExtra("id", orderModel.getProductId());
                         intent.putExtra("imageurl", orderModel.getImageUrl());
+                        intent.putExtra("name", orderModel.getTitle());
                         ViewUtil.startActivity(OrderDetailActivity.this, intent);
                         break;
                 }

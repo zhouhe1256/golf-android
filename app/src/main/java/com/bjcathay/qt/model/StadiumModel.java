@@ -37,6 +37,7 @@ public class StadiumModel implements Serializable {
     private double distance;
     private double price;// 200, //默认为当日价格
     private String feature;
+    private String type;
 
     @JSONCollection(type = String.class)
     private List<String> imageUrls;// [ "/upload/image/xxx.png",
@@ -44,6 +45,14 @@ public class StadiumModel implements Serializable {
 
     public String getFeature() {
         return feature;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setFeature(String feature) {

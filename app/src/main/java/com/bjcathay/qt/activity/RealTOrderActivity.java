@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -27,6 +28,7 @@ import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
+import com.bjcathay.qt.view.VerScrollView;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -48,7 +50,9 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
     private ProductModel stadiumModel;
     private Long id;
     private String imaUrl;
-
+    private VerScrollView verScrollView;
+    private LinearLayout proOffline;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,8 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
         stadiumAddress = ViewUtil.findViewById(this, R.id.sch_address);
         stadiumContents = ViewUtil.findViewById(this, R.id.sch_content);
         stadiumPrice = ViewUtil.findViewById(this, R.id.sch_price);
+        verScrollView = ViewUtil.findViewById(this, R.id.verscrollview);
+        proOffline = ViewUtil.findViewById(this, R.id.pro_offline);
         okbtn = ViewUtil.findViewById(this, R.id.ok);
         topView.setTitleText("加载中");
     }
@@ -103,6 +109,7 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
         Intent intent = getIntent();
         id = intent.getLongExtra("id", 0);
         imaUrl = intent.getStringExtra("imageurl");
+        name=intent.getStringExtra("name");
         if (imaUrl != null)
             ImageViewAdapter.adapt(imageView, imaUrl, R.drawable.exchange_default);
         ProductModel.product(id).done(this).fail(new ICallback() {
@@ -123,17 +130,17 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
             case R.id.ok:
-                if (gApplication.isLogin() == true) {
+               // if (gApplication.isLogin() == true) {
                     DeleteInfoDialog infoDialog = new DeleteInfoDialog(this,
                             R.style.InfoDialog, getResources()
                                     .getString(R.string.service_tel_format)
                                     .toString().trim(), "呼叫", 0l, this);
                     infoDialog.show();
-
-                } else {
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    ViewUtil.startActivity(context, intent);
-                }
+//
+//                } else {
+//                    Intent intent = new Intent(context, LoginActivity.class);
+//                    ViewUtil.startActivity(context, intent);
+//                }
                 break;
         }
     }
@@ -155,12 +162,19 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
             setTextDate();
         } else {
             String errorMessage = jsonObject.optString("message");
+            int code = jsonObject.optInt("code");
+            if (code == 13005) {
+                verScrollView.setVisibility(View.GONE);
+                okbtn.setVisibility(View.GONE);
+                proOffline.setVisibility(View.VISIBLE);
+                topView.setTitleText(name);
+            } else {
             if (!StringUtils.isEmpty(errorMessage))
                 DialogUtil.showMessage(errorMessage);
             else {
-                int code = jsonObject.optInt("code");
+
                 DialogUtil.showMessage(ErrorCode.getCodeName(code));
-            }
+            }}
         }
     }
 

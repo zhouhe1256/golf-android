@@ -20,6 +20,7 @@ import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
 import com.bjcathay.qt.activity.PackageDetailActivity;
+import com.bjcathay.qt.activity.ProductOfflineActivity;
 import com.bjcathay.qt.activity.RealTOrderActivity;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.BannerModel;
@@ -116,6 +117,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                                                 intent.putExtra("id", productModel.getId());
                                                 intent.putExtra("imageurl",
                                                         productModel.getImageUrl());
+                                                intent.putExtra("name",productModel.getName());
                                                 ViewUtil.startActivity(context, intent);
                                                 break;
                                             default:
@@ -124,16 +126,25 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                                                 intent.putExtra("id", productModel.getId());
                                                 intent.putExtra("imageurl",
                                                         productModel.getImageUrl());
+                                                intent.putExtra("name",productModel.getName());
                                                 ViewUtil.startActivity(context, intent);
                                                 break;
                                         }
                                     } else {
                                         String errorMessage = jsonObject.optString("message");
-                                        if (!StringUtils.isEmpty(errorMessage))
-                                            DialogUtil.showMessage(errorMessage);
-                                        else {
-                                            int code = jsonObject.optInt("code");
-                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        int code = jsonObject.optInt("code");
+                                        if (code == 13005) {
+                                            Intent intent = new Intent(context,
+                                                    ProductOfflineActivity.class);
+                                            intent.putExtra("name", bannerModel.getTitle());
+                                            ViewUtil.startActivity(context, intent);
+                                        } else {
+                                            if (!StringUtils.isEmpty(errorMessage))
+                                                DialogUtil.showMessage(errorMessage);
+                                            else {
+
+                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            }
                                         }
                                     }
                                 }
@@ -156,11 +167,11 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     // intent.putExtra("imageurl", bannerModel.getImageUrl());
                     // intent.putExtra("id",
                     // Long.valueOf(bannerModel.getTarget()));
-                    // ViewUtil.startActivity(context, intent);
+          // ViewUtil.startActivity(context, intent);
                 } else if ("COMPETITION".equals(target)) {
-                    intent = new Intent(context, CompetitionDetailActivity.class);
-                    intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
-                    ViewUtil.startActivity(context, intent);
+//                    intent = new Intent(context, CompetitionDetailActivity.class);
+//                    intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
+//                    ViewUtil.startActivity(context, intent);
                 }
             }
         });

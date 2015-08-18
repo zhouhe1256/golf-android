@@ -79,7 +79,7 @@ public class PlaceListAdapter extends BaseAdapter {
         ImageViewAdapter.adapt(holder.imageView, productModel.getImageUrl(),
                 R.drawable.exchange_default);
         holder.title.setText(productModel.getName());
-        if (productModel.getPrice() <= 0l) {
+        if ("REAL_TIME".equals(productModel.getType())) {
             holder.priceNote.setVisibility(View.GONE);
             holder.price.setText("实时计价");
         } else {

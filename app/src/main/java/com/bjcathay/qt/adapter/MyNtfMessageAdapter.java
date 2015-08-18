@@ -24,6 +24,7 @@ import com.bjcathay.qt.activity.MyCompetitionActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
 import com.bjcathay.qt.activity.PackageDetailActivity;
+import com.bjcathay.qt.activity.ProductOfflineActivity;
 import com.bjcathay.qt.activity.RealTOrderActivity;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageModel;
@@ -91,13 +92,21 @@ public class MyNtfMessageAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         final MessageModel messageModel = items.get(position);
-        ImageViewAdapter
-                .adapt(holder.name, messageModel.getImageUrl(), R.drawable.exchange_default);
+        if (messageModel.getImageUrl() == null) {
+            holder.name.setVisibility(View.GONE);
+            holder.title.setText(messageModel.getName());
+            holder.title.setVisibility(View.VISIBLE);
+        } else {
+            holder.title.setVisibility(View.GONE);
+            holder.name.setVisibility(View.VISIBLE);
+            ImageViewAdapter
+                    .adapt(holder.name, messageModel.getImageUrl(), R.drawable.exchange_default);
+        }
         holder.day.setText(messageModel.getCreated().substring(2, 16));
         holder.content.setText(messageModel.getContent());
-        if(MessageType.pushMsgType.MESSAGE.equals(messageModel.getSubType())){
+        if (MessageType.pushMsgType.MESSAGE.equals(messageModel.getSubType())||MessageType.pushMsgType.COMPETITION.equals(messageModel.getSubType())) {
             holder.toPay.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.toPay.setVisibility(View.VISIBLE);
         }
         holder.detail.setOnClickListener(new View.OnClickListener() {
@@ -105,65 +114,77 @@ public class MyNtfMessageAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent;
                 // 产品
-                switch (messageModel.getSubType()){
+                switch (messageModel.getSubType()) {
                     case PRODUCT:
+                        if(messageModel.getTarget()!=null)
                         ProductModel.product(Long.valueOf(messageModel.getTarget()))
                                 .done(new ICallback() {
-                                          @Override
-                                          public void call(Arguments arguments) {
-                                              JSONObject jsonObject = arguments.get(0);
-                                              if (jsonObject.optBoolean("success")) {
-                                                  ProductModel productModel = JSONUtil.load(
-                                                          ProductModel.class,
-                                                          jsonObject.optJSONObject("product"));
-                                                  Intent intent = null;
-                                                  switch (productModel.getType()) {
-                                                      case COMBO:
-                                                          intent = new Intent(context,
-                                                                  PackageDetailActivity.class);
-                                                          intent.putExtra("id", productModel.getId());
-                                                          intent.putExtra("name", productModel.getName());
-                                                          intent.putExtra("product", productModel);
-                                                          ViewUtil.startActivity(context, intent);
-                                                          break;
-                                                      case REAL_TIME:
-                                                          intent = new Intent(context,
-                                                                  RealTOrderActivity.class);
-                                                          intent.putExtra("id", productModel.getId());
-                                                          intent.putExtra("imageurl",
-                                                                  productModel.getImageUrl());
-                                                          ViewUtil.startActivity(context, intent);
-                                                          break;
-                                                      default:
-                                                          intent = new Intent(context,
-                                                                  OrderStadiumDetailActivity.class);
-                                                          intent.putExtra("id", productModel.getId());
-                                                          intent.putExtra("imageurl",
-                                                                  productModel.getImageUrl());
-                                                          ViewUtil.startActivity(context, intent);
-                                                          break;
-                                                  }
-                                              } else {
-                                                  String errorMessage = jsonObject.optString("message");
-                                                  if (!StringUtils.isEmpty(errorMessage))
-                                                      DialogUtil.showMessage(errorMessage);
-                                                  else {
-                                                      int code = jsonObject.optInt("code");
-                                                      DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                                  }
-                                              }
-                                          }
-                                      }
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        JSONObject jsonObject = arguments.get(0);
+                                        if (jsonObject.optBoolean("success")) {
+                                            ProductModel productModel = JSONUtil.load(
+                                                    ProductModel.class,
+                                                    jsonObject.optJSONObject("product"));
+                                            Intent intent = null;
+                                            switch (productModel.getType()) {
+                                                case COMBO:
+                                                    intent = new Intent(context,
+                                                            PackageDetailActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    intent.putExtra("product", productModel);
+                                                    ViewUtil.startActivity(context, intent);
+                                                    break;
+                                                case REAL_TIME:
+                                                    intent = new Intent(context,
+                                                            RealTOrderActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("imageurl",
+                                                            productModel.getImageUrl());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    ViewUtil.startActivity(context, intent);
+                                                    break;
+                                                default:
+                                                    intent = new Intent(context,
+                                                            OrderStadiumDetailActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("imageurl",
+                                                            productModel.getImageUrl());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    ViewUtil.startActivity(context, intent);
+                                                    break;
+                                            }
+                                        } else {
+                                            String errorMessage = jsonObject.optString("message");
+                                            int code = jsonObject.optInt("code");
+                                            if (code == 13005) {
+                                                Intent intent = new Intent(context,
+                                                        ProductOfflineActivity.class);
+                                                intent.putExtra("name", messageModel.getName());
+                                                ViewUtil.startActivity(context, intent);
+                                            } else {
+                                                if (!StringUtils.isEmpty(errorMessage))
+                                                    DialogUtil.showMessage(errorMessage);
+                                                else {
+
+                                                    DialogUtil.showMessage(ErrorCode
+                                                            .getCodeName(code));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
                                 ).
 
                                 fail(new ICallback() {
-                                         @Override
-                                         public void call(Arguments arguments) {
-                                             DialogUtil.showMessage(context
-                                                     .getString(R.string.empty_net_text));
-                                         }
-                                     }
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        DialogUtil.showMessage(context
+                                                .getString(R.string.empty_net_text));
+                                    }
+                                }
 
                                 );
                         break;
@@ -175,9 +196,9 @@ public class MyNtfMessageAdapter extends BaseAdapter {
                         ViewUtil.startActivity(context, intent);
                         break;
                     case COMPETITION:
-                        intent = new Intent(context, CompetitionDetailActivity.class);
-                        intent.putExtra("id", Long.parseLong(messageModel.getTarget()));
-                        ViewUtil.startActivity(context, intent);
+//                        intent = new Intent(context, CompetitionDetailActivity.class);
+//                        intent.putExtra("id", Long.parseLong(messageModel.getTarget()));
+//                        ViewUtil.startActivity(context, intent);
                         break;
                 }
             }
@@ -191,6 +212,7 @@ public class MyNtfMessageAdapter extends BaseAdapter {
         ImageView name;
         TextView content;
         TextView day;
+        TextView title;
 
         public Holder(View view) {
             detail = ViewUtil.findViewById(view, R.id.my_message_detail);
@@ -198,6 +220,7 @@ public class MyNtfMessageAdapter extends BaseAdapter {
             name = ViewUtil.findViewById(view, R.id.message_name);
             content = ViewUtil.findViewById(view, R.id.message_content);
             day = ViewUtil.findViewById(view, R.id.message_relativeDate);
+            title = ViewUtil.findViewById(view, R.id.message_name_);
         }
     }
 }

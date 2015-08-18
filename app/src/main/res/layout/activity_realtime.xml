@@ -21,6 +21,7 @@
         android:background="@drawable/touying_bg" />
 
     <com.bjcathay.qt.view.VerScrollView
+        android:id="@+id/verscrollview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/ok"
@@ -270,5 +271,35 @@
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/pro_offline"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ImageView
+            android:id="@+id/list_image_empty"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:src="@drawable/yuechang" />
+
+        <TextView
+            android:id="@+id/list_view_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/empty_pro_text"
+            android:textColor="@color/exchange_text_color"
+            android:textSize="@dimen/sub_textSize" />
+    </LinearLayout>
 </RelativeLayout>

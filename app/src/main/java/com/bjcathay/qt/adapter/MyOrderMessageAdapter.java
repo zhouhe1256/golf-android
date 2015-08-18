@@ -85,29 +85,30 @@ public class MyOrderMessageAdapter extends BaseAdapter {
         }
         final MessageModel messageModel = items.get(position);
         holder.name.setText(messageModel.getName());
-        holder.day.setText(messageModel.getCreated().substring(2,16));
+        holder.day.setText(messageModel.getCreated().substring(2, 16));
         holder.content.setText(messageModel.getContent());
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ClickUtil.isFastClick();
-                OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
-                        .done(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                OrderModel orderModel = arguments.get(0);
-                                Intent intent = new Intent(context,
-                                        OrderDetailActivity.class);
-                                intent.setAction("message");
-                                intent.putExtra("orderModel", orderModel);
-                                ViewUtil.startActivity(context, intent);
-                            }
-                        }).fail(new ICallback() {
-                            @Override
-                            public void call(Arguments arguments) {
-                                dialog.show();
-                            }
-                        });
+                if (messageModel.getTarget() != null)
+                    OrderModel.orderDetail(Long.valueOf(messageModel.getTarget()))
+                            .done(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    OrderModel orderModel = arguments.get(0);
+                                    Intent intent = new Intent(context,
+                                            OrderDetailActivity.class);
+                                    intent.setAction("message");
+                                    intent.putExtra("orderModel", orderModel);
+                                    ViewUtil.startActivity(context, intent);
+                                }
+                            }).fail(new ICallback() {
+                                @Override
+                                public void call(Arguments arguments) {
+                                    dialog.show();
+                                }
+                            });
 
             }
         });

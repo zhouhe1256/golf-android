@@ -20,13 +20,8 @@ import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.StadiumListModel;
 import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
-import com.bjcathay.qt.util.LocationUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
-import com.bjcathay.qt.model.ProductListModel;
-import com.bjcathay.qt.model.ProductModel;
-import com.bjcathay.qt.util.DateUtil;
-import com.bjcathay.qt.util.TimeCount;
 import com.bjcathay.qt.util.ViewUtil;
 
 import com.bjcathay.qt.view.TopView;

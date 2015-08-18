@@ -120,7 +120,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                                               if (jsonObject.optBoolean("success")) {
                                                   ProductModel productModel = JSONUtil.load(ProductModel.class,
                                                           jsonObject.optJSONObject("product"));
-                                                //  ProductModel productModel = arguments.get(0);
+                                                  //  ProductModel productModel = arguments.get(0);
                                                   Intent intent = new Intent(ProductActivity.this,
                                                           PackageDetailActivity.class);
                                                   intent.putExtra("id", stadiumModelList.get(ids).getId());
@@ -129,11 +129,18 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                                                   ViewUtil.startActivity(ProductActivity.this, intent);
                                               } else {
                                                   String errorMessage = jsonObject.optString("message");
-                                                  if (!StringUtils.isEmpty(errorMessage))
-                                                      DialogUtil.showMessage(errorMessage);
-                                                  else {
-                                                      int code = jsonObject.optInt("code");
-                                                      DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                                  int code = jsonObject.optInt("code");
+                                                  if (code == 13005) {
+                                                      Intent intent = new Intent(ProductActivity.this,
+                                                              ProductOfflineActivity.class);
+                                                      intent.putExtra("name", stadiumModelList.get(ids).getName());
+                                                      ViewUtil.startActivity(ProductActivity.this, intent);
+                                                  } else {
+                                                      if (!StringUtils.isEmpty(errorMessage))
+                                                          DialogUtil.showMessage(errorMessage);
+                                                      else {
+                                                          DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                                      }
                                                   }
                                               }
                                           }
@@ -141,14 +148,14 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
 
                                 ).
 
-                                    fail(new ICallback() {
-                                             @Override
-                                             public void call(Arguments arguments) {
-                                                 DialogUtil.showMessage(getString(R.string.empty_net_text));
-                                             }
+                                fail(new ICallback() {
+                                         @Override
+                                         public void call(Arguments arguments) {
+                                             DialogUtil.showMessage(getString(R.string.empty_net_text));
                                          }
+                                     }
 
-                                    );
+                                );
 
                                 }else if (ProductType.prdtType.REAL_TIME.equals(stadiumModelList.get(i)
                             .getType())) {
@@ -156,6 +163,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                                 RealTOrderActivity.class);
                         intent.putExtra("imageurl", stadiumModelList.get(i).getImageUrl());
                         intent.putExtra("id", stadiumModelList.get(i).getId());
+                        intent.putExtra("name",stadiumModelList.get(i).getName());
                         intent.putExtra("type", stadiumModelList.get(i).getType());
                         ViewUtil.startActivity(ProductActivity.this, intent);
                     } else {
@@ -164,6 +172,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
                                 OrderStadiumDetailActivity.class);
                         intent.putExtra("imageurl", stadiumModelList.get(i).getImageUrl());
                         intent.putExtra("id", stadiumModelList.get(i).getId());
+                        intent.putExtra("name",stadiumModelList.get(i).getName());
                         intent.putExtra("type", stadiumModelList.get(i).getType());
                         ViewUtil.startActivity(ProductActivity.this, intent);
                     }

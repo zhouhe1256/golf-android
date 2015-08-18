@@ -120,17 +120,20 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                         JSONObject json = arguments.get(0);
                         if (!json.optBoolean("success")) {
                             String errorMessage = json.optString("message");
-                            if (!StringUtils.isEmpty(errorMessage))
-                                DialogUtil.showMessage(errorMessage);
-                            else {
-                                int code = json.optInt("code");
-                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                            int code = json.optInt("code");
+                            if (code == 13005) {
+                            } else {
+                                if (!StringUtils.isEmpty(errorMessage))
+                                    DialogUtil.showMessage(errorMessage);
+                                else {
+                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                }
                             }
                         }
                     }
                 }).callbackExecutor(new LooperCallbackExecutor()).fail(new ICallback() {
-                    @Override
-                    public void call(Arguments arguments) {
+            @Override
+            public void call(Arguments arguments) {
                     }
                 });
 

@@ -9,8 +9,12 @@
     <!-- <string name="host">http://api.7tiegolf.com</string>
      <string name="img_host">http://image.7tiegolf.com</string>-->
     <!--预发布-->
-      <string name="host">http://api.qt.bjcathay.com</string>
-      <string name="img_host">http://image.qt.bjcathay.com</string>
+      <!--<string name="host">http://api.qt.bjcathay.com</string>-->
+      <!--<string name="img_host">http://image.qt.bjcathay.com</string>-->
+
+    <!-- 运营 v1(新版后台-->
+    <string name="host">http://v1.api.7tiegolf.com/</string>
+    <string name="img_host">http://image.qt.bjcathay.com</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -85,6 +89,7 @@
     <string name="empty_friend_text">哎呀，您的亲友团暂时没人，赶快去壮大吧～</string>
     <string name="empty_net_text">无网络，请您检查网络链接后重试</string>
     <string name="empty_sys_text">系统异常，请稍后重试</string>
+    <string name="empty_pro_text">哎呀，产品下线啦...</string>
     <!--地址地图展示-->
     <!--http://map.baidu.com/mobile/-->
 

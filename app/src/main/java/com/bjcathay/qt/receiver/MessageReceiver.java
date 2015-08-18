@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.bjcathay.android.async.Arguments;
@@ -19,10 +20,12 @@ import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
+import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.MyWalletActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
 import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
 import com.bjcathay.qt.activity.PackageDetailActivity;
+import com.bjcathay.qt.activity.ProductOfflineActivity;
 import com.bjcathay.qt.activity.RealTOrderActivity;
 import com.bjcathay.qt.activity.WelcomeActivity;
 import com.bjcathay.qt.application.GApplication;
@@ -30,6 +33,7 @@ import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.ProductModel;
 import com.bjcathay.qt.model.PushModel;
 import com.bjcathay.qt.util.DialogUtil;
+import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
@@ -66,10 +70,14 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                     String data = new String(payload);
                     LogUtil.d("GetuiSdkDemo", "Got Payload:" + data);// {"type":"ORDER","target":33}
                     // DialogUtil.showMessage(data);
-                    PushModel pushModel = JSONUtil.load(PushModel.class, data);
-                    if (pushModel != null) {
-                        handlePush(context, pushModel);
+                    try {
+                        PushModel pushModel = JSONUtil.load(PushModel.class, data);
+                        if (pushModel != null) {
+                            handlePush(context, pushModel);
+                        }
+                    } catch (IllegalArgumentException e) {
                     }
+
                 }
                 break;
             case PushConsts.GET_CLIENTID:
@@ -81,7 +89,7 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
         }
     }
 
-    private void handlePush(Context context, PushModel pushModel) {
+    private void handlePush(final Context context, final PushModel pushModel) {
         PreferencesUtils.putBoolean(context, PreferencesConstant.NEW_MESSAGE_FLAG, true);
         Intent intent;
         if (isRunning(context)) {
@@ -90,28 +98,188 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                     PushInfoDialog.getInstance(baseActivity,
                             R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
             } else {
-                NotificationManager mNotificationManager = (NotificationManager) context
-                        .getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification.Builder builder = new Notification.Builder(context);
-                intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                intent.setClass(context, WelcomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|
-                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED|Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);//关键的一步，设置启动模式
-                PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
-                        setContentTitle("7铁高尔夫").
-                        setContentText(pushModel.getM()).
-                        setSmallIcon(R.drawable.ic_launcher).
-                        setAutoCancel(true)
-                        .setDefaults(Notification.DEFAULT_SOUND);
-                Notification notification = builder.
-                        build();
-                mNotificationManager.notify(ids++, notification);
-                if (baseActivity != null)
-                    PushInfoDialog.getInstance(baseActivity,
-                            R.style.InfoDialog, pushModel.getM(), "忽略", pushModel, this).show();
+                // ORDER,SYSTEM,BALANCE,PRODUCT,AD,COMPETITION,OTHER;
+                switch (pushModel.getT()) {
+                    case ORDER:
+                        if (GApplication.getInstance().isLogin()) {
+                            intent = new Intent(context, OrderDetailActivity.class);
+                            intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        } else {
+                            intent = new Intent(context, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        }
+                        sendNotice(context, intent, pushModel);
+                        // IsLoginUtil.isLogin(context, intent);
+                        break;
+                    case MESSAGE:
+                        intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.setClass(context, WelcomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+                                | Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);// 关键的一步，设置启动模式
+                        sendNotice(context, intent, pushModel);
+                        break;
+                    case BALANCE:
+                        if (GApplication.getInstance().isLogin()) {
+                            intent = new Intent(context, MyWalletActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        } else {
+                            intent = new Intent(context, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        }
+                        sendNotice(context, intent, pushModel);
+                        break;
+                    case COMPETITION:
+                        intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.setClass(context, WelcomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+                                | Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);// 关键的一步，设置启动模式
+                        sendNotice(context, intent, pushModel);
+                        break;
+                    case PRODUCT:
+                        ProductModel.product(Long.parseLong(pushModel.getId()))
+                                .done(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        JSONObject jsonObject = arguments.get(0);
+                                        if (jsonObject.optBoolean("success")) {
+                                            ProductModel productModel = JSONUtil.load(
+                                                    ProductModel.class,
+                                                    jsonObject.optJSONObject("product"));
+                                            Intent intent = null;
+                                            switch (productModel.getType()) {
+                                                case COMBO:
+                                                    intent = new Intent(context,
+                                                            PackageDetailActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    intent.putExtra("product", productModel);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    sendNotice(context, intent, pushModel);
+                                                    // ViewUtil.startActivity(context,
+                                                    // intent);
+                                                    break;
+                                                case REAL_TIME:
+                                                    intent = new Intent(context,
+                                                            RealTOrderActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("imageurl",
+                                                            productModel.getImageUrl());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    sendNotice(context, intent, pushModel);
+                                                    // /
+                                                    // ViewUtil.startActivity(context,
+                                                    // intent);
+                                                    break;
+                                                default:
+                                                    intent = new Intent(context,
+                                                            OrderStadiumDetailActivity.class);
+                                                    intent.putExtra("id", productModel.getId());
+                                                    intent.putExtra("imageurl",
+                                                            productModel.getImageUrl());
+                                                    intent.putExtra("name", productModel.getName());
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    sendNotice(context, intent, pushModel);
+                                                    // ViewUtil.startActivity(context,
+                                                    // intent);
+                                                    break;
+                                            }
+                                        } else {
+                                            String errorMessage = jsonObject.optString("message");
+                                            int code = jsonObject.optInt("code");
+                                            if (code == 13005) {
+                                                Intent intent = new Intent(context,
+                                                        ProductOfflineActivity.class);
+                                                intent.putExtra("name", "产品已下线");
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                sendNotice(context, intent, pushModel);
+                                                // ViewUtil.startActivity(context,
+                                                // intent);
+                                            } else {
+                                                if (!StringUtils.isEmpty(errorMessage))
+                                                    DialogUtil.showMessage(errorMessage);
+                                                else {
+
+                                                    DialogUtil.showMessage(ErrorCode
+                                                            .getCodeName(code));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                ).
+
+                                fail(new ICallback() {
+                                    @Override
+                                    public void call(Arguments arguments) {
+                                        DialogUtil.showMessage(context
+                                                .getString(R.string.empty_net_text));
+                                    }
+                                }
+
+                                );
+                        break;
+                    case AD:
+                        intent = new Intent(context, ExerciseActivity.class);
+                        intent.putExtra("url", pushModel.getId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        sendNotice(context, intent, pushModel);
+                        // ViewUtil.startActivity(context, intent);
+                        break;
+                    case OTHER:
+                        // intent = new Intent(context, MainActivity.class);
+                        // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        // ViewUtil.startActivity(context, intent);
+                        break;
+                    default:
+                        // intent = new Intent(context, MainActivity.class);
+                        // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        // ViewUtil.startActivity(context, intent);
+                        break;
+                }
+
+                // NotificationManager mNotificationManager =
+                // (NotificationManager) context
+                // .getSystemService(Context.NOTIFICATION_SERVICE);
+                // Notification.Builder builder = new
+                // Notification.Builder(context);
+                // intent = new Intent(Intent.ACTION_MAIN);
+                // intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                // intent.setClass(context, WelcomeActivity.class);
+                // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                // Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+                // | Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);// 关键的一步，设置启动模式
+                // PendingIntent contentIntent =
+                // PendingIntent.getActivity(context, ids, intent,
+                // PendingIntent.FLAG_UPDATE_CURRENT);
+                // builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
+                // setContentTitle("7铁高尔夫").
+                // setContentText(pushModel.getM()).
+                // setSmallIcon(R.drawable.ic_launcher).
+                // setAutoCancel(true)
+                // .setDefaults(Notification.DEFAULT_SOUND);
+                // Notification notification;
+                // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                // notification = new Notification();
+                // notification.contentIntent = contentIntent;
+                // notification.tickerText = pushModel.getM();
+                // notification.flags = Notification.FLAG_AUTO_CANCEL;
+                // notification.defaults = Notification.DEFAULT_SOUND;
+                // notification.icon = R.drawable.ic_launcher;
+                // } else
+                // notification = builder.
+                // build();
+                // mNotificationManager.notify(ids++, notification);
+                // if (baseActivity != null)
+                // PushInfoDialog.getInstance(baseActivity,
+                // R.style.InfoDialog, pushModel.getM(), "忽略", pushModel,
+                // this).show();
             }
         } else {
 
@@ -132,11 +300,53 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                     setSmallIcon(R.drawable.ic_launcher).
                     setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_SOUND);
-            Notification notification = builder.
-                    build();
+            Notification notification;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                notification = new Notification();
+                notification.contentIntent = contentIntent;
+                notification.tickerText = pushModel.getM();
+                notification.flags = Notification.FLAG_AUTO_CANCEL;
+                notification.defaults = Notification.DEFAULT_SOUND;
+                notification.icon = R.drawable.ic_launcher;
+
+            } else
+                notification = builder.
+                        build();
             mNotificationManager.notify(ids++, notification);
         }
 
+    }
+
+    public void sendNotice(Context context, Intent intent, PushModel pushModel) {
+        NotificationManager mNotificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(context);
+        // intent = new Intent(Intent.ACTION_MAIN);
+        // intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        // intent.setClass(context, WelcomeActivity.class);
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+        // Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+        // | Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);// 关键的一步，设置启动模式
+        PendingIntent contentIntent = PendingIntent.getActivity(context, ids, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent).setTicker(pushModel.getM()).
+                setContentTitle("7铁高尔夫").
+                setContentText(pushModel.getM()).
+                setSmallIcon(R.drawable.ic_launcher).
+                setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_SOUND);
+        Notification notification;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            notification = new Notification();
+            notification.contentIntent = contentIntent;
+            notification.tickerText = pushModel.getM();
+            notification.flags = Notification.FLAG_AUTO_CANCEL;
+            notification.defaults = Notification.DEFAULT_SOUND;
+            notification.icon = R.drawable.ic_launcher;
+        } else
+            notification = builder.
+                    build();
+        mNotificationManager.notify(ids++, notification);
     }
 
     public boolean isRunningForeground(Context context) {
@@ -202,20 +412,21 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                     intent = new Intent(context, OrderDetailActivity.class);
                     intent.putExtra("id", Long.parseLong(pushModel.getId()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    ViewUtil.startActivity(context, intent);
+                    IsLoginUtil.isLogin(context, intent);
                     break;
                 case MESSAGE:
                     break;
                 case BALANCE:
                     intent = new Intent(context, MyWalletActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    ViewUtil.startActivity(context, intent);
+                    IsLoginUtil.isLogin(context, intent);
                     break;
                 case COMPETITION:
-                    intent = new Intent(context, CompetitionDetailActivity.class);
-                    intent.putExtra("id", Long.parseLong(pushModel.getId()));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    ViewUtil.startActivity(context, intent);
+                    // intent = new Intent(context,
+                    // CompetitionDetailActivity.class);
+                    // intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    // ViewUtil.startActivity(context, intent);
                     break;
                 case PRODUCT:
                     ProductModel.product(Long.parseLong(pushModel.getId()))
@@ -243,6 +454,7 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                                                 intent.putExtra("id", productModel.getId());
                                                 intent.putExtra("imageurl",
                                                         productModel.getImageUrl());
+                                                intent.putExtra("name", productModel.getName());
                                                 ViewUtil.startActivity(context, intent);
                                                 break;
                                             default:
@@ -251,16 +463,25 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                                                 intent.putExtra("id", productModel.getId());
                                                 intent.putExtra("imageurl",
                                                         productModel.getImageUrl());
+                                                intent.putExtra("name", productModel.getName());
                                                 ViewUtil.startActivity(context, intent);
                                                 break;
                                         }
                                     } else {
                                         String errorMessage = jsonObject.optString("message");
-                                        if (!StringUtils.isEmpty(errorMessage))
-                                            DialogUtil.showMessage(errorMessage);
-                                        else {
-                                            int code = jsonObject.optInt("code");
-                                            DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                        int code = jsonObject.optInt("code");
+                                        if (code == 13005) {
+                                            Intent intent = new Intent(context,
+                                                    ProductOfflineActivity.class);
+                                            intent.putExtra("name", "产品已下线");
+                                            ViewUtil.startActivity(context, intent);
+                                        } else {
+                                            if (!StringUtils.isEmpty(errorMessage))
+                                                DialogUtil.showMessage(errorMessage);
+                                            else {
+
+                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                            }
                                         }
                                     }
                                 }

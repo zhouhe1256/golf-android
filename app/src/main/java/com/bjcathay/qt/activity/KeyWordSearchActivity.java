@@ -34,9 +34,9 @@ import java.util.List;
 /**
  * Created by dengt on 15-6-25.
  */
-public class KeyWordSearchActivity extends Activity implements View.OnClickListener, TextWatcher,
+public class KeyWordSearchActivity extends Activity implements View.OnClickListener,
         ICallback {
-    private TopView topView;
+   // private TopView topView;
     private EditText editText;
     private List<GolfCourseModel> list;
     private List<GolfCourseModel> historylist;
@@ -72,12 +72,12 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
     }
 
     private void initView() {
-        topView = ViewUtil.findViewById(this, R.id.top_search_keyword_layout);
+      //  topView = ViewUtil.findViewById(this, R.id.top_search_keyword_layout);
         editText = ViewUtil.findViewById(this, R.id.search_key);
         listView = ViewUtil.findViewById(this, R.id.golflist);
         clearBtn = ViewUtil.findViewById(this, R.id.history_clear);
-        topView.setTitleText("输入关键字");
-        topView.setTitleBackVisiable();
+      //  topView.setTitleText("输入关键字");
+      //  topView.setTitleBackVisiable();
     }
 
     private void initEvent() {
@@ -85,7 +85,22 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
         adapter = new GolfCourseAdapter(historylist, this);
         listView.setAdapter(adapter);
 
-        editText.addTextChangedListener(this);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                filterData(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         clearBtn.setOnClickListener(this);
     }
 
@@ -94,9 +109,6 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.title_back_img:
-                finish();
-                break;
             case R.id.history_clear:
                 historylist.clear();
                 clearBtn.setVisibility(View.GONE);
@@ -114,22 +126,6 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
          * break;
          */
         }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int i, int i2, int i3) {
-        // 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
-        filterData(s.toString());
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
     }
 
     /**
@@ -153,11 +149,11 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
                 String filterStrword = characterParser.getSelling(filterStr);
                 for (GolfCourseModel sortModel : list) {
                     String name = sortModel.getName();
-                    String address = sortModel.getAddress();
+                   // String address = sortModel.getAddress();
                     if (name.indexOf(filterStr.toString()) != -1
                             || characterParser.getSelling(name).contains(
-                                    filterStrword) || characterParser.getSelling(address).contains(
-                                    filterStrword)) {
+                                    filterStrword)/* || characterParser.getSelling(address).contains(
+                                    filterStrword)*/) {
                         filterDateList.add(sortModel);
                     }
                 }

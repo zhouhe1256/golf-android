@@ -85,6 +85,7 @@ public class ProductSearchResultActivity extends Activity implements
                             OrderStadiumDetailActivity.class);
                     intent.putExtra("imageurl", stadiumModelList.get(i - 1).getImageUrl());
                     intent.putExtra("id", stadiumModelList.get(i - 1).getId());
+                    intent.putExtra("name",stadiumModelList.get(i-1).getName());
                     intent.putExtra("type", stadiumModelList.get(i - 1).getType());
                     ViewUtil.startActivity(ProductSearchResultActivity.this, intent);
                 }

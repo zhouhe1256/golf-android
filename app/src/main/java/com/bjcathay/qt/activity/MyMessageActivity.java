@@ -102,7 +102,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
 
     private void initEvent() {
         myOrder.setOnLongClickListener(this);
-        myActivity.setOnLongClickListener(this);
+      //  myActivity.setOnLongClickListener(this);
         myNotify.setOnLongClickListener(this);
         myWallet.setOnLongClickListener(this);
     }
@@ -202,16 +202,16 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                     if (MessageType.msgReadType.UNREAD.equals(messageModel.getStatus())) {
                         orderStatus.setVisibility(View.VISIBLE);
                     } else
-                        orderStatus.setVisibility(View.GONE);
-                } else if (MessageType.msgType.COMPETITION.equals(messageModel.getType())) {
-                    myActivity.setVisibility(View.VISIBLE);
-                    activityContent.setText(messageModel.getName());
-                    activityTime.setText(messageModel.getRelativeDate());
-                    if (MessageType.msgReadType.UNREAD.equals(messageModel.getStatus())) {
-                        activityStatus.setVisibility(View.VISIBLE);
-                    } else
-                        activityStatus.setVisibility(View.GONE);
-                }
+                        orderStatus.setVisibility(View.GONE);}
+//                } else if (MessageType.msgType.COMPETITION.equals(messageModel.getType())) {
+//                    myActivity.setVisibility(View.VISIBLE);
+//                    activityContent.setText(messageModel.getName());
+//                    activityTime.setText(messageModel.getRelativeDate());
+//                    if (MessageType.msgReadType.UNREAD.equals(messageModel.getStatus())) {
+//                        activityStatus.setVisibility(View.VISIBLE);
+//                    } else
+//                        activityStatus.setVisibility(View.GONE);
+//                }
                 else if (MessageType.msgType.NOTIFY.equals(messageModel.getType())) {
                     myNotify.setVisibility(View.VISIBLE);
                     notifyContent.setText(messageModel.getName());
@@ -242,7 +242,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                 // 清空消息
                 type = MessageType.msgType.ORDER.name();
             } else if (targetId == 2l) {
-                type = MessageType.msgType.COMPETITION.name();
+             //   type = MessageType.msgType.COMPETITION.name();
             } else if (targetId == 3l) {
                 type = MessageType.msgType.NOTIFY.name();
             }
@@ -289,10 +289,10 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
                 info = "确认清空订单消息";
                 tag = 1l;
                 break;
-            case R.id.my_activity_message:
-                info = "确认清空活动消息";
-                tag = 2l;
-                break;
+//            case R.id.my_activity_message:
+//                info = "确认清空活动消息";
+//                tag = 2l;
+//                break;
             case R.id.my_notification_message:
                 info = "确认清空通知消息";
                 tag = 3l;

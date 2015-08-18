@@ -145,6 +145,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="@string/this_way_to_get_glb"
             android:textColor="@color/exchange_text_color"
             android:textSize="@dimen/sub_textSize" />
