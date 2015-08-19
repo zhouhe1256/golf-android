@@ -87,6 +87,9 @@ public class MyOrderAdapter extends BaseAdapter {
             holder.status.setText("已完成");
         else if ("CANCEL".equals(orderModel.getStatus()))
             holder.status.setText("已取消");
+        else if ("CONFIRMED".equals(orderModel.getStatus())){
+            holder.status.setText("已确认");
+        }
       /*  if ("SPECIAL".equals(orderModel.getType())) {
             holder.temai.setVisibility(View.VISIBLE);
             holder.tuan.setVisibility(View.GONE);
