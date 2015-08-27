@@ -73,7 +73,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.price.setText("实时计价");
         } else {
             holder.priceNote.setVisibility(View.VISIBLE);
-            holder.priceNote_.setVisibility(View.VISIBLE);
+            holder.priceNote_.setVisibility(View.GONE);
             holder.price.setText(String.valueOf((int) Math.floor(productModel.getPrice())));
         }
 

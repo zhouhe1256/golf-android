@@ -54,7 +54,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
     private GApplication gApplication;
     private ProductAdapter placeListAdapter;
     private List<ProductModel> stadiumModelList;
-    private TextView call;
+   // private TextView call;
     private ListView lstv;
     private int page = 1;
     private TimeCount timeCount;
@@ -79,7 +79,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
 
     private LayoutInflater inflater;
     private View header;
-    private View footer;
+ //   private View footer;
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
@@ -89,19 +89,19 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
         csl = getResources().getColorStateList(R.color.order_price_color);
         stadiumModelList = new ArrayList<ProductModel>();
         inflater = LayoutInflater.from(this);
-        footer = inflater.inflate(R.layout.call_service_footer, null);
-        call = ViewUtil.findViewById(footer, R.id.call_service);
+       // footer = inflater.inflate(R.layout.call_service_footer, null);
+      //  call = ViewUtil.findViewById(footer, R.id.call_service);
         placeListAdapter = new ProductAdapter(stadiumModelList, this);
 
         lstv = (ListView) findViewById(R.id.place_lstv);
-        lstv.addFooterView(footer, null, false);
+      //  lstv.addFooterView(footer, null, false);
         lstv.setAdapter(placeListAdapter);
         // lstv.setOnRefreshListener(this);
         // lstv.setOnLoadListener(this);
     }
 
     private void initEvent() {
-        call.setOnClickListener(this);
+       // call.setOnClickListener(this);
         // lstv.setListViewEmptyImage(R.drawable.ic_network_error);
         // lstv.setListViewEmptyMessage(getString(R.string.empty_net_text));
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

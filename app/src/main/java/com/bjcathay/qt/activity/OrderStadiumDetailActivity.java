@@ -148,9 +148,11 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, GolfCourseDetailActicity.class);
-                intent.putExtra("id", stadiumModel.getGolfCourseId());
-                ViewUtil.startActivity(context, intent);
+                if (stadiumModel != null) {
+                    Intent intent = new Intent(context, GolfCourseDetailActicity.class);
+                    intent.putExtra("id", stadiumModel.getGolfCourseId());
+                    ViewUtil.startActivity(context, intent);
+                }
             }
         });
         stadiumAddress.setOnClickListener(new View.OnClickListener() {

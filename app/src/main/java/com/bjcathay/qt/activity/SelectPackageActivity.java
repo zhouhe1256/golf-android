@@ -78,8 +78,8 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
         topView.setHomeBackVisiable();
-        topView.setSearchVisiable();
-        topView.setTitleText("推荐");
+        //topView.setSearchVisiable();
+        topView.setTitleText("精选套餐");
         cityName = ViewUtil.findViewById(this, R.id.city_name);
         totalFrist = ViewUtil.findViewById(this, R.id.total_frist);
         priceFrist = ViewUtil.findViewById(this, R.id.price_frist);
@@ -220,7 +220,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                 break;
         }
 
-        ProductListModel.comboList(page, latitude, longitude, cityID, provinceID, order).done(this)
+        ProductListModel.comboList(page, latitude, longitude, null, null, order).done(this)
                 .fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
@@ -280,6 +280,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                 fristFlag = 2;
                 changeFlag();
                 break;
+
             case R.id.distance_frist:
                 fristFlag = 3;
                 changeFlag();

@@ -354,33 +354,33 @@
 
         <!--配置第三方应用参数属性-->
         <!--运营-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPID"-->
-            <!--android:value="e8PImaZ1XD94yVLgV82ar1" />-->
-        <!--&lt;!&ndash;替换为第三方应用的APPID&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPKEY"-->
-            <!--android:value="LxDDOH8ptR6R2Ze8P0KI98" />-->
-        <!--&lt;!&ndash;替换为第三方应用的APPKEY&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPSECRET"-->
-            <!--android:value="V1lYyfzCtxADYNGlUpaEX7" />-->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="e8PImaZ1XD94yVLgV82ar1" />
+        <!--替换为第三方应用的APPID-->
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="LxDDOH8ptR6R2Ze8P0KI98" />
+        <!--替换为第三方应用的APPKEY-->
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="V1lYyfzCtxADYNGlUpaEX7" />
         <!--开发
       AppID XWDQF8njL5AeBj8VH3Yto6
 AppKey qFvVrsP0cuA08PTfmdaGn2
 AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
         <!--开发-->
-        <meta-data
-            android:name="PUSH_APPID"
-            android:value="XWDQF8njL5AeBj8VH3Yto6" />
-        <!--替换为第三方应用的APPID-->
-        <meta-data
-            android:name="PUSH_APPKEY"
-            android:value="qFvVrsP0cuA08PTfmdaGn2" />
-        <!--替换为第三方应用的APPKEY-->
-        <meta-data
-            android:name="PUSH_APPSECRET"
-            android:value="w3PqmtWy5V8FLtpdF2jvm3" />
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPID"-->
+            <!--android:value="XWDQF8njL5AeBj8VH3Yto6" />-->
+        <!--&lt;!&ndash;替换为第三方应用的APPID&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPKEY"-->
+            <!--android:value="qFvVrsP0cuA08PTfmdaGn2" />-->
+        <!--&lt;!&ndash;替换为第三方应用的APPKEY&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPSECRET"-->
+            <!--android:value="w3PqmtWy5V8FLtpdF2jvm3" />-->
         <!--替换为第三方应用的APPSECRET-->
         <meta-data
             android:name="PUSH_GROUPID"
@@ -437,9 +437,9 @@ AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!--替换为android:name="com.igexin.sdk.action.第三方的appId"-->
                 <!--运营-->
-                <!--<action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />-->
+                <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
                 <!--开发-->
-                <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />
+                <!--<action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />-->
             </intent-filter>
         </receiver>
         <service
@@ -457,9 +457,9 @@ AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
             <intent-filter>
                 <!-- 替换为action android:name="com.igexin.sdk.action.第三方应用APPID" -->
                 <!-- 运营-->
-                <!--<action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />-->
+                <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
                 <!-- 开发-->
-                <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />
+                <!--<action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />-->
             </intent-filter>
         </receiver>
         <!--个推end-->
