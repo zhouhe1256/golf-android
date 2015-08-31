@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
@@ -22,6 +25,7 @@ import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.DeleteInfoDialog.DeleteInfoDialogResult;
+import com.bjcathay.qt.view.SelectOrderPopupWindow;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -35,14 +39,18 @@ import java.util.List;
  * Created by dengt on 15-4-28.
  */
 public class MyOrderActivity extends Activity implements AutoListView.OnRefreshListener,
-        AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult, View.OnClickListener {
+        AutoListView.OnLoadListener, ICallback, DeleteInfoDialogResult, View.OnClickListener,SelectOrderPopupWindow.SelectOrderResult {
     private Activity context;
     private MyOrderAdapter myOrderAdapter;
     private List<OrderModel> orderModels;
     private TopView topView;
     private AutoListView lstv;
     private int page = 1;
-
+    private LinearLayout selectOrder;
+    private TextView orderKind;
+    private String orderType="ALL";
+private SelectOrderPopupWindow  menuWindow;
+private int orderCode=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,8 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
     private void initView() {
 
         topView = ViewUtil.findViewById(this, R.id.top_my_order_layout);
+        selectOrder=ViewUtil.findViewById(this,R.id.city_search_key);
+        orderKind=ViewUtil.findViewById(this,R.id.city_name);
         topView.setTitleBackVisiable();
         topView.setTitleText("我的订单");
         orderModels = new ArrayList<OrderModel>();
@@ -150,7 +160,7 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
                 page++;
                 break;
         }
-        OrderListModel.getMyOrder(page).done(this).fail(new ICallback() {
+        OrderListModel.getMyOrder(page,orderType).done(this).fail(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 if (lstv != null) {
@@ -210,6 +220,12 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
             case R.id.title_back_img:
                 finish();
                 break;
+            case R.id.city_search_key:
+                menuWindow = new SelectOrderPopupWindow(this, this,orderCode);
+                menuWindow.showAtLocation(this.findViewById(R.id.top_my_order), Gravity.BOTTOM
+                       , 0, 100); // 设置layout在PopupWindow中显示的位置
+              //  menuWindow.showAsDropDown(this.findViewById(R.id.my_order_list));
+                break;
         }
     }
 
@@ -228,5 +244,45 @@ public class MyOrderActivity extends Activity implements AutoListView.OnRefreshL
         super.onPause();
         MobclickAgent.onPageEnd("我的订单页面");
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void selectAllMapResult() {
+        orderKind.setText("全部订单");
+orderCode=1;
+        orderType="ALL";
+        if(orderModels!=null)
+        orderModels.clear();
+        initData();
+    }
+
+    @Override
+    public void selectPlaceMapResult() {
+        orderKind.setText("球场订单");
+        orderCode=2;
+        orderType="ORDER";
+        if(orderModels!=null)
+            orderModels.clear();
+        initData();
+    }
+
+    @Override
+    public void selectEventResult() {
+        orderKind.setText("赛事订单");
+        orderCode=3;
+        orderType="EVENT";
+        if(orderModels!=null)
+            orderModels.clear();
+        initData();
+    }
+
+    @Override
+    public void selectComboResult() {
+        orderKind.setText("套餐订单");
+        orderCode=4;
+        orderType="COMBO";
+        if(orderModels!=null)
+            orderModels.clear();
+        initData();
     }
 }

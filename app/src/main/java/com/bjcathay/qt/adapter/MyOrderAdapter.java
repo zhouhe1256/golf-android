@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.util.DateUtil;
@@ -75,6 +77,11 @@ public class MyOrderAdapter extends BaseAdapter {
                                 .getPeopleNumber() + "人")));
         String currentTime = DateUtil.stringToDateToOrderString(orderModel.getDate());
         holder.time.setText(currentTime);
+        if(ProductType.prdtType.EVENT.equals(orderModel.getType())){
+            holder.contain.setVisibility(View.GONE);
+        }else{
+            holder.contain.setVisibility(View.VISIBLE);
+        }
         // PENDING|PROCESSING|UNPAID|PAID|FINISH|CANCEL 待确认 确认中 待支付 已支付 已完成 已取消
         // PENDING|UNPAID|PAID|FINISH|CANCEL
         if ("PENDING".equals(orderModel.getStatus()))
@@ -111,6 +118,7 @@ public class MyOrderAdapter extends BaseAdapter {
         RoundCornerImageView img;
         TextView time;
         TextView number;
+        LinearLayout contain;
         public Holder(View view) {
             img = ViewUtil.findViewById(view, R.id.my_order_img);
             title = ViewUtil.findViewById(view, R.id.my_order_title);
@@ -119,6 +127,7 @@ public class MyOrderAdapter extends BaseAdapter {
             status = ViewUtil.findViewById(view, R.id.my_order_status);
             time = ViewUtil.findViewById(view, R.id.my_order_time);
             number = ViewUtil.findViewById(view, R.id.my_order_number);
+            contain = ViewUtil.findViewById(view, R.id.order_contains);
           /*  tuan = ViewUtil.findViewById(view, R.id.my_order_tuangou);
             temai = ViewUtil.findViewById(view, R.id.my_order_temai);*/
         }

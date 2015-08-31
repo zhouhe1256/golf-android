@@ -42,9 +42,18 @@ public class OrderModel implements Serializable {
     private double prepayMoney;
     private Long productId;
     private String scheduling;
+    private String companion;
 
     private static IContentDecoder<OrderModel> decoder = new IContentDecoder.BeanDecoder<OrderModel>(
             OrderModel.class, "order");
+
+    public String getCompanion() {
+        return companion;
+    }
+
+    public void setCompanion(String companion) {
+        this.companion = companion;
+    }
 
     public String getScheduling() {
         return scheduling;
@@ -123,7 +132,14 @@ public class OrderModel implements Serializable {
     }
 
     public ProductType.prdtType getType() {
-        return ProductType.prdtType.valueOf(type);
+
+        try {
+            return ProductType.prdtType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            return ProductType.prdtType.OTHER;
+        }catch (NullPointerException e){
+            return ProductType.prdtType.OTHER;
+        }
     }
 
     public void setId(Long id) {
@@ -291,12 +307,12 @@ public class OrderModel implements Serializable {
      * name: 联系人姓名 mobileNumber: 联系人电话 playBallPerson: 打球人 JSON格式字符串 不许为空，参考以下格式
      */
     public static IPromise commitNewOrder(Long id, int count, String date, String name,
-            String mobileNumber,
+            String mobileNumber,String companion,String remarks,
             String playBallPerson) {
         return Http.instance().post(ApiUrl.COMMIT_ORDER).
                 param("productId", id).
                 param("count", count).
-                param("date", date).
+                param("date", date). param("companion", companion). param("remarks", remarks).
                 param("name", name).
                 param("mobileNumber", mobileNumber).
                 param("playBallPerson", playBallPerson).

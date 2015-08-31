@@ -83,6 +83,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private LinearLayout notice_linear;
     private LinearLayout schNotice;
     private LinearLayout schNoticeNumber;
+    private LinearLayout contains;
     private TextView comboNumber;
     private WebView richTextView;
 
@@ -136,7 +137,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         schNoticeNumber = ViewUtil.findViewById(this, R.id.combo_number);
         comboNumber = ViewUtil.findViewById(this, R.id.combo_personnumber);
         richTextView = ViewUtil.findViewById(this, R.id.purchasing);
-
+        contains = ViewUtil.findViewById(this, R.id.order_contains);
     }
 
     private void initEvent() {
@@ -193,11 +194,21 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 useWallet.setVisibility(View.VISIBLE);
                 paywallet.setText("￥" + (int) Math.floor(orderModel.getBalancePayMoney()));
             }
+            if(ProductType.prdtType.EVENT.equals(orderModel.getType())){
+                contains.setVisibility(View.GONE);
+                personNames.setText(orderModel.getCompanion());
+                orderMessageNote.setText("赛事信息");
+                cancleOrder.setVisibility(View.GONE);
+            }else{
+                contains.setVisibility(View.VISIBLE);
+                personNames.setText(orderModel.getCompanion());
+                cancleOrder.setVisibility(View.VISIBLE);
+            }
             orderPhone.setText(orderModel.getMobileNumber());
             orderNum.setText("" + orderModel.getOrderId());
             orderPayDate
                     .setText("" + DateUtil.stringToDateToOrderString(orderModel.getCreatedAt()));
-            personNames.setText(orderModel.getPersonNames());
+          //  personNames.setText(orderModel.getPersonNames());
             userRealName.setText(orderModel.getUserRealName());
 
             purchasingNotice.setText(orderModel.getPurchasingNotice());
@@ -236,7 +247,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 orderStatus.setText("确认中");
                 cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
                 cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
-                cancleOrder.setVisibility(View.VISIBLE);
+              //  cancleOrder.setVisibility(View.VISIBLE);
                 shouldPayFact.setText("应付金额:");
             } else if ("UNPAID".equals(orderModel.getStatus())) {
                 shouldPayFact.setText("应付金额:");
@@ -244,12 +255,12 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 orderStatus.setText("待支付");
                 cancleOrder.setBackgroundResource(R.drawable.yellow_stroke_bg);
                 cancleOrder.setTextColor(getResources().getColor(R.color.order_price_color));
-                cancleOrder.setVisibility(View.VISIBLE);
+              //  cancleOrder.setVisibility(View.VISIBLE);
             } else if ("PAID".equals(orderModel.getStatus())) {
                 shouldPayFact.setText("实付金额:");
                 orderToPay.setVisibility(View.GONE);
                 orderStatus.setText("已支付");
-                cancleOrder.setVisibility(View.VISIBLE);
+              //  cancleOrder.setVisibility(View.VISIBLE);
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
@@ -266,7 +277,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
-                cancleOrder.setVisibility(View.VISIBLE);
+              //  cancleOrder.setVisibility(View.VISIBLE);
                 // if (orderModel.getPeopleNumber() == 0)
                 // orderPay.setText("￥" + (int)
                 // Math.floor(orderModel.getTotalPrice()) + "+");
@@ -280,7 +291,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 cancleOrder.setBackgroundResource(R.drawable.gray_stroke_bg);
                 cancleOrder.setTextColor(Color.GRAY);
                 cancleOrder.setOnClickListener(null);
-                cancleOrder.setVisibility(View.VISIBLE);
+               // cancleOrder.setVisibility(View.VISIBLE);
             } else if ("CONFIRMED".equals(orderModel.getStatus())) {
                 // shouldPayFact.setText("实付金额:");
                 orderStatusGone.setVisibility(View.GONE);
@@ -442,6 +453,11 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                                 RealTOrderActivity.class);
                         intent.putExtra("id", orderModel.getProductId());
                         intent.putExtra("imageurl", orderModel.getImageUrl());
+                        ViewUtil.startActivity(OrderDetailActivity.this, intent);
+                        break;
+                    case EVENT:
+                        intent = new Intent(OrderDetailActivity.this,
+                                EventDetailActivity.class);
                         ViewUtil.startActivity(OrderDetailActivity.this, intent);
                         break;
                     default:

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class ProductType implements Serializable{
     public enum prdtType {
-        COMBO, DATE, TIME, REAL_TIME;
+        COMBO, DATE, TIME, REAL_TIME,EVENT,OTHER;
     }
     public enum payType {
         PREPAY, SPOTPAY, BLENDPAY;

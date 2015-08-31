@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:background="#55000000"
+        android:gravity="center_horizontal|right"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/pop_layout"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right|center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/btn_take_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:background="@drawable/item_click"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:padding="15dp"
+                        android:text="全部订单"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/line_divide_hor" />
+
+
+
+                    <TextView
+                        android:id="@+id/btn_pick_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:background="@drawable/item_click"
+                        android:padding="15dp"
+                        android:text="球场订单"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/line_divide_hor" />
+
+
+
+                    <TextView
+                        android:id="@+id/tx_map"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/item_click"
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:padding="15dp"
+                        android:text="赛事订单"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/line_divide_hor" />
+
+
+
+
+                    <TextView
+                        android:id="@+id/sg_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_click"
+                        android:layout_gravity="center"
+                        android:padding="15dp"
+                        android:gravity="center_horizontal"
+                        android:text="套餐订单"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/darkbg"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/pop_layout"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+</RelativeLayout>

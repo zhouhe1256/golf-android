@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.alipay.Alipay;
 import com.bjcathay.qt.application.GApplication;
@@ -59,6 +60,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     private TextView myWallet;
     UserModel userModel;
     private TextView shouldPay;
+    private LinearLayout contains;
 
     private WXPAYBroadcastReceiver wxpayBroadcastReceiver;
 
@@ -76,6 +78,11 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     private void initData() {
         Intent intent = getIntent();
         orderModel = (OrderModel) intent.getSerializableExtra("order");
+        if(ProductType.prdtType.EVENT.equals(orderModel.getType())){
+            contains.setVisibility(View.GONE);
+        }else{
+            contains.setVisibility(View.VISIBLE);
+        }
         orderName.setText(orderModel.getTitle());
         orderSale.setText(orderModel.getPriceInclude());
         orderConDate.setText("" + DateUtil.stringToDateToOrderString(orderModel.getDate()));
@@ -109,6 +116,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         payThree = ViewUtil.findViewById(this, R.id.to_pay_layout);
         shouldPay = ViewUtil.findViewById(this, R.id.shouldpay);
         myWallet = ViewUtil.findViewById(this, R.id.my_wallet);
+        contains = ViewUtil.findViewById(this, R.id.order_contains);
     }
 
     private void initEvent() {

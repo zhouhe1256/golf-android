@@ -37,9 +37,9 @@ public class OrderListModel implements Serializable {
     private static IContentDecoder<OrderListModel> decoder = new IContentDecoder.BeanDecoder<OrderListModel>(
             OrderListModel.class);
 
-    public static IPromise getMyOrder(int page) {
+    public static IPromise getMyOrder(int page,String type) {
         return Http.instance().get(ApiUrl.MY_ORDERS).
-                param("page", page).
+                param("page", page). param("type", type).
                 contentDecoder(decoder).run();
     }
 }
