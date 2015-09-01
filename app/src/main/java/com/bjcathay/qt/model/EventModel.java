@@ -31,6 +31,46 @@ public class EventModel implements Serializable {
     private String url;
     private boolean isPass;
     private String statusLabel;
+    private String priceInclude;
+    private long price;
+    private double lon;
+    private double lat;
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public void setIsPass(boolean isPass) {
+        this.isPass = isPass;
+    }
+
+    public String getPriceInclude() {
+        return priceInclude;
+    }
+
+    public void setPriceInclude(String priceInclude) {
+        this.priceInclude = priceInclude;
+    }
 
     public int getStatus() {
         return status;

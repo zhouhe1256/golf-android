@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.view.ImageViewAdapter;
@@ -63,11 +64,11 @@ public class CompetitionAdapter extends BaseAdapter {
         }
         EventModel eventModel = items.get(position);
         ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
-        holder.status.setText(eventModel.getStatusLabel());
-        if (eventModel.getStatus() == 4) {
-            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-        } else
-            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
+
+//        if (eventModel.getStatus() == 4) {
+//            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
+//        } else
+//            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
@@ -77,7 +78,17 @@ public class CompetitionAdapter extends BaseAdapter {
         } else {
             holder.detail.setTextColor(context.getResources().getColor(R.color.order_price_color));
         }
-        holder.detail.setText(eventModel.getSignedAmount() + "");
+        if("已结束".equals(eventModel.getStatusLabel())||"即将开始".equals(eventModel.getStatusLabel())){
+            holder.status.setText(eventModel.getStatusLabel());
+            holder.status.setVisibility(View.VISIBLE);
+            holder.already.setVisibility(View.GONE);
+        }else{
+            holder.detail.setText(eventModel.getSignedAmount() + "");
+            holder.status.setVisibility(View.GONE);
+            holder.already.setVisibility(View.VISIBLE);
+        }
+       // holder.status.setText(eventModel.getStatusLabel());
+
         return convertView;
     }
 
@@ -89,6 +100,7 @@ public class CompetitionAdapter extends BaseAdapter {
         TextView count;
         TextView detail;
         CircleImageView img;
+        LinearLayout already;
 
         public Holder(View view) {
             status = ViewUtil.findViewById(view, R.id.competition_status);
@@ -98,6 +110,7 @@ public class CompetitionAdapter extends BaseAdapter {
             count = ViewUtil.findViewById(view, R.id.competition_count);
             detail = ViewUtil.findViewById(view, R.id.competition_detail);
             img = ViewUtil.findViewById(view, R.id.compete_logo_img);
+            already=ViewUtil.findViewById(view,R.id.already_persons);
         }
     }
 }

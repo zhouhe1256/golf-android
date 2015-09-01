@@ -21,6 +21,8 @@
     <color name="home_exchange_press_color">#fe6464</color>
     <color name="home_my_color">#1AB5FF</color>
     <color name="home_my_press_color">#179ddd</color>
+    <color name="home_back_color">#8490ff</color>
+    <color name="home_back_press_color">#9990ff</color>
     <color name="home_title_color">#1FBA5E</color>
     <color name="order_title_color">#1EB95D</color>
     <color name="order_price_color">#F39C11</color>

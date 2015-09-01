@@ -212,7 +212,10 @@ public class ArrayFragment extends Fragment {
             mCurYear = year;
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, mCurMonth - 1, date);
+            if (startYear < endYear)
+                prepareMonth(mCurMonth - 1);
+            // prepareDayData(mCurYear, mCurMonth - 1, date);
+            prepareDayData(mCurYear, mCurMonth, date);
         }
     }
 
@@ -222,7 +225,7 @@ public class ArrayFragment extends Fragment {
 
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, month - 1, date);
+            prepareDayData(mCurYear, month, date);
         }
     }
 
@@ -279,7 +282,9 @@ public class ArrayFragment extends Fragment {
         // 价格
 
         try {
+
             String[] period = packagePriceModel.getPeriod().split("~");
+           // String[] period = "2015-07-31~2015-09-04".split("~");
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date start = simpleDateFormat.parse(period[0]);
@@ -295,8 +300,14 @@ public class ArrayFragment extends Fragment {
             endMonth = calendarend.get(Calendar.MONTH) + 1;
             startday = calendarstart.get(Calendar.DATE);
             endday = calendarend.get(Calendar.DATE);
-            for (int i = startMonth; i <= endMonth; ++i) {
-                mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == month)));
+            if (startYear == endYear)
+                for (int i = startMonth; i <= endMonth; ++i) {
+                    mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == month)));
+                }
+            else {
+                for (int i = startMonth; i <= 12; ++i) {
+                    mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == month)));
+                }
             }
             // for (int i = 0; i < MONTH_NAME.length; ++i) {
             // mMonths.add(new TextInfo(i, MONTH_NAME[i], (i == month)));
@@ -306,15 +317,15 @@ public class ArrayFragment extends Fragment {
                 mYears.add(new TextInfo(i, String.valueOf(i) + "年", (i == year)));
             }
             mCurDate = startday;
-            mCurMonth = month;
-            mCurYear = year;
+            mCurMonth = startMonth;
+            mCurYear = startYear;
             getDate();
             ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
             ((WheelTextAdapter) mYearWheel.getAdapter()).setData(mYears);
 
-            prepareDayData(year, month, day);
+            prepareDayData(year, mCurMonth, day);
             getDayPrice();
-            mMonthWheel.setSelection(month);
+            mMonthWheel.setSelection(0);
             mYearWheel.setSelection(year - startYear);
             mDateWheel.setSelection(0);
         } catch (ParseException e) {
@@ -322,34 +333,97 @@ public class ArrayFragment extends Fragment {
         }
     }
 
+    private void prepareMonth(int m) {
+        mMonths.clear();
+        if (startYear == mCurYear) {
+            for (int i = startMonth; i <= 12; ++i) {
+                mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
+            }
+            mCurMonth = startMonth;
+        }
+        else if (endYear == mCurYear) {
+            for (int i = 1; i <= endMonth; ++i) {
+                mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
+            }
+            mCurMonth = 1;
+        } else {
+            for (int i = 1; i <= 12; ++i) {
+                mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
+            }
+            mCurMonth = 1;
+        }
+        ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
+    }
+
     private void prepareDayData(int year, int month, int curDate) {
         mDates.clear();
-
-        int days = DAYS_PER_MONTH[month];
+        int days = DAYS_PER_MONTH[month - 1];
 
         // The February.
         if (1 == month) {
             days = isLeapYear(year) ? 29 : 28;
         }
-        if (startMonth != endMonth) {
-            if (month == startMonth) {
-                for (int i = startday; i <= days; ++i) {
-                    mDates.add(new TextInfo(i, String.valueOf(i) + "日"
-                            + isWeek(year, month, i, curDate),
-                            (i == curDate)));
+        if (startYear == endYear) {
+            if (startMonth != endMonth) {
+                if (month == startMonth) {
+                    for (int i = startday; i <= days; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week
+                                ,
+                                (i == curDate)));
+                    }
+                } else if (month == endMonth) {
+                    for (int i = 1; i <= endday; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week
+                                ,
+                                (i == curDate)));
+                    }
+                } else {
+                    for (int i = 1; i <= days; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
+                                (i == curDate)));
+                    }
                 }
-            } else if (month == endMonth) {
-                for (int i = 1; i <= endday; ++i) {
-                    mDates.add(new TextInfo(i, String.valueOf(i) + "日"
-                            + isWeek(year, month, i, curDate),
+            } else {
+                for (int i = startday; i <= endday; ++i) {
+                    String week = isWeek(year, month-1, i, curDate);
+                    mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
                             (i == curDate)));
                 }
             }
-        } else {
-            for (int i = startday; i <= endday; ++i) {
-                String week = isWeek(year, month, i, curDate);
-                mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
-                        (i == curDate)));
+        } else if (startYear < endYear) {
+            if (mCurYear == startYear) {
+                if (month == startMonth) {
+                    for (int i = startday; i <= days; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week
+                                ,
+                                (i == curDate)));
+                    }
+                } else if (month != startMonth) {
+                    for (int i = 1; i <= days; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
+                                (i == curDate)));
+                    }
+                }
+            } else if (mCurYear == endYear) {
+                if (month == endMonth) {
+                    for (int i = 1; i <= endday; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week
+                                ,
+                                (i == curDate)));
+                    }
+                } else {
+                    for (int i = 1; i <= days; ++i) {
+                        String week = isWeek(year, month-1, i, curDate);
+                        mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
+                                (i == curDate)));
+                    }
+                }
             }
         }
 

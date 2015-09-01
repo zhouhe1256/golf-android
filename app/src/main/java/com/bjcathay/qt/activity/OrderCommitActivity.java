@@ -141,8 +141,8 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             dialog.setCanceledOnTouchOutside(false);// 创建ProgressDialog
         }
         OrderModel
-                .commitNewOrder(stadiumModel.getId(), number, date, contactName, contactPhone,
-                       playName,playNote, players).done(new ICallback() {
+                .commitNewOrder("PRODUCT",stadiumModel.getId(), number, date, contactName, contactPhone,
+                       playName,playNote, null).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);

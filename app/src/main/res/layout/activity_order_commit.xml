@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent_color"
@@ -12,299 +12,324 @@
         android:background="@color/white" />
 
     <View
+        android:id="@+id/title_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/top_order_commit_layout"
         android:background="@drawable/touying_bg" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:id="@+id/commit_place_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <TextView
-            android:id="@+id/commit_place_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:text=""
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/touying_bg" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="联系人姓名："
-                android:textColor="@color/main_text_color"
-                android:textSize="@dimen/main_textSize" />
-
-            <EditText
-                android:id="@+id/dialog_order_sure_name"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@null"
-                android:hint="请输入联系人姓名"
-                android:singleLine="true"
-                android:textColor="@color/exchange_text_color"
-                android:textColorHint="@color/exchange_text_color"
-                android:textSize="@dimen/main_textSize" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/line_divide_hor" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="联系人电话："
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <EditText
-            android:id="@+id/dialog_order_sure_phone"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@null"
-            android:hint="请输入联系人电话"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textColor="@color/exchange_text_color"
-            android:textColorHint="@color/exchange_text_color"
-            android:textSize="@dimen/main_textSize" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/touying_bg" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="打球人数"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="right"
-            android:gravity="right">
-
-            <ImageView
-                android:id="@+id/dialog_order_minas"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10dp"
-                android:src="@drawable/ic_plus" />
-
-            <TextView
-                android:id="@+id/dialog_order_sure_number_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:minEms="2"
-                android:text="5"
-                android:textColor="@color/main_text_color"
-                android:textSize="@dimen/main_textSize" />
-
-            <ImageView
-                android:id="@+id/dialog_order_plus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10dp"
-                android:src="@drawable/ic_minas" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/touying_bg" />
-
-
-    <LinearLayout
-        android:id="@+id/select_player_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_click"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:onClick="onClick"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="打球人姓名"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/select_player_names"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:ellipsize="end"
-                android:gravity="right|center_vertical"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="@color/exchange_text_color"
-                android:textSize="@dimen/sub_textSize" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_into_list" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/touying_bg" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/order_commit_player_names"
-            android:layout_width="fill_parent"
-            android:layout_height="80dp"
-            android:background="@null"
-            android:gravity="left"
-            android:hint="请输入打球人姓名"
-            android:maxLines="50"
-            android:padding="10dp"
-            android:scrollbars="none"
-            android:textColorHint="@color/exchange_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/touying_bg" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/order_commit_comment"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:background="@null"
-            android:gravity="left"
-            android:maxLines="50"
-            android:padding="10dp"
-            android:scrollbars="none"
-            android:text="备注： "
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/main_textSize" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/touying_bg" />
-
-    <LinearLayout
+    <com.bjcathay.qt.view.VerScrollView
+        android:id="@+id/verscrollview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/ok"
+        android:layout_below="@id/title_line"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:id="@+id/commit_place_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <TextView
+                    android:id="@+id/commit_place_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text=""
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="联系人姓名："
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+                    <EditText
+                        android:id="@+id/dialog_order_sure_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@null"
+                        android:hint="请输入联系人姓名"
+                        android:singleLine="true"
+                        android:textColor="@color/exchange_text_color"
+                        android:textColorHint="@color/exchange_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/line_divide_hor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="联系人电话："
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <EditText
+                    android:id="@+id/dialog_order_sure_phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@null"
+                    android:hint="请输入联系人电话"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/exchange_text_color"
+                    android:textColorHint="@color/exchange_text_color"
+                    android:textSize="@dimen/main_textSize" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="打球人数"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:id="@+id/dialog_order_minas"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_plus" />
+
+                    <TextView
+                        android:id="@+id/dialog_order_sure_number_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:minEms="2"
+                        android:text="5"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/main_textSize" />
+
+                    <ImageView
+                        android:id="@+id/dialog_order_plus"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_minas" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@drawable/touying_bg" />
+
+
+            <LinearLayout
+                android:id="@+id/select_player_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_click"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="打球人姓名"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/select_player_names"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:ellipsize="end"
+                        android:gravity="right|center_vertical"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/exchange_text_color"
+                        android:textSize="@dimen/sub_textSize" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_into_list" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/order_commit_player_names"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:hint="请输入打球人姓名"
+                    android:maxLines="50"
+                    android:padding="10dp"
+                    android:scrollbars="none"
+                    android:textColorHint="@color/exchange_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/order_commit_comment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:maxLines="40"
+                    android:padding="10dp"
+                    android:scrollbars="none"
+                    android:text="备注： "
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/main_textSize" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/touying_bg" />
+
+
+        </LinearLayout>
+
+    </com.bjcathay.qt.view.VerScrollView>
+
+    <LinearLayout
+        android:id="@+id/ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:gravity="bottom"
         android:orientation="vertical">
@@ -413,5 +438,4 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

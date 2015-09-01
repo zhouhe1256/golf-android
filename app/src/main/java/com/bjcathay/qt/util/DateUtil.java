@@ -543,7 +543,23 @@ public class DateUtil {
         String nowDate = simpleDateFormat1.format(dateValue);
         return nowDate;
     }
-
+    public static String stringToDateToEventString(String dateString) {
+        ParsePosition position = new ParsePosition(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateValue = simpleDateFormat.parse(dateString, position);
+        Date newD=new Date(dateValue.getTime()+3*60*60*1000);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm");
+        String nowDate = simpleDateFormat1.format(newD);
+        return nowDate;
+    }
+    public static String stringEventString(String dateString) {
+        ParsePosition position = new ParsePosition(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateValue = simpleDateFormat.parse(dateString, position);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日(EE)HH:mm"+"开球");
+        String nowDate = simpleDateFormat1.format(dateValue);
+        return nowDate;
+    }
     public static String stringToDateToHourString(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

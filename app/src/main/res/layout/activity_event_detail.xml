@@ -32,6 +32,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/event_detail_flag"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
@@ -46,6 +47,7 @@
                 android:textColor="@color/white" />
 
             <ImageView
+                android:id="@+id/event_detail_img"
                 android:layout_width="fill_parent"
                 android:layout_height="140dp"
                 android:layout_marginLeft="10dp"
@@ -74,6 +76,7 @@
                         android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/event_detail_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -96,6 +99,8 @@
                         android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/event_detail_address"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -110,6 +115,7 @@
                         android:id="@+id/golfcourse_map"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
+                        android:paddingLeft="20dp"
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:src="@drawable/ic_address" />
@@ -129,6 +135,8 @@
                         android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/event_detail_price"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -152,6 +160,7 @@
                         android:textSize="@dimen/sub_textSize" />
 
                     <TextView
+                        android:id="@+id/event_detail_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -164,33 +173,37 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/con_bg"
                 android:orientation="vertical">
-
-                <TextView
+                <WebView
+                    android:id="@+id/film_webview"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="7铁影像"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="@dimen/main_textSize" />
+                    android:scrollbars="none"/>
+                <!--<TextView-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="5dp"-->
+                    <!--android:text="7铁影像"-->
+                    <!--android:textColor="@color/main_text_color"-->
+                    <!--android:textSize="@dimen/main_textSize" />-->
 
-                <ImageView
-                    android:layout_marginTop="2dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="140dp"
-                    android:src="@color/home_title_color" />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="如果有背景，则会在contentView外面包一层PopupViewContainer之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="@dimen/sub_textSize" />
+                <!--<ImageView-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="140dp"-->
+                    <!--android:src="@color/home_title_color" />-->
+                <!--<TextView-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="如果有背景，则会在contentView外面包一层PopupViewContainer之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。"-->
+                    <!--android:textColor="@color/main_text_color"-->
+                    <!--android:textSize="@dimen/sub_textSize" />-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -207,5 +220,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold"
+        android:onClick="onClick"
         android:visibility="visible" />
 </RelativeLayout>

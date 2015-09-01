@@ -49,7 +49,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     private void initView() {
         listView = ViewUtil.findViewById(this, R.id.competition_list);
         topView = ViewUtil.findViewById(this, R.id.top_competition_layout);
-        topView.setTitleText("免费赛事");
+        topView.setTitleText("7铁赛事");
         topView.setHomeBackVisiable();
         eventModels = new ArrayList<EventModel>();
         competitionAdapter = new CompetitionAdapter(eventModels, this);
@@ -171,14 +171,14 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     public void onResume() {
         super.onResume();
         MessageReceiver.baseActivity=this;
-        MobclickAgent.onPageStart("免费赛事页面");
+        MobclickAgent.onPageStart("7铁赛事页面");
         MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("免费赛事页面");
+        MobclickAgent.onPageEnd("7铁赛事页面");
         MobclickAgent.onPause(this);
     }
 }

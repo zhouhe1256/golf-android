@@ -458,6 +458,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     case EVENT:
                         intent = new Intent(OrderDetailActivity.this,
                                 EventDetailActivity.class);
+                        intent.putExtra("id", orderModel.getProductId());
                         ViewUtil.startActivity(OrderDetailActivity.this, intent);
                         break;
                     default:

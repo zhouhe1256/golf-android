@@ -62,6 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     private LinearLayout compebtn;
     private LinearLayout exchbtn;
     private LinearLayout usercenter;
+    private LinearLayout feedbtn;
     private LinearLayout shareBtn;
     private static final String FILE_NAME = "qtgolf.png";
     public static String TEST_IMAGE;
@@ -200,10 +201,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 IsLoginUtil.isLogin(context, intent);
                 break;
             case COMPETITION:
-//                intent = new Intent(context, CompetitionDetailActivity.class);
-//                intent.putExtra("id", Long.parseLong(pushModel.getId()));
-//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                ViewUtil.startActivity(context, intent);
+                intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ViewUtil.startActivity(context, intent);
                 break;
             case PRODUCT:
                 ProductModel.product(Long.parseLong(pushModel.getId()))
@@ -369,6 +370,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         compebtn = ViewUtil.findViewById(this, R.id.compitetion_event);
         exchbtn = ViewUtil.findViewById(this, R.id.exchange_award);
         usercenter = ViewUtil.findViewById(this, R.id.user_center);
+        feedbtn = ViewUtil.findViewById(this, R.id.user_feedback);
         shareBtn = ViewUtil.findViewById(this, R.id.home_share_title);
         bannerViewPager = ViewUtil.findViewById(this, R.id.jazzy_viewpager);
         dotoParendLinearLayout = ViewUtil.findViewById(context, R.id.doto_main_ly);
@@ -382,7 +384,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         compebtn.setOnClickListener(this);
         exchbtn.setOnClickListener(this);
         usercenter.setOnClickListener(this);
-
+        feedbtn.setOnClickListener(this);
     }
 
     @Override
@@ -407,6 +409,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
                 break;
             case R.id.user_center:
                 intent = new Intent(this, UserCenterActivity.class);
+                ViewUtil.startActivity(this, intent);
+                break;
+            case R.id.user_feedback:
+                intent = new Intent(this, FeedbackActivity.class);
                 ViewUtil.startActivity(this, intent);
                 break;
             case R.id.home_share_title:

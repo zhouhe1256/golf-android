@@ -17,6 +17,7 @@ import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.EventDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.OrderStadiumDetailActivity;
 import com.bjcathay.qt.activity.PackageDetailActivity;
@@ -169,9 +170,9 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     // Long.valueOf(bannerModel.getTarget()));
           // ViewUtil.startActivity(context, intent);
                 } else if ("COMPETITION".equals(target)) {
-//                    intent = new Intent(context, CompetitionDetailActivity.class);
-//                    intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
-//                    ViewUtil.startActivity(context, intent);
+                    intent = new Intent(context, EventDetailActivity.class);
+                    intent.putExtra("id", Long.parseLong(bannerModel.getTarget()));
+                    ViewUtil.startActivity(context, intent);
                 }
             }
         });

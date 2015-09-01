@@ -306,19 +306,31 @@ public class OrderModel implements Serializable {
     /*
      * name: 联系人姓名 mobileNumber: 联系人电话 playBallPerson: 打球人 JSON格式字符串 不许为空，参考以下格式
      */
-    public static IPromise commitNewOrder(Long id, int count, String date, String name,
+    public static IPromise commitNewOrder(String type,Long id, int count, String date, String name,
             String mobileNumber,String companion,String remarks,
             String playBallPerson) {
         return Http.instance().post(ApiUrl.COMMIT_ORDER).
                 param("productId", id).
                 param("count", count).
                 param("date", date). param("companion", companion). param("remarks", remarks).
-                param("name", name).
+                param("name", name).    param("type", type).
                 param("mobileNumber", mobileNumber).
                 param("playBallPerson", playBallPerson).
                 run();
     }
+    public static IPromise commitEventOrder(String type,Long id, int count, String date, String name,
+                                          String mobileNumber,String companion,String remarks,
+                                          String playBallPerson) {
+        return Http.instance().post(ApiUrl.COMMIT_ORDER).
+                param("id", id).
+                param("count", count).
+                param("date", date). param("companion", companion). param("remarks", remarks).
+                param("name", name).                param("type", type).
 
+                param("mobileNumber", mobileNumber).
+                param("playBallPerson", playBallPerson).
+                run();
+    }
     public static IPromise orderVerify(Long id) {
         return Http.instance().get(ApiUrl.orderVerify(id)).
                 run();

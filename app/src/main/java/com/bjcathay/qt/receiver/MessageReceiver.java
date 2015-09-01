@@ -19,6 +19,7 @@ import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.EventDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.activity.MyWalletActivity;
@@ -132,12 +133,10 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                         sendNotice(context, intent, pushModel);
                         break;
                     case COMPETITION:
-                        intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        intent.setClass(context, WelcomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                                | Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);// 关键的一步，设置启动模式
+
+                        intent = new Intent(context, EventDetailActivity.class);
+                        intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         sendNotice(context, intent, pushModel);
                         break;
                     case PRODUCT:
@@ -422,11 +421,11 @@ public class MessageReceiver extends BroadcastReceiver implements PushInfoDialog
                     IsLoginUtil.isLogin(context, intent);
                     break;
                 case COMPETITION:
-                    // intent = new Intent(context,
-                    // CompetitionDetailActivity.class);
-                    // intent.putExtra("id", Long.parseLong(pushModel.getId()));
-                    // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    // ViewUtil.startActivity(context, intent);
+                    intent = new Intent(context,
+                            EventDetailActivity.class);
+                    intent.putExtra("id", Long.parseLong(pushModel.getId()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    ViewUtil.startActivity(context, intent);
                     break;
                 case PRODUCT:
                     ProductModel.product(Long.parseLong(pushModel.getId()))
