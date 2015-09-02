@@ -88,7 +88,6 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     private TextView payType;
     private EditText playNameipt;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,8 +121,8 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     private void commitOrder() {
         contactPhone = phone.getText().toString().trim();
         contactName = cName.getText().toString().trim();
-        playName=playNameipt.getText().toString().trim();
-        playNote=commemt.getText().toString().trim();
+        playName = playNameipt.getText().toString().trim();
+        playNote = commemt.getText().toString().trim();
         if (StringUtils.isEmpty(contactName)) {
             DialogUtil.showMessage("尚未填写联系人姓名");
             return;
@@ -141,8 +140,9 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             dialog.setCanceledOnTouchOutside(false);// 创建ProgressDialog
         }
         OrderModel
-                .commitNewOrder("PRODUCT",stadiumModel.getId(), number, date, contactName, contactPhone,
-                       playName,playNote, null).done(new ICallback() {
+                .commitNewOrder("PRODUCT", stadiumModel.getId(), number, date, contactName,
+                        contactPhone,
+                        playName, playNote, null).done(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
                         JSONObject jsonObject = arguments.get(0);
@@ -261,6 +261,9 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     }
 
     private void getComboPrice() {
+        if (comboPrice == null) {
+            return;
+        }
         amount = comboPrice.getMinPerson();
         amountmax = comboPrice.getMaxPerson();
         if (number == 0) {
@@ -407,6 +410,9 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     }
 
     private void getProductPrice() {
+        if (currentPrice == null) {
+            return;
+        }
         amount = currentPrice.getMinPerson();
         amountmax = currentPrice.getMaxPerson();
         if (number == 0) {

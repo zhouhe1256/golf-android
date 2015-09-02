@@ -35,6 +35,23 @@ public class EventModel implements Serializable {
     private long price;
     private double lon;
     private double lat;
+    private String html;
+private String headImageUrl;
+    public String getHtml() {
+        return html;
+    }
+
+    public String getHeadImageUrl() {
+        return headImageUrl;
+    }
+
+    public void setHeadImageUrl(String headImageUrl) {
+        this.headImageUrl = headImageUrl;
+    }
+
+    public void setHtml(String html) {
+        this.html = html;
+    }
 
     public double getLon() {
         return lon;

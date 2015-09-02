@@ -39,12 +39,12 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/con_agoing"
                 android:gravity="center_horizontal"
+                android:paddingBottom="9dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingBottom="9dp"
                 android:text="本场赛事开约啦~"
-                android:textSize="@dimen/sub_textSize"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/sub_textSize" />
 
             <ImageView
                 android:id="@+id/event_detail_img"
@@ -52,12 +52,15 @@
                 android:layout_height="140dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@color/home_title_color" />
+                android:src="@color/transparent_color" />
 
             <LinearLayout
+                android:id="@+id/event_is_going"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/con_bg"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -115,9 +118,9 @@
                         android:id="@+id/golfcourse_map"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:paddingLeft="20dp"
                         android:layout_gravity="right"
                         android:gravity="right"
+                        android:paddingLeft="20dp"
                         android:src="@drawable/ic_address" />
                 </LinearLayout>
 
@@ -149,8 +152,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -170,41 +173,14 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/con_bg"
-                android:orientation="vertical">
                 <WebView
                     android:id="@+id/film_webview"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
-                <!--<TextView-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:padding="5dp"-->
-                    <!--android:text="7铁影像"-->
-                    <!--android:textColor="@color/main_text_color"-->
-                    <!--android:textSize="@dimen/main_textSize" />-->
-
-                <!--<ImageView-->
-                    <!--android:layout_marginTop="2dp"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="140dp"-->
-                    <!--android:src="@color/home_title_color" />-->
-                <!--<TextView-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:padding="10dp"-->
-                    <!--android:text="如果有背景，则会在contentView外面包一层PopupViewContainer之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。"-->
-                    <!--android:textColor="@color/main_text_color"-->
-                    <!--android:textSize="@dimen/sub_textSize" />-->
-            </LinearLayout>
+                    android:layout_margin="10dp"
+                    android:background="@drawable/con_bg"
+                    style="@style/webViewStyle"
+                    android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 
@@ -216,10 +192,10 @@
         android:layout_gravity="bottom"
         android:background="@color/yellow_bg_color"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="立即报名"
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold"
-        android:onClick="onClick"
         android:visibility="visible" />
 </RelativeLayout>

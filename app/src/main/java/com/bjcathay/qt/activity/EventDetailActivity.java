@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
@@ -42,15 +44,17 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
     private TextView flag;
     private ImageView imageadd;
     private Context context;
+    private LinearLayout eventIsGo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
-context=this;
+        context = this;
         initView();
         initEvent();
         initData();
+
     }
 
     private void initView() {
@@ -63,7 +67,8 @@ context=this;
         sinup = ViewUtil.findViewById(this, R.id.order_detail_now_pay);
         imageView = ViewUtil.findViewById(this, R.id.event_detail_img);
         flag = ViewUtil.findViewById(this, R.id.event_detail_flag);
-        imageadd=ViewUtil.findViewById(this,R.id.golfcourse_map);
+        imageadd = ViewUtil.findViewById(this, R.id.golfcourse_map);
+        eventIsGo=ViewUtil.findViewById(this, R.id.event_is_going);
     }
 
     private void initEvent() {
@@ -105,25 +110,50 @@ context=this;
         eventPrice.setText(Long.toString(eventModel.getPrice()) + "元("
                 + eventModel.getPriceInclude() + ")");
         eventNumber.setText("仅限" + eventModel.getSignUpAmount() + "人");
-        //todo 转成富文本
-//        filmWebVIew.loadDataWithBaseURL(
-//                null,
-//                eventModel.getUrl()
+        // todo 转成富文本
+        // WebSettings webSettings= filmWebVIew.getSettings();
+        // webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+         filmWebVIew.getSettings().setUseWideViewPort(true);//關鍵點
+         filmWebVIew.getSettings().setLoadWithOverviewMode(true);
+         filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+         filmWebVIew.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        filmWebVIew.getSettings().setJavaScriptEnabled(true);
+        String a="<p>    <img src=\"http://192.168.1.22:8080/upload/ueditor/2015/9/2/1441165326869-1776.png\" _src=\"http://192.168.1.22:8080/upload/ueditor/2015/9/2/1441165326869-1776.png\" style=\"width: 368px; height: 159px;\"></p><p>    你好，这是七铁的LOGO。</p><p>    <img src=\"\\&quot;http://img.baidu.com/hi/jx2/j_0025.gif&quot;\" _src=\"http://img.baidu.com/hi/jx2/j_0025.gif\"></p><p>    <img src=\"http://img.baidu.com/hi/jx2/j_0001.gif\" _src=\"http://img.baidu.com/hi/jx2/j_0001.gif\"></p><p>    <br></p><p>    <br></p><p>    <br></p><p>    <br></p><p>    <br></p>";
+       if(eventModel.getHtml()!=null)
+        filmWebVIew.loadDataWithBaseURL(
+                null,
+//                "<style type=\"text/css\">html, body{width:100%;}html, body, div, p, a, span, h2, ul, li{margin:0; padding:0; font-family:SimHei;}</style>"
+                        eventModel.getHtml()
 //                        .replaceAll("font-size:.*pt;", "font-size:0pt;")
-//                        .replaceAll("font-family:.*;", "font-family:;"),
-//                "text/html", "UTF-8", null);
-        filmWebVIew.loadUrl(url);
-        ImageViewAdapter.adapt(imageView, eventModel.getImageUrl(), R.drawable.ic_default_user);
+//                        .replaceAll("font-family:.*;", "font-family:;")
+//                        .replaceAll("&amp;", "")
+//                        .replaceAll("quot;", "\"")
+//                        .replaceAll("lt;", "<")
+//                        .replaceAll("gt;", ">")
+//                        .replace("<img", "<img width=\"100%\"")
+                ,
+                "text/html", "UTF-8", null);
+
+        // filmWebVIew.setPadding(0,0,0,0);
+        // filmWebVIew.setPaddingRelative(0,0,0,0);
+        // filmWebVIew.setLeft(0);
+       // filmWebVIew.loadUrl(eventModel.getHtml());
+        ImageViewAdapter.adapt(imageView, eventModel.getHeadImageUrl(), R.drawable.exchange_default);
 
         if ("已结束".equals(eventModel.getStatusLabel())) {
             sinup.setVisibility(View.GONE);
             flag.setText("本场赛事已结束~");
+            eventIsGo.setVisibility(View.GONE);
+            flag.setBackgroundResource(R.drawable.con_finished);
         } else if ("即将开始".equals(eventModel.getStatusLabel())) {
             flag.setText("本场赛事即将开始~");
             sinup.setVisibility(View.GONE);
+            eventIsGo.setVisibility(View.VISIBLE);
         } else {
             flag.setText("本场赛事正在报名~");
             sinup.setVisibility(View.VISIBLE);
+            eventIsGo.setVisibility(View.VISIBLE);
         }
     }
 
@@ -156,7 +186,7 @@ context=this;
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("赛事详情页面");
-        MobclickAgent.onPause(this);
+       MobclickAgent.onPause(this);
     }
 
 }
