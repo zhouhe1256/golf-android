@@ -199,6 +199,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 personNames.setText(orderModel.getCompanion());
                 orderMessageNote.setText("赛事信息");
                 cancleOrder.setVisibility(View.GONE);
+                orderConDate.setText(DateUtil.stringToDateToOrderString(orderModel.getDate())+"-"+DateUtil.stringToDateToEventString(orderModel.getDate()));
             }else{
                 contains.setVisibility(View.VISIBLE);
                 personNames.setText(orderModel.getCompanion());

@@ -105,7 +105,13 @@ context=this;
         eventPrice.setText(Long.toString(eventModel.getPrice()) + "元("
                 + eventModel.getPriceInclude() + ")");
         eventNumber.setText("仅限" + eventModel.getSignUpAmount() + "人");
-        // 转成富文本
+        //todo 转成富文本
+//        filmWebVIew.loadDataWithBaseURL(
+//                null,
+//                eventModel.getUrl()
+//                        .replaceAll("font-size:.*pt;", "font-size:0pt;")
+//                        .replaceAll("font-family:.*;", "font-family:;"),
+//                "text/html", "UTF-8", null);
         filmWebVIew.loadUrl(url);
         ImageViewAdapter.adapt(imageView, eventModel.getImageUrl(), R.drawable.ic_default_user);
 
