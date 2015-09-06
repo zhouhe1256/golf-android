@@ -63,7 +63,7 @@ public class CompetitionAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         EventModel eventModel = items.get(position);
-        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.drawable.ic_default_user);
+        ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.color.event_title_img_color);
 
 //        if (eventModel.getStatus() == 4) {
 //            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);

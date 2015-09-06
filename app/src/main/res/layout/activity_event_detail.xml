@@ -49,10 +49,10 @@
             <ImageView
                 android:id="@+id/event_detail_img"
                 android:layout_width="fill_parent"
-                android:layout_height="140dp"
+                android:layout_height="190dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@color/transparent_color" />
+                android:src="@color/event_title_img_color" />
 
             <LinearLayout
                 android:id="@+id/event_is_going"
@@ -173,14 +173,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/film_webview_container"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/con_bg"
+                android:layout_margin="10dp">
                 <WebView
                     android:id="@+id/film_webview"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/con_bg"
-                    style="@style/webViewStyle"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

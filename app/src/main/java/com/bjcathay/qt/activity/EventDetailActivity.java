@@ -4,10 +4,17 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +31,10 @@ import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.IsLoginUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.List;
 
 /**
  * Created by dengt on 15-8-31.
@@ -45,6 +55,7 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
     private ImageView imageadd;
     private Context context;
     private LinearLayout eventIsGo;
+    private LinearLayout webViewContain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +79,8 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
         imageView = ViewUtil.findViewById(this, R.id.event_detail_img);
         flag = ViewUtil.findViewById(this, R.id.event_detail_flag);
         imageadd = ViewUtil.findViewById(this, R.id.golfcourse_map);
-        eventIsGo=ViewUtil.findViewById(this, R.id.event_is_going);
+        eventIsGo = ViewUtil.findViewById(this, R.id.event_is_going);
+        webViewContain = ViewUtil.findViewById(this, R.id.film_webview_container);
     }
 
     private void initEvent() {
@@ -107,39 +119,50 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
         topView.setTitleText(eventModel.getName());
         eventTime.setText(DateUtil.stringEventString(eventModel.getDate()));
         eventAdd.setText(eventModel.getAddress());
-        eventPrice.setText(Long.toString(eventModel.getPrice()) + "元("
-                + eventModel.getPriceInclude() + ")");
+
+        eventPrice.setText(Long.toString(eventModel.getPrice())+"元"+ (StringUtils.isEmpty(eventModel.getPriceInclude())?"":
+                        "("+eventModel.getPriceInclude() + ")"));
         eventNumber.setText("仅限" + eventModel.getSignUpAmount() + "人");
-        // todo 转成富文本
-        // WebSettings webSettings= filmWebVIew.getSettings();
-        // webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-         filmWebVIew.getSettings().setUseWideViewPort(true);//關鍵點
-         filmWebVIew.getSettings().setLoadWithOverviewMode(true);
-         filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-         filmWebVIew.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         filmWebVIew.getSettings().setJavaScriptEnabled(true);
-        String a="<p>    <img src=\"http://192.168.1.22:8080/upload/ueditor/2015/9/2/1441165326869-1776.png\" _src=\"http://192.168.1.22:8080/upload/ueditor/2015/9/2/1441165326869-1776.png\" style=\"width: 368px; height: 159px;\"></p><p>    你好，这是七铁的LOGO。</p><p>    <img src=\"\\&quot;http://img.baidu.com/hi/jx2/j_0025.gif&quot;\" _src=\"http://img.baidu.com/hi/jx2/j_0025.gif\"></p><p>    <img src=\"http://img.baidu.com/hi/jx2/j_0001.gif\" _src=\"http://img.baidu.com/hi/jx2/j_0001.gif\"></p><p>    <br></p><p>    <br></p><p>    <br></p><p>    <br></p><p>    <br></p>";
-       if(eventModel.getHtml()!=null)
-        filmWebVIew.loadDataWithBaseURL(
-                null,
-//                "<style type=\"text/css\">html, body{width:100%;}html, body, div, p, a, span, h2, ul, li{margin:0; padding:0; font-family:SimHei;}</style>"
-                        eventModel.getHtml()
-//                        .replaceAll("font-size:.*pt;", "font-size:0pt;")
-//                        .replaceAll("font-family:.*;", "font-family:;")
-//                        .replaceAll("&amp;", "")
-//                        .replaceAll("quot;", "\"")
-//                        .replaceAll("lt;", "<")
-//                        .replaceAll("gt;", ">")
-//                        .replace("<img", "<img width=\"100%\"")
-                ,
-                "text/html", "UTF-8", null);
+//        filmWebVIew.getSettings().setAllowFileAccess(true);
+//        filmWebVIew.getSettings().setDatabaseEnabled(true);
+//        filmWebVIew.getSettings().setDomStorageEnabled(true);
+//        filmWebVIew.getSettings().setSaveFormData(false);
+//        filmWebVIew.getSettings().setAppCacheEnabled(true);
+//        filmWebVIew.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        filmWebVIew.getSettings().setLoadWithOverviewMode(false);
+        filmWebVIew.getSettings().setUseWideViewPort(true);
 
-        // filmWebVIew.setPadding(0,0,0,0);
-        // filmWebVIew.setPaddingRelative(0,0,0,0);
-        // filmWebVIew.setLeft(0);
-       // filmWebVIew.loadUrl(eventModel.getHtml());
-        ImageViewAdapter.adapt(imageView, eventModel.getHeadImageUrl(), R.drawable.exchange_default);
+        filmWebVIew.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                openBrower(url);
+                return true;
+
+            }
+        });
+        if (eventModel.getHtml() != null) {
+            webViewContain.setVisibility(View.VISIBLE);
+            filmWebVIew.loadDataWithBaseURL(
+                    null,
+                    eventModel.getHtml()
+                    // .replaceAll("font-size:.*pt;", "font-size:0pt;")
+                    // .replaceAll("font-family:.*;", "font-family:;")
+                    // .replaceAll("&amp;", "")
+                    // .replaceAll("quot;", "\"")
+                    // .replaceAll("lt;", "<")
+                    // .replaceAll("gt;", ">")
+                    // .replace("<img", "<img width=\"100%\"")
+                    ,
+                    "text/html", "UTF-8", null);
+        }
+        else {
+            filmWebVIew.setVisibility(View.GONE);
+            webViewContain.setVisibility(View.GONE);
+        }
+        ImageViewAdapter
+                .adapt(imageView, eventModel.getHeadImageUrl(), R.color.event_title_img_color);
 
         if ("已结束".equals(eventModel.getStatusLabel())) {
             sinup.setVisibility(View.GONE);
@@ -155,6 +178,12 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
             sinup.setVisibility(View.VISIBLE);
             eventIsGo.setVisibility(View.VISIBLE);
         }
+    }
+
+    protected void openBrower(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     @Override
@@ -186,7 +215,6 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("赛事详情页面");
-       MobclickAgent.onPause(this);
+        MobclickAgent.onPause(this);
     }
-
 }

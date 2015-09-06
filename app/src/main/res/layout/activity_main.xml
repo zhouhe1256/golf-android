@@ -82,7 +82,6 @@
                             android:layout_height="fill_parent"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:padding="10dp"
                             android:text="7铁赛事"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -106,9 +105,8 @@
 
                         <TextView
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="fill_parent"
                             android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
                             android:gravity="center"
 
                             android:text="兑换商城"
