@@ -87,7 +87,7 @@ public class ArrayFragment extends Fragment {
 
     private void getDate() {
         // mCurYear, mCurMonth + 1, mCurDate
-        String mounth = mCurMonth + 1 + "";
+        String mounth = mCurMonth + "";
         String day = mCurDate + "";
         daySelect = mCurYear + "-" + (mounth.length() == 1 ? "0" + mounth : mounth) + "-"
                 + (day.length() == 1 ? "0" + day : day) + " 00:00:00";
@@ -223,9 +223,10 @@ public class ArrayFragment extends Fragment {
         if (month != mCurMonth) {
             mCurMonth = month;
 
+
             Calendar calendar = Calendar.getInstance();
             int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, month, date);
+            prepareDayData(mCurYear, month, mCurDate);
         }
     }
 
@@ -284,7 +285,7 @@ public class ArrayFragment extends Fragment {
         try {
 
             String[] period = packagePriceModel.getPeriod().split("~");
-           // String[] period = "2015-07-31~2015-09-04".split("~");
+           // String[] period = "2015-12-31~2016-02-04".split("~");
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date start = simpleDateFormat.parse(period[0]);
@@ -340,17 +341,20 @@ public class ArrayFragment extends Fragment {
                 mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
             }
             mCurMonth = startMonth;
+            mCurDate=startday;
         }
         else if (endYear == mCurYear) {
             for (int i = 1; i <= endMonth; ++i) {
                 mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
             }
             mCurMonth = 1;
+            mCurDate=1;
         } else {
             for (int i = 1; i <= 12; ++i) {
                 mMonths.add(new TextInfo(i, String.valueOf(i) + "月", (i == m)));
             }
             mCurMonth = 1;
+            mCurDate=1;
         }
         ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
     }
@@ -360,7 +364,7 @@ public class ArrayFragment extends Fragment {
         int days = DAYS_PER_MONTH[month - 1];
 
         // The February.
-        if (1 == month) {
+        if (1 == month-1) {
             days = isLeapYear(year) ? 29 : 28;
         }
         if (startYear == endYear) {
@@ -372,6 +376,7 @@ public class ArrayFragment extends Fragment {
                                 ,
                                 (i == curDate)));
                     }
+                   // mCurDate=startday;
                 } else if (month == endMonth) {
                     for (int i = 1; i <= endday; ++i) {
                         String week = isWeek(year, month-1, i, curDate);
@@ -379,12 +384,14 @@ public class ArrayFragment extends Fragment {
                                 ,
                                 (i == curDate)));
                     }
+                   // mCurDate=1;
                 } else {
                     for (int i = 1; i <= days; ++i) {
                         String week = isWeek(year, month-1, i, curDate);
                         mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
                                 (i == curDate)));
                     }
+                  //  mCurDate=1;
                 }
             } else {
                 for (int i = startday; i <= endday; ++i) {
@@ -402,12 +409,14 @@ public class ArrayFragment extends Fragment {
                                 ,
                                 (i == curDate)));
                     }
+                   // mCurDate=startday;
                 } else if (month != startMonth) {
                     for (int i = 1; i <= days; ++i) {
                         String week = isWeek(year, month-1, i, curDate);
                         mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
                                 (i == curDate)));
                     }
+                  //  mCurDate=1;
                 }
             } else if (mCurYear == endYear) {
                 if (month == endMonth) {
@@ -417,12 +426,14 @@ public class ArrayFragment extends Fragment {
                                 ,
                                 (i == curDate)));
                     }
+                   // mCurDate=1;
                 } else {
                     for (int i = 1; i <= days; ++i) {
                         String week = isWeek(year, month-1, i, curDate);
                         mDates.add(new TextInfo(i, String.valueOf(i) + "日" + week,
                                 (i == curDate)));
                     }
+                  //  mCurDate=1;
                 }
             }
         }
@@ -434,6 +445,8 @@ public class ArrayFragment extends Fragment {
          */
 
         ((WheelTextAdapter) mDateWheel.getAdapter()).setData(mDates);
+        mDateWheel.setSelection(0);
+        mCurDate=mDates.get(0).mIndex;
     }
 
     private String isWeek(int year, int month, int day, int curDate) {
@@ -441,11 +454,12 @@ public class ArrayFragment extends Fragment {
         calendar.set(year, month, day);
         int day1 = calendar.get(Calendar.DAY_OF_WEEK);
         int _day = calendar.get(Calendar.DAY_OF_MONTH);
+        int _month=calendar.get(Calendar.MONTH);
         Calendar calendartoday = Calendar.getInstance();
-        calendartoday.set(year, month, curDate);
         int now_daye = calendartoday.get(Calendar.DAY_OF_MONTH);
+        int now_monthe = calendartoday.get(Calendar.MONTH);
         String today = "(今天)";
-        if (day == now_daye) {
+        if (_day == now_daye&&_month==now_monthe) {
             today = "(今天)";
         } else {
             switch (day1) {
