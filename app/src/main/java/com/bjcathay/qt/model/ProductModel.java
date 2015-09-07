@@ -8,6 +8,7 @@ import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.IContentDecoder;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.constant.ApiUrl;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -64,6 +65,7 @@ public class ProductModel implements Serializable {
 
     public PackagePriceModel getPackagePriceModel() {
         //String json = priceJson.replaceAll("", "\\");
+        if(!StringUtils.isEmpty(priceJson))
         packagePriceModel = JSONUtil.load(PackagePriceModel.class, priceJson);
         return packagePriceModel;
     }
