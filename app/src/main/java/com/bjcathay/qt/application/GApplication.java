@@ -2,8 +2,12 @@
 package com.bjcathay.qt.application;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.bjcathay.android.async.Arguments;
@@ -16,12 +20,14 @@ import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.remote.Http;
 import com.bjcathay.android.remote.HttpOption;
 import com.bjcathay.android.remote.IContentDecoder;
+import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ApiUrl;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
+import com.bjcathay.qt.view.NetAccessView;
 import com.igexin.sdk.PushManager;
 import com.ta.utdid2.android.utils.StringUtils;
 
@@ -39,6 +45,12 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     private static volatile boolean httpInited;
     private static File baseDir;
     private UserModel user;
+    private Context Gcontext;
+    private ProgressDialog progressDialog = null;
+    private WindowManager wm;
+    private WindowManager.LayoutParams para;
+    private NetAccessView mView;
+    private boolean flag = false;
 
     public UserModel getUser() {
         if (user == null) {
@@ -65,6 +77,17 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         super.onCreate();
         gApplication = this;
         SDKInitializer.initialize(this);
+        wm = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
+        para = new WindowManager.LayoutParams();
+        para.height = -1;
+        para.width = -1;
+        para.format = 1;
+
+        para.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+
+        para.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+
         initHttp(this);
     }
 
@@ -82,6 +105,10 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         if (httpInited) {
             return;
         }
+        this.Gcontext = context;
+//        mView = LayoutInflater.from(context).inflate(
+//                R.layout.layout_my_dialog, null);
+        mView=new NetAccessView(context);
         httpInited = true;
 
         baseDir = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ?
@@ -95,9 +122,9 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                 param("os", ApiUrl.OS).
                 option(HttpOption.CONNECT_TIMEOUT, 10000).
                 option(HttpOption.READ_TIMEOUT, 10000).
-                option(HttpOption.X_Token,token).
+                option(HttpOption.X_Token, token).
                 option(HttpOption.X_Version, ApiUrl.VERSION).
-                option(HttpOption.X_OS,ApiUrl.OS).
+                option(HttpOption.X_OS, ApiUrl.OS).
                 setContentDecoder(new IContentDecoder.JSONDecoder()).
                 always(new ICallback() {
                     @Override
@@ -131,17 +158,58 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                             }
                         }
                     }
-                }).callbackExecutor(new LooperCallbackExecutor()).fail(new ICallback() {
+                }).start(new ICallback() {
             @Override
             public void call(Arguments arguments) {
+                // progressDialog = ProgressDialog.show(Gcontext, "",
+                // "正在访问网络...");
+                if (flag == false) {
+                    flag = true;
+                    wm.addView(mView, para);
+                }
+            }
+        }).complete(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            // if (progressDialog != null) {
+                            // progressDialog.dismiss();
+                            // }
+                            if (mView.getParent() != null) {
+                                flag = false;
+                                wm.removeView(mView);
+                            }
+                        }
                     }
-                });
 
-        ChainedCache<String, byte[]> imageCache = ChainedCache.create(
-                400 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
-                "images", new DiskCache.ByteArraySerialization<String>()
+        ).
+
+            callbackExecutor(new LooperCallbackExecutor()
+
+            ).
+
+                fail(new ICallback() {
+                         @Override
+                         public void call(Arguments arguments) {
+                         }
+                     }
+
                 );
-        Http.imageInstance().cache(imageCache).baseUrl(ApiUrl.HOST_URL).aheadReadInCache(true);
+
+            ChainedCache<String, byte[]> imageCache = ChainedCache.create(
+                    400 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
+                    "images", new DiskCache.ByteArraySerialization<String>()
+            );
+            Http.imageInstance().
+
+            cache(imageCache)
+
+            .
+
+            baseUrl(ApiUrl.HOST_URL)
+
+            .
+
+            aheadReadInCache(true);
     }
 
     public void updateApiToken() {

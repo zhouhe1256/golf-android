@@ -173,9 +173,13 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
             flag.setText("本场赛事即将开始~");
             sinup.setVisibility(View.GONE);
             eventIsGo.setVisibility(View.VISIBLE);
-        } else {
+        } else if("报名中".equals(eventModel.getStatusLabel())){
             flag.setText("本场赛事正在报名~");
             sinup.setVisibility(View.VISIBLE);
+            eventIsGo.setVisibility(View.VISIBLE);
+        }else{
+            flag.setText("本场赛事"+eventModel.getStatusLabel()+"~");
+            sinup.setVisibility(View.GONE);
             eventIsGo.setVisibility(View.VISIBLE);
         }
     }

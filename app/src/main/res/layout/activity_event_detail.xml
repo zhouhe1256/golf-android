@@ -52,6 +52,7 @@
                 android:layout_height="190dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:scaleType="fitXY"
                 android:src="@color/event_title_img_color" />
 
             <LinearLayout
@@ -83,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="活动时间:"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
@@ -110,7 +111,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="活动时间:"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -143,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="活动时间:"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
@@ -167,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="活动时间:"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/sub_textSize" />
                 </LinearLayout>
@@ -203,5 +204,5 @@
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </RelativeLayout>

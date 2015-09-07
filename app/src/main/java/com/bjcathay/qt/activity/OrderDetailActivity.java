@@ -231,14 +231,17 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     schNotice.setVisibility(View.VISIBLE);
                     notice_linear.setVisibility(View.GONE);
                     orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
-                    richTextView.loadDataWithBaseURL(null, orderModel.getScheduling().replaceAll("font-size:.*pt;", "font-size:0pt;").replaceAll("font-family:.*;", "font-family:;"), "text/html", "UTF-8", null);
+                    if(!StringUtils.isEmpty(orderModel.getScheduling())) {
+                        richTextView.loadDataWithBaseURL(null, orderModel.getScheduling().replaceAll("font-size:.*pt;", "font-size:0pt;").replaceAll("font-family:.*;", "font-family:;"), "text/html", "UTF-8", null);
+                    }else
+                        schNotice.setVisibility(View.GONE);
                     break;
                 default:
                     schNotice.setVisibility(View.GONE);
                     notice_linear.setVisibility(View.VISIBLE);
                     orderConNum.setText(""
                             + (orderModel.getPeopleNumber() == 0 ? "4人+"
-                                    : (orderModel.getPeopleNumber() + "人")));
+                            : (orderModel.getPeopleNumber() + "人")));
                     orderSale.setText("" + orderModel.getPriceInclude());
                     break;
             }

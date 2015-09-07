@@ -31,7 +31,7 @@ public class DownloadManager {
 
     private ApkInfo apkinfo;
     private AlertDialog noticeDialog; // 提示弹出框
-    private ProgressDialog progressDialog;
+  //  private ProgressDialog progressDialog;
     private String verName;
 
     private boolean isAccord; // 是否主动检查软件升级
@@ -45,9 +45,9 @@ public class DownloadManager {
 
     Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-            }
+//            if (progressDialog != null) {
+//                progressDialog.dismiss();
+//            }
             switch (msg.what) {
                 case CHECK_SUCCESS: {
                     showNoticeDialog();
@@ -74,8 +74,8 @@ public class DownloadManager {
 
     /* 检查下载更新 [apk下载入口] */
     public void checkDownload() {
-        if (isAccord)
-            progressDialog = ProgressDialog.show(mContext, "", "正在检查更新内容...");
+//        if (isAccord)
+//            progressDialog = ProgressDialog.show(mContext, "", "正在检查更新内容...");
         // progressDialog.setCanceledOnTouchOutside(true);
         new Thread() {
             @Override
@@ -241,6 +241,7 @@ public class DownloadManager {
         } else {
             return false;
         }
+      //  return true;
     }
 
     private boolean checkForceApkVercode() {

@@ -77,7 +77,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     private int reqname = 1;
     private int respname = 2;
 
-    private ProgressDialog dialog = null;
+   // private ProgressDialog dialog = null;
     private String contactName;
     private String contactPhone;
     private String playName;
@@ -135,10 +135,10 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
             DialogUtil.showMessage("请填写正确的手机号码");
             return;
         }
-        if (dialog == null) {
-            dialog = ProgressDialog.show(context, "", "正在提交订单，请稍等...", false);
-            dialog.setCanceledOnTouchOutside(false);// 创建ProgressDialog
-        }
+//        if (dialog == null) {
+//            dialog = ProgressDialog.show(context, "", "正在提交订单，请稍等...", false);
+//            dialog.setCanceledOnTouchOutside(false);// 创建ProgressDialog
+//        }
         OrderModel
                 .commitNewOrder("PRODUCT", stadiumModel.getId(), number, date, contactName,
                         contactPhone,
@@ -149,7 +149,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                         if (jsonObject.optBoolean("success")) {
                             OrderModel orderModel = JSONUtil.load(OrderModel.class,
                                     jsonObject.optJSONObject("order"));
-                            dialog.dismiss();
+                         //   dialog.dismiss();
                             DialogUtil.showMessage("下单成功");
                             Intent intent = new Intent(context, OrderDetailActivity.class);
                             intent.putExtra("imageurl", orderModel.getImageUrl());
@@ -173,7 +173,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                             // intent.putExtra("id", orderModel.getId());
                             // ViewUtil.startActivity(context, intent);
                         } else {
-                            dialog.dismiss();
+                          //  dialog.dismiss();
                             String errorMessage = jsonObject.optString("message");
                             if (!StringUtils.isEmpty(errorMessage))
                                 DialogUtil.showMessage(errorMessage);
@@ -187,7 +187,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
                 ).fail(new ICallback() {
                     @Override
                     public void call(Arguments arguments) {
-                        dialog.dismiss();
+                      //  dialog.dismiss();
                         DialogUtil.showMessage(getString(R.string.empty_net_text));
                     }
                 }

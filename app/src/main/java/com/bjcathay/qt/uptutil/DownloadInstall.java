@@ -30,7 +30,7 @@ public class DownloadInstall implements DownloadCallback {
     private LayoutInflater inflater;
 
     private TextView textView;
-    private ProgressBar progressView;
+    private NumberProgressBar progressView;
     private AlertDialog downloadDialog; // 下载弹出框
     private boolean interceptFlag = false; // 是否取消下载
 
@@ -80,7 +80,7 @@ public class DownloadInstall implements DownloadCallback {
             View view = inflater.inflate(R.layout.upgrade_apk, null);
             textView = (TextView) view.findViewById(R.id.progressCount_text);
             textView.setText("进度：0");
-            progressView = (ProgressBar) view.findViewById(R.id.progressbar);
+            progressView = (NumberProgressBar) view.findViewById(R.id.progressbar);
             builder.setView(view);
            // if(!forceFlag)
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
