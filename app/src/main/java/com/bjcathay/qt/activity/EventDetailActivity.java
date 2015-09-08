@@ -171,7 +171,7 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
         if ("已结束".equals(eventModel.getStatusLabel())) {
             sinup.setVisibility(View.GONE);
             flag.setText("已结束~");
-            eventIsGo.setVisibility(View.GONE);
+           // eventIsGo.setVisibility(View.GONE);
             flag.setBackgroundResource(R.drawable.con_finished);
         } else if ("即将开始".equals(eventModel.getStatusLabel())) {
             flag.setText("即将开始~");

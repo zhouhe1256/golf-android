@@ -229,15 +229,21 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
             switch (orderModel.getType()) {
                 case COMBO:
                     orderMessageNote.setText("旅游信息");
-                    dataNote.setText("出发时间:");
-                    numberNote.setText("返回日期:");
-                    serviceNote.setText("出发城市:");
+                    dataNote.setText("开球时间:");
+                    numberNote.setText("打球人数:");
+                   // serviceNote.setText("出发城市:");
                     peopleNote.setText("同行人信息");
-                    schNoticeNumber.setVisibility(View.VISIBLE);
-                    comboNumber.setText(orderModel.getPeopleNumber() + "人");
+                    normalNumberNote.setText("   同行人:");
+                    //schNoticeNumber.setVisibility(View.VISIBLE);
+                   // comboNumber.setText(orderModel.getPeopleNumber() + "人");
                     schNotice.setVisibility(View.VISIBLE);
                     notice_linear.setVisibility(View.GONE);
                     orderConDate.setText("" + DateUtil.shortDateString(orderModel.getDate()));
+                    orderConNum.setText(""
+                            + (orderModel.getPeopleNumber() == 0 ? "4人+"
+                            : (orderModel.getPeopleNumber() + "人")));
+                    if(!StringUtils.isEmpty(orderModel.getPriceInclude()))
+                    orderSale.setText("" + orderModel.getPriceInclude());
                     if(!StringUtils.isEmpty(orderModel.getScheduling())) {
                         richTextView.loadDataWithBaseURL(null, orderModel.getScheduling().replaceAll("font-size:.*pt;", "font-size:0pt;").replaceAll("font-family:.*;", "font-family:;"), "text/html", "UTF-8", null);
                     }else
@@ -245,6 +251,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                     break;
                 case EVENT:
                     peopleNote.setText("参赛人信息");
+                    numberNote.setText("参赛人数:");
                     schNotice.setVisibility(View.GONE);
                     notice_linear.setVisibility(View.VISIBLE);
                     orderConNum.setText(""
