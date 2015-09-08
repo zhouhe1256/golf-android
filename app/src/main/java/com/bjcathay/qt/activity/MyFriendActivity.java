@@ -12,6 +12,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyFriendAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.InviteListModel;
 import com.bjcathay.qt.model.InviteModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
@@ -42,6 +43,7 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_friend);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -166,6 +168,7 @@ public class MyFriendActivity extends Activity implements AutoListView.OnRefresh
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("我的亲友团页面");
         MobclickAgent.onResume(this);

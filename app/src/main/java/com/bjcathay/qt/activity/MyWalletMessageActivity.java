@@ -13,6 +13,7 @@ import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyOrderMessageAdapter;
 import com.bjcathay.qt.adapter.MyWalletMessageAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
@@ -51,6 +52,7 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet_message);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -203,6 +205,7 @@ public class MyWalletMessageActivity extends Activity implements AutoListView.On
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("我的资产消息页面");
         MobclickAgent.onResume(this);

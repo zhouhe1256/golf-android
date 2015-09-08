@@ -8,6 +8,7 @@ import android.view.View;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
@@ -36,6 +37,7 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pwd);
+        GApplication.getInstance().setFlag(false);
         initView();
         initEvent();
     }
@@ -112,6 +114,7 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("修改密码页面");
         MobclickAgent.onResume(this);

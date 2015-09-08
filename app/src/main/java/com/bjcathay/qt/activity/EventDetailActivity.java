@@ -24,6 +24,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.EventModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
@@ -62,6 +63,7 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         context = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initEvent();
         initData();
@@ -123,7 +125,9 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
         eventPrice.setText(Long.toString(eventModel.getPrice())+"元"+ (StringUtils.isEmpty(eventModel.getPriceInclude())?"":
                         "("+eventModel.getPriceInclude() + ")"));
         eventNumber.setText("仅限" + eventModel.getSignUpAmount() + "人");
-        filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+       // filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        filmWebVIew.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         filmWebVIew.getSettings().setJavaScriptEnabled(true);
 //        filmWebVIew.getSettings().setAllowFileAccess(true);
 //        filmWebVIew.getSettings().setDatabaseEnabled(true);
@@ -210,6 +214,7 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("赛事详情页面");
         MobclickAgent.onResume(this);

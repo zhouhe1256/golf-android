@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SelectContactAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BookListModel;
 
@@ -61,6 +62,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        GApplication.getInstance().setFlag(false);
         context = this;
         initView();
         initData();
@@ -280,6 +282,7 @@ public class SelectContactActivity extends FragmentActivity implements View.OnCl
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("选择打球人通讯录页面");
         MobclickAgent.onResume(this);

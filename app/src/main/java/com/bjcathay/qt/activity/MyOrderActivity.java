@@ -16,6 +16,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyOrderAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderListModel;
 import com.bjcathay.qt.model.OrderModel;
@@ -56,6 +57,7 @@ private int orderCode=1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_order);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -233,6 +235,7 @@ private int orderCode=1;
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         initData();
         MobclickAgent.onPageStart("我的订单页面");

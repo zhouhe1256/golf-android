@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
@@ -31,6 +32,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -109,6 +111,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("搜索页面");
         MobclickAgent.onResume(this);

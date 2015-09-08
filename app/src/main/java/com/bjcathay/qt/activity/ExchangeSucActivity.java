@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.model.ShareModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
@@ -39,6 +40,7 @@ public class ExchangeSucActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_suc);
         context = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initEvent();
         initData();

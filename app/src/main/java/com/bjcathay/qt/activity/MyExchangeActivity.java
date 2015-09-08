@@ -12,6 +12,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyPropAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.PropListModel;
 import com.bjcathay.qt.model.PropModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
@@ -38,6 +39,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_exchange);
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -162,6 +164,7 @@ public class MyExchangeActivity extends Activity implements AutoListView.OnRefre
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         initData();
         MobclickAgent.onPageStart("我的兑换页面");

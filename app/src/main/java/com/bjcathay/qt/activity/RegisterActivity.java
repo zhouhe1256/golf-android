@@ -58,6 +58,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         initView();
         initDate();
         initEvent();
@@ -252,6 +253,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("注册页面");
         MobclickAgent.onResume(this);

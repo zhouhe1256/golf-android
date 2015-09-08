@@ -18,6 +18,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.GolfCourseAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.GolfCourseListModel;
 import com.bjcathay.qt.model.GolfCourseModel;
@@ -49,6 +50,7 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_keyword);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -195,6 +197,7 @@ public class KeyWordSearchActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("关键字搜索页面");
         MobclickAgent.onResume(this);

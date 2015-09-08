@@ -24,6 +24,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.CityAdapter;
 import com.bjcathay.qt.adapter.HotCityAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.db.DBManager;
 import com.bjcathay.qt.model.CModel;
 import com.bjcathay.qt.model.CityListModel;
@@ -72,6 +73,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_select);
         context = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -360,6 +362,7 @@ public class CitySelectActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("城市选择页面");
         MobclickAgent.onResume(this);

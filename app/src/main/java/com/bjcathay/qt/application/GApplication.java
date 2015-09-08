@@ -3,7 +3,10 @@ package com.bjcathay.qt.application;
 
 import android.app.Application;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.constant.ApiUrl;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.UserModel;
+import com.bjcathay.qt.receiver.DialogReceiver;
 import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
@@ -50,7 +54,7 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
     private WindowManager wm;
     private WindowManager.LayoutParams para;
     private NetAccessView mView;
-    private boolean flag = false;
+    private boolean flag = true;
 
     public UserModel getUser() {
         if (user == null) {
@@ -61,6 +65,14 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
             user = JSONUtil.load(UserModel.class, userJson);
         }
         return user;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public void setUser(UserModel user) {
@@ -101,14 +113,30 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
 
     }
 
+    public void closeDialog() {
+        if (mView.getParent() != null) {
+            flag = false;
+            // if (dialogReceiver != null) {
+            // mView.getContext().unregisterReceiver(dialogReceiver);
+            // }
+            wm.removeView(mView);
+        }
+    }
+
+    DialogReceiver dialogReceiver;
+
     public synchronized void initHttp(Context context) {
         if (httpInited) {
             return;
         }
         this.Gcontext = context;
-//        mView = LayoutInflater.from(context).inflate(
-//                R.layout.layout_my_dialog, null);
-        mView=new NetAccessView(context);
+        // mView = LayoutInflater.from(context).inflate(
+        // R.layout.layout_my_dialog, null);
+        mView = new NetAccessView(context);
+        if (dialogReceiver == null) {
+            dialogReceiver = new DialogReceiver();
+        }
+
         httpInited = true;
 
         baseDir = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ?
@@ -159,57 +187,41 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                         }
                     }
                 }).start(new ICallback() {
-            @Override
-            public void call(Arguments arguments) {
-                // progressDialog = ProgressDialog.show(Gcontext, "",
-                // "正在访问网络...");
-                if (flag == false) {
-                    flag = true;
-                    wm.addView(mView, para);
-                }
-            }
-        }).complete(new ICallback() {
-                        @Override
-                        public void call(Arguments arguments) {
-                            // if (progressDialog != null) {
-                            // progressDialog.dismiss();
-                            // }
-                            if (mView.getParent() != null) {
-                                flag = false;
-                                wm.removeView(mView);
-                            }
+                    @Override
+                    public void call(Arguments arguments) {
+                        if (flag == false) {
+                            flag = true;
+                            IntentFilter homeFilter = new IntentFilter(
+                                    Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                            mView.getContext().registerReceiver(dialogReceiver, homeFilter);
+                            if (mView.getParent() == null)
+                                wm.addView(mView, para);
                         }
                     }
-
-        ).
-
-            callbackExecutor(new LooperCallbackExecutor()
-
-            ).
-
+                }).complete(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        if (mView.getParent() != null) {
+                            flag = false;
+                            if (dialogReceiver != null) {
+                                mView.getContext().unregisterReceiver(dialogReceiver);
+                            }
+                            wm.removeView(mView);
+                        }
+                    }
+                }).
+                callbackExecutor(new LooperCallbackExecutor()).
                 fail(new ICallback() {
-                         @Override
-                         public void call(Arguments arguments) {
-                         }
-                     }
-
+                    @Override
+                    public void call(Arguments arguments) {
+                    }
+                });
+        ChainedCache<String, byte[]> imageCache = ChainedCache.create(
+                400 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
+                "images", new DiskCache.ByteArraySerialization<String>()
                 );
-
-            ChainedCache<String, byte[]> imageCache = ChainedCache.create(
-                    400 * 1024 * 1024, new MemoryCache.ByteArraySizer<String>(),
-                    "images", new DiskCache.ByteArraySerialization<String>()
-            );
-            Http.imageInstance().
-
-            cache(imageCache)
-
-            .
-
-            baseUrl(ApiUrl.HOST_URL)
-
-            .
-
-            aheadReadInCache(true);
+        Http.imageInstance().cache(imageCache).baseUrl(ApiUrl.HOST_URL).
+                aheadReadInCache(true);
     }
 
     public void updateApiToken() {

@@ -55,6 +55,7 @@ public class ProductSearchResultActivity extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_about);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(true);
         initView();
         initEvent();
         initData();
@@ -225,6 +226,7 @@ public class ProductSearchResultActivity extends Activity implements
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("相关球场页面");
         MobclickAgent.onResume(this);

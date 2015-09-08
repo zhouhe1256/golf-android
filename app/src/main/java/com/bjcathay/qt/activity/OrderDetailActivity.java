@@ -18,6 +18,7 @@ import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.ProductModel;
@@ -92,6 +93,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_order_detail);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -482,6 +484,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     @Override
     protected void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         if (id != 0)
             OrderModel.orderDetail(id).done(this).fail(new ICallback() {
                 @Override

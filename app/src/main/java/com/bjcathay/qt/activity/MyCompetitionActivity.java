@@ -13,6 +13,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyCompetitionAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.EventListModel;
 import com.bjcathay.qt.model.EventModel;
@@ -47,6 +48,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_competition);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -183,6 +185,7 @@ public class MyCompetitionActivity extends Activity implements AutoListView.OnRe
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("我的赛事页面");
         MobclickAgent.onResume(this);

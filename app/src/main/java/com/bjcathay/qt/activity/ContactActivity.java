@@ -20,6 +20,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SortAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.BookModel;
 import com.bjcathay.qt.model.BooksModel;
@@ -67,6 +68,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -295,6 +297,7 @@ public class ContactActivity extends FragmentActivity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赠送好友通讯录页面");
         MobclickAgent.onResume(this);

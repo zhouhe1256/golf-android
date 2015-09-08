@@ -70,6 +70,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(true);
         initView();
         initEvent();
         initData();
@@ -346,6 +347,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("套餐列表页面");
         MobclickAgent.onResume(this);

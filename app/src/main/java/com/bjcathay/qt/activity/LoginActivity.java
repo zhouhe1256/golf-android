@@ -49,6 +49,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         initView();
         initEvent();
         initData();
@@ -166,6 +167,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ICa
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("登录页面");
         MobclickAgent.onResume(this);

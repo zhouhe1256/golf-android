@@ -19,6 +19,7 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.GolfDetailViewPagerAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.StadiumModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.SizeUtil;
@@ -51,6 +52,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_golfcourse_detail);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -219,6 +221,7 @@ public class GolfCourseDetailActicity extends Activity implements ICallback, Vie
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("球场详情页面");
         MobclickAgent.onResume(this);

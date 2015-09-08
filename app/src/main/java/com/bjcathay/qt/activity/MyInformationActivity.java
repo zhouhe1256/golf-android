@@ -20,6 +20,7 @@ import com.bjcathay.qt.R;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
+import com.bjcathay.qt.util.DialogUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
 import com.bjcathay.qt.view.SelectPicPopupWindow;
@@ -55,6 +56,7 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_information);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -151,6 +153,11 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
                             UserModel user = arguments.get(0);
                             initUserData(user, false);
                         }
+                    }).fail(new ICallback() {
+                        @Override
+                        public void call(Arguments arguments) {
+                            DialogUtil.showMessage(getString(R.string.empty_net_text));
+                        }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -168,6 +175,11 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
                     public void call(Arguments arguments) {
                         UserModel user = arguments.get(0);
                         initUserData(user, false);
+                    }
+                }).fail(new ICallback() {
+                    @Override
+                    public void call(Arguments arguments) {
+                        DialogUtil.showMessage(getString(R.string.empty_net_text));
                     }
                 });
             }
@@ -208,7 +220,8 @@ public class MyInformationActivity extends Activity implements SelectPicPopupWin
     @Override
     public void onResume() {
         super.onResume();
-        MessageReceiver.baseActivity=this;
+        GApplication.getInstance().setFlag(false);
+        MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("个人资料页面");
         MobclickAgent.onResume(this);
     }

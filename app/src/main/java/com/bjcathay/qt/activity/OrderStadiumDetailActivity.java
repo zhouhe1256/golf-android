@@ -100,6 +100,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coursedetail);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         context = this;
         initView();
         initData();
@@ -699,6 +700,7 @@ public class OrderStadiumDetailActivity extends FragmentActivity implements ICal
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(false);
         MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("产品详情页面");
         MobclickAgent.onResume(this);

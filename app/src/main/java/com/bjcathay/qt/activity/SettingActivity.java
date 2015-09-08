@@ -40,6 +40,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         initView();
         initDate();
         initEvent();
@@ -115,6 +116,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("设置页面");
         MobclickAgent.onResume(this);

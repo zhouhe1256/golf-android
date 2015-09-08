@@ -64,6 +64,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_placelist);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(true);
         initView();
         initEvent();
         initData();
@@ -290,6 +291,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("产品列表页面");
         MobclickAgent.onResume(this);

@@ -51,6 +51,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_award);
         gApplication = GApplication.getInstance();
+        gApplication.setFlag(false);
         initView();
         initEvent();
         initData();
@@ -133,6 +134,7 @@ public class AwardActivity extends FragmentActivity implements ICallback, View.O
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(false);
         if (gApplication.isLogin()) {
             UserModel.get().done(new ICallback() {
                 @Override

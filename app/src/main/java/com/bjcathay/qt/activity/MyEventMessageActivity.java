@@ -12,6 +12,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyEventMessageAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
@@ -50,6 +51,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_event_message);
         context = this;
+        GApplication.getInstance().setFlag(true);
         initView();
         initData();
         initEvent();
@@ -202,6 +204,7 @@ public class MyEventMessageActivity extends Activity implements AutoListView.OnR
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("通知活动页面");
         MobclickAgent.onResume(this);

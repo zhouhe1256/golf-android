@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
@@ -30,6 +31,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -103,6 +105,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("活动页面");
         MobclickAgent.onResume(this);

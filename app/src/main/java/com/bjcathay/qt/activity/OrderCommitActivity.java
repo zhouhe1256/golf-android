@@ -93,6 +93,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_commit);
         context = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -635,6 +636,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("完善订单页面");
         MobclickAgent.onResume(this);

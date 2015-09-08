@@ -30,6 +30,7 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet);
+        GApplication.getInstance().setFlag(false);
         topView = ViewUtil.findViewById(this, R.id.top_my_wallet_layout);
         wallet_remain = ViewUtil.findViewById(this, R.id.wallet_remain);
         topView.setTitleBackVisiable();
@@ -69,6 +70,7 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("我的钱包");
         MobclickAgent.onResume(this);

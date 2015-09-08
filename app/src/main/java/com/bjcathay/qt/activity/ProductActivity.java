@@ -72,6 +72,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         initView();
         initEvent();
         initData();
@@ -306,6 +307,7 @@ public class ProductActivity extends Activity implements ICallback, View.OnClick
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("产品列表页面");
         MobclickAgent.onResume(this);

@@ -58,6 +58,7 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realtime);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         context = this;
         initView();
         initData();
@@ -190,6 +191,7 @@ public class RealTOrderActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("实时计价产品详情页面");
         MobclickAgent.onResume(this);

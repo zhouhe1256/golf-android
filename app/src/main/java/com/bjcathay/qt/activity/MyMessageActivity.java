@@ -13,15 +13,13 @@ import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.DialogUtil;
-import com.bjcathay.qt.util.PreferencesConstant;
-import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
-import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.DeleteInfoDialog;
 import com.bjcathay.qt.view.TopView;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -64,6 +62,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_message);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -312,6 +311,7 @@ public class MyMessageActivity extends Activity implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("消息页面");
         MobclickAgent.onResume(this);

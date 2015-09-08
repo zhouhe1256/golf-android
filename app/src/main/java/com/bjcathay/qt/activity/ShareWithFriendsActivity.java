@@ -47,6 +47,7 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_with_friends);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -159,6 +160,7 @@ public class ShareWithFriendsActivity extends Activity implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("与好友分享７铁页面");
         MobclickAgent.onResume(this);

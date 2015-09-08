@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.model.UserModel;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
@@ -34,6 +35,7 @@ public class UserEditNicknameActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_nickname);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -125,6 +127,7 @@ public class UserEditNicknameActivity extends Activity implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("修改昵称页面");
         MobclickAgent.onResume(this);

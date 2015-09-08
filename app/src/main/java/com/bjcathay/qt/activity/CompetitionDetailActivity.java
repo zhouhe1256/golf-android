@@ -49,6 +49,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition_detail);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -217,6 +218,7 @@ public class CompetitionDetailActivity extends FragmentActivity implements ICall
     @Override
     protected void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         if (webview != null && url != null) {
             if (!url.contains("?"))
                 url += "?";

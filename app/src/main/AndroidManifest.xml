@@ -531,5 +531,13 @@ AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
             </intent-filter>
         </receiver>
         <!--微信支付end-->
+
+        <receiver
+            android:name=".receiver.DialogReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

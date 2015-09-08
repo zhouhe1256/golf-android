@@ -47,6 +47,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usercenter);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(true);
         initView();
         initDate();
         initEvent();
@@ -188,6 +189,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         initDate();
         MobclickAgent.onPageStart("个人中心页面");

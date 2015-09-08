@@ -41,6 +41,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(true);
         initView();
         initEvent();
         initData();
@@ -170,6 +171,7 @@ public class CompetitionActivity extends Activity implements AutoListView.OnRefr
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("7铁赛事页面");
         MobclickAgent.onResume(this);

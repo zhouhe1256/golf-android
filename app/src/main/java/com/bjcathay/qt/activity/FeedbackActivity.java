@@ -37,6 +37,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         gApplication = GApplication.getInstance();
+        GApplication.getInstance().setFlag(false);
         initView();
         initDate();
         initEvent();
@@ -96,6 +97,7 @@ public class FeedbackActivity extends Activity implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("反馈页面");
         MobclickAgent.onResume(this);

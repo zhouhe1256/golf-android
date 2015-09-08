@@ -13,6 +13,7 @@ import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.MyNtfMessageAdapter;
 import com.bjcathay.qt.adapter.MyOrderMessageAdapter;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.constant.ErrorCode;
 import com.bjcathay.qt.model.MessageListModel;
 import com.bjcathay.qt.model.MessageModel;
@@ -50,6 +51,7 @@ public class MyNtfMessageActivity extends Activity implements AutoListView.OnRef
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notification_message);
+        GApplication.getInstance().setFlag(true);
         context = this;
         initView();
         initData();
@@ -203,6 +205,7 @@ public class MyNtfMessageActivity extends Activity implements AutoListView.OnRef
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(true);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("通知消息页面");
         MobclickAgent.onResume(this);

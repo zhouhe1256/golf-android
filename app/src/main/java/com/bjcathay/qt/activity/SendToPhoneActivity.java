@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.UserListModle;
 import com.bjcathay.qt.model.UserModel;
@@ -41,6 +42,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_edit_phone);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -140,6 +142,7 @@ public class SendToPhoneActivity extends FragmentActivity implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("赠送好友输入手机号页面");
         MobclickAgent.onResume(this);

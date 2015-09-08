@@ -65,6 +65,7 @@ public class PackageDetailActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_detail);
+        GApplication.getInstance().setFlag(false);
         initView();
         InitImageView();
         InitImageViewtop();
@@ -289,6 +290,7 @@ public class PackageDetailActivity extends FragmentActivity implements
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("套餐详情页面");
         MobclickAgent.onResume(this);

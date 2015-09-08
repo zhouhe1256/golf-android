@@ -54,6 +54,7 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_player);
         context = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -165,6 +166,7 @@ public class SelectPlayerActivity extends Activity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("选择打球人页面");
         MobclickAgent.onResume(this);

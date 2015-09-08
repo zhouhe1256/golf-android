@@ -154,7 +154,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         setContentView(R.layout.activity_main);
 
         gApplication = GApplication.getInstance();
-
+        GApplication.getInstance().setFlag(true);
         initView();
         initEvent();
         initData();
@@ -172,10 +172,10 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
         Intent intent = getIntent();
         if ("web".equals(intent.getAction())) {
             Long webid = intent.getLongExtra("id", 0l);
-//            intent = new Intent(context, CompetitionDetailActivity.class);
-//            intent.putExtra("id", webid);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            ViewUtil.startActivity(context, intent);
+            // intent = new Intent(context, CompetitionDetailActivity.class);
+            // intent.putExtra("id", webid);
+            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // ViewUtil.startActivity(context, intent);
         }
         pushModel = (PushModel) intent.getSerializableExtra("push");
         if (pushModel != null) {
@@ -458,6 +458,7 @@ public class MainActivity extends Activity implements View.OnClickListener, ICal
     @Override
     public void onResume() {
         super.onResume();
+        gApplication.setFlag(true);
         MessageReceiver.baseActivity = this;
         MobclickAgent.onPageStart("首页");
         MobclickAgent.onResume(this);

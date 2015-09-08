@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bjcathay.qt.R;
+import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
@@ -22,6 +23,7 @@ public class StadiumSearchActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        GApplication.getInstance().setFlag(false);
         initView();
         initData();
         initEvent();
@@ -59,6 +61,7 @@ public class StadiumSearchActivity extends Activity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("输入关键字页面");
         MobclickAgent.onResume(this);

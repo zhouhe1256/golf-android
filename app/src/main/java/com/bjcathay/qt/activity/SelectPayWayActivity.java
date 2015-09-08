@@ -69,6 +69,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_detail);
         activity = this;
+        GApplication.getInstance().setFlag(false);
         initView();
         initReceiver();
         initData();
@@ -347,6 +348,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        GApplication.getInstance().setFlag(false);
         MessageReceiver.baseActivity=this;
         MobclickAgent.onPageStart("支付页面");
         MobclickAgent.onResume(this);
