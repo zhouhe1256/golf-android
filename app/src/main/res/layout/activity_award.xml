@@ -66,7 +66,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:layout_toRightOf="@id/exchange_invite_numb_"
-                    android:text="0"
+                    android:text=""
                     android:textColor="@color/guolinbi_color"
                     android:textSize="15sp" />
 

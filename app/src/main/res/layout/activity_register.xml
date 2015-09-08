@@ -72,7 +72,7 @@
                 android:layout_toLeftOf="@+id/register_get_code_btn"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_register_code"
-                android:drawablePadding="20dp"
+                android:drawablePadding="14dp"
                 android:hint="验证码"
                 android:inputType="number"
                 android:paddingTop="10dp"

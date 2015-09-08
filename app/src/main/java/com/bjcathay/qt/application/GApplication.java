@@ -94,6 +94,8 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
         para.height = -1;
         para.width = -1;
         para.format = 1;
+        para.x=0;
+        para.y=0;
 
         para.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
@@ -178,11 +180,11 @@ public class GApplication extends Application implements Thread.UncaughtExceptio
                             int code = json.optInt("code");
                             if (code == 13005) {
                             } else {
-                                if (!StringUtils.isEmpty(errorMessage))
-                                    DialogUtil.showMessage(errorMessage);
-                                else {
-                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                }
+//                                if (!StringUtils.isEmpty(errorMessage))
+//                                    DialogUtil.showMessage(errorMessage);
+//                                else {
+//                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+//                                }
                             }
                         }
                     }

@@ -492,12 +492,23 @@
                         android:paddingRight="10dp">
 
                         <TextView
+                            android:id="@+id/play_number_"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="    打球人:"
                             android:textColor="@color/exchange_text_color"
-                            android:textSize="@dimen/middle_textSize" />
+                            android:textSize="@dimen/middle_textSize"
+                            android:visibility="visible"/>
+                        <TextView
+                            android:id="@+id/play_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="    参赛人:"
+                            android:textColor="@color/exchange_text_color"
+                            android:textSize="@dimen/middle_textSize"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/personNames"

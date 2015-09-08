@@ -22,6 +22,7 @@ import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.CircleImageView;
 import com.bjcathay.qt.view.TopView;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -72,7 +73,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
             if (userModel1 != null) {
                 ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(),
                         R.drawable.ic_default_user);
-                if (userModel1.getNickname() == null)
+                if (StringUtils.isEmpty(userModel1.getNickname()))
                     userPhone.setText(userModel1.getMobileNumber());
                 else
                     userPhone.setText(userModel1.getNickname());
@@ -87,7 +88,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
                         if (userModel1 != null) {
                             ImageViewAdapter.adapt(userImg, userModel1.getImageUrl(),
                                     R.drawable.ic_default_user);
-                            if (userModel1.getNickname() == null)
+                            if (StringUtils.isEmpty(userModel1.getNickname()))
                                 userPhone.setText(userModel1.getMobileNumber());
                             else
                                 userPhone.setText(userModel1.getNickname());
@@ -179,7 +180,7 @@ public class UserCenterActivity extends Activity implements View.OnClickListener
         PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,
                 userModel.getInviteCode());
         ImageViewAdapter.adapt(userImg, userModel.getImageUrl(), R.drawable.ic_default_user);
-        if (userModel.getNickname() == null)
+        if (StringUtils.isEmpty(userModel.getNickname()))
             userPhone.setText(userModel.getMobileNumber());
         else
             userPhone.setText(userModel.getNickname());

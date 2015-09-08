@@ -79,7 +79,7 @@ public class MyOrderAdapter extends BaseAdapter {
         holder.time.setText(currentTime);
         if(ProductType.prdtType.EVENT.equals(orderModel.getType())){
             holder.contain.setVisibility(View.GONE);
-            holder.time.setText(DateUtil.stringToDateToOrderString(orderModel.getDate())+"-"+DateUtil.stringToDateToEventString(orderModel.getDate()));
+            holder.time.setText(DateUtil.stringToDateToOrderString(orderModel.getDate()));
         }else{
             holder.contain.setVisibility(View.VISIBLE);
         }

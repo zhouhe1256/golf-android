@@ -28,7 +28,7 @@ public class AboutActivity extends Activity implements View.OnClickListener {
         topView = ViewUtil.findViewById(this, R.id.top_about_layout);
         version = ViewUtil.findViewById(this, R.id.app_version);
         topView.setTitleBackVisiable();
-        topView.setTitleText("关于七铁");
+        topView.setTitleText("关于7铁");
         version.setText(SystemUtil.getCurrentVersionName(GApplication.getInstance()));
     }
 

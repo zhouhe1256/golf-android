@@ -170,19 +170,19 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
 
         if ("已结束".equals(eventModel.getStatusLabel())) {
             sinup.setVisibility(View.GONE);
-            flag.setText("本场赛事已结束~");
+            flag.setText("已结束~");
             eventIsGo.setVisibility(View.GONE);
             flag.setBackgroundResource(R.drawable.con_finished);
         } else if ("即将开始".equals(eventModel.getStatusLabel())) {
-            flag.setText("本场赛事即将开始~");
+            flag.setText("即将开始~");
             sinup.setVisibility(View.GONE);
             eventIsGo.setVisibility(View.VISIBLE);
         } else if("报名中".equals(eventModel.getStatusLabel())){
-            flag.setText("本场赛事正在报名~");
+            flag.setText("正在报名~");
             sinup.setVisibility(View.VISIBLE);
             eventIsGo.setVisibility(View.VISIBLE);
         }else{
-            flag.setText("本场赛事"+eventModel.getStatusLabel()+"~");
+            flag.setText(""+eventModel.getStatusLabel()+"~");
             sinup.setVisibility(View.GONE);
             eventIsGo.setVisibility(View.VISIBLE);
         }

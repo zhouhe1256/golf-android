@@ -42,7 +42,7 @@
                 android:paddingBottom="9dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="本场赛事开约啦~"
+                android:text="即将开始~"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sub_textSize" />
 

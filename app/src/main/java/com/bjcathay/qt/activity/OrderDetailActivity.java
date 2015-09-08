@@ -86,6 +86,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
     private LinearLayout schNoticeNumber;
     private LinearLayout contains;
     private TextView comboNumber;
+    private TextView eventNumberNote;
+    private TextView normalNumberNote;
     private WebView richTextView;
 
     @Override
@@ -140,6 +142,8 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
         comboNumber = ViewUtil.findViewById(this, R.id.combo_personnumber);
         richTextView = ViewUtil.findViewById(this, R.id.purchasing);
         contains = ViewUtil.findViewById(this, R.id.order_contains);
+        eventNumberNote = ViewUtil.findViewById(this, R.id.play_number);
+        normalNumberNote = ViewUtil.findViewById(this, R.id.play_number_);
     }
 
     private void initEvent() {
@@ -197,6 +201,7 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                 paywallet.setText("￥" + (int) Math.floor(orderModel.getBalancePayMoney()));
             }
             if(ProductType.prdtType.EVENT.equals(orderModel.getType())){
+                payType.setVisibility(View.GONE);
                 contains.setVisibility(View.GONE);
                 personNames.setText(orderModel.getCompanion());
                 orderMessageNote.setText("赛事信息");
@@ -237,6 +242,17 @@ public class OrderDetailActivity extends Activity implements ICallback, View.OnC
                         richTextView.loadDataWithBaseURL(null, orderModel.getScheduling().replaceAll("font-size:.*pt;", "font-size:0pt;").replaceAll("font-family:.*;", "font-family:;"), "text/html", "UTF-8", null);
                     }else
                         schNotice.setVisibility(View.GONE);
+                    break;
+                case EVENT:
+                    peopleNote.setText("参赛人信息");
+                    schNotice.setVisibility(View.GONE);
+                    notice_linear.setVisibility(View.VISIBLE);
+                    orderConNum.setText(""
+                            + (orderModel.getPeopleNumber() == 0 ? "4人+"
+                            : (orderModel.getPeopleNumber() + "人")));
+                    orderSale.setText("" + orderModel.getPriceInclude());
+                    eventNumberNote.setVisibility(View.VISIBLE);
+                    normalNumberNote.setVisibility(View.GONE);
                     break;
                 default:
                     schNotice.setVisibility(View.GONE);
