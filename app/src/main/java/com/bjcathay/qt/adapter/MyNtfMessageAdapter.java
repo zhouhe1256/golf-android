@@ -19,6 +19,7 @@ import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.Enumeration.MessageType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.CompetitionDetailActivity;
+import com.bjcathay.qt.activity.EventDetailActivity;
 import com.bjcathay.qt.activity.ExerciseActivity;
 import com.bjcathay.qt.activity.MyCompetitionActivity;
 import com.bjcathay.qt.activity.OrderDetailActivity;
@@ -104,7 +105,7 @@ public class MyNtfMessageAdapter extends BaseAdapter {
         }
         holder.day.setText(messageModel.getCreated().substring(2, 16));
         holder.content.setText(messageModel.getContent());
-        if (MessageType.pushMsgType.MESSAGE.equals(messageModel.getSubType())||MessageType.pushMsgType.COMPETITION.equals(messageModel.getSubType())) {
+        if (MessageType.pushMsgType.MESSAGE.equals(messageModel.getSubType())/*||MessageType.pushMsgType.COMPETITION.equals(messageModel.getSubType())*/) {
             holder.toPay.setVisibility(View.GONE);
         } else {
             holder.toPay.setVisibility(View.VISIBLE);
@@ -196,9 +197,9 @@ public class MyNtfMessageAdapter extends BaseAdapter {
                         ViewUtil.startActivity(context, intent);
                         break;
                     case COMPETITION:
-//                        intent = new Intent(context, CompetitionDetailActivity.class);
-//                        intent.putExtra("id", Long.parseLong(messageModel.getTarget()));
-//                        ViewUtil.startActivity(context, intent);
+                        intent = new Intent(context, EventDetailActivity.class);
+                        intent.putExtra("id", Long.parseLong(messageModel.getTarget()));
+                        ViewUtil.startActivity(context, intent);
                         break;
                 }
             }

@@ -58,7 +58,7 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
     private void edit() {
         String pwd1 = newPwd.getText().toString();
         String pwd2 = surePwd.getText().toString();
-        if (pwd1.isEmpty() || pwd2.isEmpty()) {
+        if (pwd1.isEmpty() || pwd2.isEmpty()||oldPwd.getText().toString().trim().isEmpty()) {
             DialogUtil.showMessage("密码不能为空");
             return;
         }
