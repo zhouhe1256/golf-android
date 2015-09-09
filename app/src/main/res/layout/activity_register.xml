@@ -108,7 +108,7 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/ic_login_pwd"
-            android:drawablePadding="20dp"
+            android:drawablePadding="14dp"
             android:hint="密码"
             android:inputType="textPassword"
             android:paddingTop="10dp"
