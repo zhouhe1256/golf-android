@@ -132,6 +132,11 @@ public class EventCommitActivity extends Activity implements View.OnClickListene
 //            dialog = ProgressDialog.show(context, "", "正在提交订单，请稍等...", false);
 //            dialog.setCanceledOnTouchOutside(false);// 创建ProgressDialog
 //        }
+        if(playNote.equals("备注：")){
+            playNote=null;
+        }else{
+            playNote.replace("备注：","");
+        }
         OrderModel
                 .commitEventOrder("EVENT",eventModel.getId(), number, eventModel.getDate(), contactName,
                         contactPhone,

@@ -148,7 +148,7 @@
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@color/home_exchange_press_color"
+            android:background="@color/price_bg"
             android:gravity="center"
             android:text="￥123"
             android:textColor="@color/white"
