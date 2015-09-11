@@ -58,7 +58,7 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
     private void edit() {
         String pwd1 = newPwd.getText().toString();
         String pwd2 = surePwd.getText().toString();
-        if (pwd1.isEmpty() || pwd2.isEmpty()||oldPwd.getText().toString().trim().isEmpty()) {
+        if (pwd1.isEmpty() || pwd2.isEmpty()||oldPwd.getText().toString().isEmpty()) {
             DialogUtil.showMessage("密码不能为空");
             return;
         }
@@ -68,16 +68,15 @@ public class EditPwdActivity extends Activity implements View.OnClickListener {
             return;
         }
         if (pwd2.length() >= 6 && pwd2.length() <= 18) {
-            UserModel.changePassword(oldPwd.getText().toString().trim(),
-                    newPwd.getText().toString().trim()).done(new ICallback() {
+            UserModel.changePassword(oldPwd.getText().toString(),
+                    newPwd.getText().toString()).done(new ICallback() {
                 @Override
                 public void call(Arguments arguments) {
                     JSONObject jsonObject = arguments.get(0);
                     if (jsonObject.optBoolean("success")) {
                         DialogUtil.showMessage("修改成功");
                         PreferencesUtils.putString(EditPwdActivity.this,
-                                PreferencesConstant.USER_PASSWORD, newPwd.getText().toString()
-                                        .trim());
+                                PreferencesConstant.USER_PASSWORD, newPwd.getText().toString());
                         finish();
                     } else {
                         String errorMessage = jsonObject.optString("message");
