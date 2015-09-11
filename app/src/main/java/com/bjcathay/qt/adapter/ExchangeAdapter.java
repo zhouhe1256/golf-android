@@ -1,6 +1,7 @@
 
 package com.bjcathay.qt.adapter;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.activity.AwardActivity;
+import com.bjcathay.qt.activity.LoginActivity;
 import com.bjcathay.qt.application.GApplication;
 import com.bjcathay.qt.fragment.DialogExchFragment;
 import com.bjcathay.qt.model.PropModel;
@@ -92,9 +94,15 @@ public class ExchangeAdapter extends BaseAdapter {
         holder.toExch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogExchFragment.setItems(propModel, num);
-                dialogExchFragment.show(context.getSupportFragmentManager(), "exchange");
-            }
+                if(gApplication.isLogin() == true) {
+                    dialogExchFragment.setItems(propModel, num);
+                    dialogExchFragment.show(context.getSupportFragmentManager(), "exchange");
+                }else{
+                    Intent intent= new Intent(context, LoginActivity.class);
+                    // IsLoginUtil.isLogin(context,intent);
+                    ViewUtil.startActivity(context,intent);
+                }
+                }
         });
 
         return convertView;
