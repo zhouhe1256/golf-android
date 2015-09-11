@@ -153,7 +153,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     private void register() {
         String phone = userPhone.getText().toString().trim();
-        String password = userPwd.getText().toString().trim();
+        String password = userPwd.getText().toString();
         String code = userCode.getText().toString().trim();
         String inviteCode = userInvite.getText().toString().trim();
         if (phone.length() == 0) {
@@ -207,7 +207,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
             PreferencesUtils.putString(gApplication, PreferencesConstant.NICK_NAME,
                     userModel.getNickname());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_NAME, userPhone.getText().toString().trim());
-            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD,  userPwd.getText().toString().trim());
+            PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PASSWORD,  userPwd.getText().toString());
             PreferencesUtils.putString(gApplication, PreferencesConstant.USER_PHONE,
                     userModel.getMobileNumber());
             PreferencesUtils.putString(gApplication, PreferencesConstant.INVITE_CODE,
