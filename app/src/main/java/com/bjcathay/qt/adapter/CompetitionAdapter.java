@@ -78,15 +78,15 @@ public class CompetitionAdapter extends BaseAdapter {
         } else {
             holder.detail.setTextColor(context.getResources().getColor(R.color.order_price_color));
         }
-        if("已结束".equals(eventModel.getStatusLabel())||"即将开始".equals(eventModel.getStatusLabel())){
+      //  if("已结束".equals(eventModel.getStatusLabel())||"即将开始".equals(eventModel.getStatusLabel())){
             holder.status.setText(eventModel.getStatusLabel());
             holder.status.setVisibility(View.VISIBLE);
             holder.already.setVisibility(View.GONE);
-        }else{
-            holder.detail.setText(eventModel.getSignedAmount() + "");
-            holder.status.setVisibility(View.GONE);
-            holder.already.setVisibility(View.VISIBLE);
-        }
+//        }else{
+//            holder.detail.setText(eventModel.getSignedAmount() + "");
+//            holder.status.setVisibility(View.GONE);
+//            holder.already.setVisibility(View.VISIBLE);
+//        }
        // holder.status.setText(eventModel.getStatusLabel());
 
         return convertView;
