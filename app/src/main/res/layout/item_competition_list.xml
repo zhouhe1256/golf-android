@@ -30,12 +30,28 @@
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_default_user" />
 
-
+                <TextView
+                    android:id="@+id/competition_status"
+                    android:layout_width="29dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_attend_bg"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_textSize" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_toLeftOf="@id/competition_status"
                     android:layout_toRightOf="@id/compete_logo_img"
                     android:orientation="vertical"
                     android:paddingBottom="20dp">
@@ -44,10 +60,9 @@
                         android:id="@+id/competition_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="40dp"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="北京清河湾＊＊公开赛"
+                        android:text=""
                         android:textColor="@color/main_text_color"
                         android:textSize="@dimen/main_textSize" />
 
@@ -56,10 +71,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:paddingRight="5dp"
                         android:paddingTop="5dp"
                         android:singleLine="true"
-                        android:text="时间:2015.3.4"
+                        android:text=""
                         android:textColor="@color/exchange_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -68,10 +82,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:singleLine="true"
-                        android:text="地址:北京市清河湾"
+                        android:text=""
                         android:textColor="@color/exchange_text_color"
                         android:textSize="@dimen/sub_textSize" />
 
@@ -91,6 +104,7 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
+
             </RelativeLayout>
 
             <View
@@ -98,6 +112,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:visibility="gone"
                 android:background="@drawable/line_divide_hor" />
 
             <LinearLayout
@@ -105,26 +120,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/competition_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:gravity="center_vertical"
-                    android:text="已结束"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="@dimen/sub_textSize"
-                    android:visibility="visible"/>
 
                 <LinearLayout
                     android:id="@+id/already_persons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

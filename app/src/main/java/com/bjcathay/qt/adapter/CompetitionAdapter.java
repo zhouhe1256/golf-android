@@ -65,10 +65,10 @@ public class CompetitionAdapter extends BaseAdapter {
         EventModel eventModel = items.get(position);
         ImageViewAdapter.adapt(holder.img, eventModel.getImageUrl(), R.color.event_title_img_color);
 
-//        if (eventModel.getStatus() == 4) {
-//            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
-//        } else
-//            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
+        if (eventModel.getStatus() == 4) {
+            holder.status.setBackgroundResource(R.drawable.ic_attend_end_bg);
+        } else
+            holder.status.setBackgroundResource(R.drawable.ic_attend_bg);
         holder.title.setText(eventModel.getName());
         holder.address.setText("地址：" + eventModel.getAddress());
         holder.time.setText("时间：" + DateUtil.shortDateString(eventModel.getDate()));
