@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bjcathay.qt"
     android:versionCode="8"
-    android:versionName="1.8">
+    android:versionName="1.8" >
 
     <uses-sdk
         android:minSdkVersion="5"
@@ -15,8 +15,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
-    <!--个推权限start-->
+    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
+    <!-- 个推权限start -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -27,47 +27,51 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="getui.permission.GetuiService.com.bjcathay.qt" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <!--自定义权限-->
+    <!-- 自定义权限 -->
     <permission
         android:name="getui.permission.GetuiService.com.bjcathay.qt"
-        android:protectionLevel="normal"></permission>
-    <!--个推权限end-->
-    <!--分享start-->
+        android:protectionLevel="normal" />
+    <!-- 个推权限end -->
+    <!-- 分享start -->
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <!--分享权限end-->
-    <!--支付权限START-->
+    <!-- 分享权限end -->
+    <!-- 支付权限START -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <!-- 支付权限end-->
-    <!--地图-->
+    <!-- 支付权限end -->
+    <!-- 地图 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!--允许应用读取低级别的系统日志文件 -->
+    <!-- 允许应用读取低级别的系统日志文件 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
-        android:name="com.bjcathay.qt.application.GApplication"
+        android:name=".application.GApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.bjcathay.qt.activity.WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <data android:scheme="golfqt" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -75,79 +79,78 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bjcathay.qt.activity.AwardActivity"
+            android:name=".activity.AwardActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.CompetitionActivity"
+            android:name=".activity.CompetitionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.PlaceListActivity"
+            android:name=".activity.PlaceListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.OrderSucActivity"
+            android:name=".activity.OrderSucActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.ExerciseActivity"
+            android:name=".activity.ExerciseActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/activityTheme" />
         <activity
-            android:name="com.bjcathay.qt.activity.UserCenterActivity"
+            android:name=".activity.UserCenterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.CompetitionDetailActivity"
+            android:name=".activity.CompetitionDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/activityTheme" />
         <activity
-            android:name="com.bjcathay.qt.activity.MyOrderActivity"
+            android:name=".activity.MyOrderActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.SendFriendActivity"
+            android:name=".activity.SendFriendActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.OrderDetailActivity"
+            android:name=".activity.OrderDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.ContactActivity"
+            android:name=".activity.ContactActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.bjcathay.qt.activity.MyCompetitionActivity"
+            android:name=".activity.MyCompetitionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.MyOrderMessageActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.MyInformationActivity"
+            android:name=".activity.MyInformationActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.MyExchangeActivity"
+            android:name=".activity.MyExchangeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -155,54 +158,54 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.UserEditNnameActivity"
+            android:name=".activity.UserEditNnameActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.FeedbackActivity"
+            android:name=".activity.FeedbackActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.OrderSucTEActivity"
+            android:name=".activity.OrderSucTEActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.OrderSucTuanActivity"
+            android:name=".activity.OrderSucTuanActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!--微信APPID-->
+        <!-- 微信APPID -->
         <activity
-            android:name="com.bjcathay.qt.activity.SelectPayWayActivity"
+            android:name=".activity.SelectPayWayActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="wxf65eb087de20ad75" />
             </intent-filter>
         </activity>
-
-
         <activity
-            android:name="com.bjcathay.qt.activity.ForgetPwdActivity"
+            android:name=".activity.ForgetPwdActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/activityTheme" />
         <activity
-            android:name="com.bjcathay.qt.activity.ForgetSetNewPwdActivity"
+            android:name=".activity.ForgetSetNewPwdActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/activityTheme" />
         <activity
-            android:name="com.bjcathay.qt.activity.EditPwdActivity"
+            android:name=".activity.EditPwdActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.bjcathay.qt.activity.UserEditNicknameActivity"
+            android:name=".activity.UserEditNicknameActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -338,82 +341,91 @@
             android:name=".activity.EventCommitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!--百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH--><!--iFpMnzWacEqxVgRGKhjGj5XZ-->
+        <!-- 百度地图start   bDvD4SE1hNS3Tbvj3EakoYjH -->
+        <!-- iFpMnzWacEqxVgRGKhjGj5XZ -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="bDvD4SE1hNS3Tbvj3EakoYjH" />
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"
-            android:permission="android.permission.BAIDU_LOCATION_SERVICE">
+            android:permission="android.permission.BAIDU_LOCATION_SERVICE"
+            android:process=":remote" >
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.6"></action>
-            </intent-filter></service>
-        <!--百度地图end-->
+                <action android:name="com.baidu.location.service_v2.6" />
+            </intent-filter>
+        </service>
+        <!-- 百度地图end -->
 
 
-        <!--个推start-->
-        <!--getui
+        <!-- 个推start -->
+        <!--
+        getui
         getui.appId=e8PImaZ1XD94yVLgV82ar1
         getui.appKey=LxDDOH8ptR6R2Ze8P0KI98
-        getui.appSecret=V1lYyfzCtxADYNGlUpaEX7-->
-        <!--个推SDK配置开始-->
+        getui.appSecret=V1lYyfzCtxADYNGlUpaEX7
+        -->
+        <!-- 个推SDK配置开始 -->
 
-        <!--配置第三方应用参数属性-->
-        <!--运营-->
+
+        <!-- 配置第三方应用参数属性 -->
+        <!-- 运营 -->
         <meta-data
             android:name="PUSH_APPID"
             android:value="e8PImaZ1XD94yVLgV82ar1" />
-        <!--替换为第三方应用的APPID-->
+        <!-- 替换为第三方应用的APPID -->
         <meta-data
             android:name="PUSH_APPKEY"
             android:value="LxDDOH8ptR6R2Ze8P0KI98" />
-        <!--替换为第三方应用的APPKEY-->
+        <!-- 替换为第三方应用的APPKEY -->
         <meta-data
             android:name="PUSH_APPSECRET"
             android:value="V1lYyfzCtxADYNGlUpaEX7" />
-        <!--开发
+        <!--
+开发
       AppID XWDQF8njL5AeBj8VH3Yto6
 AppKey qFvVrsP0cuA08PTfmdaGn2
-AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
-        <!--开发-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPID"-->
-            <!--android:value="XWDQF8njL5AeBj8VH3Yto6" />-->
-        <!--&lt;!&ndash;替换为第三方应用的APPID&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPKEY"-->
-            <!--android:value="qFvVrsP0cuA08PTfmdaGn2" />-->
-        <!--&lt;!&ndash;替换为第三方应用的APPKEY&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPSECRET"-->
-            <!--android:value="w3PqmtWy5V8FLtpdF2jvm3" />-->
-        <!--替换为第三方应用的APPSECRET-->
+AppSecret w3PqmtWy5V8FLtpdF2jvm3
+        -->
+        <!-- 开发 -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPID" -->
+        <!-- android:value="XWDQF8njL5AeBj8VH3Yto6" /> -->
+        <!-- &lt;!&ndash;替换为第三方应用的APPID&ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPKEY" -->
+        <!-- android:value="qFvVrsP0cuA08PTfmdaGn2" /> -->
+        <!-- &lt;!&ndash;替换为第三方应用的APPKEY&ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPSECRET" -->
+        <!-- android:value="w3PqmtWy5V8FLtpdF2jvm3" /> -->
+        <!-- 替换为第三方应用的APPSECRET -->
         <meta-data
             android:name="PUSH_GROUPID"
             android:value="" />
-        <!--配置SDK核心服务-->
+        <!-- 配置SDK核心服务 -->
         <service
             android:name="com.igexin.sdk.PushService"
             android:exported="true"
             android:label="NotificationCenter"
-            android:process=":pushservice"></service>
+            android:process=":pushservice" />
 
-        <receiver android:name="com.igexin.sdk.PushReceiver">
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="com.igexin.sdk.action.refreshls"/>
+                <action android:name="com.igexin.sdk.action.refreshls" />
                 <action android:name="android.intent.action.MEDIA_MOUNTED" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+/>
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.igexin.sdk.PushManagerReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.pushmanager" />
             </intent-filter>
@@ -426,8 +438,8 @@ AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
             android:process=":pushservice"
             android:screenOrientation="portrait"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <!--配置弹框activity-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 配置弹框activity -->
         <activity
             android:name="com.igexin.getuiext.activity.GetuiExtActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
@@ -437,107 +449,134 @@ AppSecret w3PqmtWy5V8FLtpdF2jvm3-->
             android:screenOrientation="portrait"
             android:taskAffinity="android.task.myServicetask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <receiver
             android:name="com.igexin.getuiext.service.PayloadReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <!--这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改-->
+
+                <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
-                <!--替换为android:name="com.igexin.sdk.action.第三方的appId"-->
-                <!--运营-->
+                <!-- 替换为android:name="com.igexin.sdk.action.第三方的appId" -->
+                <!-- 运营 -->
                 <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
-                <!--开发-->
-                <!--<action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />-->
+                <!-- 开发 -->
+                <!-- <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" /> -->
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.igexin.getuiext.service.GetuiExtService"
-            android:process=":pushservice"
-            android:priority = "1000"/>
-        <!--个推download模块配置-->
+            android:priority="1000"
+            android:process=":pushservice" />
+        <!-- 个推download模块配置 -->
 
-        <!--替换为downloads.第三方包名-->
+
+        <!-- 替换为downloads.第三方包名 -->
+
 
         <!-- 配置第三方Receiver -->
         <receiver
             android:name=".receiver.MessageReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
+
                 <!-- 替换为action android:name="com.igexin.sdk.action.第三方应用APPID" -->
-                <!-- 运营-->
+                <!-- 运营 -->
                 <action android:name="com.igexin.sdk.action.e8PImaZ1XD94yVLgV82ar1" />
-                <!-- 开发-->
-                <!--<action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" />-->
+                <!-- 开发 -->
+                <!-- <action android:name="com.igexin.sdk.action.XWDQF8njL5AeBj8VH3Yto6" /> -->
             </intent-filter>
         </receiver>
-        <!--个推end-->
+        <!-- 个推end -->
 
-        <!--分享start-->
+
+        <!-- 分享start -->
 
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <data android:scheme="tencent100371282" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--微信分享回调 -->
+        <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--分享end-->
+        <!-- 分享end -->
 
-        <!--支付start-->
-        <!--支付end-->
 
-        <!--友盟 android appkey :555d71d467e58ecee60031b1-->
+        <!-- 支付start -->
+        <!-- 支付end -->
+
+
+        <!-- 友盟 android appkey :555d71d467e58ecee60031b1 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="555d71d467e58ecee60031b1"></meta-data>
+            android:value="555d71d467e58ecee60031b1" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${CHANNEL_NAME}" />
 
-        <!--支付宝-->
+        <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
-        <!-- 微信支付start-->
+            android:screenOrientation="behind" />
+        <!-- 微信支付start -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent" />
-        <receiver android:name=".wxpay.AppRegister">
+
+        <receiver android:name=".wxpay.AppRegister" >
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
-        <!--微信支付end-->
+        <!-- 微信支付end -->
 
         <receiver
             android:name=".receiver.DialogReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.SelectRechargeTypeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutWalletActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.RechargeSuccessActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
+
 </manifest>

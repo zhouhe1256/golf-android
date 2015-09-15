@@ -97,6 +97,8 @@ public class ApiUrl {
                                                             // /api/province)
     public static final String CITIES = "/api/cities"; // 获取城市(GET /api/cities)
     public static final String PRODUCT_LIST = "/api/products";
+    public static final String MONEIES="/api/chargeList";//充值列表(GET /api/chargeList)
+    public static final String CHARGE_PAY="/api/chargePay";//充值接口(GET /api/chargePay)
     // 产品列表(GET /api/golf_courses/:id/products)
     public static String productList(Long id) {
         return "/api/golf_courses/" + id+"/products";

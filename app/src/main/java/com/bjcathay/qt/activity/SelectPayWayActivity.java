@@ -313,7 +313,7 @@ public class SelectPayWayActivity extends Activity implements View.OnClickListen
                 // Intent intent;
                 String tag = intent.getStringExtra("tag");
                 if ("sucess".equals(tag)) {
-                    DialogUtil.showMessage("支付成功");
+                   // DialogUtil.showMessage("支付成功");
 //                    if ("GROUP".equals(orderModel.getType())) {
 //                        intent = new Intent(SelectPayWayActivity.this, OrderSucTuanActivity.class);
 //                        intent.putExtra("id", orderModel.getId());
