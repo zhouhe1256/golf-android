@@ -42,6 +42,7 @@
     <color name="price_bg">#e95a34</color>
     <color name="red_">#fa383b</color>
     <color name="event_title_img_color">#dcdcdc</color>
+    <color name="money_text_color">#F39C11</color>
     <!--主文本色  #3c3c3c
 辅文本色  #8c8c8c
 不可用按钮背景   #bcbcbc

@@ -31,6 +31,7 @@ public class TopView extends LinearLayout {
     private ImageView closeimg;
     private ImageView phoneimg;
     private TextView finishbtn;
+    private ImageView help;
 
     private void initView(final Context context) {
         View.inflate(context, R.layout.activity_title, this);
@@ -48,7 +49,7 @@ public class TopView extends LinearLayout {
         closeimg = ViewUtil.findViewById(this, R.id.title_delete_img);
         phoneimg = ViewUtil.findViewById(this, R.id.title_phone_img);
         finishbtn = ViewUtil.findViewById(this, R.id.title_finish);
-
+        help=ViewUtil.findViewById(this,R.id.title_help_img);
         leftbtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +110,9 @@ public class TopView extends LinearLayout {
 
     public void setTitleUnVisiable() {
         title.setVisibility(INVISIBLE);
+    }
+    public void setTitleHelpVisiable(){
+        help.setVisibility(VISIBLE);
     }
 
     /**
