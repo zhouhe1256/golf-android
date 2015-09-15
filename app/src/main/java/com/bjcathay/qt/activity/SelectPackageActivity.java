@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.json.JSONUtil;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.SelectPackageAdapter;
@@ -93,6 +95,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
         lstv.setAdapter(placeListAdapter);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
+
     }
 
     private void initEvent() {
@@ -107,6 +110,7 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                     if (ProductType.prdtType.COMBO.equals(stadiumModelList.get(i - 1).getType())) {
                         // 跳套餐
                         final int ids = i - 1;
+                        //todo
                         ProductModel.product(stadiumModelList.get(ids).getId())
                                 .done(new ICallback() {
                                     @Override
@@ -115,28 +119,30 @@ public class SelectPackageActivity extends Activity implements AutoListView.OnRe
                                         if (jsonObject.optBoolean("success")) {
                                             ProductModel productModel = JSONUtil.load(ProductModel.class,
                                                     jsonObject.optJSONObject("product"));
-                                      //  ProductModel productModel = arguments.get(0);
-                                        Intent intent = new Intent(SelectPackageActivity.this,
-                                                PackageDetailActivity.class);
-                                        intent.putExtra("id", stadiumModelList.get(ids).getId());
-                                        intent.putExtra("name", stadiumModelList.get(ids).getName());
-                                        intent.putExtra("product", productModel);
-                                        ViewUtil.startActivity(SelectPackageActivity.this, intent);
+                                            //  ProductModel productModel = arguments.get(0);
+                                            Intent intent = new Intent(SelectPackageActivity.this,
+                                                    PackageDetailActivity.class);
+                                            intent.putExtra("id", stadiumModelList.get(ids).getId());
+                                            intent.putExtra("name", stadiumModelList.get(ids).getName());
+                                            intent.putExtra("product", productModel);
+
+                                            ViewUtil.startActivity(SelectPackageActivity.this, intent);
                                         } else {
                                             String errorMessage = jsonObject.optString("message");
                                             int code = jsonObject.optInt("code");
-                                            if (code == 13005){
+                                            if (code == 13005) {
                                                 Intent intent = new Intent(SelectPackageActivity.this,
                                                         ProductOfflineActivity.class);
                                                 intent.putExtra("name", stadiumModelList.get(ids).getName());
                                                 ViewUtil.startActivity(SelectPackageActivity.this, intent);
                                             } else {
-                                            if (!StringUtils.isEmpty(errorMessage))
-                                                DialogUtil.showMessage(errorMessage);
-                                            else {
+                                                if (!StringUtils.isEmpty(errorMessage))
+                                                    DialogUtil.showMessage(errorMessage);
+                                                else {
 
-                                                DialogUtil.showMessage(ErrorCode.getCodeName(code));
-                                            }}
+                                                    DialogUtil.showMessage(ErrorCode.getCodeName(code));
+                                                }
+                                            }
                                         }
                                     }
                                 }).fail(new ICallback() {

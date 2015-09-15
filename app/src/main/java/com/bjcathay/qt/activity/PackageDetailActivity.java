@@ -15,10 +15,12 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjcathay.android.async.Arguments;
 import com.bjcathay.android.async.ICallback;
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.android.view.ImageViewAdapter;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.adapter.PackageFragmentAdapter;
@@ -178,7 +180,7 @@ public class PackageDetailActivity extends FragmentActivity implements
 
     String date;
     int number;
-    private PackagePriceModel currentPrice;
+    private PriceModel currentPrice;
 
     @Override
     public void onClick(View view) {
@@ -192,7 +194,7 @@ public class PackageDetailActivity extends FragmentActivity implements
                 intent.putExtra("product", productModel);
                 intent.putExtra("date", date);
                 intent.putExtra("number", number);
-                intent.putExtra("comboPrice", currentPrice);
+                intent.putExtra("currentPrice", currentPrice);
                 IsLoginUtil.isLogin(this, intent);
                 break;
         }
@@ -205,11 +207,18 @@ public class PackageDetailActivity extends FragmentActivity implements
     }
 
     @Override
-    public void priceChanged(int price, PackagePriceModel currentPrice, int number, String date) {
+    public void priceChanged(int price, PriceModel currentPrice, int number, String date) {
         this.currentPrice = currentPrice;
         this.number = number;
         this.date = date;
+        LogUtil.i("numbers", number + "，" + price);
         totalPrice.setText("总金额:￥" + price * number);
+        if(currentPrice==null){
+            sureOrder.setClickable(false);
+            totalPrice.setText("￥--");
+        }else{
+            sureOrder.setClickable(true);
+        }
     }
 
     public class MyOnClickListener implements View.OnClickListener {

@@ -60,7 +60,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
     String hourSelect;
     private int number;
     private PriceModel currentPrice;
-    private PackagePriceModel comboPrice;
+    private PriceModel comboPrice;
     private ImageView minas;
     private ImageView plus;
     private TextView fourPlus;
@@ -238,7 +238,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         date = intent.getStringExtra("date");
         number = intent.getIntExtra("number", 1);
         currentPrice = (PriceModel) intent.getSerializableExtra("currentPrice");
-        comboPrice = (PackagePriceModel) intent.getSerializableExtra("comboPrice");
+        comboPrice = (PriceModel) intent.getSerializableExtra("comboPrice");
         hourSelect = intent.getStringExtra("hourSelect");
         name.setText(stadiumModel.getName());
         time.setText(DateUtil.stringToDateToOrderString(date));
@@ -260,7 +260,7 @@ public class OrderCommitActivity extends Activity implements View.OnClickListene
         minas.setVisibility(View.VISIBLE);
         plus.setVisibility(View.VISIBLE);
         if (ProductType.prdtType.COMBO.equals(stadiumModel.getType())) {
-            getComboPrice();
+            getProductPrice();
             time.setText(DateUtil.stringToDateToOrderString(date).substring(0, 11));
         } else
             getProductPrice();

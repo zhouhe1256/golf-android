@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.Enumeration.ProductType;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.PackagePriceModel;
@@ -46,10 +47,14 @@ public class ArrayFragment extends Fragment {
     private static ProductModel productModel;
     private ChangePrice changePrice;
     private List<PriceModel> priceModels;
-    PackagePriceModel packagePriceModel;
-
+    private int years;
+    private int months;
+    private int days;
+    int[] priceStr;
+    private boolean judge;
+   // PackagePriceModel packagePriceModel;
     public interface ChangePrice {
-        void priceChanged(int price, PackagePriceModel currentPrice, int number, String date);
+        void priceChanged(int price, PriceModel currentPrice, int number, String date);
     }
 
     @Override
@@ -77,15 +82,15 @@ public class ArrayFragment extends Fragment {
     private String date;
     String hourSelect;
     private int number;
-    private PackagePriceModel currentPrice;
+    private PriceModel currentPrice;
     private ImageView minas;
     private ImageView plus;
     private TextView fourPlus;
     private int amount = -1;
     private int amountmax = -1;
     private String daySelect;
-
-    private void getDate() {
+    private int p = 0;
+   /* private void getDate() {
         // mCurYear, mCurMonth + 1, mCurDate
         String mounth = mCurMonth + "";
         String day = mCurDate + "";
@@ -94,45 +99,19 @@ public class ArrayFragment extends Fragment {
         int[] priceStr = packagePriceModel.getFianlPrice(productModel.getType(),
                 number, hourSelect);
         changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
-    }
-
+    }*/
+    //获取当天的价格
     private void getDayPrice() {
-        if (packagePriceModel != null) {
-            packagePriceModel.getPersonsDuring(ProductType.prdtType.COMBO);
-            currentPrice = packagePriceModel;
-            amount = packagePriceModel.getMinPerson();
             if (number < amount) {
                 number = amount;
             }
-            // fourPlus.setText(number < 10 ? " " + number : number + "");
-            int[] priceStr = packagePriceModel.getFianlPrice(productModel.getType(),
-                    number, hourSelect);
+           // fourPlus.setText(number < 10 ? " " + number : number + "");
+            daySelect = years + "-" + months + "-" + days + " 00:00:00";
             changePrice.priceChanged(priceStr[0], currentPrice, number, daySelect);
-            // return;
-        }
-
-        // if (priceModels != null && priceModels.size() > 0)
-        // for (PriceModel priceModel : priceModels) {
-        // if (DateUtil.CompareTime(daySelect, priceModel.getStartAt(),
-        // priceModel.getEndAt()) == true) {
-        // priceModel.getPersonsDuring(productModel.getType());
-        // currentPrice = priceModel;
-        // amount = priceModel.getMinPerson();
-        // if (number < amount) {
-        // number = amount;
-        // }
-        // fourPlus.setText(number < 10 ? " " + number : number + "");
-        // int[] priceStr = priceModel.getFianlPrice(productModel.getType(),
-        // number, hourSelect);
-        // changePrice.priceChanged(priceStr[0], currentPrice, number,
-        // daySelect);
-        // return;
-        // }
-        // }
+        return;
     }
 
     private void person() {
-        amountmax = packagePriceModel.getMaxPerson();
         minas.setOnClickListener(new
                 View.OnClickListener() {
                     @Override
@@ -141,12 +120,16 @@ public class ArrayFragment extends Fragment {
                             if (number > amount) {
                                 number--;
                                 fourPlus.setText(number < 10 ? " " + number : number + "");
+                                priceStr = productModel.getPrices().get(p).getFianlPrice(ProductType.prdtType.COMBO,number,null);
+                                currentPrice = productModel.getPrices().get(p);
                                 getDayPrice();
                             }
                         } else {
                             if (number > 1) {
                                 number--;
                                 fourPlus.setText(number < 10 ? " " + number : number + "");
+                                priceStr = productModel.getPrices().get(p).getFianlPrice(ProductType.prdtType.COMBO,number,null);
+                                currentPrice = productModel.getPrices().get(p);
                                 getDayPrice();
                             }
                         }
@@ -158,10 +141,14 @@ public class ArrayFragment extends Fragment {
                 if (number < amountmax)
                     number++;
                 fourPlus.setText(number < 10 ? " " + number : number + "");
+                LogUtil.i("pos",p+"");
+                priceStr = productModel.getPrices().get(p).getFianlPrice(ProductType.prdtType.COMBO,number,null);
+
                 getDayPrice();
             }
         });
         fourPlus.setText(number < 10 ? " " + number : number + "");
+        priceStr = productModel.getPrices().get(p).getFianlPrice(ProductType.prdtType.COMBO,number,null);
         getDayPrice();
 
     }
@@ -183,17 +170,26 @@ public class ArrayFragment extends Fragment {
             int pos = v.getSelectedItemPosition();
 
             if (v == mDateWheel) {
+                p = pos;
                 TextInfo info = mDates.get(pos);
-                setDate(info.mIndex);
+                /*setDate(info.mIndex,pos);*/
+                days = info.mIndex;
+                priceStr = productModel.getPrices().get(pos).getFianlPrice(ProductType.prdtType.COMBO,number,null);
+                currentPrice = productModel.getPrices().get(pos);
+                LogUtil.i("prices",priceStr[0]+"");
+
             } else if (v == mMonthWheel) {
                 TextInfo info = mMonths.get(pos);
+                months = info.mIndex;
                 setMonth(info.mIndex);
             } else if (v == mYearWheel) {
                 TextInfo info = mYears.get(pos);
+                years = info.mIndex;
                 setYear(info.mIndex);
+                setMonth(info.mIndex);
             }
-            getDate();
-            // getDayPrice();
+               //getDate();
+             getDayPrice();
         }
     };
 
@@ -201,32 +197,78 @@ public class ArrayFragment extends Fragment {
         return String.format("Date: %d/%02d/%02d", mCurYear, mCurMonth + 1, mCurDate);
     }
 
-    private void setDate(int date) {
+    private void setDate(int date,int pos) {
         if (date != mCurDate) {
             mCurDate = date;
+
         }
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
 
     private void setYear(int year) {
-        if (year != mCurYear) {
-            mCurYear = year;
-            Calendar calendar = Calendar.getInstance();
-            int date = calendar.get(Calendar.DATE);
-            if (startYear < endYear)
-                prepareMonth(mCurMonth - 1);
-            // prepareDayData(mCurYear, mCurMonth - 1, date);
-            prepareDayData(mCurYear, mCurMonth, date);
+        int t=0;
+        try {
+            mMonths.clear();
+        for(int i=0;i<productModel.getPrices().size();i++){
+            String time = productModel.getPrices().get(i).getStartAt();
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start1 = null;
+            start1 = simpleDateFormat1.parse(time);
+            Calendar calendarstart1 = Calendar.getInstance();
+            calendarstart1.setTime(start1);
+            startMonth = calendarstart1.get(Calendar.MONTH)+1;
+
+            if(year==calendarstart1.get(Calendar.YEAR)){
+                if(t!=startMonth){
+
+                    mMonths.add(new TextInfo(startMonth,String.valueOf(startMonth)+"月",true));
+                }
+                t = startMonth;
+            }
+
+
+        }
+             months = mMonths.get(0).mIndex;
+            ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
+             mMonthWheel.setSelection(0);
+             mDateWheel.setSelection(0);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
-
     private void setMonth(int month) {
-        if (month != mCurMonth) {
-            mCurMonth = month;
+        mDates.clear();
+        try {
+        for(int i=0;i<productModel.getPrices().size();i++){
+            String time = productModel.getPrices().get(i).getStartAt();
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start1 = null;
+            start1 = simpleDateFormat1.parse(time);
+            Calendar calendarstart1 = Calendar.getInstance();
+            calendarstart1.setTime(start1);
+            startday = calendarstart1.get(Calendar.DAY_OF_MONTH);
+            if(years == calendarstart1.get(Calendar.YEAR)
+                    &&months == (calendarstart1.get(Calendar.MONTH)+1)){
+                    mDates.add(new TextInfo(startday,
+                            String.valueOf(startday)+"日"+"("
+                                    +isWeek(calendarstart1.get(Calendar.DAY_OF_WEEK),
+                                    calendarstart1.get(Calendar.YEAR),
+                                    calendarstart1.get(Calendar.MONTH),calendarstart1.get(Calendar.DATE))+")",
+                            true));
 
+            }
 
-            Calendar calendar = Calendar.getInstance();
-            int date = calendar.get(Calendar.DATE);
-            prepareDayData(mCurYear, month, mCurDate);
+        }
+            days = mDates.get(0).mIndex;
+            ((WheelTextAdapter) mDateWheel.getAdapter()).setData(mDates);
+            mDateWheel.setSelection(0);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -284,7 +326,7 @@ public class ArrayFragment extends Fragment {
 
         try {
 
-            String[] period = packagePriceModel.getPeriod().split("~");
+          /*  String[] period = packagePriceModel.getPeriod().split("~");
            // String[] period = "2015-12-31~2016-02-04".split("~");
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -316,19 +358,44 @@ public class ArrayFragment extends Fragment {
 
             for (int i = startYear; i <= endYear; ++i) {
                 mYears.add(new TextInfo(i, String.valueOf(i) + "年", (i == year)));
+            }*/
+            int t = 0;
+            for(int i=0;i<productModel.getPrices().size();i++){
+                String time = productModel.getPrices().get(i).getStartAt();
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date start1 = simpleDateFormat1.parse(time);
+                Calendar calendarstart1 = Calendar.getInstance();
+                calendarstart1.setTime(start1);
+                startYear = calendarstart1.get(Calendar.YEAR);
+                if(t!=startYear){
+                    mYears.add(new TextInfo(startYear,String.valueOf(startYear)+"年",true));
+                }
+
+                t = startYear;
             }
+            years = mYears.get(0).mIndex;
+            setYear(mYears.get(0).mIndex);
+            setMonth(mMonths.get(0).mIndex);
+            /*for(int i=0;i<productModel.getPrices().size();i++){
+                String time = productModel.getPrices().get(i).getStartAt();
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date start1 = simpleDateFormat1.parse(time);
+
+                Calendar calendarstart1 = Calendar.getInstance();
+                calendarstart1.setTime(start1);
+                startday = calendarstart1.get(Calendar.DAY_OF_MONTH);
+                mDates.add(new TextInfo(startday,String.valueOf(startday)+"日",true));
+            }*/
             mCurDate = startday;
             mCurMonth = startMonth;
             mCurYear = startYear;
-            getDate();
-            ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
+            //getDate();
             ((WheelTextAdapter) mYearWheel.getAdapter()).setData(mYears);
-
-            prepareDayData(year, mCurMonth, day);
+           // prepareDayData(year, mCurMonth, day);
             getDayPrice();
-            mMonthWheel.setSelection(0);
-            mYearWheel.setSelection(year - startYear);
-            mDateWheel.setSelection(0);
+
+            mYearWheel.setSelection(0);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -359,7 +426,7 @@ public class ArrayFragment extends Fragment {
         ((WheelTextAdapter) mMonthWheel.getAdapter()).setData(mMonths);
     }
 
-    private void prepareDayData(int year, int month, int curDate) {
+    /*private void prepareDayData(int year, int month, int curDate) {
         mDates.clear();
         int days = DAYS_PER_MONTH[month - 1];
 
@@ -438,55 +505,50 @@ public class ArrayFragment extends Fragment {
             }
         }
 
-        /*
+        *//*
          * for (int i = 1; i <= days; ++i) { mDates.add(new TextInfo(i,
          * String.valueOf(i) + "日" + isWeek(year, month, i, curDate), (i ==
          * curDate))); }
-         */
+         *//*
 
         ((WheelTextAdapter) mDateWheel.getAdapter()).setData(mDates);
         mDateWheel.setSelection(0);
-        mCurDate=mDates.get(0).mIndex;
-    }
+        //mCurDate=mDates.get(0).mIndex;
+    }*/
 
-    private String isWeek(int year, int month, int day, int curDate) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        int day1 = calendar.get(Calendar.DAY_OF_WEEK);
-        int _day = calendar.get(Calendar.DAY_OF_MONTH);
-        int _month=calendar.get(Calendar.MONTH);
-        Calendar calendartoday = Calendar.getInstance();
-        int now_daye = calendartoday.get(Calendar.DAY_OF_MONTH);
-        int now_monthe = calendartoday.get(Calendar.MONTH);
-        String today = "(今天)";
-        if (_day == now_daye&&_month==now_monthe) {
-            today = "(今天)";
-        } else {
-            switch (day1) {
-                case 2:
-                    today = "(星期一)";
-                    break;
-                case 3:
-                    today = "(星期二)";
-                    break;
-                case 4:
-                    today = "(星期三)";
-                    break;
-                case 5:
-                    today = "(星期四)";
-                    break;
-                case 6:
-                    today = "(星期五)";
-                    break;
-                case 7:
-                    today = "(星期六)";
-                    break;
-                case 1:
-                    today = "(星期日)";
-                    break;
-            }
+    private String isWeek(int isweek,int y,int m,int d ) {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DATE);
+        String s = "今天";
+        if(y!=year||m!=month||d!=day){
+
+       switch (isweek){
+           case 1:
+               s = "星期日";
+               break;
+           case 2:
+               s = "星期一";
+               break;
+           case 3:
+               s = "星期二";
+               break;
+           case 4:
+               s = "星期三";
+               break;
+           case 5:
+               s = "星期四";
+               break;
+           case 6:
+               s = "星期五";
+               break;
+           case 7:
+               s = "星期六";
+               break;
+       }
         }
-        return today;
+        return s;
     }
 
     protected class TextInfo {
@@ -573,7 +635,19 @@ public class ArrayFragment extends Fragment {
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
         productModel = (ProductModel) getArguments().getSerializable("product");
         this.priceModels = productModel.getPrices();
-        this.packagePriceModel = productModel.getPackagePriceModel();
+        judge = false;
+       // this.packagePriceModel = productModel.getPackagePriceModel();
+        if(productModel.getPrices().size()>0){
+            productModel.getPrices().get(0).getPersonsDuring(ProductType.prdtType.COMBO);
+            currentPrice = productModel.getPrices().get(0);
+            amountmax = productModel.getPrices().get(0).getMaxPerson();
+            amount = productModel.getPrices().get(0).getMinPerson();
+            priceStr = productModel.getPrices().get(0).getFianlPrice(ProductType.prdtType.COMBO,1,null);
+            judge = true;
+        }
+
+        LogUtil.i("amountmax",amountmax+","+amount+","+priceStr);
+
         System.out.println("mNum Fragment create =" + mNum);
     }
 
@@ -593,7 +667,13 @@ public class ArrayFragment extends Fragment {
             minas = ViewUtil.findViewById(v, R.id.dialog_order_minas);
             plus = ViewUtil.findViewById(v, R.id.dialog_order_plus);
             fourPlus = ViewUtil.findViewById(v, R.id.dialog_order_sure_number_edit);
-            initView(v);
+            if(judge){
+                initView(v);
+            }else{
+                fourPlus.setText("1");
+                changePrice.priceChanged(0, null, 0, null);
+            }
+
         } else if (mNum == 1) {
             v = inflater.inflate(R.layout.fragment_package_note2, container, false);
             // ((TextView) v.findViewById(R.id.textView1)).setText(mNum +
@@ -644,9 +724,9 @@ public class ArrayFragment extends Fragment {
         super.onDestroy();
     }
 
-    public void getPriceYear() {
+   /* public void getPriceYear() {
         // period\":\"2015-08-03~2015-08-11\",\"items\":[{\"start\":\"1\",\"end\":\"5\",\"price\":500,\"fan\":20}]
-        String[] period = packagePriceModel.getPeriod().split("~");
+       String[] period = packagePriceModel.getPeriod().split("~");
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date start = simpleDateFormat.parse(period[0], position);
@@ -659,7 +739,7 @@ public class ArrayFragment extends Fragment {
         int endYear = calendarend.get(Calendar.YEAR);
         int startMonth = calendarstart.get(Calendar.MONTH);
         int endMonth = calendarstart.get(Calendar.MONTH);
-    }
+    }*/
 
     public void getPriceMonth() {
 
