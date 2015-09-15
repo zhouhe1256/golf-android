@@ -13,6 +13,7 @@ import com.bjcathay.android.async.ICallback;
 import com.bjcathay.android.util.LogUtil;
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.OrderModel;
+import com.bjcathay.qt.model.RechargeModel;
 import com.bjcathay.qt.model.WXPayModel;
 import com.bjcathay.qt.util.DateUtil;
 import com.bjcathay.qt.util.DialogUtil;
@@ -38,10 +39,19 @@ import java.util.Random;
 public class WXpay {
     private Activity activity;
     private OrderModel orderModel;
+    private RechargeModel rechargeModel;
+
 
     public WXpay(Activity activity, OrderModel orderModel) {
         this.activity = activity;
         this.orderModel = orderModel;
+        msgApi = WXAPIFactory.createWXAPI(activity, Constants.APP_ID);
+        msgApi.registerApp(Constants.APP_ID);
+    }
+
+    public WXpay(Activity activity, RechargeModel rechargeModel) {
+        this.activity = activity;
+        this.rechargeModel = rechargeModel;
         msgApi = WXAPIFactory.createWXAPI(activity, Constants.APP_ID);
         msgApi.registerApp(Constants.APP_ID);
     }
@@ -70,7 +80,7 @@ public class WXpay {
             DialogUtil.showMessage("尚未安装微信");
             return;
         }
-        WXPayModel.paytext(orderModel.getId(),isUseBalance,"wx").done(new ICallback() {
+        WXPayModel.paytext(orderModel.getId(), isUseBalance, "wx").done(new ICallback() {
             @Override
             public void call(Arguments arguments) {
                 JSONObject jsonObject = arguments.get(0);
@@ -92,6 +102,38 @@ public class WXpay {
                 DialogUtil.showMessage(activity.getString(R.string.empty_net_text));
             }
         });
+    }
+
+    //微信充值
+    public void wxRecharge() {
+        if (!msgApi.isWXAppInstalled()) {
+            DialogUtil.showMessage("尚未安装微信");
+            return;
+        }
+         WXPayModel.rechargetext(rechargeModel.getChargeId(),"wx").done(new ICallback() {
+             @Override
+             public void call(Arguments arguments) {
+                 JSONObject jsonObject = arguments.get(0);
+                 if (jsonObject.optBoolean("success")) {
+                     Map<String, String> xml = decodeXml(jsonObject.optString("prepay"));
+                     req.appId = xml.get("appid");
+                     req.partnerId = xml.get("partnerid");
+                     req.prepayId = xml.get("prepayid");
+                     req.packageValue = xml.get("package");// packageValue
+                     req.nonceStr = xml.get("noncestr");
+                     req.timeStamp = xml.get("timestamp");
+                     req.sign = xml.get("sign");
+                     sendPayReq();
+                 }
+             }
+         }).fail(new ICallback() {
+             @Override
+             public void call(Arguments arguments) {
+                 DialogUtil.showMessage(activity.getString(R.string.empty_net_text));
+             }
+         });
+
+
     }
 
     // 微信支付

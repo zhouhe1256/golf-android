@@ -116,4 +116,5 @@
     <string name="update_note_message">\n您所使用的“7铁高尔夫”版本过低，继续使用可能会存在无法正确下单等问题，建议您升级到最新版本！</string>
     <string name="realtime_note">实时计价需要联系客服咨询Teetime价格哦~</string>
     <string name="image_view_tag">ImageViewAdapter</string>
+    <string name="title_activity_about_wallet">AboutWalletActivity</string>
 </resources>

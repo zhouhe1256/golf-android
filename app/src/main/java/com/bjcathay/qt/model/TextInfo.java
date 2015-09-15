@@ -1,7 +1,9 @@
+
 package com.bjcathay.qt.model;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,14 +20,24 @@ public class TextInfo {
         }
     }
 
+    public TextInfo() {
+
+    }
+
     public int mIndex;
     public String mText;
     public boolean mIsSelected = false;
     public int mColor = Color.BLACK;
-    List<TextInfo> textInfos;
+   public  List<TextInfo> textInfos=new ArrayList<TextInfo>();
+
+    public void addTextInfo(TextInfo textInfo) {
+        if (!textInfos.contains(textInfo))
+            textInfos.add(textInfo);
+    }
+
     @Override
-    public boolean equals(Object obj){
-        TextInfo t= (TextInfo) obj;
-        return mIndex==t.mIndex;
+    public boolean equals(Object obj) {
+        TextInfo t = (TextInfo) obj;
+        return mIndex == t.mIndex;
     }
 }

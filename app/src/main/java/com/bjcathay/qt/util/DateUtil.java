@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.bjcathay.qt.model.PriceModel;
 import com.bjcathay.qt.model.ProductModel;
+import com.bjcathay.qt.model.TextInfo;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -142,6 +143,88 @@ public class DateUtil {
         return null;
     }
 
+    public static List<TextInfo> getComboDates(List<PriceModel> priceModels) {
+        if (priceModels != null) {
+            List<TextInfo> dayList = new ArrayList<TextInfo>();
+            Calendar now = Calendar.getInstance();
+            int now_daye = now.get(Calendar.DAY_OF_MONTH);
+            String today = "今天";
+            TextInfo yearText1 = new TextInfo();
+            TextInfo yearText2 = new TextInfo();
+            TextInfo monthText = new TextInfo();
+            int lastYear = 0;
+            int lastMonth = 0;
+            int lastDay = 0;
+            for (int i = 0; i < priceModels.size(); i++) {
+                TextInfo dayText = new TextInfo();
+                String start = priceModels.get(i).getStartAt();
+                Date s = stringToDate(start);
+                Calendar rights = Calendar.getInstance();
+                rights.setTime(s);
+                int year = rights.get(Calendar.YEAR);
+                int month = rights.get(Calendar.MONTH);
+                int day = rights.get(Calendar.DAY_OF_MONTH);
+                int day1 = rights.get(Calendar.DAY_OF_WEEK);
+                if (day == now_daye) {
+                    today = "(今天)";
+                } else {
+                    switch (day1) {
+                        case 2:
+                            today = "(星期一)";
+                            break;
+                        case 3:
+                            today = "(星期二)";
+                            break;
+                        case 4:
+                            today = "(星期三)";
+                            break;
+                        case 5:
+                            today = "(星期四)";
+                            break;
+                        case 6:
+                            today = "(星期五)";
+                            break;
+                        case 7:
+                            today = "(星期六)";
+                            break;
+                        case 1:
+                            today = "(星期日)";
+                            break;
+                    }
+                }
+                if (i == 0) {
+                    lastYear = year;
+                    lastMonth = month;
+                    lastDay = day;
+                }
+                dayText.mIndex = day;
+                dayText.mText = day + "日" + today;
+                if (lastMonth == month) {
+                } else {
+                    lastMonth = month;
+                    monthText = new TextInfo();
+                }
+                monthText.mIndex = month + 1;
+                monthText.mText = month+1+ "月";
+                monthText.addTextInfo(dayText);
+                if (lastYear == year) {
+                    yearText1.mIndex = year;
+                    yearText1.mText = year + "年";
+                    yearText1.addTextInfo(monthText);
+                } else {
+                    yearText2.mIndex = year;
+                    yearText2.mText = year + "年";
+                    yearText2.addTextInfo(monthText);
+                }
+            }
+            dayList.add(yearText1);
+            if (yearText2.mIndex != 0)
+                dayList.add(yearText2);
+            return dayList;
+        }
+        return null;
+    }
+
     // 根据起始时间决定小时上午
     public static List<String> getTuanHourAM(ProductModel productModel) {
         List<String> dayList = new ArrayList<String>();
@@ -257,7 +340,8 @@ public class DateUtil {
         }
         return null;
     }
-    public static List<String> getAM(String am,String end) {
+
+    public static List<String> getAM(String am, String end) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         DateFormat dff = new SimpleDateFormat("HH:mm");
         try {
@@ -279,7 +363,8 @@ public class DateUtil {
         }
         return null;
     }
-    public static List<String> getPMShort(String pm,String ends) {
+
+    public static List<String> getPMShort(String pm, String ends) {
 
         try {
             String pmStart = "12:00";
@@ -319,6 +404,7 @@ public class DateUtil {
         }
         return null;
     }
+
     public static List<String> getPM(String pm) {
 
         try {
@@ -543,23 +629,26 @@ public class DateUtil {
         String nowDate = simpleDateFormat1.format(dateValue);
         return nowDate;
     }
+
     public static String stringToDateToEventString(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateValue = simpleDateFormat.parse(dateString, position);
-        Date newD=new Date(dateValue.getTime()+3*60*60*1000);
+        Date newD = new Date(dateValue.getTime() + 3 * 60 * 60 * 1000);
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm");
         String nowDate = simpleDateFormat1.format(newD);
         return nowDate;
     }
+
     public static String stringEventString(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateValue = simpleDateFormat.parse(dateString, position);
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日(EE)HH:mm"+"开球");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日(EE)HH:mm" + "开球");
         String nowDate = simpleDateFormat1.format(dateValue);
         return nowDate;
     }
+
     public static String stringToDateToHourString(String dateString) {
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
