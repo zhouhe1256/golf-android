@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Created by dengt on 15-7-28.
  */
-public class SelectPackageActivity extends Activity implements AutoListView.OnRefreshListener,
+public class SelectPackageActivity extends SwipeBackActivity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private TopView topView;
     private GApplication gApplication;

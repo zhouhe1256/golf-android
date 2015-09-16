@@ -28,7 +28,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by dengt on 15-4-21.
  */
-public class UserCenterActivity extends Activity implements View.OnClickListener, ICallback {
+public class UserCenterActivity extends SwipeBackActivity implements View.OnClickListener, ICallback {
     private GApplication gApplication;
     private TopView topView;
     private LinearLayout myOrder;

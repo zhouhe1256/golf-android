@@ -24,6 +24,7 @@ import com.bjcathay.qt.util.PreferencesConstant;
 import com.bjcathay.qt.util.PreferencesUtils;
 import com.bjcathay.qt.util.ViewUtil;
 
+import com.bjcathay.qt.view.SwipeBackLayout;
 import com.bjcathay.qt.view.TopView;
 import com.bjcathay.qt.view.AutoListView;
 import com.bjcathay.qt.view.AutoListView.OnLoadListener;
@@ -37,7 +38,7 @@ import java.util.List;
 /**
  * 场地页面 Created by dengt on 15-4-20.
  */
-public class PlaceListActivity extends Activity implements OnRefreshListener,
+public class PlaceListActivity extends SwipeBackActivity implements OnRefreshListener,
         OnLoadListener, ICallback, View.OnClickListener {
     private TopView topView;
     private GApplication gApplication;
@@ -72,6 +73,7 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
 
     private void initView() {
         topView = ViewUtil.findViewById(this, R.id.top_placelist_layout);
+
         topView.setHomeBackVisiable();
         topView.setSearchVisiable();
         topView.setTitleText("推荐");
@@ -302,5 +304,10 @@ public class PlaceListActivity extends Activity implements OnRefreshListener,
         super.onPause();
         MobclickAgent.onPageEnd("产品列表页面");
         MobclickAgent.onPause(this);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.base_slide_right_out);
     }
 }

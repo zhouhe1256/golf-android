@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * 兑换页面 Created by dengt on 15-4-20.
  */
-public class AwardActivity extends FragmentActivity implements ICallback, View.OnClickListener,
+public class AwardActivity extends SwipeBackFragmentActivity implements ICallback, View.OnClickListener,
         DialogExchFragment.ExchangeResult {
     private GApplication gApplication;
     private TopView topView;

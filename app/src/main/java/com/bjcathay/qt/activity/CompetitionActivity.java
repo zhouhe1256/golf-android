@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 赛事页面 Created by dengt on 15-4-20.
  */
-public class CompetitionActivity extends Activity implements AutoListView.OnRefreshListener,
+public class CompetitionActivity extends SwipeBackActivity implements AutoListView.OnRefreshListener,
         AutoListView.OnLoadListener, ICallback, View.OnClickListener {
     private GApplication gApplication;
     private AutoListView listView;
