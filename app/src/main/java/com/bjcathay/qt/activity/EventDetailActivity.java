@@ -128,7 +128,7 @@ public class EventDetailActivity extends Activity implements ICallback, View.OnC
        // filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         filmWebVIew.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         filmWebVIew.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-       // filmWebVIew.getSettings().setJavaScriptEnabled(true);
+        filmWebVIew.getSettings().setJavaScriptEnabled(false);
 //        filmWebVIew.getSettings().setAllowFileAccess(true);
 //        filmWebVIew.getSettings().setDatabaseEnabled(true);
 //        filmWebVIew.getSettings().setDomStorageEnabled(true);
