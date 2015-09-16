@@ -3,19 +3,22 @@ package com.bjcathay.qt.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.MoneyModel;
+import com.bjcathay.qt.receiver.MessageReceiver;
 import com.bjcathay.qt.util.ClickUtil;
 import com.bjcathay.qt.util.ViewUtil;
 import com.bjcathay.qt.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
+/**
+ * created by jiangm on 15-9-15
+ */
 public class RechargeSuccessActivity extends Activity implements View.OnClickListener {
-private TextView recharge_way;
+    private TextView recharge_way;
     private TextView recharge_amount;
     private MoneyModel moneyModel;
     private TopView topView;
@@ -67,5 +70,19 @@ private TextView recharge_way;
 
         }
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MessageReceiver.baseActivity=this;
+        MobclickAgent.onPageStart("充值详情");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("充值详情");
+        MobclickAgent.onPause(this);
     }
 }
