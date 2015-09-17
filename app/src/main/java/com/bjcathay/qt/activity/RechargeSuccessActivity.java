@@ -52,7 +52,7 @@ public class RechargeSuccessActivity extends Activity implements View.OnClickLis
        }else{
            recharge_way.setText("支付宝支付");
        }
-       recharge_amount.setText(money);
+       recharge_amount.setText("￥"+money);
    }
 
     @Override
