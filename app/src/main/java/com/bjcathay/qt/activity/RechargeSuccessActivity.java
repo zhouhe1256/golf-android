@@ -46,7 +46,7 @@ public class RechargeSuccessActivity extends Activity implements View.OnClickLis
        Intent intent=getIntent();
        String flag=intent.getStringExtra("flag");
        moneyModel=(MoneyModel)intent.getSerializableExtra("money");
-       String money=String.valueOf(moneyModel.getMoney());
+       String money=String.valueOf((int)moneyModel.getMoney());
        if(flag.equals("wx")){
            recharge_way.setText("微信支付");
        }else{

@@ -67,7 +67,7 @@ public class MoneyAdapter extends BaseAdapter {
        /* ((TextView) convertView
                 .findViewById(R.id.group_name)).setText(c.getName());*/
         TextView textview=(TextView) convertView.findViewById(R.id.my_money_note);
-       textview.setText(String.valueOf(m.getMoney()));
+       textview.setText(String.valueOf((int)m.getMoney()));
 
         if (clickTemp == i) {
             textview.setBackgroundResource(R.drawable.per_wallet_selected);
