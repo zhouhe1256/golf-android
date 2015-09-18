@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
     private MoneyModel moneyModel;
     private TextView desc_text;
     private ImageView helpImage;
+    private Button chargeBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
         wallet_remain = ViewUtil.findViewById(this, R.id.wallet_remain);
         price_gridview = ViewUtil.findViewById(this, R.id.price_gridview);
         desc_text = ViewUtil.findViewById(this, R.id.desc_text);
-
+        chargeBt=ViewUtil.findViewById(this,R.id.deposit_btn);
         topView.setTitleBackVisiable();
         topView.setTitleHelpVisiable();
         topView.setTitleText("我的钱包");
@@ -86,13 +88,17 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
             @Override
             public void call(Arguments arguments) {
                 MoneyListModel moneyListModel = arguments.get(0);
-
                 chargeList = moneyListModel.getChargeList();
-                Log.i("111", "" + chargeList);
-                moneyModel=chargeList.get(0);
-                moneyAdapter = new MoneyAdapter(chargeList, MyWalletActivity.this);
-                price_gridview.setAdapter(moneyAdapter);
-                desc_text.setText(moneyModel.getDescription());
+
+                if(chargeList.size()!=0){
+                    chargeBt.setVisibility(View.VISIBLE);
+                    Log.i("111", "" + chargeList);
+                    moneyModel=chargeList.get(0);
+                    moneyAdapter = new MoneyAdapter(chargeList, MyWalletActivity.this);
+                    price_gridview.setAdapter(moneyAdapter);
+                    desc_text.setText(moneyModel.getDescription());
+
+                }
             }
         }).fail(new ICallback() {
             @Override

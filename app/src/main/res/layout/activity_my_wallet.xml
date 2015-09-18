@@ -94,7 +94,8 @@
         android:text="充值"
         android:textColor="@color/white"
         android:textSize="@dimen/main_textSize"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
      <TextView
          android:id="@+id/desc_text"
