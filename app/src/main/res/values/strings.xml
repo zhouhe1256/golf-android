@@ -3,18 +3,21 @@
 
     <string name="app_name">7铁</string>
     <!--开发-->
-    <string name="host">http://api0.bjcathay.com:81</string>
-    <string name="img_host">http://api0.bjcathay.com:81</string>
+    <!--<string name="host">http://api0.bjcathay.com:81</string>-->
+    <!--<string name="img_host">http://api0.bjcathay.com:81</string>-->
+    <!--<string name="pay_notify_url">http://api0.bjcathay.com:81/api/alipay_notify_url</string>-->
     <!--运营-->
      <!--<string name="host">http://api.7tiegolf.com</string>-->
      <!--<string name="img_host">http://image.7tiegolf.com</string>-->
+    <!--<string name="pay_notify_url">http://api.7tiegolf.com/api/alipay_notify_url</string>-->
     <!--预发布-->
-      <!--<string name="host">http://api.qt.bjcathay.com</string>-->
-      <!--<string name="img_host">http://image.qt.bjcathay.com</string>-->
-
+      <string name="host">http://api.qt.bjcathay.com</string>
+      <string name="img_host">http://image.qt.bjcathay.com</string>
+    <string name="pay_notify_url">http://api.qt.bjcathay.com/api/alipay_notify_url</string>
     <!-- 运营 v1(新版后台-->
     <!--<string name="host">http://v1.api.7tiegolf.com</string>-->
     <!--<string name="img_host">http://image.7tiegolf.com</string>-->
+    <!--<string name="pay_notify_url">http://v1.api.7tiegolf.com/api/alipay_notify_url</string>-->
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

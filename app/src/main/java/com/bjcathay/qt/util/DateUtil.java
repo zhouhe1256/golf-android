@@ -464,7 +464,7 @@ public class DateUtil {
     }
 
     public static List<String> getPMShort(String pm) {
-
+          pm="19:45";
         try {
             String pmStart = "12:00";
             // DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -491,12 +491,16 @@ public class DateUtil {
                 }
             }
             if (startHour == endHour && startmin < endmin == true) {
+                Date s = start.getTime();
+                ams.add(dff.format(s));
                 start.add(Calendar.MINUTE, 30);
-                Date a = start.getTime();
-                ams.add(dff.format(a));
+                if (start.get(Calendar.MINUTE) < endmin) {
+                    Date a = start.getTime();
+                    ams.add(dff.format(a));
+                }
                 // startHour = start.get(Calendar.HOUR_OF_DAY);
             }
-            ams.add(dff.format(dt));
+          //  ams.add(dff.format(dt));
             return ams;
         } catch (ParseException e) {
             e.printStackTrace();

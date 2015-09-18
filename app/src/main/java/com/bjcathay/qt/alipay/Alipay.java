@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.bjcathay.qt.R;
 import com.bjcathay.qt.model.OrderModel;
 import com.bjcathay.qt.model.RechargeModel;
 
@@ -266,7 +267,7 @@ public class Alipay {
         // http://api.7tiegolf.com/api/alipay_notify_url
         // 服务器异步通知页面路径　http://api.qt.bjcathay.com/api/alipay_notify_url
      //   通知地址：http://v1.api.7tiegolf.com/api/alipay_notify_url
-        orderInfo += "&notify_url=" + "\"" + " http://api0.bjcathay.com:81/api/alipay_notify_url"
+        orderInfo += "&notify_url=" + "\"" +activity.getResources().getString(R.string.pay_notify_url)
                 + "\"";
 
         // 服务接口名称， 固定值
@@ -316,7 +317,7 @@ public class Alipay {
         // http://api.7tiegolf.com/api/alipay_notify_url
         // 服务器异步通知页面路径　http://api.qt.bjcathay.com/api/alipay_notify_url
         //   通知地址：http://v1.api.7tiegolf.com/api/alipay_notify_url
-        orderInfo += "&notify_url=" + "\"" + "http://v1.api.7tiegolf.com/api/alipay_notify_url"
+        orderInfo += "&notify_url=" + "\"" + activity.getResources().getString(R.string.pay_notify_url)
                 + "\"";
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";
