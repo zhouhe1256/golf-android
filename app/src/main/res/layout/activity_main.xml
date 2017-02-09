@@ -25,7 +25,6 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:orientation="vertical">
-
             <com.bjcathay.qt.view.JazzyViewPager
                 android:id="@+id/jazzy_viewpager"
                 android:layout_width="match_parent"
